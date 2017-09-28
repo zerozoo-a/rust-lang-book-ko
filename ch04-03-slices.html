@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>슬라이스 - The Rust Programming Language</title>
+        <title>슬라이스 - 슬라이스 - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">슬라이스 - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -128,7 +128,8 @@
 해도 좋습니다. 하지만 뭘 반환해야할까요? 우리는 스트링의 <em>일부</em>에 대해 표현할 방법이 없습니다. 하지만
 단어의 끝부분의 인덱스를 반환할 수는 있겠습니다. Listing 4-10의 코드처럼 시도해 봅시다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 fn first_word(s: &amp;String) -&gt; usize {
     let bytes = s.as_bytes();
@@ -141,7 +142,6 @@ fn first_word(s: &amp;String) -&gt; usize {
 
     s.len()
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 4-10: <code>String</code> 파라미터의 바이트 인덱스 값을 반환하는
 <code>first_word</code> 함수</span></p>
@@ -215,13 +215,13 @@ fn main() {
 입니다.</p>
 <a class="header" href="ch04-03-slices.html#스트링-슬라이스" id="스트링-슬라이스"><h3>스트링 슬라이스</h3></a>
 <p><em>스트링 슬라이스</em>는 <code>String</code>의 일부분에 대한 참조자고, 아래와 같이 생겼습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let s = String::from(&quot;hello world&quot;);
 
 let hello = &amp;s[0..5];
 let world = &amp;s[6..11];
-
 #}</code></pre></pre>
 <p>이는 전체 <code>String</code>의 참조자를 갖는 것과 비슷하지만, 추가적으로 <code>[0..5]</code>라는 코드가 붙어 있습니다.
 전체 <code>String</code>에 대한 참조자 보다는, <code>String</code>의 일부분에 대한 참조자입니다. <code>start..end</code> 문법은
@@ -237,17 +237,18 @@ let world = &amp;s[6..11];
 <p><span class="caption">Figure 4-12: <code>String</code>의 일부를 참조하는 스트링 슬라이스</span></p>
 <p>러스트의 <code>..</code> 범위 문법을 사용하여, 여러분이 만일 첫번째 인덱스(즉 0)에서부터 시작하길 원한다면,
 두 개의 마침표 전의 값은 생략할 수 있습니다. 다시 말하면, 아래의 두 줄은 동일한 표현입니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let s = String::from(&quot;hello&quot;);
 
 let slice = &amp;s[0..2];
 let slice = &amp;s[..2];
-
 #}</code></pre></pre>
 <p>비슷한 이치로, 만일 여러분의 슬라이스가 <code>String</code>의 마지막 바이트까지 포함한다면, 여러분은 끝의
 숫자를 생략할 수 있습니다. 이는 아래 두 줄의 표현이 동일하다는 의미입니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let s = String::from(&quot;hello&quot;);
 
@@ -255,11 +256,11 @@ let len = s.len();
 
 let slice = &amp;s[3..len];
 let slice = &amp;s[3..];
-
 #}</code></pre></pre>
 <p>여러분은 또한 전체 스트링의 슬라이스를 만들기 위해 양쪽 값을 모두 생략할 수 있습니다. 따라서 아래
 두 줄의 표현은 동일합니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let s = String::from(&quot;hello&quot;);
 
@@ -267,12 +268,12 @@ let len = s.len();
 
 let slice = &amp;s[0..len];
 let slice = &amp;s[..];
-
 #}</code></pre></pre>
 <p>이 모든 정보를 잘 기억하시고, <code>first_word</code>가 슬라이스를 반환하도록 다시 작성해봅시다.
 “스트링 슬라이스”를  나타내는 타입은 <code>&amp;str</code>로 씁니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 fn first_word(s: &amp;String) -&gt; &amp;str {
     let bytes = s.as_bytes();
@@ -285,7 +286,6 @@ fn first_word(s: &amp;String) -&gt; &amp;str {
 
     &amp;s[..]
 }
-
 #}</code></pre></pre>
 <p>우리는 Listing 4-10에서 작성한 것과 같은 방법으로 공백 문자가 첫번째로 나타난 지점을 찾아서 단어의
 끝 인덱스를 얻어냅니다. 공백 문자를 찾으면, 스트링의 시작과 공백 문자의 인덱스를 각각 시작과 끝 인덱스로
@@ -333,10 +333,10 @@ fn main() {
 <a class="header" href="ch04-03-slices.html#스트링-리터럴은-슽라이스입니다" id="스트링-리터럴은-슽라이스입니다"><h4>스트링 리터럴은 슽라이스입니다</h4></a>
 <p>스트링 리터럴이 바이너리 안에 저장된다고 하는 얘기를 상기해봅시다. 이제 슬라이스에 대해 알았으니,
 우리는 스트링 리터럴을 적합하게 이해할 수 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let s = &quot;Hello, world!&quot;;
-
 #}</code></pre></pre>
 <p>여기서 <code>s</code>의 타입은 <code>&amp;str</code>입니다: 이것은 바이너리의 특정 지점을 가리키고 있는 슬라이스입니다.
 이는 왜 스트링 리터럴이 불변인가도 설명해줍니다; <code>&amp;str</code>은 불번 참조자이기 때문입니다.</p>
@@ -383,19 +383,19 @@ fn main() {
 <a class="header" href="ch04-03-slices.html#그-밖의-슬라이스들" id="그-밖의-슬라이스들"><h3>그 밖의 슬라이스들</h3></a>
 <p>스트링 슬라이스는 여러분이 상상하는 바와 같이, 스트링에 특정되어 있습니다. 하지만 더 일반적인
 슬라이스 타입도 역시 있습니다. 아래 배열을 보시죠:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let a = [1, 2, 3, 4, 5];
-
 #}</code></pre></pre>
 <p>우리가 스트링의 일부를 참조하고 싶어할 수 있는 것처럼, 배열의 일부를 참조하고 싶을 수 있고, 그러면
 아래와 같이 쓸 수 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let a = [1, 2, 3, 4, 5];
 
 let slice = &amp;a[1..3];
-
 #}</code></pre></pre>
 <p>이 슬라이스는 <code>&amp;[i32]</code> 타입을 갖습니다. 이는 스트링 슬라이스가 동작하는 방법과 똑같이, 슬라이스의
 첫번째 요소에 대한 참조자와 슬라이스의 길이를 저장하는 방식으로 동작합니다. 여러분은 다른 모든 종류의

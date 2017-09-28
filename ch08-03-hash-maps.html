@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>해쉬맵 - The Rust Programming Language</title>
+        <title>해쉬맵 - 해쉬맵 - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">해쉬맵 - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -132,7 +132,8 @@
 <p>우리는 빈 <code>HashMap</code>를 <code>new</code>로 생성할 수 있고, <code>insert</code>를 이용하여 요소를 추가할 수 있습니다.
 여기서 우리는 팀 이름이 각각 블루(Blue)와 옐로우(Yellow)인 두 팀의 점수를 유지하고 있습니다. 블루
 팀은 10점, 옐로우 팀은 50점으로 시작할 것입니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::collections::HashMap;
 
@@ -140,7 +141,6 @@ let mut scores = HashMap::new();
 
 scores.insert(String::from(&quot;Blue&quot;), 10);
 scores.insert(String::from(&quot;Yellow&quot;), 50);
-
 #}</code></pre></pre>
 <p>먼저 표준 라이브러리의 컬렉션 부분으로부터 <code>HashMap</code>을 <code>use</code>로 가져와야할 필요가 있음을 주목하세요.
 우리가 보고 있는 세 가지 일반적인 컬렉션 중에서 이 해쉬맵이 제일 덜 자주 사용되는 것이기 때문에,
@@ -155,7 +155,8 @@ scores.insert(String::from(&quot;Yellow&quot;), 50);
 점수를 갖고 있다면, 우리는 <code>zip</code> 메소드를 이용하여 “Blue”와 10이 한 쌍이 되는 식으로 튜플의
 벡터를 생성할 수 있습니다. 그 다음 <code>collect</code> 메소드를 사용하여 튜플의 벡터를 <code>HashMap</code>으로 바꿀
 수 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::collections::HashMap;
 
@@ -163,7 +164,6 @@ let teams  = vec![String::from(&quot;Blue&quot;), String::from(&quot;Yellow&quot
 let initial_scores = vec![10, 50];
 
 let scores: HashMap&lt;_, _&gt; = teams.iter().zip(initial_scores.iter()).collect();
-
 #}</code></pre></pre>
 <p>타입 명시 <code>HashMap&lt;_, _&gt;</code>이 필요한데 이는 <code>collect</code>가 다른 많은 데이터 구조로 바뀔 수 있고,
 러스트는 여러분이 특정하지 않으면 어떤 것을 원하는지 모르기 때문입니다. 그러나 키와 값의 타입에 대한
@@ -172,7 +172,8 @@ let scores: HashMap&lt;_, _&gt; = teams.iter().zip(initial_scores.iter()).collec
 <a class="header" href="ch08-03-hash-maps.html#해쉬맵과-소유권" id="해쉬맵과-소유권"><h3>해쉬맵과 소유권</h3></a>
 <p><code>i32</code>와 같이 <code>Copy</code> 트레잇을 구현한 타입에 대하여, 그 값들은 해쉬맵 안으로 복사됩니다. <code>String</code>과
 같이 소유된 값들에 대해서는, 값들이 이동되어 해쉬맵이 그 값들에 대한 소유자가 될 것입니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::collections::HashMap;
 
@@ -182,7 +183,6 @@ let field_value = String::from(&quot;Blue&quot;);
 let mut map = HashMap::new();
 map.insert(field_name, field_value);
 // field_name과 field_value은 이 지점부터 유효하지 않습니다
-
 #}</code></pre></pre>
 <p><code>insert</code>를 호출하여 <code>field_name</code>과 <code>field_value</code>를 해쉬맵으로 이동시킨 후에는 더 이상 이 둘을
 사용할 수 없을 것입니다.</p>
@@ -191,7 +191,8 @@ map.insert(field_name, field_value);
 절에서 더 자세히 이야기할 것입니다.</p>
 <a class="header" href="ch08-03-hash-maps.html#해쉬맵-내의-값-접근하기" id="해쉬맵-내의-값-접근하기"><h3>해쉬맵 내의 값 접근하기</h3></a>
 <p>해쉬맵의 <code>get</code> 메소드에 키를 제공하여 해쉬맵으로부터 값을 얻어올 수 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::collections::HashMap;
 
@@ -202,7 +203,6 @@ scores.insert(String::from(&quot;Yellow&quot;), 50);
 
 let team_name = String::from(&quot;Blue&quot;);
 let score = scores.get(&amp;team_name);
-
 #}</code></pre></pre>
 <p>여기서 <code>score</code>는 블루 팀과 연관된 값을 가지고 있을 것이고, 결과값은 <code>Some(&amp;10)</code>일 것입니다.
 결과값은 <code>Some</code>으로 감싸져 있는데 왜냐하면 <code>get</code>이 <code>Option&lt;&amp;V&gt;</code>를 반환하기 때문입니다; 만일
@@ -210,7 +210,8 @@ let score = scores.get(&amp;team_name);
 방법 중 하나로 <code>Option</code>을 처리해야 할 것입니다.</p>
 <p>우리는 벡터에서 했던 방법과 유사한 식으로 <code>for</code> 루프를 이용하여 해쉬맵에서도 각각의 키/값 쌍에 대한 반복작업을
 할 수 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::collections::HashMap;
 
@@ -222,7 +223,6 @@ scores.insert(String::from(&quot;Yellow&quot;), 50);
 for (key, value) in &amp;scores {
     println!(&quot;{}: {}&quot;, key, value);
 }
-
 #}</code></pre></pre>
 <p>이 코드는 각각의 쌍을 임의의 순서로 출력할 것입니다:</p>
 <pre><code class="language-text">Yellow: 50
@@ -239,7 +239,8 @@ Blue: 10
 <p>만일 해쉬맵에 키와 값을 삽입하고, 그 후 똑같은 키에 다른 값을 십입하면, 키에 연관지어진 값은 새 값으로
 대신될 것입니다. 아래 코드가 <code>insert</code>를 두 번 호출함에도, 해쉬맵은 딱 하나의 키/값 쌍을 담게 될 것인데
 그 이유는 두 번 모두 블루 팀의 키에 대한 값을 삽입하고 있기 때문입니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::collections::HashMap;
 
@@ -249,7 +250,6 @@ scores.insert(String::from(&quot;Blue&quot;), 10);
 scores.insert(String::from(&quot;Blue&quot;), 25);
 
 println!(&quot;{:?}&quot;, scores);
-
 #}</code></pre></pre>
 <p>이 코드는 <code>{&quot;Blue&quot;: 25}</code>를 출력할 것입니다. 원래의 값 10은 덮어써졌습니다.</p>
 <a class="header" href="ch08-03-hash-maps.html#키에-할당된-값이-없을-경우에만-삽입하기" id="키에-할당된-값이-없을-경우에만-삽입하기"><h4>키에 할당된 값이 없을 경우에만 삽입하기</h4></a>
@@ -259,7 +259,8 @@ println!(&quot;{:?}&quot;, scores);
 나타냅니다. 우리가 옐로우 팀에 대한 키가 연관된 값을 가지고 있는지 검사하고 싶어한다고 해봅시다. 만일
 없다면, 값 50을 합입하고, 블루팀에 대해서도 똑같이 하고 싶습니다. 엔트리 API를 사용한 코드는 아래와
 같습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::collections::HashMap;
 
@@ -270,7 +271,6 @@ scores.entry(String::from(&quot;Yellow&quot;)).or_insert(50);
 scores.entry(String::from(&quot;Blue&quot;)).or_insert(50);
 
 println!(&quot;{:?}&quot;, scores);
-
 #}</code></pre></pre>
 <p><code>Entry</code>에 대한 <code>or_insert</code> 메소드는 해당 키가 존재할 경우 관련된 <code>Entry</code> 키에 대한 값을 반환하고,
 그렇지 않을 경우에는 인자로 주어진 값을 해당 키에 대한 새 값을 삽입하고 수정된 <code>Entry</code>에 대한 값을
@@ -284,7 +284,8 @@ println!(&quot;{:?}&quot;, scores);
 예를 들어, 만일 우리가 어떤 텍스트에 대해 각 단어가 몇번이나 나오는지 세어보고 싶어한다면, 단어를 키로
 사용하는 해쉬맵을 이용하여 해당 단어가 몇번이나 나왔는지를 유지하기 위해 값을 증가시킬 수 있습니다.
 만일 어던 단어를 처음 본 것이라면, 값 <code>0</code>을 삽입할 것입니다.</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::collections::HashMap;
 
@@ -298,7 +299,6 @@ for word in text.split_whitespace() {
 }
 
 println!(&quot;{:?}&quot;, map);
-
 #}</code></pre></pre>
 <p>이 코드는 <code>{&quot;world&quot;: 2, &quot;hello&quot;: 1, &quot;wonderful&quot;: 1}</code>를 출력할 것입니다. <code>or_insert</code>
 메소드는 실제로는 해당 키에 대한 값의 가변 참조자 (<code>&amp;mut V</code>)를 반환합니다. 여기서는 <code>count</code> 변수에

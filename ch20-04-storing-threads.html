@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Creating the Thread Pool and Storing Threads - The Rust Programming Language</title>
+        <title>Creating the Thread Pool and Storing Threads - Creating the Thread Pool and Storing Threads - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Creating the Thread Pool and Storing Threads - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -127,7 +127,8 @@ yet zero is a perfectly valid <code>u32</code>. Let's check that <code>size</cod
 zero before we return a <code>ThreadPool</code> instance and panic if we get zero by using
 the <code>assert!</code> macro as shown in Listing 20-13:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub struct ThreadPool;
 impl ThreadPool {
@@ -146,7 +147,6 @@ impl ThreadPool {
 
     // ...snip...
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 20-13: Implementing <code>ThreadPool::new</code> to panic if
 <code>size</code> is zero</span></p>
@@ -269,7 +269,8 @@ a new <code>Worker</code> with that <code>id</code>, and store the worker in the
 taking a look at the code in Listing 20-15.</p>
 <p>Ready? Here's Listing 20-15 with one way to make these modifications:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::thread;
 
@@ -310,7 +311,6 @@ impl Worker {
         }
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 20-15: Modifying <code>ThreadPool</code> to hold <code>Worker</code>
 instances instead of threads directly</span></p>

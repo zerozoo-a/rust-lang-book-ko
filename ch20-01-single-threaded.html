@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>A Single Threaded Web Server - The Rust Programming Language</title>
+        <title>A Single Threaded Web Server - A Single Threaded Web Server - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">A Single Threaded Web Server - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -344,7 +344,8 @@ response.</p>
 Remove the <code>println!</code> that was printing the request data, and add the code in
 Listing 20-3 in its place:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # use std::io::prelude::*;
 # use std::net::TcpStream;
@@ -358,7 +359,6 @@ fn handle_connection(mut stream: TcpStream) {
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 20-3: Writing a tiny successful HTTP response to
 the stream</span></p>
@@ -400,7 +400,8 @@ response</span></p>
 modify <code>handle_connection</code> as shown in Listing 20-5 to read the HTML file, add
 it to the response as a body, and send it:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # use std::io::prelude::*;
 # use std::net::TcpStream;
@@ -422,7 +423,6 @@ fn handle_connection(mut stream: TcpStream) {
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 20-5: Sending the contents of <em>hello.html</em> as the
 body of the response</span></p>
@@ -449,7 +449,8 @@ need. This part checks the content of the request we received against what we
 know a request for <code>/</code> looks like and adds <code>if</code> and <code>else</code> blocks where we'll
 add code to treat requests differently:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # use std::io::prelude::*;
 # use std::net::TcpStream;
@@ -476,7 +477,6 @@ fn handle_connection(mut stream: TcpStream) {
         // some other request
     };
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 20-6: Matching the request against the content we
 expect for a request to <code>/</code> and setting up conditionally handling requests to
@@ -500,7 +500,8 @@ response with the status code <code>404</code>, which signals that the content f
 request was not found. We'll also return HTML for a page to render in the
 browser indicating as such to the end user:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # use std::io::prelude::*;
 # use std::net::TcpStream;
@@ -522,7 +523,6 @@ browser indicating as such to the end user:</p>
     stream.flush().unwrap();
 }
 # }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 20-7: Responding with status code <code>404</code> and an
 error page if anything other than <code>/</code> was requested</span></p>
@@ -558,7 +558,8 @@ variables; we can then use those variables unconditionally in the code to read
 the file and write the response. The resulting code after this refactoring is
 shown in Listing 20-9:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # use std::io::prelude::*;
 # use std::net::TcpStream;
@@ -588,7 +589,6 @@ fn handle_connection(mut stream: TcpStream) {
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 20-9: Refactoring so that the <code>if</code> and <code>else</code>
 blocks only contain the code that differs between the two cases</span></p>

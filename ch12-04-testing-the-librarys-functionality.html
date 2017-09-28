@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Testing the Library's Functionality - The Rust Programming Language</title>
+        <title>Testing the Library's Functionality - Testing the Library's Functionality - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Testing the Library's Functionality - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -147,7 +147,8 @@ specifies the behavior we'd like the <code>search</code> function to have: it wi
 a query and the text to search for the query in, and will return only the lines
 from the text that contain the query. Listing 12-15 shows this test:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # fn search&lt;'a&gt;(query: &amp;str, contents: &amp;'a str) -&gt; Vec&lt;&amp;'a str&gt; {
 #      vec![]
@@ -171,7 +172,6 @@ Pick three.&quot;;
         );
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 12-15: Creating a failing test for the <code>search</code>
 function we wish we had</span></p>
@@ -186,12 +186,12 @@ vector, as shown in Listing 12-16. Once we have this, the test should compile
 and fail because an empty vector doesn't match a vector containing the one
 line <code>&quot;safe, fast, productive.&quot;</code>.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 fn search&lt;'a&gt;(query: &amp;str, contents: &amp;'a str) -&gt; Vec&lt;&amp;'a str&gt; {
      vec![]
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 12-16: Defining just enough of the <code>search</code>
 function that our test will compile</span></p>

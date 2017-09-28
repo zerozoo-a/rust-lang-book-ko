@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Creating Reference Cycles and Leaking Memory is Safe - The Rust Programming Language</title>
+        <title>Creating Reference Cycles and Leaking Memory is Safe - Creating Reference Cycles and Leaking Memory is Safe - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Creating Reference Cycles and Leaking Memory is Safe - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -259,7 +259,8 @@ items <em>and</em> their parent items.</p>
 <p>Let's start just with a struct named <code>Node</code> that holds its own <code>i32</code> value as
 well as references to its children <code>Node</code> values:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::rc::Rc;
 use std::cell::RefCell;
@@ -269,7 +270,6 @@ struct Node {
     value: i32,
     children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
 }
-
 #}</code></pre></pre>
 <p>We want to be able to have a <code>Node</code> own its children, and we also want to be
 able to have variables own each node so we can access them directly. That's why
@@ -308,7 +308,8 @@ their reference counts would never be zero.</p>
 <p>So instead of <code>Rc</code>, we're going to make the type of <code>parent</code> use <code>Weak&lt;T&gt;</code>,
 specifically a <code>RefCell&lt;Weak&lt;Node&gt;&gt;</code>:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::rc::{Rc, Weak};
 use std::cell::RefCell;
@@ -319,7 +320,6 @@ struct Node {
     parent: RefCell&lt;Weak&lt;Node&gt;&gt;,
     children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
 }
-
 #}</code></pre></pre>
 <p>This way, a node will be able to refer to its parent node if it has one,
 but it does not own its parent. A parent node will be dropped even if

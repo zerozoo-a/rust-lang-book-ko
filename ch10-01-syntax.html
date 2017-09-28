@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Generic Data Types - The Rust Programming Language</title>
+        <title>Generic Data Types - Generic Data Types - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Generic Data Types - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -332,13 +332,13 @@ separated into smaller pieces.</p>
 variants. We used the <code>Option&lt;T&gt;</code> enum provided by the standard library in
 Chapter 6, and now its definition should make more sense. Let's take another
 look:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 enum Option&lt;T&gt; {
     Some(T),
     None,
 }
-
 #}</code></pre></pre>
 <p>In other words, <code>Option&lt;T&gt;</code> is an enum generic in type <code>T</code>. It has two
 variants: <code>Some</code>, which holds one value of type <code>T</code>, and a <code>None</code> variant that
@@ -349,13 +349,13 @@ one specific type, and Rust lets us express this abstract concept without lots
 of duplication.</p>
 <p>Enums can use multiple generic types as well. The definition of the <code>Result</code>
 enum that we used in Chapter 9 is one example:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 enum Result&lt;T, E&gt; {
     Ok(T),
     Err(E),
 }
-
 #}</code></pre></pre>
 <p>The <code>Result</code> enum is generic over two types, <code>T</code> and <code>E</code>. <code>Result</code> has two
 variants: <code>Ok</code>, which holds a value of type <code>T</code>, and <code>Err</code>, which holds a value
@@ -453,11 +453,11 @@ the generic function in Listing 10-5. The compiler looks at all the places that
 generic code is called and generates code for the concrete types that the
 generic code is called with.</p>
 <p>Let's work through an example that uses the standard library's <code>Option</code> enum:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let integer = Some(5);
 let float = Some(5.0);
-
 #}</code></pre></pre>
 <p>When Rust compiles this code, it will perform monomorphization. The compiler
 will read the values that have been passed to <code>Option</code> and see that we have two

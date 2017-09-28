@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>`mod`와 파일 시스템 - The Rust Programming Language</title>
+        <title>`mod`와 파일 시스템 - `mod`와 파일 시스템 - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">`mod`와 파일 시스템 - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -133,7 +133,8 @@ $ cd communicator
 <p>카고가 <em>src/main.rs</em> 대신 <em>src/lib.rs</em>을 생성했음을 주목하세요. <em>src/lib.rs</em>
 내부를 보면 다음과 같은 코드를 찾을 수 있습니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 #[cfg(test)]
 mod tests {
@@ -141,7 +142,6 @@ mod tests {
     fn it_works() {
     }
 }
-
 #}</code></pre></pre>
 <p>카고는 우리가 만든 라이브러리의 작성 시작을 돕기 위해 빈 테스트를 만드는데,
 이는 <code>--bin</code> 옵션을 사용했을때 “Hello, world!” 바이너리를 만들어준 것과 사뭇
@@ -159,13 +159,13 @@ mod tests {
 <code>mod</code>로 시작됩니다. 이 코드를 <em>src/lib.rs</em>의 시작 부분, 즉 테스트 코드의 윗 쪽에
 추가해봅시다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 mod network {
     fn connect() {
     }
 }
-
 #}</code></pre></pre>
 <p><code>mod</code> 키워드 뒤에, 모듈의 이름 <code>network</code>가 쓰여지고 중괄호 안에 코드 블록이 옵니다.
 이 블록 안의 모든 것은 이름공간 <code>network</code> 안에 있습니다. 위의 경우 <code>connect</code>라는
@@ -176,7 +176,8 @@ mod network {
 예를 들어, <code>connect</code>라는 이름의 함수를 갖고 있는 <code>client</code> 모듈을 정의하려면,
 Listing 7-1에 보시는 바와 같이 이를 추가할 수 있습니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 mod network {
     fn connect() {
@@ -187,7 +188,6 @@ mod client {
     fn connect() {
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 7-1: <em>src/lib.rs</em> 내에 나란히 정의된 <code>network</code>
 모듈과 <code>client</code> 모듈</span></p>
@@ -205,7 +205,8 @@ mod client {
 예를 들어, Listing 7-2와 같이 <code>client</code> 모듈과 <code>connect</code> 함수가 <code>network</code> 이름공간
 내에 있다면 우리의 라이브러리 사용자가 더 쉽게 이해할지도 모릅니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 mod network {
     fn connect() {
@@ -216,7 +217,6 @@ mod network {
         }
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 7-2: <code>client</code> 모듈을 <code>network</code> 모듈 안으로 이동</span></p>
 <p><em>src/lib.rs</em> 파일에서 Listing 7-2와 같이 <code>client</code> 모듈이 <code>network</code> 모듈의
@@ -254,7 +254,8 @@ Listing 7-3:
 수 있어, 모든 것들이 <em>src/lib.rs</em>나 <em>src/main.rs</em> 안에 존재하지 않게할 수 있습니다. 이러한
 예를 위해서, Listing 7-3에 있는 코드를 시작해봅시다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 mod client {
     fn connect() {
@@ -270,7 +271,6 @@ mod network {
         }
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 7-3: 세 개의 모듈 <code>client</code>, <code>network</code>, <code>network::server</code>가
 모두 <em>src/lib.rs</em>에 정의되어 있음</span></p>
@@ -311,11 +311,11 @@ mod network {
 <em>src/</em> 디렉토리에 생성하고 여세요. 그런 뒤 아래와 같이 앞 단계에서 제거했던 <code>client</code> 모듈내의
 <code>connect</code> 함수를 입력해세요:</p>
 <p><span class="filename">Filename: src/client.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 fn connect() {
 }
-
 #}</code></pre></pre>
 <p>이미 <em>src/lib.rs</em> 안에다 <code>client</code> 모듈을 <code>mod</code>를 이용하여 선언을 했기 때문에,
 이 파일 안에는 <code>mod</code> 선언이 필요없다는 점을 기억하세요. 이 파일은 단지 <code>client</code> 모듈의 <em>내용물</em>만
@@ -361,7 +361,8 @@ mod network;
 </code></pre>
 <p>그리고나서 새로운 <em>src/network.rs</em> 파일을 만들어서 아래를 입력하세요:</p>
 <p><span class="filename">Filename: src/network.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 fn connect() {
 }
@@ -370,7 +371,6 @@ mod server {
     fn connect() {
     }
 }
-
 #}</code></pre></pre>
 <p>이 모듈 파일 내에는 <code>mod</code> 선언이 여전히 있음을 주목하세요; 이는 <code>server</code>가 <code>network</code>의 서브모듈로서
 여전히 필요하기 때문입니다.</p>
@@ -393,11 +393,11 @@ mod server;
 module that we extracted:
 그후 <em>src/server.rs</em> 파일을 만들고 추출해둔 <code>server</code> 모듈의 내용물을 입력하세요:</p>
 <p><span class="filename">Filename: src/server.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 fn connect() {
 }
-
 #}</code></pre></pre>
 <p><code>cargo build</code>를 실행해보면, Listing 7-4와 같은 에러를 얻게 됩니다:</p>
 <pre><code class="language-text">$ cargo build

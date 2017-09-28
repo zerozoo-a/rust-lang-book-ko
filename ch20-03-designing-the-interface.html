@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Designing the Thread Pool Interface - The Rust Programming Language</title>
+        <title>Designing the Thread Pool Interface - Designing the Thread Pool Interface - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Designing the Thread Pool Interface - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -218,10 +218,10 @@ just serve web requests.</p>
 <p>So create <em>src/lib.rs</em> that contains the simplest definition of a <code>ThreadPool</code>
 struct that we can have for now:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 pub struct ThreadPool;
-
 #}</code></pre></pre>
 <p>Then create a new directory, <em>src/bin</em>, and move the binary crate rooted in
 <em>src/main.rs</em> into <em>src/bin/main.rs</em>. This will make the library crate be the
@@ -250,7 +250,8 @@ accept <code>4</code> as an argument, and <code>new</code> should return a <code
 Let's implement the simplest <code>new</code> function that will have those
 characteristics:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 pub struct ThreadPool;
 
@@ -259,7 +260,6 @@ impl ThreadPool {
         ThreadPool
     }
 }
-
 #}</code></pre></pre>
 <p>We picked <code>u32</code> as the type of the <code>size</code> parameter, since we know that a
 negative number of threads makes no sense. <code>u32</code> is a solid default. Once we
@@ -307,7 +307,8 @@ one thread to another, and <code>'static</code> because we don't know how long t
 will execute. Let's create an <code>execute</code> method on <code>ThreadPool</code> that will take a
 generic parameter <code>F</code> with these bounds:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub struct ThreadPool;
 impl ThreadPool {
@@ -320,7 +321,6 @@ impl ThreadPool {
 
     }
 }
-
 #}</code></pre></pre>
 <p>The <code>FnOnce</code> trait still needs the <code>()</code> after it since this <code>FnOnce</code> is
 representing a closure that takes no parameters and doesn't return a value.

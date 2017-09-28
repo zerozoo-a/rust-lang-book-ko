@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Object-Oriented Design Pattern Implementations - The Rust Programming Language</title>
+        <title>Object-Oriented Design Pattern Implementations - Object-Oriented Design Pattern Implementations - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Object-Oriented Design Pattern Implementations - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -192,7 +192,8 @@ implement the <code>State</code> trait. For now, the trait does not have any met
 we're going to start by defining just the <code>Draft</code> state since that's the state
 we want to start in:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 pub struct Post {
     state: Option&lt;Box&lt;State&gt;&gt;,
@@ -213,7 +214,6 @@ trait State {}
 struct Draft {}
 
 impl State for Draft {}
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-12: Definition of a <code>Post</code> struct and a <code>new</code>
 function that creates a new <code>Post</code> instance, a <code>State</code> trait, and a <code>Draft</code>
@@ -233,7 +233,8 @@ the <code>content</code> field as <code>pub</code> because we want to be able to
 method is pretty straightforward though, let's add the implementation in
 Listing 17-13 to the <code>impl Post</code> block:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub struct Post {
 #     content: String,
@@ -245,7 +246,6 @@ impl Post {
         self.content.push_str(text);
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-13: Implementing the <code>add_text</code> method to add
 text to a post's <code>content</code></span></p>
@@ -267,7 +267,8 @@ have so far, though, posts can only be in the draft state, which means the post
 content should always be empty. Listing 17-14 shows this placeholder
 implementation:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub struct Post {
 #     content: String,
@@ -279,7 +280,6 @@ impl Post {
         &quot;&quot;
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-14: Adding a placeholder implementation for
 the <code>content</code> method on <code>Post</code> that always returns an empty string slice</span></p>
@@ -298,7 +298,8 @@ in: we're going to <code>take</code> the <code>Some</code> value out of the <cod
 structs. Then we'll set the post's <code>state</code> value to the result of this
 operation. Listing 17-15 shows this code:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub struct Post {
 #     state: Option&lt;Box&lt;State&gt;&gt;,
@@ -333,7 +334,6 @@ impl State for PendingReview {
         self
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-15: Implementing <code>request_review</code> methods on
 <code>Post</code> and the <code>State</code> trait</span></p>
@@ -365,7 +365,8 @@ should have when that state is approved. We'll need to add the <code>approve</co
 to the <code>State</code> trait, and we'll add a new struct that implements <code>State</code>, the
 <code>Published</code> state. Listing 17-16 shows the new code:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub struct Post {
 #     state: Option&lt;Box&lt;State&gt;&gt;,
@@ -423,7 +424,6 @@ impl State for Published {
         self
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-16: Implementing the <code>approve</code> method on
 <code>Post</code> and the <code>State</code> trait</span></p>
@@ -441,7 +441,8 @@ method on the value in <code>state</code> and pass the post instance (that is, <
 an argument. Then we'll return the value returned from the <code>content</code> method on
 the <code>state</code> value as shown in Listing 17-17:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # trait State {
 #     fn content&lt;'a&gt;(&amp;self, post: &amp;'a Post) -&gt; &amp;'a str;
@@ -458,7 +459,6 @@ impl Post {
     }
     // ...snip...
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-17: Updating the <code>content</code> method on <code>Post</code> to
 delegate to a <code>content</code> method on <code>State</code></span></p>
@@ -475,7 +475,8 @@ implement <code>content</code> on the <code>Draft</code> and <code>PendingReview
 struct will override the <code>content</code> method and will return the value in
 <code>post.content</code>, as shown in Listing 17-18:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub struct Post {
 #     content: String
@@ -496,7 +497,6 @@ impl State for Published {
         &amp;post.content
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-18: Adding the <code>content</code> method to the <code>State</code>
 trait</span></p>
@@ -582,7 +582,8 @@ display draft post content in production, since that code won't even compile.
 Listing 17-19 shows the definition of a <code>Post</code> struct, a <code>DraftPost</code> struct,
 and methods on each:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 pub struct Post {
     content: String,
@@ -609,7 +610,6 @@ impl DraftPost {
         self.content.push_str(text);
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-19: A <code>Post</code> with a <code>content</code> method and a
 <code>DraftPost</code> without a <code>content</code> method</span></p>
@@ -634,7 +634,8 @@ defining the <code>request_review</code> method on <code>DraftPost</code> to ret
 <code>PendingReviewPost</code>, and defining an <code>approve</code> method on <code>PendingReviewPost</code> to
 return a <code>Post</code> as shown in Listing 17-20:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub struct Post {
 #     content: String,
@@ -665,7 +666,6 @@ impl PendingReviewPost {
         }
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-20: A <code>PendingReviewPost</code> that gets created by
 calling <code>request_review</code> on <code>DraftPost</code>, and an <code>approve</code> method that turns a

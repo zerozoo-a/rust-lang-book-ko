@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>`use`로 이름 가져오기 - The Rust Programming Language</title>
+        <title>`use`로 이름 가져오기 - `use`로 이름 가져오기 - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">`use`로 이름 가져오기 - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -248,7 +248,8 @@ mod tests {
 기능도 확인할 게 없긴 하지만, <code>it_works</code> 함수 안에서 우리의 <code>client::connect</code> 함수를
 호출해 봅시다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 #[cfg(test)]
 mod tests {
@@ -257,7 +258,6 @@ mod tests {
         client::connect();
     }
 }
-
 #}</code></pre></pre>
 <p><code>cargo test</code> 명령을 써서 테스트를 실행하면:</p>
 <pre><code class="language-text">$ cargo test
@@ -297,7 +297,8 @@ error[E0433]: failed to resolve. Use of undeclared type or module `client`
 <p>이러한 이유로, 특히 <code>tests</code> 모듈 내에서는 보통 <code>use super::something</code>이 가장 좋은
 해결책이 됩니다. 따라서 이제 우리의 테스트는 이렇게 됩니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 #[cfg(test)]
 mod tests {
@@ -308,7 +309,6 @@ mod tests {
         client::connect();
     }
 }
-
 #}</code></pre></pre>
 <p><code>cargo test</code>를 다시 실행시키면, 테스트가 통과되고 테스트 결과 출력의 첫번째 부분이
 아래와 같이 나타날 것입니다:</p>

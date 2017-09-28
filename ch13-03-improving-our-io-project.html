@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Improving our I/O Project - The Rust Programming Language</title>
+        <title>Improving our I/O Project - Improving our I/O Project - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Improving our I/O Project - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -236,7 +236,8 @@ type <code>std::env::Args</code> instead of <code>&amp;[String]</code>.</p>
 also mentions that <code>std::env::Args</code> implements the <code>Iterator</code> trait, so we know
 we can call the <code>next</code> method on it! Listing 13-26 has the new code:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # struct Config {
 #     query: String,
@@ -262,7 +263,6 @@ impl Config {
         })
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 13-26: Changing the body of <code>Config::new</code> to use
 iterator methods</span></p>

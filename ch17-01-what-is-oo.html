@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>What Does Object-Oriented Mean? - The Rust Programming Language</title>
+        <title>What Does Object-Oriented Mean? - What Does Object-Oriented Mean? - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">What Does Object-Oriented Mean? - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -155,13 +155,13 @@ has in its vector, we don't have to compute it on-demand. <code>AveragedCollecti
 will cache the calculated average for us. Listing 17-1 has the definition of
 the <code>AveragedCollection</code> struct:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 pub struct AveragedCollection {
     list: Vec&lt;i32&gt;,
     average: f64,
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-1: An <code>AveragedCollection</code> struct that
 maintains a list of integers and the average of the items in the
@@ -172,7 +172,8 @@ this case because we want to ensure that whenever a value is added or removed
 from the list, we also update the average. We do this by implementing <code>add</code>,
 <code>remove</code>, and <code>average</code> methods on the struct as shown in Listing 17-2:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub struct AveragedCollection {
 #     list: Vec&lt;i32&gt;,
@@ -204,7 +205,6 @@ impl AveragedCollection {
         self.average = total as f64 / self.list.len() as f64;
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-2: Implementations of the public methods
 <code>add</code>, <code>remove</code>, and <code>average</code> on <code>AveragedCollection</code></span></p>

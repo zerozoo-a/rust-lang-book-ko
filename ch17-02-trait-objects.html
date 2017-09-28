@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Trait Objects for Using Values of Different Types - The Rust Programming Language</title>
+        <title>Trait Objects for Using Values of Different Types - Trait Objects for Using Values of Different Types - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Trait Objects for Using Values of Different Types - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -174,12 +174,12 @@ need to know all the possible types at compile time, and we can treat all the
 instances the same way. Listing 17-3 shows how to define a trait named <code>Draw</code>
 with one method named <code>draw</code>:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 pub trait Draw {
     fn draw(&amp;self);
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-3: Definition of the <code>Draw</code> trait</span></p>
 <!-- NEXT PARAGRAPH WRAPPED WEIRD INTENTIONALLY SEE #199 -->
@@ -189,7 +189,8 @@ struct named <code>Screen</code> that holds a vector named <code>components</cod
 <code>Box&lt;Draw&gt;</code>. That <code>Box&lt;Draw&gt;</code> is a trait object: it's a stand-in for any type
 inside a <code>Box</code> that implements the <code>Draw</code> trait.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub trait Draw {
 #     fn draw(&amp;self);
@@ -198,7 +199,6 @@ inside a <code>Box</code> that implements the <code>Draw</code> trait.</p>
 pub struct Screen {
     pub components: Vec&lt;Box&lt;Draw&gt;&gt;,
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-4: Definition of the <code>Screen</code> struct with a
 <code>components</code> field that holds a vector of trait objects that implement the
@@ -206,7 +206,8 @@ pub struct Screen {
 <p>On the <code>Screen</code> struct, we'll define a method named <code>run</code>, which will call the
 <code>draw</code> method on each of its <code>components</code> as shown in Listing 17-5:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub trait Draw {
 #     fn draw(&amp;self);
@@ -223,7 +224,6 @@ impl Screen {
         }
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-5: Implementing a <code>run</code> method on <code>Screen</code>
 that calls the <code>draw</code> method on each component</span></p>
@@ -233,7 +233,8 @@ concrete type at a time, while trait objects allow for multiple concrete types
 to fill in for the trait object at runtime. For example, we could have defined
 the <code>Screen</code> struct using a generic type and a trait bound as in Listing 17-6:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub trait Draw {
 #     fn draw(&amp;self);
@@ -251,7 +252,6 @@ impl&lt;T&gt; Screen&lt;T&gt;
         }
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-6: An alternate implementation of the <code>Screen</code>
 struct and its <code>run</code> method using generics and trait bounds</span></p>
@@ -271,7 +271,8 @@ in its body. To imagine what the implementation might look like, a <code>Button<
 struct might have fields for <code>width</code>, <code>height</code>, and <code>label</code>, as shown in
 Listing 17-7:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # pub trait Draw {
 #     fn draw(&amp;self);
@@ -288,7 +289,6 @@ impl Draw for Button {
         // Code to actually draw a button
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 17-7: A <code>Button</code> struct that implements the
 <code>Draw</code> trait</span></p>
@@ -451,12 +451,12 @@ that by specifying <code>T: ?Sized</code> as a trait bound.</p>
 <p>Traits have a default bound of <code>Self: ?Sized</code>, which means that they can be
 implemented on types that may or may not be <code>Sized</code>. If we create a trait <code>Foo</code>
 that opts out of the <code>Self: ?Sized</code> bound, that would look like the following:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 trait Foo: Sized {
     fn some_method(&amp;self);
 }
-
 #}</code></pre></pre>
 <p>The trait <code>Sized</code> is now a <em>supertrait</em> of trait <code>Foo</code>, which means trait <code>Foo</code>
 requires types that implement <code>Foo</code> (that is, <code>Self</code>) to be <code>Sized</code>. We're
@@ -492,12 +492,12 @@ in the generic type parameters with.</p>
 <p>An example of a trait whose methods are not object safe is the standard
 library's <code>Clone</code> trait. The signature for the <code>clone</code> method in the <code>Clone</code>
 trait looks like this:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 pub trait Clone {
     fn clone(&amp;self) -&gt; Self;
 }
-
 #}</code></pre></pre>
 <p><code>String</code> implements the <code>Clone</code> trait, and when we call the <code>clone</code> method on
 an instance of <code>String</code> we get back an instance of <code>String</code>. Similarly, if we

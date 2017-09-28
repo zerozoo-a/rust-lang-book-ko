@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Sending Requests to Threads Via Channels - The Rust Programming Language</title>
+        <title>Sending Requests to Threads Via Channels - Sending Requests to Threads Via Channels - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Sending Requests to Threads Via Channels - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -142,7 +142,8 @@ side in the <code>ThreadPool</code> instance, as shown in Listing 20-16. <code>J
 of item we're going to be sending down the channel; it's a struct that doesn't
 hold anything for now:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # use std::thread;
 // ...snip...
@@ -191,7 +192,6 @@ impl ThreadPool {
 #         }
 #     }
 # }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 20-16: Modifying <code>ThreadPool</code> to store the
 sending end of a channel that sends <code>Job</code> instances</span></p>
@@ -275,7 +275,8 @@ workers own the receiver, and <code>Mutex</code> will make sure that only one wo
 getting a job from the receiver at a time. Listing 20-18 shows the changes we
 need to make:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # use std::thread;
 # use std::sync::mpsc;
@@ -331,7 +332,6 @@ impl Worker {
 #         }
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 20-18: Sharing the receiving end of the channel
 between the workers by using <code>Arc</code> and <code>Mutex</code></span></p>
@@ -345,7 +345,8 @@ type alias for a trait object that holds the type of closure that <code>execute<
 receives. We discussed how type aliases can help make long types shorter, and
 this is such a case! Take a look at Listing 20-19:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 // ...snip...
 # pub struct ThreadPool {
@@ -371,7 +372,6 @@ impl ThreadPool {
 }
 
 // ...snip...
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 20-19: Creating a <code>Job</code> type alias for a <code>Box</code>
 that holds each closure, then sending the job down the channel</span></p>

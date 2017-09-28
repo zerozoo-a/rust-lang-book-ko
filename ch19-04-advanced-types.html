@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Advanced Types - The Rust Programming Language</title>
+        <title>Advanced Types - Advanced Types - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Advanced Types - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -147,16 +147,17 @@ implementation details that we discussed in Chapter 17.</p>
 Rust also provides the ability to declare a <em>type alias</em> with the <code>type</code>
 keyword to give an existing type another name. For example, we can create the
 alias <code>Kilometers</code> to <code>i32</code> like so:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 type Kilometers = i32;
-
 #}</code></pre></pre>
 <p>This means <code>Kilometers</code> is a <em>synonym</em> for <code>i32</code>; unlike the <code>Millimeters</code> and
 <code>Meters</code> types we created in Listing 19-26, <code>Kilometers</code> is not a separate, new
 type. Values that have the type <code>Kilometers</code> will be treated exactly the same
 as values of type <code>i32</code>:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 type Kilometers = i32;
 
@@ -164,7 +165,6 @@ let x: i32 = 5;
 let y: Kilometers = 5;
 
 println!(&quot;x + y = {}&quot;, x + y);
-
 #}</code></pre></pre>
 <p>Since <code>Kilometers</code> is an alias for <code>i32</code>, they're the same type. We can add
 values of type <code>i32</code> and <code>Kilometers</code> together, and we can pass <code>Kilometers</code>
@@ -178,7 +178,8 @@ may have a lengthy type like this:</p>
 <p>Writing this out in function signatures and as type annotations all over the
 place can be tiresome and error-prone. Imagine having a project full of code
 like that in Listing 19-31:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let f: Box&lt;FnOnce() + Send + 'static&gt; = Box::new(|| println!(&quot;hi&quot;));
 
@@ -190,14 +191,14 @@ fn returns_long_type() -&gt; Box&lt;FnOnce() + Send + 'static&gt; {
     // ...
 #     Box::new(|| ())
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 19-31: Using a long type in many places</span></p>
 <p>A type alias makes this code more manageable by reducing the amount of
 repetition this project has. Here, we've introduced an alias named <code>Thunk</code> for
 the verbose type, and we can replace all uses of the type with the shorter
 <code>Thunk</code> as shown in Listing 19-32:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 type Thunk = Box&lt;FnOnce() + Send + 'static&gt;;
 
@@ -211,7 +212,6 @@ fn returns_long_type() -&gt; Thunk {
     // ...
 #     Box::new(|| ())
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 19-32: Introducing a type alias <code>Thunk</code> to reduce
 repetition</span></p>
@@ -224,7 +224,8 @@ the <code>std::io</code> module in the standard library. I/O operations often re
 <code>std::io::Error</code> struct that represents all of the possible I/O errors. Many of
 the functions in <code>std::io</code> will be returning <code>Result&lt;T, E&gt;</code> where the <code>E</code> is
 <code>std::io::Error</code>, such as these functions in the <code>Write</code> trait:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::io::Error;
 # use std::fmt::Arguments;
@@ -236,7 +237,6 @@ pub trait Write {
     fn write_all(&amp;mut self, buf: &amp;[u8]) -&gt; Result&lt;(), Error&gt;;
     fn write_fmt(&amp;mut self, fmt: Arguments) -&gt; Result&lt;(), Error&gt;;
 }
-
 #}</code></pre></pre>
 <p>We're writing <code>Result&lt;..., Error&gt;</code> a lot. As such, <code>std::io</code> has this type
 alias declaration:</p>
@@ -270,7 +270,8 @@ never are called <em>diverging functions</em>. We can't create values of the typ
 so <code>bar</code> can never possibly return. What use is a type you can never create
 values for? If you think all the way back to Chapter 2, we had some code that
 looked like this, reproduced here in Listing 19-33:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # let guess = &quot;3&quot;;
 # loop {
@@ -280,7 +281,6 @@ let guess: u32 = match guess.trim().parse() {
 };
 # break;
 # }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 19-33: A <code>match</code> with an arm that ends in
 <code>continue</code></span></p>

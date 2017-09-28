@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>소유권이 뭔가요? - The Rust Programming Language</title>
+        <title>소유권이 뭔가요? - 소유권이 뭔가요? - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">소유권이 뭔가요? - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -184,22 +184,22 @@ the stack</em>)라고 부릅니다.</p>
 실제 디테일에 초점을 맞출 수 있도록 해줄 것입니다.</p>
 <p>소유권에 대한 첫 예제로서, 변수들의 스코프를 보겠습니다. 스코프란 프로그램 내에서 아이템이 유효함을
 표시하기 위한 범위입니다. 아래처럼 생긴 변수가 있다고 해봅시다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let s = &quot;hello&quot;;
-
 #}</code></pre></pre>
 <p>변수 <code>s</code>는 스트링 리터럴을 나타내는데, 스트링 리터럴의 값은 우리의 프로그램의 텍스트 내에 하드코딩되어
 있습니다. 변수는 선언된 시점부터 현재의 <em>스코프</em>가 끝날 때까지 유효합니다. 아래 예제 Listing 4-1은
 변수 <code>s</code>가 유효한 지점을 주석으로 표시했습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 {                      // s는 유효하지 않습니다. 아직 선언이 안됐거든요.
     let s = &quot;hello&quot;;   // s는 이 지점부터 유효합니다.
 
     // s를 가지고 뭔가 합니다.
 }                      // 이 스코프는 이제 끝이므로, s는 더이상 유효하지 않습니다.
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 4-1: 변수와 이 변수가 유효한 스코프</span></p>
 <p>바꿔 말하면, 두가지 중요한 지점이 있습니다:</p>
@@ -224,24 +224,24 @@ let s = &quot;hello&quot;;
 러스트는 두번째 문자열 타입인 <code>String</code>을 제공합니다. 이 타입은 힙에 할당되고 그런고로 컴파일 타임에는
 우리가 알 수 없는 양의 텍스트를 저장할 수 있습니다. 여러분은 스트링 리터럴로부터 <code>from</code>이라는 함수를
 이용해서 <code>String</code>을 아래처럼 만들 수 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let s = String::from(&quot;hello&quot;);
-
 #}</code></pre></pre>
 <p>더블 콜론(<code>::</code>)은 우리가 <code>string_from</code>과 같은 이름을 쓰기 보다는 <code>String</code> 타입 아래의
 <code>from</code> 함수를 특정지을 수 있도록 해주는 네임스페이스 연산자입니다. 우리는 이러한 문접에 대해 5장의
 &quot;메소드 문법&quot; 부분에서 더 자세히 다룰 것이고, 모듈에서의 네임스페이스와 관련한 이야기는 7장에서 할
 것입니다.</p>
 <p>이러한 종류의 문자열은 변경 가능합니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let mut s = String::from(&quot;hello&quot;);
 
 s.push_str(&quot;, world!&quot;); // push_str()은 해당 스트링 리터럴을 스트링에 붙여줍니다.
 
 println!(&quot;{}&quot;, s); // 이 부분이 `hello, world!`를 출력할 겁니다.
-
 #}</code></pre></pre>
 <p>그러니까, 여기서 어떤게 달라졌나요?, 왜 <code>String</code>은 변할 수 있는데 스트링 리터럴은 안될까요?
 차이점은 두 타입이 메모리를 쓰는 방식에 있습니다.</p>
@@ -271,7 +271,8 @@ println!(&quot;{}&quot;, s); // 이 부분이 `hello, world!`를 출력할 겁�
 <p>러스트는 다른 방식으로 이 문제를 다룹니다: 메모리는 변수가 소속되어 있는 스코프 밖으로
 벗어나는 순간 자동으로 반납됩니다. 여기 스트링 리터럴 대신 <code>String</code>을 사용한 Listing
 4-1의 스코프 예제가 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 {
     let s = String::from(&quot;hello&quot;); // s는 여기서부터 유효합니다
@@ -279,7 +280,6 @@ println!(&quot;{}&quot;, s); // 이 부분이 `hello, world!`를 출력할 겁�
     // s를 가지고 뭔가 합니다
 }                                  // 이 스코프는 끝났고, s는 더 이상 
                                    // 유효하지 않습니다
-
 #}</code></pre></pre>
 <p><code>String</code>이 요구한 메모리를 운영체제에게 반납하는 자연스러운 지점이 있죠: <code>s</code>가 스코프
 밖으로 벗어날 때입니다. 변수가 스코프 밖으로 벗어나면, 러스트는 우리를 위해 특별한 함수를
@@ -298,11 +298,11 @@ println!(&quot;{}&quot;, s); // 이 부분이 `hello, world!`를 출력할 겁�
 <a class="header" href="ch04-01-what-is-ownership.html#변수와-데이터가-상호작용하는-방법-이동move" id="변수와-데이터가-상호작용하는-방법-이동move"><h4>변수와 데이터가 상호작용하는 방법: 이동(move)</h4></a>
 <p>여러 개의 변수들은 러스트에서 서로 다른 방식으로 같은 데이터에 대해 상호작용을 할 수
 있습니다. Listing 4-2의 정수형을 이용한 예제를 한번 보겠습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let x = 5;
 let y = x;
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 4-2: 변수 <code>x</code>의 정수값을 <code>y</code>에 대입하기</span></p>
 <p>우리는 아마도 다른 언어들에서의 경험을 토대로 어떤 일이 벌어지는지 추측할 수 있습니다:
@@ -311,11 +311,11 @@ let y = x;
 고정된 크기의 단순한 값이고, <code>5</code>라는 값들이 스택에 푸쉬되기 때문에, 실제로도 이렇게
 됩니다.</p>
 <p>이제 <code>String</code> 버전을 봅시다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let s1 = String::from(&quot;hello&quot;);
 let s2 = s1;
-
 #}</code></pre></pre>
 <p>이 코드는 이전의 코드와 매우 유사해 보여서, 동작하는 방식도 동일할 것이라고 가정할지도
 모르겠습니다: 즉, 두번째 줄이 <code>s1</code>의 복사본을 만들어서 <code>s2</code>에 묶어놓는 식으로 말이죠.
@@ -392,13 +392,13 @@ which does not implement the `Copy` trait
 5장에서 다루게 될 것입니다만, 이 메소드가 많은 프로그래밍 언어들 사이에서 흔한
 특성이기 때문에, 여려분은 아마도 전에 이런 것들을 본적이 있을지도 모르겠습니다.</p>
 <p><code>clone</code> 메소드가 동작하는 예제를 보겠습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let s1 = String::from(&quot;hello&quot;);
 let s2 = s1.clone();
 
 println!(&quot;s1 = {}, s2 = {}&quot;, s1, s2);
-
 #}</code></pre></pre>
 <p>이 코드는 잘 동작하고 Figure 4-5가 나타내는, 즉 힙 데이터가 <em>정말로</em> 복사되는 동작을
 여러분이 명시적으로 만들어낼 수 있는 방법입니다.</p>
@@ -408,13 +408,13 @@ println!(&quot;s1 = {}, s2 = {}&quot;, s1, s2);
 <a class="header" href="ch04-01-what-is-ownership.html#스택에만-있는-데이터-복사" id="스택에만-있는-데이터-복사"><h4>스택에만 있는 데이터: 복사</h4></a>
 <p>우리가 아직 다루지 않은 또다른 부분이 있습니다. 아래 코드는 앞서 Listing 4-2에서
 본 정수값을 이용하는 코드로, 잘 동작하며 유효합니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let x = 5;
 let y = x;
 
 println!(&quot;x = {}, y = {}&quot;, x, y);
-
 #}</code></pre></pre>
 <p>하지만 이 코드는 우리가 방금 배운 것과 대립되는 것처럼 보입니다: <code>clone</code>을 호출하지
 않았지만, <code>x</code>도 유효하며 <code>y</code>로 이동하지도 않았지요.</p>

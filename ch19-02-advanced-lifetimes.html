@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Advanced Lifetimes - The Rust Programming Language</title>
+        <title>Advanced Lifetimes - Advanced Lifetimes - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Advanced Lifetimes - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -157,7 +157,8 @@ simplifying the example in order to concentrate on the lifetimes involved.</p>
 <p>So how do we fill in the lifetime parameters for the string slice in <code>Context</code>
 and the reference to the <code>Context</code> in <code>Parser</code>? The most straightforward thing
 to do is to use the same lifetime everywhere, as shown in Listing 19-13:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 struct Context&lt;'a&gt;(&amp;'a str);
 
@@ -170,7 +171,6 @@ impl&lt;'a&gt; Parser&lt;'a&gt; {
         Err(&amp;self.context.0[1..])
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 19-13: Annotating all references in <code>Context</code> and
 <code>Parser</code> with the same lifetime parameter</span></p>
@@ -333,14 +333,14 @@ parameters, we can declare a lifetime <code>'a</code> as usual, and declare a li
 string slice) is guaranteed to live at least as long as <code>'c</code> (the lifetime of
 the reference to <code>Context</code>), we change the lifetime declarations to look like
 this:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # struct Context&lt;'a&gt;(&amp;'a str);
 #
 struct Parser&lt;'c, 's: 'c&gt; {
     context: &amp;'c Context&lt;'s&gt;,
 }
-
 #}</code></pre></pre>
 <p>Now, the reference to <code>Context</code> in the <code>Parser</code> and the reference to the string
 slice in the <code>Context</code> have different lifetimes, and we've ensured that the
@@ -391,20 +391,20 @@ this case:</p>
 </code></pre>
 <p>The code in Listing 19-17 works because <code>T: 'a</code> syntax specifies that <code>T</code> can
 be any type, but if it contains any references, <code>T</code> must live as long as <code>'a</code>:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 struct Ref&lt;'a, T: 'a&gt;(&amp;'a T);
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 19-17: Adding lifetime bounds on <code>T</code> to specify
 that any references in <code>T</code> live at least as long as <code>'a</code></span></p>
 <p>We could choose to solve this in a different way as shown in Listing 19-18 by
 bounding <code>T</code> on <code>'static</code>. This means if <code>T</code> contains any references, they must
 have the <code>'static</code> lifetime:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 struct StaticRef&lt;T: 'static&gt;(&amp;'static T);
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 19-18: Adding a <code>'static</code> lifetime bound to <code>T</code>
 to constrain <code>T</code> to types that have only <code>'static</code> references or no
@@ -426,7 +426,8 @@ lifetime. Consider Listing 19-19, where we have a trait <code>Foo</code> and a s
 <code>Bar</code> that holds a reference (and thus has a lifetime parameter) that
 implements trait <code>Foo</code>, and we want to use an instance of <code>Bar</code> as the trait
 object <code>Box&lt;Foo&gt;</code>:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 trait Foo { }
 
@@ -439,7 +440,6 @@ impl&lt;'a&gt; Foo for Bar&lt;'a&gt; { }
 let num = 5;
 
 let obj = Box::new(Bar { x: &amp;num }) as Box&lt;Foo&gt;;
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 19-19: Using a type that has a lifetime parameter
 with a trait object</span></p>

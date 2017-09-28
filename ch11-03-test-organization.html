@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Test Organization - The Rust Programming Language</title>
+        <title>Test Organization - Test Organization - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Test Organization - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -145,7 +145,8 @@ compiled result.</p>
 <p>Remember that when we generated the new <code>adder</code> project in the first section of
 this chapter, Cargo generated this code for us:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 #[cfg(test)]
 mod tests {
@@ -153,7 +154,6 @@ mod tests {
     fn it_works() {
     }
 }
-
 #}</code></pre></pre>
 <p>This is the automatically generated test module. The attribute <code>cfg</code> stands for
 <em>configuration</em>, and tells Rust that the following item should only be included
@@ -168,7 +168,8 @@ impossible to test private functions. Regardless of which testing ideology you
 adhere to, Rust's privacy rules do allow you to test private functions.
 Consider the code in Listing 11-12 with the private function <code>internal_adder</code>:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 pub fn add_two(a: i32) -&gt; i32 {
     internal_adder(a, 2)
@@ -187,7 +188,6 @@ mod tests {
         assert_eq!(4, internal_adder(2, 2));
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 11-12: Testing a private function</span></p>
 <!-- I'm not clear on why we would assume this might not be fine, why are we
@@ -310,12 +310,12 @@ to extract them into a common module. For example, if we create
 put some code that we want to be able to call from multiple test functions in
 multiple test files:</p>
 <p><span class="filename">Filename: tests/common.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 pub fn setup() {
     // setup code specific to your library's tests would go here
 }
-
 #}</code></pre></pre>
 <p>If we run the tests again, we'll see a new section in the test output for the
 <em>common.rs</em> file, even though this file doesn't contain any test functions, nor

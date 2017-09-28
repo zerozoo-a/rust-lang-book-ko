@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>구조체를 정의하고 생성하기 - The Rust Programming Language</title>
+        <title>구조체를 정의하고 생성하기 - 구조체를 정의하고 생성하기 - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">구조체를 정의하고 생성하기 - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -124,7 +124,8 @@
 함께 묶이게 되는 구성요소들의 의미를 내포할 수 있도록 짓는 것이 좋습니다.
 이후 중괄호 안에서는, 필드(<em>field</em>)라 불리는 각 구성요소들의 타입과 접근할 수 있는 이름을 정의합니다.</p>
 <p>아래 예제 5-1에서는 사용자 계정에 대한 정보를 저장하는 구조체를 정의합니다.</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 struct User {
     username: String,
@@ -132,7 +133,6 @@ struct User {
     sign_in_count: u64,
     active: bool,
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 5-1: 사용자 계정정보를 저장하는 <code>User</code> 구조체 정의</span></p>
 <p>정의한 구조체를 사용하려면, 각 필드의 값을 명세한 인스턴스(<em>instance</em>)를 생성해야 합니다.
@@ -142,7 +142,8 @@ struct User {
 정의는 무엇이 들어가야 하는 지 대략적으로 정의된 양식 정도라고 생각하시면 되고, 인스턴스는 그것에
 특정한 값을 넣어 실체화한 것이라 생각하시면 됩니다. 아래 예제 5-2에서는 특정 사용자를 선언하는
 과정을 보여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # struct User {
 #     username: String,
@@ -157,7 +158,6 @@ let user1 = User {
     active: true,
     sign_in_count: 1,
 };
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 5-2: 구조체 <code>User</code>의 인스턴스 생성하기</span></p>
 <p>구조체에서 특정한 값을 읽어오려면, 점(.) 표기법을 사용하시면 됩니다. 사용자의 이메일 값을 얻고자 하면,
@@ -169,7 +169,8 @@ let user1 = User {
 이를 활용하면 구조체를 생성하는 함수를 더 간단히 작성할 수 있게 됩니다.
 아래 예제 5-3의 <code>build_user</code> 함수에는 <code>email</code>과 <code>username</code> 라는 매개변수가
 있습니다. 함수는 <code>User</code>구조체가 구현된 인스턴스를 반환합니다.</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # struct User {
 #     username: String,
@@ -186,7 +187,6 @@ fn build_user(email: String, username: String) -&gt; User {
         sign_in_count: 1,
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">예제 5-3: 사용자의 이메일과 이름을 받아 <code>User</code>구조체의 인스턴스를
 반환하는 <code>build_user</code> 함수</span></p>
@@ -194,7 +194,8 @@ fn build_user(email: String, username: String) -&gt; User {
 에서 <code>email</code>과 <code>username</code>를 명시하는 부분을 예제 5-4와 같이 다시 작성할 필요가 없습니다.</p>
 <p>예제 5-4의 <code>build_user</code> 함수는 예제 5-3과 같은 방식으로 동작합니다. 필드 초기화를 이러한 방식으로
 수행하는 문법은 간결한 코드를 작성하는데 도움이 되고, 많은 필드의 값이 정의되어야할 때 특히 유용합니다.</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # struct User {
 #     username: String,
@@ -211,7 +212,6 @@ fn build_user(email: String, username: String) -&gt; User {
         sign_in_count: 1,
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">예제 5-4: 매개변수 <code>email</code>과 <code>username</code>가 구조체의 필드와 이름이
 같아, 함수 내에서 특별히 명시하지 않고 초기화한 예인 <code>build_user</code> 함수</span></p>
@@ -220,7 +220,8 @@ fn build_user(email: String, username: String) -&gt; User {
 유용합니다. 예제 5-5는 변수 <code>user2</code>에 <code>email</code>과 <code>username</code>은 새로 할당하고, 나머지
 필드들은 예제 5-2에서 정의한 <code>user1</code>의 값들을 그대로 사용하는 방식으로 <code>User</code> 인스턴스를
 생성하는 것을 보여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # struct User {
 #     username: String,
@@ -242,7 +243,6 @@ let user2 = User {
     active: user1.active,
     sign_in_count: user1.sign_in_count,
 };
-
 #}</code></pre></pre>
 <p><span class="caption">예제 5-5: <code>user1</code>을 일부 값들을 재사용하여, 구조체 <code>User</code>의 인스턴스
 <code>user2</code>를 새로 생성</span></p>
@@ -251,7 +251,8 @@ let user2 = User {
 않기 위해 <code>..</code> 구문을 사용합니다. 예제 5-6의 코드는 <code>user1</code> 인스턴스와 <code>active</code>,
 <code>sign_in_count</code> 필드의 값은 같고, <code>email</code>과 <code>username</code> 필드들은 값은 다른 <code>user2</code>
 인스턴스를 생성할 때 구조체 갱신법을 사용하는 것을 보여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # struct User {
 #     username: String,
@@ -272,7 +273,6 @@ let user2 = User {
     username: String::from(&quot;anotherusername567&quot;),
     ..user1
 };
-
 #}</code></pre></pre>
 <p><span class="caption">예제 5-6: 인스턴스 갱신 문법의 사용 예시 - 새 <code>User</code> 구조체 생성 시
 <code>email</code>과 <code>username</code> 필드에는 새 값을 할당하고, 나머지 필드는 <code>user1</code>에서 재사용</span></p>
@@ -282,14 +282,14 @@ let user2 = User {
 <p>튜플 구조체는 일반적인 구조체 정의방법과 똑같이 <code>struct</code> 키워드를 통해 정의할 수 있고, 튜플의
 타입 정의가 키워드 뒤에서 이루어지면 됩니다. 아래는 튜플 구조체인 <code>Color</code>, <code>Point</code>의 정의와
 사용 예시 입니다.</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 struct Color(i32, i32, i32);
 struct Point(i32, i32, i32);
 
 let black = Color(0, 0, 0);
 let origin = Point(0, 0, 0);
-
 #}</code></pre></pre>
 <p>다른 튜플 구조체이기 때문에, <code>black</code>과 <code>origin</code>이 다른 타입이란 것을 유념해 두셔야 합니다.
 구조체 내의 타입이 모두 동일하더라도 각각의 구조체는 고유의 타입이기 때문입니다. 한편 튜플 구조체

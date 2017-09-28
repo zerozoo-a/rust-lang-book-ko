@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>All the Places Patterns May be Used - The Rust Programming Language</title>
+        <title>All the Places Patterns May be Used - All the Places Patterns May be Used - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">All the Places Patterns May be Used - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -196,7 +196,8 @@ the compiler is not checking exhaustiveness for us.</p>
 <code>while</code> loop as long as a pattern continues to match. Listing 18-2 shows an
 example using a <code>while let</code> loop to use a vector as a stack and print out the
 values in the vector in the opposite order that we pushed the values in:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let mut stack = Vec::new();
 
@@ -207,7 +208,6 @@ stack.push(3);
 while let Some(top) = stack.pop() {
     println!(&quot;{}&quot;, top);
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 18-2: Using a <code>while let</code> loop to print out values
 as long as <code>stack.pop()</code> returns <code>Some</code></span></p>
@@ -223,14 +223,14 @@ construction in Rust code. What we didn't talk about in that chapter was that
 pattern in a <code>for</code> loop to destructure a tuple. The <code>enumerate</code> method adapts
 an iterator to produce a value and the index of the value in the iterator in a
 tuple:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let v = vec![1, 2, 3];
 
 for (index, value) in v.iter().enumerate() {
     println!(&quot;{} is at index {}&quot;, value, index);
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 18-3: Using a pattern in a <code>for</code> loop to
 destructure the tuple returned from <code>enumerate</code> into its pieces</span></p>
@@ -246,10 +246,10 @@ be 1.</p>
 <p><code>match</code> and <code>if let</code> are the places we've explicitly discussed using patterns
 earlier in the book, but they aren't the only places we've <em>used</em> patterns. For
 example, consider this straightforward variable assignment with <code>let</code>:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let x = 5;
-
 #}</code></pre></pre>
 <p>We've done this hundreds of times throughout this book. You may not have
 realized it, but you were using patterns! A <code>let</code> statement looks like this,
@@ -265,10 +265,10 @@ whole pattern, this pattern effectively means &quot;bind everything to the varia
 <code>x</code>, whatever the value is.&quot;</p>
 <p>To see the pattern matching aspect of <code>let</code> a bit more clearly, consider
 Listing 18-4 where we're using a pattern with <code>let</code> to destructuring a tuple:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let (x, y, z) = (1, 2, 3);
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 18-4: Using a pattern to destructure a tuple and
 create 3 variables at once</span></p>
@@ -284,12 +284,12 @@ where we destructured the return value of <code>mpsc::channel()</code> into the 
 <p>Similarly to <code>let</code>, function parameters can also be patterns. The code in
 Listing 18-5 declaring a function named <code>foo</code> that takes one parameter named
 <code>x</code> of type <code>i32</code> should look familiar:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 fn foo(x: i32) {
     // code goes here
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 18-5: A function signature uses patterns in the
 parameters</span></p>

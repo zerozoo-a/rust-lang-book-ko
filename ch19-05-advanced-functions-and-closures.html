@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Advanced Functions &amp; Closures - The Rust Programming Language</title>
+        <title>Advanced Functions &amp; Closures - Advanced Functions &amp; Closures - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">Advanced Functions &amp; Closures - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -157,24 +157,24 @@ functions or closures. An example of a case where you'd only want to accept
 functions can accept functions as arguments, but C doesn't have closures.</p>
 <p>For example, if we wanted to use the <code>map</code> function to turn a vector of numbers
 into a vector of strings, we could use a closure:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let list_of_numbers = vec![1, 2, 3];
 let list_of_strings: Vec&lt;String&gt; = list_of_numbers
     .iter()
     .map(|i| i.to_string())
     .collect();
-
 #}</code></pre></pre>
 <p>Or we could name a function as the argument to <code>map</code> instead of the closure:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let list_of_numbers = vec![1, 2, 3];
 let list_of_strings: Vec&lt;String&gt; = list_of_numbers
     .iter()
     .map(ToString::to_string)
     .collect();
-
 #}</code></pre></pre>
 <p>Note that we do have to use the fully qualified syntax that we talked about in
 the &quot;Advanced Traits&quot; section because there are multiple functions available
@@ -211,12 +211,12 @@ std::marker::Sized` is not satisfied
 <p>The <code>Sized</code> trait again! Rust doesn't know much space it'll need to store the
 closure. We saw a solution to this in the previous section, though: we can use
 a trait object:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 fn returns_closure() -&gt; Box&lt;Fn(i32) -&gt; i32&gt; {
     Box::new(|x| x + 1)
 }
-
 #}</code></pre></pre>
 <p>For more about trait objects, refer back to Chapter 18.</p>
 <a class="header" href="ch19-05-advanced-functions-and-closures.html#summary" id="summary"><h2>Summary</h2></a>

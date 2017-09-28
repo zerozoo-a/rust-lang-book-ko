@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>B - Operators - The Rust Programming Language</title>
+        <title>B - Operators - B - Operators - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">B - Operators - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -231,7 +231,8 @@ Calls the <code>ge</code> method on the <code>std::cmp::PartialOrd</code> trait.
 <p>Executing an <code>as</code> expression casts the value on the left-hand side to the type
 on the right-hand side.</p>
 <p>An example of an <code>as</code> expression:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # fn sum(values: &amp;[f64]) -&gt; f64 { 0.0 }
 # fn len(values: &amp;[f64]) -&gt; i32 { 0 }
@@ -241,7 +242,6 @@ fn average(values: &amp;[f64]) -&gt; f64 {
     let size: f64 = len(values) as f64;
     sum / size
 }
-
 #}</code></pre></pre>
 <p>Some of the conversions which can be done through the <code>as</code> operator
 can also be done implicitly at various points in the program, such as

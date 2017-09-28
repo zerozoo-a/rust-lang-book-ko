@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>The `Deref` Trait Allows Access to the Data Through a Reference - The Rust Programming Language</title>
+        <title>The `Deref` Trait Allows Access to the Data Through a Reference - The `Deref` Trait Allows Access to the Data Through a Reference - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">The `Deref` Trait Allows Access to the Data Through a Reference - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -126,7 +126,8 @@ section titled &quot;Update a Value Based on the Old Value&quot;. We had a mutab
 reference, and we wanted to change the value that the reference was pointing
 to. In order to do that, first we had to dereference the reference. Here's
 another example using references to <code>i32</code> values:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let mut x = 5;
 {
@@ -136,7 +137,6 @@ let mut x = 5;
 }
 
 assert_eq!(6, x);
-
 #}</code></pre></pre>
 <p>We use <code>*y</code> to access the data that the mutable reference in <code>y</code> refers to,
 rather than the mutable reference itself. We can then modify that data, in this

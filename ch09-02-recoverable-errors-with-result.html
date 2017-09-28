@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>`Result`와 함께하는 복구 가능한 에러 - The Rust Programming Language</title>
+        <title>`Result`와 함께하는 복구 가능한 에러 - `Result`와 함께하는 복구 가능한 에러 - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
-                    <h1 class="menu-title">The Rust Programming Language</h1>
+                    <h1 class="menu-title">`Result`와 함께하는 복구 가능한 에러 - The Rust Programming Language</h1>
 
                     <div class="right-buttons">
                         <i id="print-button" class="fa fa-print" title="Print this book"></i>
@@ -123,13 +123,13 @@
 <p>2장의 “<a href="ch02-00-guessing-game-tutorial.html#handling-potential-failure-with-the-result-type"><code>Result</code> 타입으로 잠재된 실패 다루기</a><!-- ignore -->”에서
 <code>Result</code> 열거형은 다음과 같이 <code>Ok</code>와 <code>Err</code>라는 두 개의 variant를 갖도록 정의되어 있음을
 상기하세요:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 enum Result&lt;T, E&gt; {
     Ok(T),
     Err(E),
 }
-
 #}</code></pre></pre>
 <p><code>T</code>와 <code>E</code>는 제네릭 타입 파라미터입니다; 10장에서 제네릭에 대해 더 자세히 다룰 것입니다. 지금으로서
 여러분이 알아둘 필요가 있는 것은, <code>T</code>는 성공한 경우에 <code>Ok</code> variant 내에 반환될 값의 타입을 나타내고
@@ -304,7 +304,8 @@ fn main() {
 더 많은 정보와 로직을 가지고 있을 수도 있는 호출하는 코드쪽에 더 많은 제어권을 줍니다.</p>
 <p>예를 들면, Listing 9-5는 파일로부터 사용자 이름을 읽는 함수를 작성한 것입니다. 만일 파일이 존재하지
 않거나 읽을 수 없다면, 이 함수는 호출하는 코드쪽으로 해당 에러를 반환할 것입니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::io;
 use std::io::Read;
@@ -325,7 +326,6 @@ fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
         Err(e) =&gt; Err(e),
     }
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 9-5: <code>match</code>를 이용하여 호출 코드 쪽으로 에러를 반환하는 함수
 </span></p>
@@ -359,7 +359,8 @@ fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
 <a class="header" href="ch09-02-recoverable-errors-with-result.html#에러를-전파하기-위한-숏컷-" id="에러를-전파하기-위한-숏컷-"><h3>에러를 전파하기 위한 숏컷: <code>?</code></h3></a>
 <p>Listing 9-6은 Listing 9-5과 같은 기능을 가진 <code>read_username_from_file</code>의 구현을 보여주는데,
 다만 이 구현은 물음표 연산자를 이용하고 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::io;
 use std::io::Read;
@@ -371,7 +372,6 @@ fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
     f.read_to_string(&amp;mut s)?;
     Ok(s)
 }
-
 #}</code></pre></pre>
 <p><span class="caption">Listing 9-6: <code>?</code>를 이용하여 에러를 호출 코드쪽으로 반환하는 함수</span></p>
 <p><code>Result</code> 값 뒤의 <code>?</code>는 Listing 9-5에서 <code>Result</code> 값을 다루기 위해 정의했던 <code>match</code> 표현식과
@@ -383,7 +383,8 @@ fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
 줄 것입니다. <code>read_to_string</code> 호출의 끝부분에 있는 <code>?</code>도 같은 것이 적용되어 있습니다.</p>
 <p><code>?</code>는 많은 수의 보일러플레이트(boilerplate)를 제거해주고 이 함수의 구현을 더 단순하게 만들어 줍니다.
 심지어는 <code>?</code> 뒤에 바로 메소드 호출을 연결하는 식으로 이 코드를 더 줄일 수도 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 use std::io;
 use std::io::Read;
@@ -396,7 +397,6 @@ fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
 
     Ok(s)
 }
-
 #}</code></pre></pre>
 <p>새로운 <code>String</code>을 만들어 <code>s</code>에 넣는 부분을 함수의 시작 부분으로 옮겼습니다; 이 부분은 달라진 것이
 없습니다. <code>f</code> 변수를 만드는 대신, <code>File::open(&quot;hello.txt&quot;)?</code>의 결과 바로 뒤에
