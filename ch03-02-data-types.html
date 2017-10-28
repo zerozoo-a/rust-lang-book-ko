@@ -130,13 +130,13 @@ let guess: u32 = &quot;42&quot;.parse().expect(&quot;Not a number!&quot;);
 #}</code></pre></pre>
 <p>여기에 타입 명시를 첨가하지 않은 경우, Rust는 다음과 같은 에러를 발생시킵니다.<br />
 이와 같은 에러는 컴파일러가 우리에게 사용하고 싶은 타입이 무엇인지 추가적인 정보를 요구하는 겁니다.</p>
-<pre><code class="language-text">error[E0282]: unable to infer enough type information about `_`
+<pre><code class="language-text">error[E0282]: type annotations needed
  --&gt; src/main.rs:2:9
   |
 2 |     let guess = &quot;42&quot;.parse().expect(&quot;Not a number!&quot;);
-  |         ^^^^^ cannot infer type for `_`
-  |
-  = note: type annotations or generic parameter binding required
+  |         ^^^^^
+  |         cannot infer type for `_`
+  |         consider giving `guess` a type
 </code></pre>
 <p>우리가 다루고자 하는 다양한 데이터 타입들 각각의 타입 명시를 살펴보겠습니다.</p>
 <a class="header" href="ch03-02-data-types.html#스칼라-타입들" id="스칼라-타입들"><h3>스칼라 타입들</h3></a>
@@ -144,9 +144,9 @@ let guess: u32 = &quot;42&quot;.parse().expect(&quot;Not a number!&quot;);
 스칼라 타입을 보유하고 있습니다. 아마 다른 프로그래밍 언어에서도 본 적이 있겠지만, Rust에서 이들이 어떻게 동작하
 는지 살펴보도록 합시다.</p>
 <a class="header" href="ch03-02-data-types.html#정수형" id="정수형"><h4>정수형</h4></a>
-<p><em>정수형</em>은 소수점이 없는 숫자 입니다. 우리는 이번 장의 앞부분에서 <code>i32</code>타입인 정수형을 사용했었습니다. 해당 타입의
-선언은 부호를 갖는 32비트 변수임을 나타냅니다.(따라서 <code>i</code>는 부호가 없는 <code>u</code>와 반대입니다.) 표 3-1은 Rust에서
-사용되는 정수형들을 보여줍니다. 부호, 미부호로 나뉜 다른 열의 타입을 사용하여(<em>i32</em>처럼) 정수 값의 타입을 선언할
+<p><em>정수형</em>은 소수점이 없는 숫자 입니다. 우리는 이번 장의 앞부분에서 <code>u32</code>타입인 정수형을 사용했었습니다. 해당 타입의
+선언은 부호 없는 32비트 변수임을 나타냅니다 (부호 있는 타입은 <code>u</code>대신 <code>i</code>로 시작합니다.) 표 3-1은 Rust에서
+사용되는 정수형들을 보여줍니다. 부호, 미부호로 나뉜 다른 열의 타입을 사용하여(<em>i16</em>처럼) 정수 값의 타입을 선언할
 수 있습니다.</p>
 <p><span class="caption">Table 3-1: Rust에서의 정수 타입 </span></p>
 <table><thead><tr><th> Length </th><th> Signed </th><th> Unsigned </th></tr></thead><tbody>
@@ -183,11 +183,8 @@ let guess: u32 = &quot;42&quot;.parse().expect(&quot;Not a number!&quot;);
 주로 콜렉션의 정렬을 색인할 때 사용됩니다.</p>
 <a class="header" href="ch03-02-data-types.html#부동-소수점-타입" id="부동-소수점-타입"><h4>부동 소수점 타입</h4></a>
 <p>Rust에는 소수점을 갖는 숫자인 <em>부동소수점 숫자</em>를 위한 두 가지 기본 타입도 있습니다. Rust의 부동소수점 타입은
-<code>f32</code>와 <code>f64</code>로, 예상하신 대로 각기 32bit와 64bit의 크기를 갖습니다. 기본 타입이 <code>f64</code>인 이유는 대략
-<code>f32</code>와 비슷한 속도이면서 더 정밀한 표현이 가능하기 때문입니다. <code>f64</code>타입을 32bit 환경에서 사용하는 것도
-가능하지만 해당 시스템에서 <code>f32</code>를 사용하는 것 보다는 느려질 겁니다. 대부분의 경우 보다 높은 정밀성을 위한
-성능 하락이 합리적인 초기 선택안이기에 만약 당신이 당면한 상황에 부동소수점의 크기로 인한 문제가 의심된다면 벤치마킹을
-해보셔야 합니다.</p>
+<code>f32</code>와 <code>f64</code>로, 예상하신 대로 각기 32bit와 64bit의 크기를 갖습니다. 기본 타입은 <code>f64</code>인데, 그 이유는
+최신의 CPU 상에서는 <code>f64</code>가 <code>f32</code>와 대략 비슷한 속도를 내면서도 더 정밀한 표현이 가능하기 때문입니다.</p>
 <p>다음은 부동소수점 숫자가 활용되는 예제입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
@@ -236,7 +233,8 @@ let guess: u32 = &quot;42&quot;.parse().expect(&quot;Not a number!&quot;);
 Rust에서 동작하는 방식을 “제어 흐름” 장에서 다루게 될 겁니다.</p>
 <a class="header" href="ch03-02-data-types.html#문자-타입" id="문자-타입"><h4>문자 타입</h4></a>
 <p>지금까지 숫자 타입만을 살펴봤는데, Rust는 문자 또한 지원합니다. Rust의 <code>char</code>는 이 언어의 가장 근본적인
-알파벳 타입이고, 다음의 코드는 이를 사용하는 하나의 방법입니다:</p>
+알파벳 타입이고, 다음의 코드는 이를 사용하는 한 가지 방법입니다. 스트링이 큰따옴표를 쓰는 것에 반하여 <code>char</code>
+타입은 작은따옴표로 쓰는 점을 주목하세요:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
    let c = 'z';
@@ -340,6 +338,7 @@ let months = [&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quo
 <p>이번 코드를 <code>cargo run</code>을 통해 동작시키면 다음의 결과를 얻게 됩니다:</p>
 <pre><code class="language-text">$ cargo run
    Compiling arrays v0.1.0 (file:///projects/arrays)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/arrays`
 thread '&lt;main&gt;' panicked at 'index out of bounds: the len is 5 but the index is
  10', src/main.rs:6

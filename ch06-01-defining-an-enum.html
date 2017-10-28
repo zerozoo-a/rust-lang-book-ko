@@ -345,9 +345,9 @@ impl Message {
 let m = Message::Write(String::from(&quot;hello&quot;));
 m.call();
 #}</code></pre></pre>
-<p>열거형의 값을 가져오기 위해 메서드 안에서 <code>self</code> 를 사용할 것 입니다.
-이 에제에서 생성한 변수 <code>m</code> 은 <code>Message::Write(&quot;hello&quot;)</code> 값을 갖게 되고,
-이 값은  <code>m.call()</code> 이 실행될 때, <code>call</code> 메서드 안에서 <code>self</code> 가 될 것입니다.</p>
+<p>열거형의 값을 가져오기 위해 메서드 안에서 <code>self</code> 를 사용할 것 입니다. 이 에제에서 생성한
+변수 <code>m</code> 은 <code>Message::Write(String::from(&quot;hello&quot;))</code> 값을 갖게 되고, 이 값은
+<code>m.call()</code>이 실행될 때, <code>call</code> 메서드 안에서 <code>self</code>가 될 것입니다.</p>
 <p>표준 라이브러리에 있는 매우 흔하게 사용하고 유용한 열거형을 살펴 봅시다:
 <code>Option</code>.</p>
 <a class="header" href="ch06-01-defining-an-enum.html#option-열거형과-null-값-보다-좋은-점들" id="option-열거형과-null-값-보다-좋은-점들"><h3><code>Option</code> 열거형과 Null 값 보다 좋은 점들.</h3></a>

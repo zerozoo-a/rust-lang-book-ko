@@ -116,16 +116,16 @@
 
                 <div id="content" class="content">
                     <a class="header" href="ch17-01-what-is-oo.html#what-does-object-oriented-mean" id="what-does-object-oriented-mean"><h2>What Does Object-Oriented Mean?</h2></a>
-<p>There isn't consensus in the programming community about the features a
+<p>There isn’t consensus in the programming community about the features a
 language needs to have in order to be called object-oriented. Rust is
 influenced by many different programming paradigms; we explored the features it
 has that come from functional programming in Chapter 13. Some of the
 characteristics that object-oriented programming languages tend to share are
-objects, encapsulation, and inheritance. Let's take a look at what each of
+objects, encapsulation, and inheritance. Let’s take a look at what each of
 those mean and whether Rust supports them.</p>
 <a class="header" href="ch17-01-what-is-oo.html#objects-contain-data-and-behavior" id="objects-contain-data-and-behavior"><h3>Objects Contain Data and Behavior</h3></a>
-<p>The book &quot;Design Patterns: Elements of Reusable Object-Oriented Software,&quot;
-colloquially referred to as &quot;The Gang of Four book,&quot; is a catalog of
+<p>The book “Design Patterns: Elements of Reusable Object-Oriented Software,”
+colloquially referred to as “The Gang of Four book,” is a catalog of
 object-oriented design patterns. It defines object-oriented programming in this
 way:</p>
 <blockquote>
@@ -135,15 +135,15 @@ typically called <em>methods</em> or <em>operations</em>.</p>
 </blockquote>
 <p>Under this definition, then, Rust is object-oriented: structs and enums have
 data and <code>impl</code> blocks provide methods on structs and enums. Even though
-structs and enums with methods aren't <em>called</em> objects, they provide the same
-functionality that objects do, using the Gang of Four's definition of objects.</p>
+structs and enums with methods aren’t <em>called</em> objects, they provide the same
+functionality that objects do, using the Gang of Four’s definition of objects.</p>
 <a class="header" href="ch17-01-what-is-oo.html#encapsulation-that-hides-implementation-details" id="encapsulation-that-hides-implementation-details"><h3>Encapsulation that Hides Implementation Details</h3></a>
 <p>Another aspect commonly associated with object-oriented programming is the idea
-of <em>encapsulation</em>: the implementation details of an object aren't accessible
+of <em>encapsulation</em>: the implementation details of an object aren’t accessible
 to code using that object. The only way to interact with an object is through
 the public API the object offers; code using the object should not be able to
-reach into the object's internals and change data or behavior directly.
-Encapsulation enables changing and refactoring an object's internals without
+reach into the object’s internals and change data or behavior directly.
+Encapsulation enables changing and refactoring an object’s internals without
 needing to change the code that uses the object.</p>
 <p>As we discussed in Chapter 7, we can use the <code>pub</code> keyword to decide what
 modules, types, functions, and methods in our code should be public, and by
@@ -151,7 +151,7 @@ default, everything is private. For example, we can define a struct
 <code>AveragedCollection</code> that has a field containing a vector of <code>i32</code> values. The
 struct can also have a field that knows the average of the values in the vector
 so that whenever anyone wants to know the average of the values that the struct
-has in its vector, we don't have to compute it on-demand. <code>AveragedCollection</code>
+has in its vector, we don’t have to compute it on-demand. <code>AveragedCollection</code>
 will cache the calculated average for us. Listing 17-1 has the definition of
 the <code>AveragedCollection</code> struct:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
@@ -213,16 +213,16 @@ instance of a <code>AveragedCollection</code>. When an item is added to <code>li
 <code>add</code> method or removed using the <code>remove</code> method, the implementations of those
 methods call the private <code>update_average</code> method that takes care of updating
 the <code>average</code> field as well. Because the <code>list</code> and <code>average</code> fields are
-private, there's no way for external code to add or remove items to the <code>list</code>
+private, there’s no way for external code to add or remove items to the <code>list</code>
 field directly, which could cause the <code>average</code> field to get out of sync. The
 <code>average</code> method returns the value in the <code>average</code> field, which allows
 external code to read the <code>average</code> but not modify it.</p>
-<p>Because we've encapsulated the implementation details of <code>AveragedCollection</code>,
+<p>Because we’ve encapsulated the implementation details of <code>AveragedCollection</code>,
 we can easily change aspects like the data structure in the future. For
 instance, we could use a <code>HashSet</code> instead of a <code>Vec</code> for the <code>list</code> field. As
 long as the signatures of the <code>add</code>, <code>remove</code>, and <code>average</code> public methods
-stay the same, code using <code>AveragedCollection</code> wouldn't need to change. This
-wouldn't necessarily be the case if we exposed <code>list</code> to external code:
+stay the same, code using <code>AveragedCollection</code> wouldn’t need to change. This
+wouldn’t necessarily be the case if we exposed <code>list</code> to external code:
 <code>HashSet</code> and <code>Vec</code> have different methods for adding and removing items, so
 the external code would likely have to change if it was modifying <code>list</code>
 directly.</p>
@@ -231,21 +231,21 @@ object-oriented, then Rust meets that requirement. Using <code>pub</code> or not
 different parts of code enables encapsulation of implementation details.</p>
 <a class="header" href="ch17-01-what-is-oo.html#inheritance-as-a-type-system-and-as-code-sharing" id="inheritance-as-a-type-system-and-as-code-sharing"><h3>Inheritance as a Type System and as Code Sharing</h3></a>
 <p><em>Inheritance</em> is a mechanism that some programming languages provide whereby an
-object can be defined to inherit from another object's definition, thus gaining
-the parent object's data and behavior without having to define those again.
-Inheritance is a characteristic that is part of some people's definitions of
+object can be defined to inherit from another object’s definition, thus gaining
+the parent object’s data and behavior without having to define those again.
+Inheritance is a characteristic that is part of some people’s definitions of
 what an OOP language is.</p>
 <p>If a language must have inheritance to be an object-oriented language, then
 Rust is not object-oriented. There is not a way to define a struct that
-inherits from another struct in order to gain the parent struct's fields and
-method implementations. However, if you're used to having inheritance in your
+inherits from another struct in order to gain the parent struct’s fields and
+method implementations. However, if you’re used to having inheritance in your
 programming toolbox, there are other solutions in Rust depending on the reason
 you want to use inheritance.</p>
 <p>There are two main reasons to reach for inheritance. The first is to be able to
 re-use code: once a particular behavior is implemented for one type,
 inheritance can enable re-using that implementation for a different type. Rust
 code can be shared using default trait method implementations instead, which we
-saw in Listing 10-14 when we added a default implementation of the <code>summary</code>
+saw in Listing 10-15 when we added a default implementation of the <code>summary</code>
 method on the <code>Summarizable</code> trait. Any type implementing the <code>Summarizable</code>
 trait would have the <code>summary</code> method available on it without any further code.
 This is similar to a parent class having an implementation of a method, and a
@@ -260,12 +260,12 @@ This is also called <em>polymorphism</em>, which means that multiple objects can
 substituted for each other at runtime if they have the same shape.</p>
 <!-- PROD: START BOX -->
 <blockquote>
-<p>While many people use &quot;polymorphism&quot; to describe inheritance, it's actually
-a specific kind of polymorphism, called &quot;sub-type polymorphism.&quot; There are
+<p>While many people use “polymorphism” to describe inheritance, it’s actually
+a specific kind of polymorphism, called “sub-type polymorphism.” There are
 other forms as well; a generic parameter with a trait bound in Rust is
-also polymorphism, more specifically &quot;parametric polymorphism.&quot; The exact
-details between the different kinds of polymorphism aren't crucial here,
-so don't worry too much about the details: just know that Rust has multiple
+also polymorphism, more specifically “parametric polymorphism.” The exact
+details between the different kinds of polymorphism aren’t crucial here,
+so don’t worry too much about the details: just know that Rust has multiple
 polymorphism-related features, unlike many OOP languages.</p>
 </blockquote>
 <!-- PROD: END BOX -->
@@ -274,16 +274,16 @@ specify that we would like values of any type, as long as the values implement
 a particular trait.</p>
 <p>Inheritance has recently fallen out of favor as a programming design solution
 in many programming languages. Using inheritance to re-use some code can
-require more code to be shared than you actually need. Subclasses shouldn't
+require more code to be shared than you actually need. Subclasses shouldn’t
 always share all characteristics of their parent class, but inheritance means
-the subclass gets all of its parent's data and behavior. This can make a
-program's design less flexible, and creates the possibility of calling methods
-on subclasses that don't make sense or cause errors since the methods don't
+the subclass gets all of its parent’s data and behavior. This can make a
+program’s design less flexible, and creates the possibility of calling methods
+on subclasses that don’t make sense or cause errors since the methods don’t
 apply to the subclass but must be inherited from the parent class. In addition,
 some languages only allow a subclass to inherit from one class, further
-restricting the flexibility of a program's design.</p>
+restricting the flexibility of a program’s design.</p>
 <p>For these reasons, Rust chose to take a different approach with trait objects
-instead of inheritance. Let's take a look at how trait objects enable
+instead of inheritance. Let’s take a look at how trait objects enable
 polymorphism in Rust.</p>
 
                 </div>

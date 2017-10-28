@@ -116,14 +116,14 @@
 
                 <div id="content" class="content">
                     <a class="header" href="ch18-01-all-the-places-for-patterns.html#all-the-places-patterns-may-be-used" id="all-the-places-patterns-may-be-used"><h2>All the Places Patterns May be Used</h2></a>
-<p>Patterns pop up in a number of places in Rust. You've been using them a lot
+<p>Patterns pop up in a number of places in Rust. You’ve been using them a lot
 without realizing it! This section is a reference to all the places where
 patterns are valid.</p>
 <a class="header" href="ch18-01-all-the-places-for-patterns.html#match-arms" id="match-arms"><h3><code>match</code> Arms</h3></a>
 <p>As we discussed in Chapter 6, a common place patterns are used is in the arms
 of <code>match</code> expressions. Formally, <code>match</code> expressions are defined as the
 keyword <code>match</code>, a value to match on, and one or more match arms that consist
-of a pattern and an expression to run if the value matches that arm's pattern:</p>
+of a pattern and an expression to run if the value matches that arm’s pattern:</p>
 <pre><code class="language-text">match VALUE {
     PATTERN =&gt; EXPRESSION,
     PATTERN =&gt; EXPRESSION,
@@ -136,22 +136,22 @@ patterns in the arms together, all possibilities for the value in the <code>matc
 expression must be accounted for. One way to ensure you have every possibility
 covered is to have a catch-all pattern for the last arm, like a variable name.
 A name matching any value can never fail and thus covers every case remaining
-after the previous arms' patterns.</p>
-<p>There's an additional pattern that's often used in the last match arm: <code>_</code>. It
+after the previous arms’ patterns.</p>
+<p>There’s an additional pattern that’s often used in the last match arm: <code>_</code>. It
 matches anything, but it never binds any variables. This can be useful when you
 only want to run code for some patterns but ignore any other value, for example.</p>
 <a class="header" href="ch18-01-all-the-places-for-patterns.html#if-let-expressions" id="if-let-expressions"><h3><code>if let</code> Expressions</h3></a>
-<p>We discussed <code>if let</code> expressions in Chapter 6, and how they're mostly a
+<p>We discussed <code>if let</code> expressions in Chapter 6, and how they’re mostly a
 shorter way to write the equivalent of a <code>match</code> that only cares about matching
 one case. <code>if let</code> can optionally have a corresponding <code>else</code> with code to run
-if the pattern in the <code>if let</code> doesn't match.</p>
-<p>Listing 18-1 shows that it's even possible to mix and match <code>if let</code>, <code>else if</code>, and <code>else if let</code>. This code shows a series of checks of a bunch of
+if the pattern in the <code>if let</code> doesn’t match.</p>
+<p>Listing 18-1 shows that it’s even possible to mix and match <code>if let</code>, <code>else if</code>, and <code>else if let</code>. This code shows a series of checks of a bunch of
 different conditions to decide what the background color should be. For the
-purposes of the example, we've created variables with hardcoded values that a
+purposes of the example, we’ve created variables with hardcoded values that a
 real program might get by asking the user. If the user has specified a favorite
-color, we'll use that as the background color. If today is Tuesday, the
+color, we’ll use that as the background color. If today is Tuesday, the
 background color will be green. If the user has specified their age as a string
-and we can parse it as a number successfully, we'll use either purple or orange
+and we can parse it as a number successfully, we’ll use either purple or orange
 depending on the value of the parsed number. Finally, if none of these
 conditions apply, the background color will be blue:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
@@ -182,14 +182,14 @@ hardcoded values we have here, this example will print <code>Using purple as the
 <p>Note that <code>if let</code> can also introduce shadowed variables like <code>match</code> arms can:
 <code>if let Ok(age) = age</code> introduces a new shadowed <code>age</code> variable that contains
 the value inside the <code>Ok</code> variant. This also means the <code>if age &gt; 30</code> condition
-needs to go within the block; we aren't able to combine these two conditions
+needs to go within the block; we aren’t able to combine these two conditions
 into <code>if let Ok(age) = age &amp;&amp; age &gt; 30</code> since the shadowed <code>age</code> that we want
-to compare to 30 isn't valid until the new scope starts with the curly brace.</p>
+to compare to 30 isn’t valid until the new scope starts with the curly bracket.</p>
 <p>Also note that conditionals with many cases like these are not as powerful as
 <code>match</code> expression since exhaustiveness is not checked by the compiler. If we
 leave off the last <code>else</code> block and miss handling some cases, the compiler will
 not error. This example might be too complex to rewrite as a readable <code>match</code>,
-so we should take extra care to check that we're handling all the cases since
+so we should take extra care to check that we’re handling all the cases since
 the compiler is not checking exhaustiveness for us.</p>
 <a class="header" href="ch18-01-all-the-places-for-patterns.html#while-let" id="while-let"><h3><code>while let</code></h3></a>
 <p>A similar construction to <code>if let</code> is <code>while let</code>: this allows you to do a
@@ -218,8 +218,8 @@ out of the vector and returns <code>Some(value)</code>. If the vector is empty, 
 can use <code>while let</code> to pop every element off our stack.</p>
 <a class="header" href="ch18-01-all-the-places-for-patterns.html#for-loops" id="for-loops"><h3><code>for</code> loops</h3></a>
 <p>Looping with <code>for</code>, as we discussed in Chapter 3, is the most common loop
-construction in Rust code. What we didn't talk about in that chapter was that
-<code>for</code> takes a pattern. In Listing 18-3, we're demonstrating how we can use a
+construction in Rust code. What we didn’t talk about in that chapter was that
+<code>for</code> takes a pattern. In Listing 18-3, we’re demonstrating how we can use a
 pattern in a <code>for</code> loop to destructure a tuple. The <code>enumerate</code> method adapts
 an iterator to produce a value and the index of the value in the iterator in a
 tuple:</p>
@@ -243,28 +243,28 @@ destructure the tuple returned from <code>enumerate</code> into its pieces</span
 matched to the pattern <code>(index, value)</code>, <code>index</code> will be 0 and <code>value</code> will
 be 1.</p>
 <a class="header" href="ch18-01-all-the-places-for-patterns.html#let-statements" id="let-statements"><h3><code>let</code> Statements</h3></a>
-<p><code>match</code> and <code>if let</code> are the places we've explicitly discussed using patterns
-earlier in the book, but they aren't the only places we've <em>used</em> patterns. For
+<p><code>match</code> and <code>if let</code> are the places we’ve explicitly discussed using patterns
+earlier in the book, but they aren’t the only places we’ve <em>used</em> patterns. For
 example, consider this straightforward variable assignment with <code>let</code>:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
 let x = 5;
 #}</code></pre></pre>
-<p>We've done this hundreds of times throughout this book. You may not have
+<p>We’ve done this hundreds of times throughout this book. You may not have
 realized it, but you were using patterns! A <code>let</code> statement looks like this,
 more formally:</p>
 <pre><code class="language-text">let PATTERN = EXPRESSION;
 </code></pre>
-<p>We've seen statements like <code>let x = 5;</code> with a variable name in the <code>PATTERN</code>
+<p>We’ve seen statements like <code>let x = 5;</code> with a variable name in the <code>PATTERN</code>
 slot; a variable name is just a particularly humble form of pattern.</p>
 <p>With <code>let</code>, we compare the expression against the pattern, and assign any names
 we find. So for example, in our <code>let x = 5;</code> case, <code>x</code> is a pattern that says
-&quot;bind what matches here to the variable <code>x</code>.&quot; And since the name <code>x</code> is the
-whole pattern, this pattern effectively means &quot;bind everything to the variable
-<code>x</code>, whatever the value is.&quot;</p>
+“bind what matches here to the variable <code>x</code>.” And since the name <code>x</code> is the
+whole pattern, this pattern effectively means “bind everything to the variable
+<code>x</code>, whatever the value is.”</p>
 <p>To see the pattern matching aspect of <code>let</code> a bit more clearly, consider
-Listing 18-4 where we're using a pattern with <code>let</code> to destructuring a tuple:</p>
+Listing 18-4 where we’re using a pattern with <code>let</code> to destructuring a tuple:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -272,7 +272,7 @@ let (x, y, z) = (1, 2, 3);
 #}</code></pre></pre>
 <p><span class="caption">Listing 18-4: Using a pattern to destructure a tuple and
 create 3 variables at once</span></p>
-<p>Here, we have a tuple that we're matching against a pattern. Rust will compare
+<p>Here, we have a tuple that we’re matching against a pattern. Rust will compare
 the value <code>(1, 2, 3)</code> to the pattern <code>(x, y, z)</code> and see that the value matches
 the pattern. In this case, it will bind <code>1</code> to <code>x</code>, <code>2</code> to <code>y</code>, and <code>3</code> to <code>z</code>.
 You can think of this tuple pattern as nesting three individual variable
@@ -294,7 +294,7 @@ fn foo(x: i32) {
 <p><span class="caption">Listing 18-5: A function signature uses patterns in the
 parameters</span></p>
 <p>The <code>x</code> part is a pattern! In a similar way as we did with <code>let</code>, we could
-match a tuple in a function's arguments. Listing 18-6 shows how we could split
+match a tuple in a function’s arguments. Listing 18-6 shows how we could split
 apart the values in a tuple as part of passing the tuple to a function:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn print_coordinates(&amp;(x, y): &amp;(i32, i32)) {
@@ -314,7 +314,7 @@ a tuple</span></p>
 <p>Because closures are similar to functions, as we discussed in Chapter 13, we
 can use patterns in closure parameter lists as well.</p>
 <p>One difference between the places we can use patterns is that with <code>for</code> loops,
-<code>let</code>, and in function parameters, the patterns must be <em>irrefutable</em>. Let's
+<code>let</code>, and in function parameters, the patterns must be <em>irrefutable</em>. Let’s
 discuss that next.</p>
 
                 </div>

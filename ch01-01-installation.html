@@ -120,13 +120,13 @@
 connection to run the commands in this chapter, as we’ll be downloading Rust
 from the internet.</p>
 <p>We’ll be showing off a number of commands using a terminal, and those lines all
-start with <code>$</code>. You don't need to type in the <code>$</code> character; they are there to indicate
+start with <code>$</code>. You don’t need to type in the <code>$</code> character; they are there to indicate
 the start of each command. You’ll see many tutorials and examples around the web
 that follow this convention: <code>$</code> for commands run as a regular user, and <code>#</code>
-for commands you should be running as an administrator. Lines that don't start
+for commands you should be running as an administrator. Lines that don’t start
 with <code>$</code> are typically showing the output of the previous command.</p>
 <a class="header" href="ch01-01-installation.html#installing-on-linux-or-mac" id="installing-on-linux-or-mac"><h3>Installing on Linux or Mac</h3></a>
-<p>If you're on Linux or a Mac, all you need to do is open a terminal and type
+<p>If you’re on Linux or a Mac, all you need to do is open a terminal and type
 this:</p>
 <pre><code class="language-text">$ curl https://sh.rustup.rs -sSf | sh
 </code></pre>
@@ -136,6 +136,13 @@ your password. If it all goes well, you’ll see this appear:</p>
 </code></pre>
 <p>Of course, if you disapprove of the <code>curl | sh</code> pattern, you can download, inspect
 and run the script however you like.</p>
+<p>The installation script automatically adds Rust to your system PATH after your next login.
+If you want to start using Rust right away, run the following command in your shell:</p>
+<pre><code class="language-text">$ source $HOME/.cargo/env
+</code></pre>
+<p>Alternatively, add the following line to your <code>~/.bash_profile</code>:</p>
+<pre><code class="language-text">$ export PATH=&quot;$HOME/.cargo/bin:$PATH&quot;
+</code></pre>
 <a class="header" href="ch01-01-installation.html#installing-on-windows" id="installing-on-windows"><h3>Installing on Windows</h3></a>
 <p>On Windows, go to <a href="https://rustup.rs/">https://rustup.rs</a><!-- ignore --> and
 follow the instructions to download rustup-init.exe. Run that and follow the
@@ -158,7 +165,7 @@ the uninstall script:</p>
 <pre><code class="language-text">$ rustup self uninstall
 </code></pre>
 <a class="header" href="ch01-01-installation.html#troubleshooting" id="troubleshooting"><h3>Troubleshooting</h3></a>
-<p>If you've got Rust installed, you can open up a shell, and type this:</p>
+<p>If you’ve got Rust installed, you can open up a shell, and type this:</p>
 <pre><code class="language-text">$ rustc --version
 </code></pre>
 <p>You should see the version number, commit hash, and commit date in a format
@@ -167,11 +174,11 @@ similar to this for the latest stable version at the time you install:</p>
 </code></pre>
 <p>If you see this, Rust has been installed successfully!
 Congrats!</p>
-<p>If you don't and you're on Windows, check that Rust is in your <code>%PATH%</code> system
+<p>If you don’t and you’re on Windows, check that Rust is in your <code>%PATH%</code> system
 variable.</p>
-<p>If it still isn't working, there are a number of places where you can get help.
+<p>If it still isn’t working, there are a number of places where you can get help.
 The easiest is <a href="irc://irc.mozilla.org/#rust">the #rust IRC channel on irc.mozilla.org</a><!-- ignore -->,
-which you can access through <a href="http://chat.mibbit.com/?server=irc.mozilla.org&amp;channel=%23rust">Mibbit</a>. Go to that address, and you'll
+which you can access through <a href="http://chat.mibbit.com/?server=irc.mozilla.org&amp;channel=%23rust">Mibbit</a>. Go to that address, and you’ll
 be chatting with other Rustaceans (a silly nickname we call ourselves) who can
 help you out. Other great resources include <a href="https://users.rust-lang.org/">the Users forum</a> and
 <a href="http://stackoverflow.com/questions/tagged/rust">Stack Overflow</a>.</p>
@@ -179,7 +186,7 @@ help you out. Other great resources include <a href="https://users.rust-lang.org
 <p>The installer also includes a copy of the documentation locally, so you can
 read it offline. Run <code>rustup doc</code> to open the local documentation in your
 browser.</p>
-<p>Any time there's a type or function provided by the standard library and you're
+<p>Any time there’s a type or function provided by the standard library and you’re
 not sure what it does, use the API documentation to find out!</p>
 
                 </div>

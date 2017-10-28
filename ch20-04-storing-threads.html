@@ -116,14 +116,14 @@
 
                 <div id="content" class="content">
                     <a class="header" href="ch20-04-storing-threads.html#creating-the-thread-pool-and-storing-threads" id="creating-the-thread-pool-and-storing-threads"><h2>Creating the Thread Pool and Storing Threads</h2></a>
-<p>The warnings are because we aren't doing anything with the parameters to <code>new</code>
-and <code>execute</code>. Let's implement the bodies of both of these with the actual
+<p>The warnings are because we aren’t doing anything with the parameters to <code>new</code>
+and <code>execute</code>. Let’s implement the bodies of both of these with the actual
 behavior we want.</p>
 <a class="header" href="ch20-04-storing-threads.html#validating-the-number-of-threads-in-the-pool" id="validating-the-number-of-threads-in-the-pool"><h3>Validating the Number of Threads in the Pool</h3></a>
-<p>To start, let's think about <code>new</code>. We mentioned before that we picked an
+<p>To start, let’s think about <code>new</code>. We mentioned before that we picked an
 unsigned type for the <code>size</code> parameter since a pool with a negative number of
 threads makes no sense. However, a pool with zero threads also makes no sense,
-yet zero is a perfectly valid <code>u32</code>. Let's check that <code>size</code> is greater than
+yet zero is a perfectly valid <code>u32</code>. Let’s check that <code>size</code> is greater than
 zero before we return a <code>ThreadPool</code> instance and panic if we get zero by using
 the <code>assert!</code> macro as shown in Listing 20-13:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
@@ -150,15 +150,15 @@ impl ThreadPool {
 #}</code></pre></pre>
 <p><span class="caption">Listing 20-13: Implementing <code>ThreadPool::new</code> to panic if
 <code>size</code> is zero</span></p>
-<p>We've taken this opportunity to add some documentation for our <code>ThreadPool</code>
+<p>We’ve taken this opportunity to add some documentation for our <code>ThreadPool</code>
 with doc comments. Note that we followed good documentation practices and added
 a section that calls out the situations in which our function can panic as we
 discussed in Chapter 14. Try running <code>cargo doc --open</code> and clicking on the
 <code>ThreadPool</code> struct to see what the generate docs for <code>new</code> look like!</p>
-<p>Instead of adding the use of the <code>assert!</code> macro as we've done here, we could
+<p>Instead of adding the use of the <code>assert!</code> macro as we’ve done here, we could
 make <code>new</code> return a <code>Result</code> instead like we did with <code>Config::new</code> in the I/O
-project in Listing 12-9, but we've decided in this case that trying to create a
-thread pool without any threads should be an unrecoverable error. If you're
+project in Listing 12-9, but we’ve decided in this case that trying to create a
+thread pool without any threads should be an unrecoverable error. If you’re
 feeling ambitious, try to write a version of <code>new</code> with this signature to see
 how you feel about both versions:</p>
 <pre><code class="language-rust ignore">fn new(size: u32) -&gt; Result&lt;ThreadPool, PoolCreationError&gt; {
@@ -167,19 +167,19 @@ how you feel about both versions:</p>
 <p>Now that we know we have a valid number of threads to store in the pool, we can
 actually create that many threads and store them in the <code>ThreadPool</code> struct
 before returning it.</p>
-<p>This raises a question: how do we &quot;store&quot; a thread? Let's take another look at
+<p>This raises a question: how do we “store” a thread? Let’s take another look at
 the signature of <code>thread::spawn</code>:</p>
 <pre><code class="language-rust ignore">pub fn spawn&lt;F, T&gt;(f: F) -&gt; JoinHandle&lt;T&gt;
     where
         F: FnOnce() -&gt; T + Send + 'static,
         T: Send + 'static
 </code></pre>
-<p><code>spawn</code> returns a <code>JoinHandle&lt;T&gt;</code>, where <code>T</code> is the type that's returned from
-the closure. Let's try using <code>JoinHandle</code> too and see what happens. In our
-case, the closures we're passing to the thread pool will handle the connection
+<p><code>spawn</code> returns a <code>JoinHandle&lt;T&gt;</code>, where <code>T</code> is the type that’s returned from
+the closure. Let’s try using <code>JoinHandle</code> too and see what happens. In our
+case, the closures we’re passing to the thread pool will handle the connection
 and not return anything, so <code>T</code> will be the unit type <code>()</code>.</p>
-<p>This won't compile yet, but let's consider the code shown in Listing 20-14.
-We've changed the definition of <code>ThreadPool</code> to hold a vector of
+<p>This won’t compile yet, but let’s consider the code shown in Listing 20-14.
+We’ve changed the definition of <code>ThreadPool</code> to hold a vector of
 <code>thread::JoinHandle&lt;()&gt;</code> instances, initialized the vector with a capacity of
 <code>size</code>, set up a <code>for</code> loop that will run some code to create the threads, and
 returned a <code>ThreadPool</code> instance containing them:</p>
@@ -211,17 +211,17 @@ impl ThreadPool {
 </code></pre>
 <p><span class="caption">Listing 20-14: Creating a vector for <code>ThreadPool</code> to hold
 the threads</span></p>
-<p>We've brought <code>std::thread</code> into scope in the library crate, since we're using
+<p>We’ve brought <code>std::thread</code> into scope in the library crate, since we’re using
 <code>thread::JoinHandle</code> as the type of the items in the vector in <code>ThreadPool</code>.</p>
-<p>After we have a valid size, we're creating a new vector that can hold <code>size</code>
-items. We haven't used <code>with_capacity</code> in this book yet; it does the same thing
+<p>After we have a valid size, we’re creating a new vector that can hold <code>size</code>
+items. We haven’t used <code>with_capacity</code> in this book yet; it does the same thing
 as <code>Vec::new</code>, but with an important difference: it pre-allocates space in the
 vector. Since we know that we need to store <code>size</code> elements in the vector,
 doing this allocation up-front is slightly more efficient than only writing
 <code>Vec::new</code>, since <code>Vec::new</code> resizes itself as elements get inserted. Since
-we've created a vector the exact size that we need up front, no resizing of the
+we’ve created a vector the exact size that we need up front, no resizing of the
 underlying vector will happen while we populate the items.</p>
-<p>That is, if this code works, which it doesn't quite yet! If we check this code,
+<p>That is, if this code works, which it doesn’t quite yet! If we check this code,
 we get an error:</p>
 <pre><code class="language-text">$ cargo check
    Compiling hello v0.1.0 (file:///projects/hello)
@@ -234,40 +234,40 @@ error[E0308]: mismatched types
 error: aborting due to previous error
 </code></pre>
 <p><code>size</code> is a <code>u32</code>, but <code>Vec::with_capacity</code> needs a <code>usize</code>. We have two
-options here: we can change our function's signature, or we can cast the <code>u32</code>
-as a <code>usize</code>. If you remember when we defined <code>new</code>, we didn't think too hard
-about what number type made sense, we just chose one. Let's give it some more
+options here: we can change our function’s signature, or we can cast the <code>u32</code>
+as a <code>usize</code>. If you remember when we defined <code>new</code>, we didn’t think too hard
+about what number type made sense, we just chose one. Let’s give it some more
 thought now. Given that <code>size</code> is the length of a vector, <code>usize</code> makes a lot
-of sense. They even almost share a name! Let's change the signature of <code>new</code>,
+of sense. They even almost share a name! Let’s change the signature of <code>new</code>,
 which will get the code in Listing 20-14 to compile:</p>
 <pre><code class="language-rust ignore">fn new(size: usize) -&gt; ThreadPool {
 </code></pre>
-<p>If run <code>cargo check</code> again, you'll get a few more warnings, but it should
+<p>If run <code>cargo check</code> again, you’ll get a few more warnings, but it should
 succeed.</p>
 <p>We left a comment in the <code>for</code> loop in Listing 20-14 regarding the creation of
 threads. How do we actually create threads? This is a tough question. What
-should go in these threads? We don't know what work they need to do at this
+should go in these threads? We don’t know what work they need to do at this
 point, since the <code>execute</code> method takes the closure and gives it to the pool.</p>
-<p>Let's refactor slightly: instead of storing a vector of <code>JoinHandle&lt;()&gt;</code>
-instances, let's create a new struct to represent the concept of a <em>worker</em>. A
+<p>Let’s refactor slightly: instead of storing a vector of <code>JoinHandle&lt;()&gt;</code>
+instances, let’s create a new struct to represent the concept of a <em>worker</em>. A
 worker will be what receives a closure in the <code>execute</code> method, and it will
 take care of actually calling the closure. In addition to letting us store a
-fixed <code>size</code> number of <code>Worker</code> instances that don't yet know about the
-closures they're going to be executing, we can also give each worker an <code>id</code> so
+fixed <code>size</code> number of <code>Worker</code> instances that don’t yet know about the
+closures they’re going to be executing, we can also give each worker an <code>id</code> so
 we can tell the different workers in the pool apart when logging or debugging.</p>
-<p>Let's make these changes:</p>
+<p>Let’s make these changes:</p>
 <ol>
 <li>Define a <code>Worker</code> struct that holds an <code>id</code> and a <code>JoinHandle&lt;()&gt;</code></li>
 <li>Change <code>ThreadPool</code> to hold a vector of <code>Worker</code> instances</li>
 <li>Define a <code>Worker::new</code> function that takes an <code>id</code> number and returns a
 <code>Worker</code> instance with that <code>id</code> and a thread spawned with an empty closure,
-which we'll fix soon</li>
+which we’ll fix soon</li>
 <li>In <code>ThreadPool::new</code>, use the <code>for</code> loop counter to generate an <code>id</code>, create
 a new <code>Worker</code> with that <code>id</code>, and store the worker in the vector</li>
 </ol>
-<p>If you're up for a challenge, try implementing these changes on your own before
+<p>If you’re up for a challenge, try implementing these changes on your own before
 taking a look at the code in Listing 20-15.</p>
-<p>Ready? Here's Listing 20-15 with one way to make these modifications:</p>
+<p>Ready? Here’s Listing 20-15 with one way to make these modifications:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
@@ -314,19 +314,19 @@ impl Worker {
 #}</code></pre></pre>
 <p><span class="caption">Listing 20-15: Modifying <code>ThreadPool</code> to hold <code>Worker</code>
 instances instead of threads directly</span></p>
-<p>We've chosen to change the name of the field on <code>ThreadPool</code> from <code>threads</code> to
-<code>workers</code> since we've changed what we're holding, which is now <code>Worker</code>
+<p>We’ve chosen to change the name of the field on <code>ThreadPool</code> from <code>threads</code> to
+<code>workers</code> since we’ve changed what we’re holding, which is now <code>Worker</code>
 instances instead of <code>JoinHandle&lt;()&gt;</code> instances. We use the counter in the
 <code>for</code> loop as an argument to <code>Worker::new</code>, and we store each new <code>Worker</code> in
 the vector named <code>workers</code>.</p>
 <p>The <code>Worker</code> struct and its <code>new</code> function are private since external code
-(like our server in <em>src/bin/main.rs</em>) doesn't need to know the implementation
-detail that we're using a <code>Worker</code> struct within <code>ThreadPool</code>. The
+(like our server in <em>src/bin/main.rs</em>) doesn’t need to know the implementation
+detail that we’re using a <code>Worker</code> struct within <code>ThreadPool</code>. The
 <code>Worker::new</code> function uses the given <code>id</code> and stores a <code>JoinHandle&lt;()&gt;</code>
 created by spawning a new thread using an empty closure.</p>
 <p>This code compiles and is storing the number of <code>Worker</code> instances that we
-specified as an argument to <code>ThreadPool::new</code>, but we're <em>still</em> not processing
-the closure that we get in <code>execute</code>. Let's talk about how to do that next.</p>
+specified as an argument to <code>ThreadPool::new</code>, but we’re <em>still</em> not processing
+the closure that we get in <code>execute</code>. Let’s talk about how to do that next.</p>
 
                 </div>
 

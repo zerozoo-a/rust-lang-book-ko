@@ -116,14 +116,14 @@
 
                 <div id="content" class="content">
                     <a class="header" href="ch19-05-advanced-functions-and-closures.html#advanced-functions--closures" id="advanced-functions--closures"><h2>Advanced Functions &amp; Closures</h2></a>
-<p>Finally, let's discuss some advanced features having to do with functions and
+<p>Finally, let’s discuss some advanced features having to do with functions and
 closures: function pointers, diverging functions, and returning closures.</p>
 <a class="header" href="ch19-05-advanced-functions-and-closures.html#function-pointers" id="function-pointers"><h3>Function pointers</h3></a>
-<p>We've talked about how to pass closures to functions, but you can pass regular
-functions to functions too! Functions have the type <code>fn</code>, with a lower case 'f'
-not to be confused with the <code>Fn</code> closure trait. <code>fn</code> is called a <em>function
-pointer</em>. The syntax for specifying that a parameter is a function pointer is
-similar to that of closures, as shown in Listing 19-34:</p>
+<p>We’ve talked about how to pass closures to functions, but you can pass regular
+functions to functions too! Functions coerce to the type <code>fn</code>, with a lower
+case ‘f’ not to be confused with the <code>Fn</code> closure trait. <code>fn</code> is called a
+<em>function pointer</em>. The syntax for specifying that a parameter is a function
+pointer is similar to that of closures, as shown in Listing 19-38:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn add_one(x: i32) -&gt; i32 {
     x + 1
@@ -139,7 +139,7 @@ fn main() {
     println!(&quot;The answer is: {}&quot;, answer);
 }
 </code></pre></pre>
-<p><span class="caption">Listing 19-34: Using the <code>fn</code> type to accept a function
+<p><span class="caption">Listing 19-38: Using the <code>fn</code> type to accept a function
 pointer as an argument</span></p>
 <p>This prints <code>The answer is: 12</code>. We specify that the parameter <code>f</code> in
 <code>do_twice</code> is an <code>fn</code> that takes one parameter of type <code>i32</code> and returns an
@@ -152,9 +152,9 @@ of the <code>Fn</code> traits as a trait bound.</p>
 <code>FnOnce</code>), so we can always pass a function pointer as an argument when calling
 a function that expects a closure. Prefer to write functions using a generic
 type and one of the closure traits, so that your functions can accept either
-functions or closures. An example of a case where you'd only want to accept
-<code>fn</code> is when interfacing with external code that doesn't have closures: C
-functions can accept functions as arguments, but C doesn't have closures.</p>
+functions or closures. An example of a case where you’d only want to accept
+<code>fn</code> is when interfacing with external code that doesn’t have closures: C
+functions can accept functions as arguments, but C doesn’t have closures.</p>
 <p>For example, if we wanted to use the <code>map</code> function to turn a vector of numbers
 into a vector of strings, we could use a closure:</p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -177,20 +177,20 @@ let list_of_strings: Vec&lt;String&gt; = list_of_numbers
     .collect();
 #}</code></pre></pre>
 <p>Note that we do have to use the fully qualified syntax that we talked about in
-the &quot;Advanced Traits&quot; section because there are multiple functions available
-named <code>to_string</code>; here, we're using the <code>to_string</code> function defined in the
+the “Advanced Traits” section because there are multiple functions available
+named <code>to_string</code>; here, we’re using the <code>to_string</code> function defined in the
 <code>ToString</code> trait, which the standard library has implemented for any type that
 implements <code>Display</code>.</p>
 <p>Some people prefer this style, some people prefer the closure. They end up
 with the same code, so use whichever feels more clear to you.</p>
 <a class="header" href="ch19-05-advanced-functions-and-closures.html#returning-closures" id="returning-closures"><h3>Returning Closures</h3></a>
 <p>Because closures are represented by traits, returning closures is a little
-tricky; we can't do it directly. In most cases where we may want to return a
+tricky; we can’t do it directly. In most cases where we may want to return a
 trait, we can instead use the concrete type that implements the trait of what
-we're returning as the return value of the function. We can't do that with
-closures, though. They don't have a concrete type that's returnable; we're not
+we’re returning as the return value of the function. We can’t do that with
+closures, though. They don’t have a concrete type that’s returnable; we’re not
 allowed to use the function pointer <code>fn</code> as a return type, for example.</p>
-<p>This code that tries to return a closure directly won't compile:</p>
+<p>This code that tries to return a closure directly won’t compile:</p>
 <pre><code class="language-rust ignore">fn returns_closure() -&gt; Fn(i32) -&gt; i32 {
     |x| x + 1
 }
@@ -208,7 +208,7 @@ std::marker::Sized` is not satisfied
   known at compile-time
   = note: the return type of a function must have a statically known size
 </code></pre>
-<p>The <code>Sized</code> trait again! Rust doesn't know much space it'll need to store the
+<p>The <code>Sized</code> trait again! Rust doesn’t know how much space it’ll need to store the
 closure. We saw a solution to this in the previous section, though: we can use
 a trait object:</p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -220,11 +220,11 @@ fn returns_closure() -&gt; Box&lt;Fn(i32) -&gt; i32&gt; {
 #}</code></pre></pre>
 <p>For more about trait objects, refer back to Chapter 18.</p>
 <a class="header" href="ch19-05-advanced-functions-and-closures.html#summary" id="summary"><h2>Summary</h2></a>
-<p>Whew! Now we've gone over features of Rust that aren't used very often, but are
-available if you need them. We've introduced a lot of complex topics so that
-when you encounter them in error message suggestions or when reading others'
-code, you'll at least have seen these concepts and syntax once before.</p>
-<p>Now, let's put everything we've learned throughout the book into practice with
+<p>Whew! Now we’ve gone over features of Rust that aren’t used very often, but are
+available if you need them. We’ve introduced a lot of complex topics so that
+when you encounter them in error message suggestions or when reading others’
+code, you’ll at least have seen these concepts and syntax once before.</p>
+<p>Now, let’s put everything we’ve learned throughout the book into practice with
 one more project!</p>
 
                 </div>

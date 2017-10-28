@@ -120,15 +120,15 @@
 parameters to help Rust understand how the lifetimes of different references
 relate. We saw how most of the time, Rust will let you elide lifetimes, but
 every reference has a lifetime. There are three advanced features of lifetimes
-that we haven't covered though: <em>lifetime subtyping</em>, <em>lifetime
-bounds</em>, and <em>trait object lifetimes</em>.</p>
+that we haven’t covered though: <em>lifetime subtyping</em>, <em>lifetime bounds</em>, and
+<em>trait object lifetimes</em>.</p>
 <a class="header" href="ch19-02-advanced-lifetimes.html#lifetime-subtyping" id="lifetime-subtyping"><h3>Lifetime Subtyping</h3></a>
-<p>Imagine that we want to write a parser. To do this, we'll have a structure that
-holds a reference to the string that we're parsing, and we'll call that struct
-<code>Context</code>. We'll write a parser that will parse this string and return success
+<p>Imagine that we want to write a parser. To do this, we’ll have a structure that
+holds a reference to the string that we’re parsing, and we’ll call that struct
+<code>Context</code>. We’ll write a parser that will parse this string and return success
 or failure. The parser will need to borrow the context to do the parsing.
-Implementing this would look like the code in Listing 19-12, which won't
-compile because we've left off the lifetime annotations for now:</p>
+Implementing this would look like the code in Listing 19-12, which won’t
+compile because we’ve left off the lifetime annotations for now:</p>
 <pre><code class="language-rust ignore">struct Context(&amp;str);
 
 struct Parser {
@@ -145,14 +145,14 @@ impl Parser {
 string slice, a <code>Parser</code> struct that holds a reference to a <code>Context</code> instance,
 and a <code>parse</code> method that always returns an error referencing the string
 slice</span></p>
-<p>For simplicity's sake, our <code>parse</code> function returns a <code>Result&lt;(), &amp;str&gt;</code>. That
-is, we don't do anything on success, and on failure we return the part of the
-string slice that didn't parse correctly. A real implementation would have more
+<p>For simplicity’s sake, our <code>parse</code> function returns a <code>Result&lt;(), &amp;str&gt;</code>. That
+is, we don’t do anything on success, and on failure we return the part of the
+string slice that didn’t parse correctly. A real implementation would have more
 error information than that, and would actually return something created when
-parsing succeeds, but we're leaving those parts of the implementation off since
-they aren't relevant to the lifetimes part of this example. We're also defining
+parsing succeeds, but we’re leaving those parts of the implementation off since
+they aren’t relevant to the lifetimes part of this example. We’re also defining
 <code>parse</code> to always produce an error after the first byte. Note that this may
-panic if the first byte is not on a valid character boundary; again, we're
+panic if the first byte is not on a valid character boundary; again, we’re
 simplifying the example in order to concentrate on the lifetimes involved.</p>
 <p>So how do we fill in the lifetime parameters for the string slice in <code>Context</code>
 and the reference to the <code>Context</code> in <code>Parser</code>? The most straightforward thing
@@ -174,9 +174,9 @@ impl&lt;'a&gt; Parser&lt;'a&gt; {
 #}</code></pre></pre>
 <p><span class="caption">Listing 19-13: Annotating all references in <code>Context</code> and
 <code>Parser</code> with the same lifetime parameter</span></p>
-<p>This compiles fine. Next, in Listing 19-14, let's write a function that takes
+<p>This compiles fine. Next, in Listing 19-14, let’s write a function that takes
 an instance of <code>Context</code>, uses a <code>Parser</code> to parse that context, and returns
-what <code>parse</code> returns. This won't quite work:</p>
+what <code>parse</code> returns. This won’t quite work:</p>
 <pre><code class="language-rust ignore">fn parse_context(context: Context) -&gt; Result&lt;(), &amp;str&gt; {
     Parser { context: &amp;context }.parse()
 }
@@ -221,16 +221,16 @@ body at 15:55...
 17 | | }
    | |_^
 </code></pre>
-<p>These errors are saying that both the <code>Parser</code> instance we're creating and the
+<p>These errors are saying that both the <code>Parser</code> instance we’re creating and the
 <code>context</code> parameter live from the line that the <code>Parser</code> is created until the
 end of the <code>parse_context</code> function, but they both need to live for the entire
 lifetime of the function.</p>
 <p>In other words, <code>Parser</code> and <code>context</code> need to <em>outlive</em> the entire function
 and be valid before the function starts as well as after it ends in order for
-all the references in this code to always be valid. Both the <code>Parser</code> we're
+all the references in this code to always be valid. Both the <code>Parser</code> we’re
 creating and the <code>context</code> parameter go out of scope at the end of the
 function, though (since <code>parse_context</code> takes ownership of <code>context</code>).</p>
-<p>Let's look at the definitions in Listing 19-13 again, especially the signature
+<p>Let’s look at the definitions in Listing 19-13 again, especially the signature
 of the <code>parse</code> method:</p>
 <pre><code class="language-rust ignore">    fn parse(&amp;self) -&gt; Result&lt;(), &amp;str&gt; {
 </code></pre>
@@ -239,41 +239,41 @@ signature would be:</p>
 <pre><code class="language-rust ignore">    fn parse&lt;'a&gt;(&amp;'a self) -&gt; Result&lt;(), &amp;'a str&gt; {
 </code></pre>
 <p>That is, the error part of the return value of <code>parse</code> has a lifetime that is
-tied to the <code>Parser</code> instance's lifetime (that of <code>&amp;self</code> in the <code>parse</code> method
+tied to the <code>Parser</code> instance’s lifetime (that of <code>&amp;self</code> in the <code>parse</code> method
 signature). That makes sense, as the returned string slice references the
-string slice in the <code>Context</code> instance that the <code>Parser</code> holds, and we've
+string slice in the <code>Context</code> instance that the <code>Parser</code> holds, and we’ve
 specified in the definition of the <code>Parser</code> struct that the lifetime of the
 reference to <code>Context</code> that <code>Parser</code> holds and the lifetime of the string slice
 that <code>Context</code> holds should be the same.</p>
 <p>The problem is that the <code>parse_context</code> function returns the value returned
 from <code>parse</code>, so the lifetime of the return value of <code>parse_context</code> is tied to
 the lifetime of the <code>Parser</code> as well. But the <code>Parser</code> instance created in the
-<code>parse_context</code> function won't live past the end of the function (it's
+<code>parse_context</code> function won’t live past the end of the function (it’s
 temporary), and the <code>context</code> will go out of scope at the end of the function
 (<code>parse_context</code> takes ownership of it).</p>
-<p>We're not allowed to return a reference to a value that goes out of scope at
-the end of the function. Rust thinks that's what we're trying to do because we
+<p>We’re not allowed to return a reference to a value that goes out of scope at
+the end of the function. Rust thinks that’s what we’re trying to do because we
 annotated all the lifetimes with the same lifetime parameter. That told Rust
 the lifetime of the string slice that <code>Context</code> holds is the same as that of
 the lifetime of the reference to <code>Context</code> that <code>Parser</code> holds.</p>
-<p>The <code>parse_context</code> function can't see that within the <code>parse</code> function, the
+<p>The <code>parse_context</code> function can’t see that within the <code>parse</code> function, the
 string slice returned will outlive both <code>Context</code> and <code>Parser</code>, and that the
 reference <code>parse_context</code> returns refers to the string slice, not to <code>Context</code>
 or <code>Parser</code>.</p>
 <p>By knowing what the implementation of <code>parse</code> does, we know that the only
-reason that the return value of <code>parse</code> is tied to the <code>Parser</code> is because it's
-referencing the <code>Parser</code>'s <code>Context</code>, which is referencing the string slice, so
-it's really the lifetime of the string slice that <code>parse_context</code> needs to care
+reason that the return value of <code>parse</code> is tied to the <code>Parser</code> is because it’s
+referencing the <code>Parser</code>’s <code>Context</code>, which is referencing the string slice, so
+it’s really the lifetime of the string slice that <code>parse_context</code> needs to care
 about. We need a way to tell Rust that the string slice in <code>Context</code> and the
 reference to the <code>Context</code> in <code>Parser</code> have different lifetimes and that the
 return value of <code>parse_context</code> is tied to the lifetime of the string slice in
 <code>Context</code>.</p>
 <p>We could try only giving <code>Parser</code> and <code>Context</code> different lifetime parameters
-as shown in Listing 19-15. We've chosen the lifetime parameter names <code>'s</code> and
+as shown in Listing 19-15. We’ve chosen the lifetime parameter names <code>'s</code> and
 <code>'c</code> here to be clearer about which lifetime goes with the string slice in
 <code>Context</code> and which goes with the reference to <code>Context</code> in <code>Parser</code>. Note that
-this won't completely fix the problem, but it's a start and we'll look at why
-this isn't sufficient when we try to compile.</p>
+this won’t completely fix the problem, but it’s a start and we’ll look at why
+this isn’t sufficient when we try to compile.</p>
 <pre><code class="language-rust ignore">struct Context&lt;'s&gt;(&amp;'s str);
 
 struct Parser&lt;'c, 's&gt; {
@@ -292,12 +292,12 @@ fn parse_context(context: Context) -&gt; Result&lt;(), &amp;str&gt; {
 </code></pre>
 <p><span class="caption">Listing 19-15: Specifying different lifetime parameters
 for the references to the string slice and to <code>Context</code></span></p>
-<p>We've annotated the lifetimes of the references in all the same places that we
+<p>We’ve annotated the lifetimes of the references in all the same places that we
 annotated them in Listing 19-13, but used different parameters depending on
-whether the reference goes with the string slice or with <code>Context</code>. We've also
+whether the reference goes with the string slice or with <code>Context</code>. We’ve also
 added an annotation to the string slice part of the return value of <code>parse</code> to
 indicate that it goes with the lifetime of the string slice in <code>Context</code>.</p>
-<p>Here's the error we get now:</p>
+<p>Here’s the error we get now:</p>
 <pre><code class="language-text">error[E0491]: in type `&amp;'c Context&lt;'s&gt;`, reference has a longer lifetime than the data it references
  --&gt; src/main.rs:4:5
   |
@@ -319,7 +319,7 @@ note: but the referenced data is only valid for the lifetime 's as defined on th
 5 | | }
   | |_^
 </code></pre>
-<p>Rust doesn't know of any relationship between <code>'c</code> and <code>'s</code>. In order to be
+<p>Rust doesn’t know of any relationship between <code>'c</code> and <code>'s</code>. In order to be
 valid, the referenced data in <code>Context</code> with lifetime <code>'s</code> needs to be
 constrained to guarantee that it lives longer than the reference to <code>Context</code>
 that has lifetime <code>'c</code>. If <code>'s</code> is not longer than <code>'c</code>, then the reference to
@@ -343,54 +343,52 @@ struct Parser&lt;'c, 's: 'c&gt; {
 }
 #}</code></pre></pre>
 <p>Now, the reference to <code>Context</code> in the <code>Parser</code> and the reference to the string
-slice in the <code>Context</code> have different lifetimes, and we've ensured that the
+slice in the <code>Context</code> have different lifetimes, and we’ve ensured that the
 lifetime of the string slice is longer than the reference to the <code>Context</code>.</p>
 <p>That was a very long-winded example, but as we mentioned at the start of this
-chapter, these features are pretty niche. You won't often need this syntax, but
+chapter, these features are pretty niche. You won’t often need this syntax, but
 it can come up in situations like this one, where you need to refer to
 something you have a reference to.</p>
 <a class="header" href="ch19-02-advanced-lifetimes.html#lifetime-bounds" id="lifetime-bounds"><h3>Lifetime Bounds</h3></a>
 <p>In Chapter 10, we discussed how to use trait bounds on generic types. We can
-also add lifetime parameters as constraints on generic types. For example,
-let's say we wanted to make a wrapper over references. Remember <code>RefCell&lt;T&gt;</code>
-from Chapter 15? This is how the <code>borrow</code> and <code>borrow_mut</code> methods work; they
-return wrappers over references in order to keep track of the borrowing rules
-at runtime. The struct definition, without lifetime parameters for now, would
-look like Listing 19-16:</p>
-<pre><code class="language-rust ignore">struct Ref&lt;T&gt;(&amp;T);
+also add lifetime parameters as constraints on generic types, which are called
+<em>lifetime bounds</em>. For example, consider a type that is a wrapper over
+references. Recall the <code>RefCell&lt;T&gt;</code> type from Chapter 15: its <code>borrow</code> and
+<code>borrow_mut</code> methods return the types <code>Ref</code> and <code>RefMut</code>, respectively. These
+types are wrappers over references that keep track of the borrowing rules at
+runtime. The definition of the <code>Ref</code> struct is shown in Listing 19-16, without
+lifetime bounds for now:</p>
+<pre><code class="language-rust ignore">struct Ref&lt;'a, T&gt;(&amp;'a T);
 </code></pre>
 <p><span class="caption">Listing 19-16: Defining a struct to wrap a reference to a
-generic type; without lifetime parameters to start</span></p>
-<p>However, using no lifetime bounds at all gives an error because Rust doesn't
-know how long the generic type <code>T</code> will live:</p>
+generic type; without lifetime bounds to start</span></p>
+<p>Without constraining the lifetime <code>'a</code> in relation to the generic parameter
+<code>T</code>, we get an error because Rust doesn’t know how long the generic type <code>T</code>
+will live:</p>
 <pre><code class="language-text">error[E0309]: the parameter type `T` may not live long enough
- --&gt; &lt;anon&gt;:2:19
+ --&gt; &lt;anon&gt;:1:19
   |
-2 | struct Ref&lt;'a, T&gt;(&amp;'a T);
+1 | struct Ref&lt;'a, T&gt;(&amp;'a T);
   |                   ^^^^^^
   |
   = help: consider adding an explicit lifetime bound `T: 'a`...
 note: ...so that the reference type `&amp;'a T` does not outlive the data it points at
- --&gt; &lt;anon&gt;:2:19
+ --&gt; &lt;anon&gt;:1:19
   |
-2 | struct Ref&lt;'a, T&gt;(&amp;'a T);
+1 | struct Ref&lt;'a, T&gt;(&amp;'a T);
   |                   ^^^^^^
 </code></pre>
-<p>This is the same error that we'd get if we filled in <code>T</code> with a concrete type,
-like <code>struct Ref(&amp;i32)</code>; all references in struct definitions need a lifetime
-parameter. However, because we have a generic type parameter, we can't add a
-lifetime parameter in the same way. Defining <code>Ref</code> as <code>struct Ref&lt;'a&gt;(&amp;'a T)</code>
-will result in an error because Rust can't determine that <code>T</code> lives long
-enough. Since <code>T</code> can be any type, <code>T</code> could itself be a reference or it could
-be a type that holds one or more references, each of which have their own
-lifetimes.</p>
-<p>Rust helpfully gave us good advice on how to specify the lifetime parameter in
+<p>Since <code>T</code> can be any type, <code>T</code> could itself be a reference or a type that holds
+one or more references, each of which could have their own lifetimes. Rust
+can’t be sure <code>T</code> will live as long as <code>'a</code>.</p>
+<p>Fortunately, Rust gave us helpful advice on how to specify the lifetime bound in
 this case:</p>
 <pre><code class="language-text">consider adding an explicit lifetime bound `T: 'a` so that the reference type
-`&amp;'a T` does not outlive the data it points to.
+`&amp;'a T` does not outlive the data it points at.
 </code></pre>
-<p>The code in Listing 19-17 works because <code>T: 'a</code> syntax specifies that <code>T</code> can
-be any type, but if it contains any references, <code>T</code> must live as long as <code>'a</code>:</p>
+<p>Listing 19-17 shows how to apply this advice by specifying the lifetime bound
+when we declare the generic type <code>T</code>. This code now compiles because the <code>T: 'a</code> syntax specifies that <code>T</code> can be any type, but if it contains any
+references, the references must live at least as long as <code>'a</code>:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -398,9 +396,10 @@ struct Ref&lt;'a, T: 'a&gt;(&amp;'a T);
 #}</code></pre></pre>
 <p><span class="caption">Listing 19-17: Adding lifetime bounds on <code>T</code> to specify
 that any references in <code>T</code> live at least as long as <code>'a</code></span></p>
-<p>We could choose to solve this in a different way as shown in Listing 19-18 by
-bounding <code>T</code> on <code>'static</code>. This means if <code>T</code> contains any references, they must
-have the <code>'static</code> lifetime:</p>
+<p>We could choose to solve this in a different way, shown in the definition of a
+<code>StaticRef</code> struct in Listing 19-18, by adding the <code>'static</code> lifetime bound on
+<code>T</code>. This means if <code>T</code> contains any references, they must have the <code>'static</code>
+lifetime:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -409,18 +408,18 @@ struct StaticRef&lt;T: 'static&gt;(&amp;'static T);
 <p><span class="caption">Listing 19-18: Adding a <code>'static</code> lifetime bound to <code>T</code>
 to constrain <code>T</code> to types that have only <code>'static</code> references or no
 references</span></p>
-<p>Types with no references count as <code>T: 'static</code>. Because <code>'static</code> means the
+<p>Types without any references count as <code>T: 'static</code>. Because <code>'static</code> means the
 reference must live as long as the entire program, a type that contains no
 references meets the criteria of all references living as long as the entire
 program (since there are no references). Think of it this way: if the borrow
-checker is concerned about references living long enough, then there's no real
+checker is concerned about references living long enough, then there’s no real
 distinction between a type that has no references and a type that has
 references that live forever; both of them are the same for the purpose of
 determining whether or not a reference has a shorter lifetime than what it
 refers to.</p>
 <a class="header" href="ch19-02-advanced-lifetimes.html#trait-object-lifetimes" id="trait-object-lifetimes"><h3>Trait Object Lifetimes</h3></a>
 <p>In Chapter 17, we learned about trait objects that consist of putting a trait
-behind a reference in order to use dynamic dispatch. However, we didn't discuss
+behind a reference in order to use dynamic dispatch. However, we didn’t discuss
 what happens if the type implementing the trait used in the trait object has a
 lifetime. Consider Listing 19-19, where we have a trait <code>Foo</code> and a struct
 <code>Bar</code> that holds a reference (and thus has a lifetime parameter) that
@@ -443,7 +442,7 @@ let obj = Box::new(Bar { x: &amp;num }) as Box&lt;Foo&gt;;
 #}</code></pre></pre>
 <p><span class="caption">Listing 19-19: Using a type that has a lifetime parameter
 with a trait object</span></p>
-<p>This code compiles without any errors, even though we haven't said anything
+<p>This code compiles without any errors, even though we haven’t said anything
 about the lifetimes involved in <code>obj</code>. This works because there are rules
 having to do with lifetimes and trait objects:</p>
 <ul>
@@ -455,10 +454,10 @@ be explicit.</li>
 </ul>
 <p>When we must be explicit, we can add a lifetime bound on a trait object like
 <code>Box&lt;Foo&gt;</code> with the syntax <code>Box&lt;Foo + 'a&gt;</code> or <code>Box&lt;Foo + 'static&gt;</code>, depending
-on what's needed. Just as with the other bounds, this means that any
-implementer of the <code>Foo</code> trait that has any references inside must have the
+on what’s needed. Just as with the other bounds, this means that any
+implementor of the <code>Foo</code> trait that has any references inside must have the
 lifetime specified in the trait object bounds as those references.</p>
-<p>Next, let's take a look at some other advanced features dealing with traits!</p>
+<p>Next, let’s take a look at some other advanced features dealing with traits!</p>
 
                 </div>
 

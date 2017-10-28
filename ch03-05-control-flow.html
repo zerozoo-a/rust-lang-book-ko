@@ -146,6 +146,7 @@
 <p>이 코드를 실행해보세요; 다음과 같은 결과를 얻을 수 있을 겁니다:</p>
 <pre><code class="language-text">$ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/branches`
 condition was true
 </code></pre>
@@ -155,6 +156,7 @@ condition was true
 <p>프로그램을 다시 실행시키면, 다음과 같은 결과를 보게 됩니다:</p>
 <pre><code class="language-text">$ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/branches`
 condition was false
 </code></pre>
@@ -214,6 +216,7 @@ condition was false
 <p>이번 프로그램은 분기할 수 있는 네 개의 경로를 갖습니다. 이를 수행하면, 다음과 같은 결과를 얻게 될 겁니다:</p>
 <pre><code class="language-text">$ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/branches`
 number is divisible by 3
 </code></pre>
@@ -242,6 +245,7 @@ to a variable</span></p>
 <p>변수 <code>number</code>에는 <code>if</code>식에서 산출된 값이 bound되게 됩니다. 어떤 일이 일어날지 코드를 실행해보죠:</p>
 <pre><code class="language-text">$ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/branches`
 The value of number is: 5
 </code></pre>
@@ -276,7 +280,7 @@ Rust는 정확히 프로그램의 어느 지점에 문제가 있는지 보여줍
   | |_____^ expected integral variable, found reference
   |
   = note: expected type `{integer}`
-             found type `&amp;'static str`
+             found type `&amp;str`
 </code></pre>
 <p><code>if</code> 블록이 정수형을 산출하는 식이고 <code>else</code> 블록은 문자열을 산출하는 식 입니다. 이런 경우가 성립하지 않는
 이유는 변수가 가질 수 있는 타입이 오직 하나이기 때문입니다. Rust는 컴파일 시에 <code>number</code> 변수의 타입이 뭔지
@@ -299,7 +303,8 @@ Rust는 정확히 프로그램의 어느 지점에 문제가 있는지 보여줍
 }
 </code></pre>
 <p>이 프로그램을 실행시키면, 우리는 프로그램을 강제 정지하기 전까지 <code>again!</code>이 반복 출력되는 것을 보게 됩니다.
-대부분의 터미널은 ctrl-C를 통해 프로그램을 정지시키는 기능을 지원하니 이를 시도해 보세요:</p>
+대부분의 터미널은 단축키 <span class="keystroke">ctrl-C</span>를 통해서 무한루프에 빠진 프로그램을
+정지시키는 기능을 지원합니다. 한번 시도해 보세요:</p>
 <pre><code class="language-text">$ cargo run
    Compiling loops v0.1.0 (file:///projects/loops)
      Running `target/debug/loops`
@@ -309,8 +314,8 @@ again!
 again!
 ^Cagain!
 </code></pre>
-<p>기호 <code>^C</code>는 우리가 ctrl-C를 눌렀을 때의 위치입니다. 코드가 정지 신호를 받은 시점에 따라 <code>^C</code> 이후에
-<code>again!</code>이 출력될 수도 아닐 수도 있습니다.</p>
+<p>기호 <code>^C</code>는 우리가 <span class="keystroke">ctrl-C</span>를 눌렀을 때의 위치입니다. 코드가 정지
+신호를 받은 시점에 따라 <code>^C</code> 이후에 <code>again!</code>이 출력될 수도 아닐 수도 있습니다.</p>
 <p>다행스럽게도, Rust는 보다 안정적으로 루프에서 벗어날 수 있는 방법을 제공합니다. 우리는 <code>break</code> keyword
 를 위치시켜 프로그램이 언제 루프를 멈춰야 하는지 알려줄 수 있습니다. 상기시켜 드리자면 2장 “추리 게임”에서
 사용자가 모든 숫자를 정확히 추리했을 경우 프로그램을 종료시키기 위해 사용했었습니다.</p>
@@ -337,7 +342,8 @@ again!
 <p>이 구조자는 loop, if, else 및 break를 사용하는 경우 필요한 많은 중첩을 제거하며, 더 깔끔합니다.
 조건이 true인 동안 코드가 실행되고; 그렇지 않으면 루프에서 벗어납니다.</p>
 <a class="header" href="ch03-05-control-flow.html#for와-함께하는-콜렉션-반복하기" id="for와-함께하는-콜렉션-반복하기"><h4><code>for</code>와 함께하는 콜렉션 반복하기</h4></a>
-<p>우리는 <code>while</code> 구조자를 통해 배열과 같은, 콜렉션의 각 요소에 걸쳐 반복 수행 할 수 있습니다. 예:</p>
+<p>우리는 <code>while</code> 구조자를 통해 배열과 같은, 콜렉션의 각 요소에 걸쳐 반복 수행 할 수 있습니다.
+예를 들어서, Listing 3-5을 살펴봅시다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     let a = [10, 20, 30, 40, 50];
@@ -356,6 +362,7 @@ using a <code>while</code> loop</span></p>
 (즉, <code>index &lt; 5</code>가 참이 아닐 때까지). 이 코드를 수행하면 배열의 모든 요소가 출력되게 됩니다.</p>
 <pre><code class="language-text">$ cargo run
    Compiling loops v0.1.0 (file:///projects/loops)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs
      Running `target/debug/loops`
 the value is: 10
 the value is: 20
@@ -369,7 +376,7 @@ the value is: 50
 또한 느린데, 이유는 컴파일러가 실행 간에 반복문을 통해 반복될 때마다 요소에 대한 조건 검사를 수행하는 런타임 코드를
 추가하기 때문입니다.</p>
 <p>보다 효율적은 대안으로, 우리는 <code>for</code> 반복문을 사용하여 콜렉션의 각 요소에 대한 코드를 수행할 수 있습니다.
-<code>for</code>반복문은 다음과 같습니다:</p>
+<code>for</code> 반복문은 다음 Listing 3-6과 같습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     let a = [10, 20, 30, 40, 50];

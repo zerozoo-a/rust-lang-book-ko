@@ -116,12 +116,12 @@
 
                 <div id="content" class="content">
                     <a class="header" href="ch20-00-final-project-a-web-server.html#final-project-building-a-multithreaded-web-server" id="final-project-building-a-multithreaded-web-server"><h1>Final Project: Building a Multithreaded Web Server</h1></a>
-<p>It's been a long journey, but here we are! It's the end of the book. Parting is
-such sweet sorrow. But before we go, let's build one more project together, to
+<p>It’s been a long journey, but here we are! It’s the end of the book. Parting is
+such sweet sorrow. But before we go, let’s build one more project together, to
 show off some of the things we learned in these final chapters, as well as
 re-cap some of the earlier ones.</p>
-<p>Here's what we're going to make: a web server that says hello:</p>
-<p><img src="hello.png" alt="hello from rust" /></p>
+<p>Here’s what we’re going to make: a web server that says hello:</p>
+<p><img src="img/trpl20-01.png" alt="hello from rust" /></p>
 <p>To do this, we will:</p>
 <ol>
 <li>Learn a little bit about TCP and HTTP</li>
@@ -130,15 +130,15 @@ re-cap some of the earlier ones.</p>
 <li>Create a proper HTTP response</li>
 <li>Improve the throughput of our server with a thread pool</li>
 </ol>
-<p>Before we get started, however, there's one thing we should mention: if you
+<p>Before we get started, however, there’s one thing we should mention: if you
 were writing this code in production, there are a lot of better ways to write
 it. Specifically, there are a number of robust crates on crates.io that provide
 much more complete web server and thread pool implementations than we are going
 to build.</p>
 <p>However, for this chapter, our intention is to learn, not to take the easy
-route. Since Rust is a systems programming language, we're able to choose what
-level of abstraction we want to work with. We're able to go to a lower level
-than is possible or practical in other languages if we so choose. So we'll be
+route. Since Rust is a systems programming language, we’re able to choose what
+level of abstraction we want to work with. We’re able to go to a lower level
+than is possible or practical in other languages if we so choose. So we’ll be
 writing a basic HTTP server and thread pool ourselves in order to learn the
 general ideas and techniques behind the crates we might use in the future.</p>
 

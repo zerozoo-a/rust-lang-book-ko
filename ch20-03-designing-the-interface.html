@@ -116,21 +116,21 @@
 
                 <div id="content" class="content">
                     <a class="header" href="ch20-03-designing-the-interface.html#designing-the-thread-pool-interface" id="designing-the-thread-pool-interface"><h2>Designing the Thread Pool Interface</h2></a>
-<p>Let's talk about what using the pool should look like. The authors often find
+<p>Let’s talk about what using the pool should look like. The authors often find
 that when trying to design some code, writing the client interface first can
 really help guide your design. Write the API of the code to be structured in
-the way you'd want to call it, then implement the functionality within that
+the way you’d want to call it, then implement the functionality within that
 structure rather than implementing the functionality then designing the public
 API.</p>
 <p>Similar to how we used Test Driven Development in the project in Chapter 12,
-we're going to use Compiler Driven Development here. We're going to write the
-code that calls the functions we wish we had, then we'll lean on the compiler
+we’re going to use Compiler Driven Development here. We’re going to write the
+code that calls the functions we wish we had, then we’ll lean on the compiler
 to tell us what we should change next. The compiler error messages will guide
 our implementation.</p>
 <a class="header" href="ch20-03-designing-the-interface.html#code-structure-if-we-could-use-threadspawn" id="code-structure-if-we-could-use-threadspawn"><h3>Code Structure if We Could Use <code>thread::spawn</code></h3></a>
-<p>First, let's explore what the code to create a new thread for every connection
-could look like. This isn't our final plan due to the problems with potentially
-spawning an unlimited number of threads that we talked about earlier, but it's
+<p>First, let’s explore what the code to create a new thread for every connection
+could look like. This isn’t our final plan due to the problems with potentially
+spawning an unlimited number of threads that we talked about earlier, but it’s
 a start. Listing 20-11 shows the changes to <code>main</code> to spawn a new thread to
 handle each stream within the <code>for</code> loop:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
@@ -156,14 +156,14 @@ fn main() {
 stream</span></p>
 <p>As we learned in Chapter 16, <code>thread::spawn</code> will create a new thread and then
 run the code in the closure in it. If you run this code and load <code>/sleep</code> and
-then <code>/</code> in two browser tabs, you'll indeed see the request to <code>/</code> doesn't have
+then <code>/</code> in two browser tabs, you’ll indeed see the request to <code>/</code> doesn’t have
 to wait for <code>/sleep</code> to finish. But as we mentioned, this will eventually
-overwhelm the system since we're making new threads without any limit.</p>
+overwhelm the system since we’re making new threads without any limit.</p>
 <a class="header" href="ch20-03-designing-the-interface.html#creating-a-similar-interface-for-threadpool" id="creating-a-similar-interface-for-threadpool"><h3>Creating a Similar Interface for <code>ThreadPool</code></h3></a>
 <p>We want our thread pool to work in a similar, familiar way so that switching
-from threads to a thread pool doesn't require large changes to the code we want
+from threads to a thread pool doesn’t require large changes to the code we want
 to run in the pool. Listing 20-12 shows the hypothetical interface for a
-<code>ThreadPool</code> struct we'd like to use instead of <code>thread::spawn</code>:</p>
+<code>ThreadPool</code> struct we’d like to use instead of <code>thread::spawn</code>:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust no_run"># use std::thread;
 # use std::io::prelude::*;
@@ -191,13 +191,13 @@ fn main() {
 # fn handle_connection(mut stream: TcpStream) {}
 </code></pre></pre>
 <p><span class="caption">Listing 20-12: How we want to be able to use the
-<code>ThreadPool</code> we're going to implement</span></p>
+<code>ThreadPool</code> we’re going to implement</span></p>
 <p>We use <code>ThreadPool::new</code> to create a new thread pool with a configurable number
 of threads, in this case four. Then, in the <code>for</code> loop, <code>pool.execute</code> will
 work in a similar way to <code>thread::spawn</code>.</p>
 <a class="header" href="ch20-03-designing-the-interface.html#compiler-driven-development-to-get-the-api-compiling" id="compiler-driven-development-to-get-the-api-compiling"><h3>Compiler Driven Development to Get the API Compiling</h3></a>
-<p>Go ahead and make the changes in Listing 20-12 to <em>src/main.rs</em>, and let's use
-the compiler errors to drive our development. Here's the first error we get:</p>
+<p>Go ahead and make the changes in Listing 20-12 to <em>src/main.rs</em>, and let’s use
+the compiler errors to drive our development. Here’s the first error we get:</p>
 <pre><code class="language-text">$ cargo check
    Compiling hello v0.1.0 (file:///projects/hello)
 error[E0433]: failed to resolve. Use of undeclared type or module `ThreadPool`
@@ -209,10 +209,10 @@ error[E0433]: failed to resolve. Use of undeclared type or module `ThreadPool`
 
 error: aborting due to previous error
 </code></pre>
-<p>Great, we need a <code>ThreadPool</code>. Let's switch the <code>hello</code> crate from a binary
+<p>Great, we need a <code>ThreadPool</code>. Let’s switch the <code>hello</code> crate from a binary
 crate to a library crate to hold our <code>ThreadPool</code> implementation, since the
 thread pool implementation will be independent of the particular kind of work
-that we're doing in our web server. Once we've got the thread pool library
+that we’re doing in our web server. Once we’ve got the thread pool library
 written, we could use that functionality to do whatever work we want to do, not
 just serve web requests.</p>
 <p>So create <em>src/lib.rs</em> that contains the simplest definition of a <code>ThreadPool</code>
@@ -247,7 +247,7 @@ current scope
 <p>Cool, the next thing is to create an associated function named <code>new</code> for
 <code>ThreadPool</code>. We also know that <code>new</code> needs to have one parameter that can
 accept <code>4</code> as an argument, and <code>new</code> should return a <code>ThreadPool</code> instance.
-Let's implement the simplest <code>new</code> function that will have those
+Let’s implement the simplest <code>new</code> function that will have those
 characteristics:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -263,10 +263,10 @@ impl ThreadPool {
 #}</code></pre></pre>
 <p>We picked <code>u32</code> as the type of the <code>size</code> parameter, since we know that a
 negative number of threads makes no sense. <code>u32</code> is a solid default. Once we
-actually implement <code>new</code> for real, we'll reconsider whether this is the right
-choice for what the implementation needs, but for now, we're just working
+actually implement <code>new</code> for real, we’ll reconsider whether this is the right
+choice for what the implementation needs, but for now, we’re just working
 through compiler errors.</p>
-<p>Let's check the code again:</p>
+<p>Let’s check the code again:</p>
 <pre><code class="language-text">$ cargo check
    Compiling hello v0.1.0 (file:///projects/hello)
 warning: unused variable: `size`, #[warn(unused_variables)] on by default
@@ -283,12 +283,12 @@ current scope
    |              ^^^^^^^
 </code></pre>
 <p>Okay, a warning and an error. Ignoring the warning for a moment, the error is
-because we don't have an <code>execute</code> method on <code>ThreadPool</code>. Let's define one,
+because we don’t have an <code>execute</code> method on <code>ThreadPool</code>. Let’s define one,
 and we need it to take a closure. If you remember from Chapter 13, we can take
 closures as arguments with three different traits: <code>Fn</code>, <code>FnMut</code>, and <code>FnOnce</code>.
-What kind of closure should we use? Well, we know we're going to end up doing
+What kind of closure should we use? Well, we know we’re going to end up doing
 something similar to <code>thread::spawn</code>; what bounds does the signature of
-<code>thread::spawn</code> have on its argument? Let's look at the documentation, which
+<code>thread::spawn</code> have on its argument? Let’s look at the documentation, which
 says:</p>
 <pre><code class="language-rust ignore">pub fn spawn&lt;F, T&gt;(f: F) -&gt; JoinHandle&lt;T&gt;
     where
@@ -296,15 +296,15 @@ says:</p>
         T: Send + 'static
 </code></pre>
 <p><code>F</code> is the parameter we care about here; <code>T</code> is related to the return value and
-we're not concerned with that. Given that <code>spawn</code> uses <code>FnOnce</code> as the trait
-bound on <code>F</code>, it's probably what we want as well, since we'll eventually be
+we’re not concerned with that. Given that <code>spawn</code> uses <code>FnOnce</code> as the trait
+bound on <code>F</code>, it’s probably what we want as well, since we’ll eventually be
 passing the argument we get in <code>execute</code> to <code>spawn</code>. We can be further
 confident that <code>FnOnce</code> is the trait that we want to use since the thread for
-running a request is only going to execute that request's closure one time.</p>
+running a request is only going to execute that request’s closure one time.</p>
 <p><code>F</code> also has the trait bound <code>Send</code> and the lifetime bound <code>'static</code>, which
 also make sense for our situation: we need <code>Send</code> to transfer the closure from
-one thread to another, and <code>'static</code> because we don't know how long the thread
-will execute. Let's create an <code>execute</code> method on <code>ThreadPool</code> that will take a
+one thread to another, and <code>'static</code> because we don’t know how long the thread
+will execute. Let’s create an <code>execute</code> method on <code>ThreadPool</code> that will take a
 generic parameter <code>F</code> with these bounds:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -323,11 +323,11 @@ impl ThreadPool {
 }
 #}</code></pre></pre>
 <p>The <code>FnOnce</code> trait still needs the <code>()</code> after it since this <code>FnOnce</code> is
-representing a closure that takes no parameters and doesn't return a value.
+representing a closure that takes no parameters and doesn’t return a value.
 Just like function definitions, the return type can be omitted from the
 signature, but even if we have no parameters, we still need the parentheses.</p>
-<p>Again, since we're working on getting the interface compiling, we're adding the
-simplest implementation of the <code>execute</code> method, which does nothing. Let's
+<p>Again, since we’re working on getting the interface compiling, we’re adding the
+simplest implementation of the <code>execute</code> method, which does nothing. Let’s
 check again:</p>
 <pre><code class="language-text">$ cargo check
    Compiling hello v0.1.0 (file:///projects/hello)
@@ -344,13 +344,13 @@ warning: unused variable: `f`, #[warn(unused_variables)] on by default
   |                              ^
 </code></pre>
 <p>Only warnings now! It compiles! Note that if you try <code>cargo run</code> and making a
-request in the browser, though, you'll see the errors in the browser again that
-we saw in the beginning of the chapter. Our library isn't actually calling the
+request in the browser, though, you’ll see the errors in the browser again that
+we saw in the beginning of the chapter. Our library isn’t actually calling the
 closure passed to <code>execute</code> yet!</p>
 <blockquote>
 <p>A saying you might hear about languages with strict compilers like Haskell
-and Rust is &quot;if the code compiles, it works.&quot; This is a good time to remember
-that this is just a phrase and a feeling people sometimes have, it's not
+and Rust is “if the code compiles, it works.” This is a good time to remember
+that this is just a phrase and a feeling people sometimes have, it’s not
 actually universally true. Our project compiles, but it does absolutely
 nothing! If we were building a real, complete project, this would be a great
 time to start writing unit tests to check that the code compiles <em>and</em> has

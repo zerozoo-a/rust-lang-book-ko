@@ -116,18 +116,18 @@
 
                 <div id="content" class="content">
                     <a class="header" href="ch20-05-sending-requests-via-channels.html#sending-requests-to-threads-via-channels" id="sending-requests-to-threads-via-channels"><h2>Sending Requests to Threads Via Channels</h2></a>
-<p>The next problem to tackle is that our closures do absolutely nothing. We've
+<p>The next problem to tackle is that our closures do absolutely nothing. We’ve
 been working around the problem that we get the actual closure we want to
 execute in the <code>execute</code> method, but it feels like we need to know the actual
 closures when we create the <code>ThreadPool</code>.</p>
-<p>Let's think about what we really want to do though: we want the <code>Worker</code>
+<p>Let’s think about what we really want to do though: we want the <code>Worker</code>
 structs that we just created to fetch jobs from a queue that the <code>ThreadPool</code>
 holds, and run those jobs in a thread.</p>
 <p>In Chapter 16, we learned about channels. Channels are a great way to
-communicate between two threads, and they're perfect for this use-case. The
+communicate between two threads, and they’re perfect for this use-case. The
 channel will function as the queue of jobs, and <code>execute</code> will send a job from
 the <code>ThreadPool</code> to the <code>Worker</code> instances that are checking for jobs in the
-thread they've spawned. Here's the plan:</p>
+thread they’ve spawned. Here’s the plan:</p>
 <ol>
 <li><code>ThreadPool</code> will create a channel and hold on to the sending side.</li>
 <li>Each <code>Worker</code> will hold on to the receiving side of the channel.</li>
@@ -137,9 +137,9 @@ to execute down the sending side of the channel.</li>
 <li>In a thread, the <code>Worker</code> will loop over its receiving side of the channel
 and execute the closures of any jobs it receives.</li>
 </ol>
-<p>Let's start by creating a channel in <code>ThreadPool::new</code> and holding the sending
+<p>Let’s start by creating a channel in <code>ThreadPool::new</code> and holding the sending
 side in the <code>ThreadPool</code> instance, as shown in Listing 20-16. <code>Job</code> is the type
-of item we're going to be sending down the channel; it's a struct that doesn't
+of item we’re going to be sending down the channel; it’s a struct that doesn’t
 hold anything for now:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -197,11 +197,11 @@ impl ThreadPool {
 sending end of a channel that sends <code>Job</code> instances</span></p>
 <p>In <code>ThreadPool::new</code>, we create our new channel, and then have the pool hang on
 to the sending end. This will successfully compile, still with warnings.</p>
-<p>Let's try passing a receiving end of the channel into each worker when the
+<p>Let’s try passing a receiving end of the channel into each worker when the
 thread pool creates them. We know we want to use the receiving end of the
-channel in the thread that the workers spawn, so we're going to reference the
+channel in the thread that the workers spawn, so we’re going to reference the
 <code>receiver</code> parameter in the closure. The code shown here in Listing 20-17
-won't quite compile yet:</p>
+won’t quite compile yet:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">impl ThreadPool {
     // ...snip...
@@ -256,16 +256,16 @@ error[E0382]: use of moved value: `receiver`
    = note: move occurs because `receiver` has type
    `std::sync::mpsc::Receiver&lt;Job&gt;`, which does not implement the `Copy` trait
 </code></pre>
-<p>The code as written won't quite work since it's trying to pass <code>receiver</code> to
+<p>The code as written won’t quite work since it’s trying to pass <code>receiver</code> to
 multiple <code>Worker</code> instances. Recall from Chapter 16 that the channel
 implementation provided by Rust is multiple <em>producer</em>, single <em>consumer</em>, so
-we can't just clone the consuming end of the channel to fix this. We also don't
+we can’t just clone the consuming end of the channel to fix this. We also don’t
 want to clone the consuming end even if we wanted to; sharing the single
-<code>receiver</code> between all of the workers is the mechanism by which we'd like to
+<code>receiver</code> between all of the workers is the mechanism by which we’d like to
 distribute the jobs across the threads.</p>
 <p>Additionally, taking a job off the channel queue involves mutating <code>receiver</code>,
 so the threads need a safe way to share <code>receiver</code> and be allowed to modify it.
-If the modifications weren't threadsafe, we might get race conditions such as
+If the modifications weren’t threadsafe, we might get race conditions such as
 two threads executing the same job if they both take the same job off the queue
 at the same time.</p>
 <p>So remembering the threadsafe smart pointers that we discussed in Chapter 16,
@@ -303,7 +303,7 @@ impl ThreadPool {
         let mut workers = Vec::with_capacity(size);
 
         for id in 0..size {
-            workers.push(Worker::new(id, receiver.clone()));
+            workers.push(Worker::new(id, Arc::clone(&amp;receiver)));
         }
 
         ThreadPool {
@@ -338,8 +338,8 @@ between the workers by using <code>Arc</code> and <code>Mutex</code></span></p>
 <p>In <code>ThreadPool::new</code>, we put the receiving end of the channel in an <code>Arc</code> and a
 <code>Mutex</code>. For each new worker, we clone the <code>Arc</code> to bump the reference count so
 the workers can share ownership of the receiving end.</p>
-<p>With these changes, the code compiles! We're getting there!</p>
-<p>Let's finally implement the <code>execute</code> method on <code>ThreadPool</code>. We're also going
+<p>With these changes, the code compiles! We’re getting there!</p>
+<p>Let’s finally implement the <code>execute</code> method on <code>ThreadPool</code>. We’re also going
 to change the <code>Job</code> struct: instead of being a struct, <code>Job</code> is going to be a
 type alias for a trait object that holds the type of closure that <code>execute</code>
 receives. We discussed how type aliases can help make long types shorter, and
@@ -376,17 +376,17 @@ impl ThreadPool {
 <p><span class="caption">Listing 20-19: Creating a <code>Job</code> type alias for a <code>Box</code>
 that holds each closure, then sending the job down the channel</span></p>
 <p>After creating a new <code>Job</code> instance using the closure we get in
-<code>execute</code>, we send that job down the sending end of the channel. We're calling
+<code>execute</code>, we send that job down the sending end of the channel. We’re calling
 <code>unwrap</code> on <code>send</code> since sending may fail if the receiving end has stopped
 receiving new messages, which would happen if we stop all of our threads from
-executing. This isn't possible right now, though, since our threads continue
+executing. This isn’t possible right now, though, since our threads continue
 executing as long as the pool exists. We use <code>unwrap</code> since we know the failure
-case won't happen even though the compiler can't tell that, which is an
+case won’t happen even though the compiler can’t tell that, which is an
 appropriate use of <code>unwrap</code> as we discussed in Chapter 9.</p>
-<p>Are we done yet? Not quite! In the worker, we've still got a closure being
+<p>Are we done yet? Not quite! In the worker, we’ve still got a closure being
 passed to <code>thread::spawn</code> that only <em>references</em> the receiving end of the
 channel. Instead, we need the closure to loop forever, asking the receiving end
-of the channel for a job, and running the job when it gets one. Let's make the
+of the channel for a job, and running the job when it gets one. Let’s make the
 change shown in Listing 20-20 to <code>Worker::new</code>:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">// ...snip...
@@ -411,23 +411,23 @@ impl Worker {
 }
 </code></pre>
 <p><span class="caption">Listing 20-20: Receiving and executing the jobs in the
-worker's thread</span></p>
+worker’s thread</span></p>
 <p>Here, we first call <code>lock</code> on the <code>receiver</code> to acquire the mutex, then
 <code>unwrap</code> to panic on any errors. Acquiring a lock might fail if the mutex is in
 a state called <em>poisoned</em>, which can happen if some other thread panicked while
-holding the lock rather than releasing it. If this thread can't get the lock
+holding the lock rather than releasing it. If this thread can’t get the lock
 for that reason, calling <code>unwrap</code> to have this thread panic is the correct
 action to take as well. Feel free to change this <code>unwrap</code> to an <code>expect</code> with
-an error message that is meaningful to you if you'd like.</p>
+an error message that is meaningful to you if you’d like.</p>
 <p>If we get the lock on the mutex, then we call <code>recv</code> to receive a <code>Job</code> from
 the channel. A final <code>unwrap</code> moves past those errors as well. <code>recv</code> will
 return <code>Err</code> if the thread holding the sending side of the channel has shut
 down, similar to how the <code>send</code> method returns <code>Err</code> if the receiving side
 shuts down.</p>
-<p>The call to <code>recv</code> blocks; that is, if there's no job yet, this thread will sit
+<p>The call to <code>recv</code> blocks; that is, if there’s no job yet, this thread will sit
 here until a job becomes available. The <code>Mutex&lt;T&gt;</code> makes sure that only one
 <code>Worker</code> thread at a time is trying to request a job.</p>
-<p>Theoretically, this code should compile. Unfortunately, the Rust compiler isn't
+<p>Theoretically, this code should compile. Unfortunately, the Rust compiler isn’t
 perfect yet, and we get this error:</p>
 <pre><code class="language-text">error[E0161]: cannot move a value of type std::ops::FnOnce() +
 std::marker::Send: the size of std::ops::FnOnce() + std::marker::Send cannot be
@@ -437,27 +437,27 @@ statically determined
 63 |                 (*job)();
    |                 ^^^^^^
 </code></pre>
-<p>This error is fairly cryptic, and that's because the problem is fairly cryptic.
+<p>This error is fairly cryptic, and that’s because the problem is fairly cryptic.
 In order to call a <code>FnOnce</code> closure that is stored in a <code>Box&lt;T&gt;</code> (which is what
 our <code>Job</code> type alias is), the closure needs to be able to move itself out of
 the <code>Box&lt;T&gt;</code> since when we call the closure, it takes ownership of <code>self</code>. In
-general, moving a value out of a <code>Box&lt;T&gt;</code> isn't allowed since Rust doesn't know
+general, moving a value out of a <code>Box&lt;T&gt;</code> isn’t allowed since Rust doesn’t know
 how big the value inside the <code>Box&lt;T&gt;</code> is going to be; recall in Chapter 15 that
 we used <code>Box&lt;T&gt;</code> precisely because we had something of an unknown size that we
 wanted to store in a <code>Box&lt;T&gt;</code> to get a value of a known size.</p>
 <p>We saw in Chapter 17, Listing 17-15 that we can write methods that use the
 syntax <code>self: Box&lt;Self&gt;</code> so that the method takes ownership of a <code>Self</code> value
-that is stored in a <code>Box&lt;T&gt;</code>. That's what we want to do here, but unfortunately
-the part of Rust that implements what happens when we call a closure isn't
-implemented using <code>self: Box&lt;Self&gt;</code>. So Rust doesn't yet understand that it
+that is stored in a <code>Box&lt;T&gt;</code>. That’s what we want to do here, but unfortunately
+the part of Rust that implements what happens when we call a closure isn’t
+implemented using <code>self: Box&lt;Self&gt;</code>. So Rust doesn’t yet understand that it
 could use <code>self: Box&lt;Self&gt;</code> in this situation in order to take ownership of the
 closure and move the closure out of the <code>Box&lt;T&gt;</code>.</p>
 <p>In the future, the code in Listing 20-20 should work just fine. Rust is still a
 work in progress with places that the compiler could be improved. There are
-people just like you working to fix this and other issues! Once you've finished
+people just like you working to fix this and other issues! Once you’ve finished
 the book, we would love for you to join in.</p>
-<p>But for now, let's work around this problem. Luckily, there's a trick that
-involves telling Rust explicitly that we're in a case where we can take
+<p>But for now, let’s work around this problem. Luckily, there’s a trick that
+involves telling Rust explicitly that we’re in a case where we can take
 ownership of the value inside the <code>Box&lt;T&gt;</code> using <code>self: Box&lt;Self&gt;</code>, and once we
 have ownership of the closure, we can call it. This involves defining a new
 trait that has a method <code>call_box</code> that uses <code>self: Box&lt;Self&gt;</code> in its
@@ -511,12 +511,12 @@ move the closure out of the <code>Box&lt;T&gt;</code> and call the closure.</p>
 <p>Instead of <code>FnOnce()</code>, we now want our <code>Job</code> type alias to be a <code>Box</code> of
 anything that implements our new trait <code>FnBox</code>. This will allow us to use
 <code>call_box</code> in <code>Worker</code> when we get a <code>Job</code> value. Because we implemented the
-<code>FnBox</code> trait for any <code>FnOnce()</code> closure, we don't have to change anything
-about the actual values we're sending down the channel.</p>
+<code>FnBox</code> trait for any <code>FnOnce()</code> closure, we don’t have to change anything
+about the actual values we’re sending down the channel.</p>
 <p>Finally, in the closure run in the thread in <code>Worker::new</code>, we use <code>call_box</code>
 instead of invoking the closure directly. Now Rust is able to understand that
 what we want to do is fine.</p>
-<p>This is a very sneaky, complicated trick. Don't worry too much if it doesn't
+<p>This is a very sneaky, complicated trick. Don’t worry too much if it doesn’t
 make perfect sense; someday, it will be completely unnecessary.</p>
 <p>With this trick, our thread pool is in a working state! Give it a <code>cargo run</code>,
 and make some requests:</p>
@@ -560,24 +560,24 @@ Worker 0 got a job; executing.
 Worker 2 got a job; executing.
 </code></pre>
 <p>Success! We now have a thread pool executing connections asynchronously. We
-never create more than four threads, so our system won't get overloaded if the
+never create more than four threads, so our system won’t get overloaded if the
 server gets a lot of requests. If we make a request to <code>/sleep</code>, the server
 will be able to serve other requests by having another thread run them.</p>
-<p>What about those warnings, though? Don't we use the <code>workers</code>, <code>id</code>, and
-<code>thread</code> fields? Well, right now, we're using all three of these fields to hold
-onto some data, but we don't actually <em>do</em> anything with the data once we've
+<p>What about those warnings, though? Don’t we use the <code>workers</code>, <code>id</code>, and
+<code>thread</code> fields? Well, right now, we’re using all three of these fields to hold
+onto some data, but we don’t actually <em>do</em> anything with the data once we’ve
 set up the thread pool and started running the code that sends jobs down the
-channel to the threads. If we didn't hold onto these values, though, they'd go
-out of scope: for example, if we didn't return the <code>Vec&lt;Worker&gt;</code> value as part
+channel to the threads. If we didn’t hold onto these values, though, they’d go
+out of scope: for example, if we didn’t return the <code>Vec&lt;Worker&gt;</code> value as part
 of the <code>ThreadPool</code>, the vector would get cleaned up at the end of
 <code>ThreadPool::new</code>.</p>
 <p>So are these warnings wrong? In one sense yes, the warnings are wrong, since we
 are using the fields to store data we need to keep around. In another sense,
-no, the warnings aren't wrong, and they're telling us that we've forgotten to
-do something: we never do anything to clean up our thread pool once it's done
-being used, we just use <code>CTRL-C</code> to stop the program and let the operating
-system clean up after us. Let's implement a graceful shutdown that cleans up
-everything we've created instead.</p>
+no, the warnings aren’t wrong, and they’re telling us that we’ve forgotten to
+do something: we never do anything to clean up our thread pool once it’s done
+being used, we just use <span class="keystroke">ctrl-C</span> to stop the
+program and let the operating system clean up after us. Let’s implement a
+graceful shutdown that cleans up everything we’ve created instead.</p>
 
                 </div>
 

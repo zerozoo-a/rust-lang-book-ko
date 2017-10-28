@@ -118,20 +118,20 @@
                     <a class="header" href="ch20-06-graceful-shutdown-and-cleanup.html#graceful-shutdown-and-cleanup" id="graceful-shutdown-and-cleanup"><h2>Graceful Shutdown and Cleanup</h2></a>
 <p>The code in Listing 20-21 is responding to requests asynchronously through the
 use of a thread pool, as we intended. We get some warnings about fields that
-we're not using in a direct way, which are a reminder that we're not cleaning
-anything up. When we use <code>CTRL-C</code> to halt the main thread, all the other
-threads are stopped immediately as well, even if they're in the middle of
-serving a request.</p>
-<p>We're now going to implement the <code>Drop</code> trait for <code>ThreadPool</code> to call <code>join</code>
+we’re not using in a direct way, which are a reminder that we’re not cleaning
+anything up. When we use <span class="keystroke">ctrl-C</span> to halt the main
+thread, all the other threads are stopped immediately as well, even if they’re
+in the middle of serving a request.</p>
+<p>We’re now going to implement the <code>Drop</code> trait for <code>ThreadPool</code> to call <code>join</code>
 on each of the threads in the pool so that the threads will finish the requests
-they're working on. Then we'll implement a way for the <code>ThreadPool</code> to tell the
+they’re working on. Then we’ll implement a way for the <code>ThreadPool</code> to tell the
 threads they should stop accepting new requests and shut down. To see this code
-in action, we'll modify our server to only accept two requests before
+in action, we’ll modify our server to only accept two requests before
 gracefully shutting down its thread pool.</p>
-<p>Let's start with implementing <code>Drop</code> for our thread pool. When the pool is
+<p>Let’s start with implementing <code>Drop</code> for our thread pool. When the pool is
 dropped, we should join on all of our threads to make sure they finish their
 work. Listing 20-22 shows a first attempt at a <code>Drop</code> implementation; this code
-won't quite work yet:</p>
+won’t quite work yet:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">impl Drop for ThreadPool {
     fn drop(&amp;mut self) {
@@ -148,16 +148,16 @@ goes out of scope</span></p>
 <p>We loop through each of the thread pool <code>workers</code>, using <code>&amp;mut</code> because <code>self</code>
 is itself a mutable reference and we also need to be able to mutate <code>worker</code>.
 We print out a message saying that this particular worker is shutting down, and
-then we call <code>join</code> on that worker's thread. If the call to <code>join</code> fails, we
+then we call <code>join</code> on that worker’s thread. If the call to <code>join</code> fails, we
 <code>unwrap</code> the error to panic and go into an ungraceful shutdown.</p>
-<p>Here's the error we get if we compile this code:</p>
+<p>Here’s the error we get if we compile this code:</p>
 <pre><code class="language-text">error[E0507]: cannot move out of borrowed content
   --&gt; src/lib.rs:65:13
    |
 65 |             worker.thread.join().unwrap();
    |             ^^^^^^ cannot move out of borrowed content
 </code></pre>
-<p>Because we only have a mutable borrow of each <code>worker</code>, we can't call <code>join</code>:
+<p>Because we only have a mutable borrow of each <code>worker</code>, we can’t call <code>join</code>:
 <code>join</code> takes ownership of its argument. In order to solve this, we need a way
 to move the <code>thread</code> out of the <code>Worker</code> instance that owns <code>thread</code> so that
 <code>join</code> can consume the thread. We saw a way to do this in Listing 17-15: if the
@@ -165,7 +165,7 @@ to move the <code>thread</code> out of the <code>Worker</code> instance that own
 <code>take</code> method on the <code>Option</code> to move the value out of the <code>Some</code> variant and
 leave a <code>None</code> variant in its place. In other words, a <code>Worker</code> that is running
 will have a <code>Some</code> variant in <code>thread</code>, and when we want to clean up a worker,
-we'll replace <code>Some</code> with <code>None</code> so the worker doesn't have a thread to run.</p>
+we’ll replace <code>Some</code> with <code>None</code> so the worker doesn’t have a thread to run.</p>
 <p>So we know we want to update the definition of <code>Worker</code> like this:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -177,7 +177,7 @@ struct Worker {
     thread: Option&lt;thread::JoinHandle&lt;()&gt;&gt;,
 }
 #}</code></pre></pre>
-<p>Now let's lean on the compiler to find the other places that need to change. We
+<p>Now let’s lean on the compiler to find the other places that need to change. We
 get two errors:</p>
 <pre><code class="language-text">error: no method named `join` found for type
 `std::option::Option&lt;std::thread::JoinHandle&lt;()&gt;&gt;` in the current scope
@@ -210,8 +210,8 @@ to wrap the <code>thread</code> value in <code>Some</code> when we create a new 
     }
 }
 </code></pre>
-<p>The first error is in our <code>Drop</code> implementation, and we mentioned that we'll be
-calling <code>take</code> on the <code>Option</code> value to move <code>thread</code> out of <code>worker</code>. Here's
+<p>The first error is in our <code>Drop</code> implementation, and we mentioned that we’ll be
+calling <code>take</code> on the <code>Option</code> value to move <code>thread</code> out of <code>worker</code>. Here’s
 what that looks like:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">impl Drop for ThreadPool {
@@ -227,17 +227,17 @@ what that looks like:</p>
 }
 </code></pre>
 <p>As we saw in Chapter 17, the <code>take</code> method on <code>Option</code> takes the <code>Some</code> variant
-out and leaves <code>None</code> in its place. We're using <code>if let</code> to destructure the
-<code>Some</code> and get the thread, then call <code>join</code> on the thread. If a worker's thread
+out and leaves <code>None</code> in its place. We’re using <code>if let</code> to destructure the
+<code>Some</code> and get the thread, then call <code>join</code> on the thread. If a worker’s thread
 is already <code>None</code>, then we know this worker has already had its thread cleaned
-up so we don't do anything in that case.</p>
+up so we don’t do anything in that case.</p>
 <p>With this, our code compiles without any warnings. Bad news though, this code
-doesn't function the way we want it to yet. The key is the logic in the
+doesn’t function the way we want it to yet. The key is the logic in the
 closures that the spawned threads of the <code>Worker</code> instances run: calling <code>join</code>
-won't shut down the threads since they <code>loop</code> forever looking for jobs. If we
+won’t shut down the threads since they <code>loop</code> forever looking for jobs. If we
 try to drop our <code>ThreadPool</code> with this implementation, the main thread will
 block forever waiting for the first thread to finish.</p>
-<p>To fix this, we're going to modify the threads to listen for either a <code>Job</code> to
+<p>To fix this, we’re going to modify the threads to listen for either a <code>Job</code> to
 run or a signal that they should stop listening and exit the infinite loop. So
 instead of <code>Job</code> instances, our channel will send one of these two enum
 variants:</p>
@@ -322,11 +322,11 @@ exiting the loop if a <code>Worker</code> receives <code>Message::Terminate</cod
 <code>ThreadPool::new</code> where we create the channel, and in the signature of
 <code>Worker::new</code>. The <code>execute</code> method of <code>ThreadPool</code> needs to send jobs wrapped
 in the <code>Message::NewJob</code> variant. Then, in <code>Worker::new</code> where we receive a
-<code>Message</code> from the channel, we'll process the job if we get the <code>NewJob</code>
+<code>Message</code> from the channel, we’ll process the job if we get the <code>NewJob</code>
 variant and break out of the loop if we get the <code>Terminate</code> variant.</p>
 <p>With these changes, the code will compile again and continue to function in the
-same way as it has been. We'll get a warning, though, because we aren't using
-the <code>Terminate</code> variant in any messages. Let's change our <code>Drop</code> implementation
+same way as it has been. We’ll get a warning, though, because we aren’t using
+the <code>Terminate</code> variant in any messages. Let’s change our <code>Drop</code> implementation
 to look like Listing 20-24:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">impl Drop for ThreadPool {
@@ -351,60 +351,53 @@ to look like Listing 20-24:</p>
 </code></pre>
 <p><span class="caption">Listing 20-24: Sending <code>Message::Terminate</code> to the
 workers before calling <code>join</code> on each worker thread</span></p>
-<p>We're now iterating over the workers twice, once to send one <code>Terminate</code>
-message for each worker, and once to call <code>join</code> on each worker's thread. If we
-tried to send a message and join immediately in the same loop, it's not
+<p>We’re now iterating over the workers twice, once to send one <code>Terminate</code>
+message for each worker, and once to call <code>join</code> on each worker’s thread. If we
+tried to send a message and join immediately in the same loop, it’s not
 guaranteed that the worker in the current iteration will be the one that gets
 the message from the channel.</p>
 <p>To understand better why we need two separate loops, imagine a scenario with
 two workers. If we iterated through each worker in one loop, on the first
-iteration where <code>worker</code> is the first worker, we'd send a terminate message
-down the channel and call <code>join</code> on the first worker's thread. If the first
+iteration where <code>worker</code> is the first worker, we’d send a terminate message
+down the channel and call <code>join</code> on the first worker’s thread. If the first
 worker was busy processing a request at that moment, the second worker would
-pick up the terminate message from the channel and shut down. We're waiting on
+pick up the terminate message from the channel and shut down. We’re waiting on
 the first worker to shut down, but it never will since the second thread picked
-up the terminate message. We're now blocking forever waiting for the first
-worker to shut down, and we'll never send the second message to terminate.
+up the terminate message. We’re now blocking forever waiting for the first
+worker to shut down, and we’ll never send the second message to terminate.
 Deadlock!</p>
 <p>To prevent this, we first put all of our <code>Terminate</code> messages on the channel,
 and then we join on all the threads. Because each worker will stop receiving
 requests on the channel once it gets a terminate message, we can be sure that
 if we send the same number of terminate messages as there are workers, each
 worker will receive a terminate message before we call <code>join</code> on its thread.</p>
-<p>In order to see this code in action, let's modify <code>main</code> to only accept two
+<p>In order to see this code in action, let’s modify <code>main</code> to only accept two
 requests before gracefully shutting the server down as shown in Listing 20-25:</p>
 <p><span class="filename">Filename: src/bin/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
     let listener = TcpListener::bind(&quot;127.0.0.1:8080&quot;).unwrap();
     let pool = ThreadPool::new(4);
 
-    let mut counter = 0;
-
-    for stream in listener.incoming() {
-        if counter == 2 {
-            println!(&quot;Shutting down.&quot;);
-            break;
-        }
-
-        counter += 1;
-
+    for stream in listener.incoming().take(2) {
         let stream = stream.unwrap();
 
         pool.execute(|| {
             handle_connection(stream);
         });
     }
+
+    println!(&quot;Shutting down.&quot;);
 }
 </code></pre>
 <p><span class="caption">Listing 20-25: Shut down the server after serving two
 requests by exiting the loop</span></p>
-<p>Only serving two requests isn't behavior you'd like a production web server to
+<p>Only serving two requests isn’t behavior you’d like a production web server to
 have, but this will let us see the graceful shutdown and cleanup working since
-we won't be stopping the server with <code>CTRL-C</code>.</p>
-<p>We've added a <code>counter</code> variable that we'll increment every time we receive an
-incoming TCP stream. If that counter reaches 2, we'll stop serving requests and
-instead break out of the <code>for</code> loop. The <code>ThreadPool</code> will go out of scope at
-the end of <code>main</code>, and we'll see the <code>drop</code> implementation run.</p>
+we won’t be stopping the server with <span class="keystroke">ctrl-C</span>.</p>
+<p>The <code>.take(2)</code> we added to <code>listener.incoming()</code> artificially limits the
+iteration to the first 2 items at most. This combinator works for any
+implementation of the <code>Iterator</code> trait. The <code>ThreadPool</code> will go out of scope
+at the end of <code>main</code>, and we’ll see the <code>drop</code> implementation run.</p>
 <p>Start the server with <code>cargo run</code>, and make three requests. The third request
 should error, and in your terminal you should see output that looks like:</p>
 <pre><code class="language-text">$ cargo run
@@ -441,9 +434,9 @@ Once worker zero finished, the main thread waited for the rest of the workers
 to finish, and they had all received the termination message and were able to
 shut down at that point.</p>
 <p>Congrats! We now have completed our project, and we have a basic web server
-that uses a thread pool to respond asynchronously. We're able to perform a
+that uses a thread pool to respond asynchronously. We’re able to perform a
 graceful shutdown of the server, which cleans up all the threads in the pool.
-Here's the full code for reference:</p>
+Here’s the full code for reference:</p>
 <p><span class="filename">Filename: src/bin/main.rs</span></p>
 <pre><code class="language-rust ignore">extern crate hello;
 use hello::ThreadPool;
@@ -459,22 +452,15 @@ fn main() {
     let listener = TcpListener::bind(&quot;127.0.0.1:8080&quot;).unwrap();
     let pool = ThreadPool::new(4);
 
-    let mut counter = 0;
-
-    for stream in listener.incoming() {
-        if counter == 2 {
-            println!(&quot;Shutting down.&quot;);
-            break;
-        }
-
-        counter += 1;
-
+    for stream in listener.incoming().take(2) {
         let stream = stream.unwrap();
 
         pool.execute(|| {
             handle_connection(stream);
         });
     }
+
+    println!(&quot;Shutting down.&quot;);
 }
 
 fn handle_connection(mut stream: TcpStream) {
@@ -553,7 +539,7 @@ impl ThreadPool {
         let mut workers = Vec::with_capacity(size);
 
         for id in 0..size {
-            workers.push(Worker::new(id, receiver.clone()));
+            workers.push(Worker::new(id, Arc::clone(&amp;receiver)));
         }
 
         ThreadPool {
@@ -627,11 +613,11 @@ impl Worker {
     }
 }
 #}</code></pre></pre>
-<p>There's more we could do here! If you'd like to continue enhancing this
+<p>There’s more we could do here! If you’d like to continue enhancing this
 project, here are some ideas:</p>
 <ul>
 <li>Add more documentation to <code>ThreadPool</code> and its public methods</li>
-<li>Add tests of the library's functionality</li>
+<li>Add tests of the library’s functionality</li>
 <li>Change calls to <code>unwrap</code> to more robust error handling</li>
 <li>Use <code>ThreadPool</code> to perform some other task rather than serving web requests</li>
 <li>Find a thread pool crate on crates.io and implement a similar web server
@@ -639,9 +625,9 @@ using the crate instead and compare its API and robustness to the thread pool
 we implemented</li>
 </ul>
 <a class="header" href="ch20-06-graceful-shutdown-and-cleanup.html#summary" id="summary"><h2>Summary</h2></a>
-<p>Well done! You've made it to the end of the book! We'd like to thank you for
-joining us on this tour of Rust. You're now ready to go out and implement your
-own Rust projects or help with other people's. Remember there's a community of
+<p>Well done! You’ve made it to the end of the book! We’d like to thank you for
+joining us on this tour of Rust. You’re now ready to go out and implement your
+own Rust projects or help with other people’s. Remember there’s a community of
 other Rustaceans who would love to help you with any challenges you encounter
 on your Rust journey.</p>
 

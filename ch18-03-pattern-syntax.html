@@ -116,7 +116,7 @@
 
                 <div id="content" class="content">
                     <a class="header" href="ch18-03-pattern-syntax.html#all-the-pattern-syntax" id="all-the-pattern-syntax"><h2>All the Pattern Syntax</h2></a>
-<p>We've seen some examples of different kinds of patterns throughout the book.
+<p>We’ve seen some examples of different kinds of patterns throughout the book.
 This section lists all the syntax valid in patterns and why you might want to
 use each of them.</p>
 <a class="header" href="ch18-03-pattern-syntax.html#literals" id="literals"><h3>Literals</h3></a>
@@ -160,18 +160,18 @@ running this code or reading further:</p>
 <p><span class="caption">Listing 18-10: A <code>match</code> statement with an arm that
 introduces a shadowed variable <code>y</code></span></p>
 <!-- NEXT PARAGRAPH WRAPPED WEIRD INTENTIONALLY SEE #199 -->
-<p>Let's walk through what happens when the <code>match</code> statement runs. The first
+<p>Let’s walk through what happens when the <code>match</code> statement runs. The first
 match arm has the pattern <code>Some(50)</code>, and the value in <code>x</code> (<code>Some(5)</code>) does not
 match <code>Some(50)</code>, so we continue. In the second match arm, the pattern
 <code>Some(y)</code> introduces a new variable name <code>y</code> that will match any value inside a
-<code>Some</code> value. Because we're in a new scope inside the <code>match</code> expression, this
+<code>Some</code> value. Because we’re in a new scope inside the <code>match</code> expression, this
 is a new variable, not the <code>y</code> we declared at the beginning that has the
 value 10. The new <code>y</code> binding will match any value inside a <code>Some</code>, which is
 what we have in <code>x</code>, so we execute the expression for that arm and print
 <code>Matched, y = 5</code> since this <code>y</code> binds to the inner value of the <code>Some</code> in <code>x</code>,
 which is 5.</p>
 <p>If <code>x</code> had been a <code>None</code> value instead of <code>Some(5)</code>, we would have matched the
-underscore since the other two arms' patterns would not have matched. In the
+underscore since the other two arms’ patterns would not have matched. In the
 expression for that match arm, since we did not introduce an <code>x</code> variable in
 the pattern of the arm, this <code>x</code> is still the outer <code>x</code> that has not been
 shadowed. In this hypothetical case, the <code>match</code> would print <code>Default case, x = None</code>.</p>
@@ -179,7 +179,7 @@ shadowed. In this hypothetical case, the <code>match</code> would print <code>De
 the inner <code>y</code>. The last <code>println!</code> produces <code>at the end: x = Some(5), y = 10</code>.</p>
 <p>In order to make a <code>match</code> expression that compares the values of the outer <code>x</code>
 and <code>y</code> rather than introducing a shadowed variable, we would need to use a
-match guard conditional instead. We'll be talking about match guards later in
+match guard conditional instead. We’ll be talking about match guards later in
 this section.</p>
 <a class="header" href="ch18-03-pattern-syntax.html#multiple-patterns" id="multiple-patterns"><h3>Multiple patterns</h3></a>
 <p>In <code>match</code> expressions only, you can match multiple patterns with <code>|</code>, which
@@ -209,7 +209,7 @@ match x {
 }
 #}</code></pre></pre>
 <p>If <code>x</code> is 1, 2, 3, 4, or 5, the first arm will match.</p>
-<p>Ranges are only allowed with numeric values or <code>char</code> values. Here's an example
+<p>Ranges are only allowed with numeric values or <code>char</code> values. Here’s an example
 using ranges of <code>char</code> values:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
@@ -248,7 +248,7 @@ shorthand</span></p>
 names of the variables must match the names of the fields to use this
 shorthand. If we wanted to use names different than the variable names, we can
 specify <code>field_name: variable_name</code> in the pattern. In Listing 18-12, <code>a</code> will
-have the value in the <code>Point</code> instance's <code>x</code> field and <code>b</code> will have the value
+have the value in the <code>Point</code> instance’s <code>x</code> field and <code>b</code> will have the value
 in the <code>y</code> field:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">struct Point {
@@ -292,7 +292,7 @@ by virtue of <code>x</code> having the value 0.</p>
 <p>We used destructuring on enums in Chapter 6, such as in Listing 6-5 where we
 destructured an <code>Option&lt;i32&gt;</code> using a <code>match</code> expression and added one to the
 inner value of the <code>Some</code> variant.</p>
-<p>When the value we're matching against a pattern contains a reference, we can
+<p>When the value we’re matching against a pattern contains a reference, we can
 specify a <code>&amp;</code> in the pattern in order to separate the reference and the value.
 This is especially useful in closures used with iterators that iterate over
 references to values when we want to use the values in the closure rather than
@@ -320,7 +320,7 @@ let sum_of_squares: i32 = points
 <p><span class="caption">Listing 18-14: Destructuring a reference to a struct into
 the struct field values</span></p>
 <p>Because <code>iter</code> iterates over references to the items in the vector, if we
-forgot the <code>&amp;</code> in the closure arguments in the <code>map</code>, we'd get a type mismatch
+forgot the <code>&amp;</code> in the closure arguments in the <code>map</code>, we’d get a type mismatch
 error like this:</p>
 <pre><code class="language-text">error[E0308]: mismatched types
   --&gt;
@@ -352,9 +352,9 @@ let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });
 <p>There are a few ways to ignore entire values or parts of values: using the <code>_</code>
 pattern, using the <code>_</code> pattern within another pattern, using a name that starts
 with an underscore, or using <code>..</code> to ignore all remaining parts of a value.
-Let's explore how and why to do each of these.</p>
+Let’s explore how and why to do each of these.</p>
 <a class="header" href="ch18-03-pattern-syntax.html#ignoring-an-entire-value-with-_" id="ignoring-an-entire-value-with-_"><h4>Ignoring an Entire Value with <code>_</code></h4></a>
-<p>We've seen the use of underscore as a wildcard pattern that will match any value
+<p>We’ve seen the use of underscore as a wildcard pattern that will match any value
 but not bind to the value. While the underscore pattern is especially useful as
 the last arm in a <code>match</code> expression, we can use it in any pattern, such as
 function arguments as shown in Listing 18-15:</p>
@@ -368,11 +368,11 @@ fn foo(_: i32) {
 <p><span class="caption">Listing 18-15: Using <code>_</code> in a function signature</span></p>
 <p>Normally, you would change the signature to not have the unused parameter. In
 cases such as implementing a trait, where you need a certain type signature,
-using an underscore lets you ignore a parameter, and the compiler won't warn
+using an underscore lets you ignore a parameter, and the compiler won’t warn
 about unused function parameters like it would if we had used a name instead.</p>
 <a class="header" href="ch18-03-pattern-syntax.html#ignoring-parts-of-a-value-with-a-nested-_" id="ignoring-parts-of-a-value-with-a-nested-_"><h4>Ignoring Parts of a Value with a Nested <code>_</code></h4></a>
 <p>We can also use <code>_</code> inside of another pattern to ignore just part of a value.
-In Listing 18-16, the first <code>match</code> arm's pattern matches a <code>Some</code> value but
+In Listing 18-16, the first <code>match</code> arm’s pattern matches a <code>Some</code> value but
 ignores the value inside of the <code>Some</code> variant as specified by the underscore:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
@@ -386,10 +386,10 @@ match x {
 #}</code></pre></pre>
 <p><span class="caption">Listing 18-16: Ignoring the value inside of the <code>Some</code>
 variant by using a nested underscore</span></p>
-<p>This is useful when the code associated with the <code>match</code> arm doesn't use the
+<p>This is useful when the code associated with the <code>match</code> arm doesn’t use the
 nested part of the variable at all.</p>
 <p>We can also use underscores in multiple places within one pattern, as shown in
-Listing 18-17 where we're ignoring the second and fourth values in a tuple of
+Listing 18-17 where we’re ignoring the second and fourth values in a tuple of
 five items:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
@@ -406,14 +406,14 @@ match numbers {
 <p>This will print <code>Some numbers: 2, 8, 32</code>, and the values 4 and 16 will be
 ignored.</p>
 <a class="header" href="ch18-03-pattern-syntax.html#ignoring-an-unused-variable-by-starting-its-name-with-an-underscore" id="ignoring-an-unused-variable-by-starting-its-name-with-an-underscore"><h4>Ignoring an Unused Variable by Starting its Name with an Underscore</h4></a>
-<p>Usually, Rust will warn you if you create a variable but don't use it anywhere,
-since that could be a bug. If you're prototyping or just starting a project,
-though, you might create a variable that you'll use eventually, but temporarily
-it will be unused. If you're in this situation and would like to tell Rust not
+<p>Usually, Rust will warn you if you create a variable but don’t use it anywhere,
+since that could be a bug. If you’re prototyping or just starting a project,
+though, you might create a variable that you’ll use eventually, but temporarily
+it will be unused. If you’re in this situation and would like to tell Rust not
 to warn you about the unused variable, you can start the name of the variable
 with an underscore. This works just like a variable name in any pattern, only
-Rust won't warn you if the variable goes unused. In Listing 18-18, we
-do get a warning about not using the variable <code>y</code>, but we don't get a warning
+Rust won’t warn you if the variable goes unused. In Listing 18-18, we
+do get a warning about not using the variable <code>y</code>, but we don’t get a warning
 about not using the variable <code>_x</code>:</p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     let _x = 5;
@@ -424,7 +424,7 @@ about not using the variable <code>_x</code>:</p>
 in order to not get unused variable warnings</span></p>
 <p>Note that there is a subtle difference between using only <code>_</code> and using a name
 that starts with an underscore like <code>_x</code>: <code>_x</code> still binds the value to the
-variable, but <code>_</code> doesn't bind at all.</p>
+variable, but <code>_</code> doesn’t bind at all.</p>
 <p>Listing 18-19 shows a case where this distinction matters: <code>s</code> will still be
 moved into <code>_s</code>, which prevents us from using <code>s</code> again:</p>
 <pre><code class="language-rust ignore">let s = Some(String::from(&quot;Hello!&quot;));
@@ -437,7 +437,7 @@ println!(&quot;{:?}&quot;, s);
 </code></pre>
 <p><span class="caption">Listing 18-19: An unused variable starting with an
 underscore still binds the value, which may take ownership of the value</span></p>
-<p>Using underscore by itself, however, doesn't ever bind to the value. Listing
+<p>Using underscore by itself, however, doesn’t ever bind to the value. Listing
 18-20 will compile without any errors since <code>s</code> does not get moved into <code>_</code>:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
@@ -452,11 +452,11 @@ println!(&quot;{:?}&quot;, s);
 #}</code></pre></pre>
 <p><span class="caption">Listing 18-20: Using underscore does not bind the
 value</span></p>
-<p>This works just fine. Because we never bind <code>s</code> to anything, it's not moved.</p>
+<p>This works just fine. Because we never bind <code>s</code> to anything, it’s not moved.</p>
 <a class="header" href="ch18-03-pattern-syntax.html#ignoring-remaining-parts-of-a-value-with-" id="ignoring-remaining-parts-of-a-value-with-"><h4>Ignoring Remaining Parts of a Value with <code>..</code></h4></a>
 <p>With values that have many parts, we can extract only a few parts and avoid
 having to list underscores for each remaining part by instead using <code>..</code>. The
-<code>..</code> pattern will ignore any parts of a value that we haven't explicitly
+<code>..</code> pattern will ignore any parts of a value that we haven’t explicitly
 matched in the rest of the pattern. In Listing 18-21, we have a <code>Point</code> struct
 that holds a coordinate in three dimensional space. In the <code>match</code> expression,
 we only want to operate on the <code>x</code> coordinate and ignore the values in the <code>y</code>
@@ -498,7 +498,7 @@ a tuple and ignoring all other values with <code>..</code></span></p>
 <p>Here, we have the first and last value matched, with <code>first</code> and <code>last</code>. The
 <code>..</code> will match and ignore all of the things in the middle.</p>
 <p>Using <code>..</code> must be unambiguous, however. Listing 18-23 shows an example where
-it's not clear to Rust which values we want to match and which values we want
+it’s not clear to Rust which values we want to match and which values we want
 to ignore:</p>
 <pre><code class="language-rust ignore">fn main() {
     let numbers = (2, 4, 8, 16, 32);
@@ -519,17 +519,17 @@ ambiguous</span></p>
 5 |         (.., second, ..) =&gt; {
   |                      ^^
 </code></pre>
-<p>It's not possible to determine how many values in the tuple should be ignored
+<p>It’s not possible to determine how many values in the tuple should be ignored
 before one value is matched with <code>second</code>, and then how many further values are
 ignored after that. We could mean that we want to ignore 2, bind <code>second</code> to 4,
 then ignore 8, 16, and 32, or we could mean that we want to ignore 2 and 4,
 bind <code>second</code> to 8, then ignore 16 and 32, and so forth. The variable name
-<code>second</code> doesn't mean anything special to Rust, so we get a compiler error
+<code>second</code> doesn’t mean anything special to Rust, so we get a compiler error
 since using <code>..</code> in two places like this is ambiguous.</p>
 <a class="header" href="ch18-03-pattern-syntax.html#ref-and-ref-mut-to-create-references-in-patterns" id="ref-and-ref-mut-to-create-references-in-patterns"><h3><code>ref</code> and <code>ref mut</code> to Create References in Patterns</h3></a>
 <p>Usually, when you match against a pattern, the variables that the pattern
-introduces are bound to a value. This means you'll end up moving the value into
-the <code>match</code> (or wherever you're using the pattern) since the ownership rules
+introduces are bound to a value. This means you’ll end up moving the value into
+the <code>match</code> (or wherever you’re using the pattern) since the ownership rules
 apply. Listing 18-24 shows an example:</p>
 <pre><code class="language-rust ignore">let robot_name = Some(String::from(&quot;Bors&quot;));
 
@@ -545,7 +545,7 @@ takes ownership of the value</span></p>
 <p>This example will fail to compile since the value inside the <code>Some</code> value in
 <code>robot_name</code> is moved within the <code>match</code> when <code>name</code> binds to that value.</p>
 <p>Using <code>&amp;</code> in a pattern matches an existing reference in the value, as we saw in
-the &quot;Destructuring to Break Apart Values&quot; section. If you want to create a
+the “Destructuring to Break Apart Values” section. If you want to create a
 reference instead in order to borrow the value in a pattern variable, use the
 <code>ref</code> keyword before the new variable, as shown in Listing 18-25:</p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -604,7 +604,7 @@ match num {
 <p>This example will print <code>less than five: 4</code>. If <code>num</code> was instead <code>Some(7)</code>,
 this example would print <code>7</code>. Match guards allow you to express more complexity
 than patterns alone give you.</p>
-<p>In Listing 18-10, we saw that since patterns shadow variables, we weren't able
+<p>In Listing 18-10, we saw that since patterns shadow variables, we weren’t able
 to specify a pattern to express the case when a value was equal to a variable
 outside the <code>match</code>. Listing 18-28 shows how we can use a match guard to
 accomplish this:</p>
@@ -625,9 +625,9 @@ accomplish this:</p>
 with an outer variable</span></p>
 <p>This will now print <code>Default case, x = Some(5)</code>. Because the second match arm
 is not introducing a new variable <code>y</code> that shadows the outer <code>y</code> in the
-pattern, we can use <code>y</code> in the match guard. We're still destructuring <code>x</code> to
+pattern, we can use <code>y</code> in the match guard. We’re still destructuring <code>x</code> to
 get the inner value <code>n</code>, and then we can compare <code>n</code> and <code>y</code> in the match guard.</p>
-<p>If you're using a match guard with multiple patterns specified by <code>|</code>, the
+<p>If you’re using a match guard with multiple patterns specified by <code>|</code>, the
 match guard condition applies to all of the patterns. Listing 18-29 shows a
 match guard that applies to the value matched by all three patterns in the
 first arm:</p>
@@ -681,13 +681,13 @@ match msg {
 <p><span class="caption">Listing 18-30: Using <code>@</code> to bind to a value in a pattern
 while also testing it</span></p>
 <p>This example will print <code>Found an id in range: 5</code>. By specifying <code>id @</code> before
-the range, we're capturing whatever value matched the range while also testing
+the range, we’re capturing whatever value matched the range while also testing
 it. In the second arm where we only have a range specified in the pattern, the
-code associated with the arm doesn't know if <code>id</code> is 10, 11, or 12, since we
-haven't saved the <code>id</code> value in a variable: we only know that the value matched
-something in that range if that arm's code is executed. In the last arm where
-we've specified a variable without a range, we do have the value available to
-use in the arm's code, but we haven't applied any other test to the value.
+code associated with the arm doesn’t know if <code>id</code> is 10, 11, or 12, since we
+haven’t saved the <code>id</code> value in a variable: we only know that the value matched
+something in that range if that arm’s code is executed. In the last arm where
+we’ve specified a variable without a range, we do have the value available to
+use in the arm’s code, but we haven’t applied any other test to the value.
 Using <code>@</code> lets us test a value and save it in a variable within one pattern.</p>
 <a class="header" href="ch18-03-pattern-syntax.html#summary" id="summary"><h2>Summary</h2></a>
 <p>Patterns are a useful feature of Rust that help to distinguish between
@@ -696,8 +696,8 @@ your patterns cover every possible value. Patterns in <code>let</code> statement
 function parameters make those constructs more powerful, enabling the
 destructuring of values into smaller parts at the same time as assigning to
 variables.</p>
-<p>Now, for the penultimate chapter of the book, let's take a look at some
-advanced parts of a variety of Rust's features.</p>
+<p>Now, for the penultimate chapter of the book, let’s take a look at some
+advanced parts of a variety of Rust’s features.</p>
 
                 </div>
 
