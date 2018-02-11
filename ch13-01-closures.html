@@ -2,15 +2,17 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Closures - Closures - The Rust Programming Language</title>
+        <title>Closures - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
 
         <base href="">
 
         <link rel="stylesheet" href="book.css">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
 
         <link rel="shortcut icon" href="favicon.png">
 
@@ -19,126 +21,126 @@
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
-        <style>
-            .page-wrapper.has-warning > .nav-chapters {
-              /* add height for warning content & margin */
-              top: 120px;
-            }
+        <link rel="stylesheet" href="ayu-highlight.css">
 
-            p.warning {
-                background-color: rgb(242, 222, 222);
-                border-bottom-color: rgb(238, 211, 215);
-                border-bottom-left-radius: 4px;
-                border-bottom-right-radius: 4px;
-                border-bottom-style: solid;
-                border-bottom-width: 0.666667px;
-                border-image-outset: 0 0 0 0;
-                border-image-repeat: stretch stretch;
-                border-image-slice: 100% 100% 100% 100%;
-                border-image-source: none;
-                border-image-width: 1 1 1 1;
-                border-left-color: rgb(238, 211, 215);
-                border-left-style: solid;
-                border-left-width: 0.666667px;
-                border-right-color: rgb(238, 211, 215);
-                border-right-style: solid;
-                border-right-width: 0.666667px;
-                border-top-color: rgb(238, 211, 215);
-                border-top-left-radius: 4px;
-                border-top-right-radius: 4px;
-                border-top-style: solid;
-                border-top-width: 0.666667px;
-                color: rgb(185, 74, 72);
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                margin-top: 30px;
-                padding-bottom: 8px;
-                padding-left: 14px;
-                padding-right: 35px;
-                padding-top: 8px;
-            }
-            p.warning strong {
-                color: rgb(185, 74, 72)
-            }
-            p.warning a {
-                color: rgb(0, 136, 204)
-            }
-        </style>
+        <!-- Custom theme -->
+        
 
-        <!-- MathJax -->
-        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
 
-        <!-- Fetch JQuery from CDN but have a local fallback -->
-        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
         <script>
-            if (typeof jQuery == 'undefined') {
-                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
             }
         </script>
+
     </head>
     <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
-            var theme = localStorage.getItem('theme');
-            if (theme == null) { theme = 'light'; }
-            $('body').removeClass().addClass(theme);
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme;
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script type="text/javascript">
-            var sidebar = localStorage.getItem('sidebar');
-            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
-            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            document.querySelector('html').classList.add("sidebar-" + sidebar);
         </script>
 
-        <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="ch01-00-introduction.html"><strong>1.</strong> Introduction</a></li><li><ul class="section"><li><a href="ch01-01-installation.html"><strong>1.1.</strong> Installation</a></li><li><a href="ch01-02-hello-world.html"><strong>1.2.</strong> Hello, World!</a></li></ul></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong>2.</strong> 추리 게임 튜토리얼</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong>3.</strong> 보편적인 프로그래밍 개념</a></li><li><ul class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong>3.1.</strong> Variables and Mutability</a></li><li><a href="ch03-02-data-types.html"><strong>3.2.</strong> Data Types</a></li><li><a href="ch03-03-how-functions-work.html"><strong>3.3.</strong> How Functions Work</a></li><li><a href="ch03-04-comments.html"><strong>3.4.</strong> Comments</a></li><li><a href="ch03-05-control-flow.html"><strong>3.5.</strong> Control Flow</a></li></ul></li><li><a href="ch04-00-understanding-ownership.html"><strong>4.</strong> 소유권 이해하기</a></li><li><ul class="section"><li><a href="ch04-01-what-is-ownership.html"><strong>4.1.</strong> 소유권이 뭔가요?</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong>4.2.</strong> 참조자와 빌림</a></li><li><a href="ch04-03-slices.html"><strong>4.3.</strong> 슬라이스</a></li></ul></li><li><a href="ch05-00-structs.html"><strong>5.</strong> 연관된 데이터들을 구조체로 다루기</a></li><li><ul class="section"><li><a href="ch05-01-defining-structs.html"><strong>5.1.</strong> 구조체를 정의하고 생성하기</a></li><li><a href="ch05-02-example-structs.html"><strong>5.2.</strong> 구조체를 이용한 예제 프로그램</a></li><li><a href="ch05-03-method-syntax.html"><strong>5.3.</strong> 메소드 문법</a></li></ul></li><li><a href="ch06-00-enums.html"><strong>6.</strong> 열거형과 패턴 매칭</a></li><li><ul class="section"><li><a href="ch06-01-defining-an-enum.html"><strong>6.1.</strong> 열거형 정의하기</a></li><li><a href="ch06-02-match.html"><strong>6.2.</strong> <code>match</code> 흐름 제어 연산자</a></li><li><a href="ch06-03-if-let.html"><strong>6.3.</strong> <code>if let</code>을 사용한 간결한 흐름 제어</a></li></ul></li><li><a href="ch07-00-modules.html"><strong>7.</strong> 모듈</a></li><li><ul class="section"><li><a href="ch07-01-mod-and-the-filesystem.html"><strong>7.1.</strong> <code>mod</code>와 파일 시스템</a></li><li><a href="ch07-02-controlling-visibility-with-pub.html"><strong>7.2.</strong> <code>pub</code>으로 가시성 제어하기</a></li><li><a href="ch07-03-importing-names-with-use.html"><strong>7.3.</strong> <code>use</code>로 이름 가져오기</a></li></ul></li><li><a href="ch08-00-common-collections.html"><strong>8.</strong> 일반적인 컬렉션</a></li><li><ul class="section"><li><a href="ch08-01-vectors.html"><strong>8.1.</strong> 벡터</a></li><li><a href="ch08-02-strings.html"><strong>8.2.</strong> 스트링</a></li><li><a href="ch08-03-hash-maps.html"><strong>8.3.</strong> 해쉬맵</a></li></ul></li><li><a href="ch09-00-error-handling.html"><strong>9.</strong> 에러 처리</a></li><li><ul class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong>9.1.</strong> <code>panic!</code>과 함께하는 복구 불가능한 에러</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong>9.2.</strong> <code>Result</code>와 함께하는 복구 가능한 에러</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong>9.3.</strong> <code>panic!</code>이냐, <code>panic!</code>이 아니냐, 그것이 문제로다</a></li></ul></li><li><a href="ch10-00-generics.html"><strong>10.</strong> 제네릭 타입, 트레잇, 그리고 라이프타임</a></li><li><ul class="section"><li><a href="ch10-01-syntax.html"><strong>10.1.</strong> 제네릭 데이터 타입</a></li><li><a href="ch10-02-traits.html"><strong>10.2.</strong> 트레잇: 공유 동작을 정의하기</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong>10.3.</strong> 라이프타임을 이용한 참조자 유효화</a></li></ul></li><li><a href="ch11-00-testing.html"><strong>11.</strong> 테스팅</a></li><li><ul class="section"><li><a href="ch11-01-writing-tests.html"><strong>11.1.</strong> 테스트 작성하기</a></li><li><a href="ch11-02-running-tests.html"><strong>11.2.</strong> 테스트 실행하기</a></li><li><a href="ch11-03-test-organization.html"><strong>11.3.</strong> 테스트 조직화</a></li></ul></li><li><a href="ch12-00-an-io-project.html"><strong>12.</strong> An I/O Project</a></li><li><ul class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong>12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong>12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong>12.3.</strong> Improving Error Handling and Modularity</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong>12.4.</strong> Testing the Library's Functionality</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong>12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong>12.6.</strong> Writing to <code>stderr</code> instead of <code>stdout</code></a></li></ul></li><li><a href="ch13-00-functional-features.html"><strong>13.</strong> Functional Language Features in Rust</a></li><li><ul class="section"><li><a href="ch13-01-closures.html" class="active"><strong>13.1.</strong> Closures</a></li><li><a href="ch13-02-iterators.html"><strong>13.2.</strong> Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong>13.3.</strong> Improving our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong>13.4.</strong> Performance</a></li></ul></li><li><a href="ch14-00-more-about-cargo.html"><strong>14.</strong> More about Cargo and Crates.io</a></li><li><ul class="section"><li><a href="ch14-01-release-profiles.html"><strong>14.1.</strong> Release Profiles</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong>14.2.</strong> Publishing a Crate to Crates.io</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong>14.3.</strong> Cargo Workspaces</a></li><li><a href="ch14-04-installing-binaries.html"><strong>14.4.</strong> Installing Binaries from Crates.io with <code>cargo install</code></a></li><li><a href="ch14-05-extending-cargo.html"><strong>14.5.</strong> Extending Cargo with Custom Commands</a></li></ul></li><li><a href="ch15-00-smart-pointers.html"><strong>15.</strong> Smart Pointers</a></li><li><ul class="section"><li><a href="ch15-01-box.html"><strong>15.1.</strong> <code>Box&lt;T&gt;</code> Points to Data on the Heap and Has a Known Size</a></li><li><a href="ch15-02-deref.html"><strong>15.2.</strong> The <code>Deref</code> Trait Allows Access to the Data Through a Reference</a></li><li><a href="ch15-03-drop.html"><strong>15.3.</strong> The <code>Drop</code> Trait Runs Code on Cleanup</a></li><li><a href="ch15-04-rc.html"><strong>15.4.</strong> <code>Rc&lt;T&gt;</code>, the Reference Counted Smart Pointer</a></li><li><a href="ch15-05-interior-mutability.html"><strong>15.5.</strong> <code>RefCell&lt;T&gt;</code> and the Interior Mutability Pattern</a></li><li><a href="ch15-06-reference-cycles.html"><strong>15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ul></li><li><a href="ch16-00-concurrency.html"><strong>16.</strong> Fearless Concurrency</a></li><li><ul class="section"><li><a href="ch16-01-threads.html"><strong>16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong>16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong>16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong>16.4.</strong> Extensible Concurrency: <code>Sync</code> and <code>Send</code></a></li></ul></li><li><a href="ch17-00-oop.html"><strong>17.</strong> Is Rust an Object-Oriented Programming Language?</a></li><li><ul class="section"><li><a href="ch17-01-what-is-oo.html"><strong>17.1.</strong> What Does Object-Oriented Mean?</a></li><li><a href="ch17-02-trait-objects.html"><strong>17.2.</strong> Trait Objects for Using Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong>17.3.</strong> Object-Oriented Design Pattern Implementations</a></li></ul></li><li><a href="ch18-00-patterns.html"><strong>18.</strong> Patterns Match the Structure of Values</a></li><li><ul class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong>18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong>18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong>18.3.</strong> All the Pattern Syntax</a></li></ul></li><li><a href="ch19-00-advanced-features.html"><strong>19.</strong> Advanced Features</a></li><li><ul class="section"><li><a href="ch19-01-unsafe-rust.html"><strong>19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong>19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong>19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong>19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong>19.5.</strong> Advanced Functions &amp; Closures</a></li></ul></li><li><a href="ch20-00-final-project-a-web-server.html"><strong>20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ul class="section"><li><a href="ch20-01-single-threaded.html"><strong>20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-slow-requests.html"><strong>20.2.</strong> How Slow Requests Affect Throughput</a></li><li><a href="ch20-03-designing-the-interface.html"><strong>20.3.</strong> Designing the Thread Pool Interface</a></li><li><a href="ch20-04-storing-threads.html"><strong>20.4.</strong> Creating the Thread Pool and Storing Threads</a></li><li><a href="ch20-05-sending-requests-via-channels.html"><strong>20.5.</strong> Sending Requests to Threads Via Channels</a></li><li><a href="ch20-06-graceful-shutdown-and-cleanup.html"><strong>20.6.</strong> Graceful Shutdown and Cleanup</a></li></ul></li><li><a href="appendix-00.html"><strong>21.</strong> Appendix</a></li><li><ul class="section"><li><a href="appendix-01-keywords.html"><strong>21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong>21.2.</strong> B - Operators</a></li><li><strong>21.3.</strong> C - Derivable Traits</li><li><strong>21.4.</strong> D - Nightly Rust</li><li><strong>21.5.</strong> E - Macros</li><li><strong>21.6.</strong> F - Translations</li><li><a href="appendix-07-newest-features.html"><strong>21.7.</strong> G - Newest Features</a></li></ul></li></ul>
-        </div>
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="ch01-00-introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 추리 게임 튜토리얼</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 보편적인 프로그래밍 개념</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> How Functions Work</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 소유권 이해하기</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 소유권이 뭔가요?</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 참조자와 빌림</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> 슬라이스</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 연관된 데이터들을 구조체로 다루기</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 구조체를 정의하고 생성하기</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 구조체를 이용한 예제 프로그램</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 메소드 문법</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 열거형과 패턴 매칭</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 열거형 정의하기</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 흐름 제어 연산자</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let을 사용한 간결한 흐름 제어</a></li></ol></li><li><a href="ch07-00-modules.html"><strong aria-hidden="true">7.</strong> 모듈</a></li><li><ol class="section"><li><a href="ch07-01-mod-and-the-filesystem.html"><strong aria-hidden="true">7.1.</strong> mod와 파일 시스템</a></li><li><a href="ch07-02-controlling-visibility-with-pub.html"><strong aria-hidden="true">7.2.</strong> pub으로 가시성 제어하기</a></li><li><a href="ch07-03-importing-names-with-use.html"><strong aria-hidden="true">7.3.</strong> use로 이름 가져오기</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 일반적인 컬렉션</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> 벡터</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 스트링</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 해쉬맵</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 에러 처리</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!과 함께하는 복구 불가능한 에러</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result와 함께하는 복구 가능한 에러</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!이냐, panic!이 아니냐, 그것이 문제로다</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 제네릭 타입, 트레잇, 그리고 라이프타임</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 제네릭 데이터 타입</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> 트레잇: 공유 동작을 정의하기</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 라이프타임을 이용한 참조자 유효화</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 테스팅</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 테스트 작성하기</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 테스트 실행하기</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 테스트 조직화</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Improving Error Handling and Modularity</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Testing the Library's Functionality</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing to stderr instead of stdout</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features in Rust</a></li><li><ol class="section"><li><a href="ch13-01-closures.html" class="active"><strong aria-hidden="true">13.1.</strong> Closures</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Performance</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Release Profiles</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> Points to Data on the Heap and Has a Known Size</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> The Deref Trait Allows Access to the Data Through a Reference</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> The Drop Trait Runs Code on Cleanup</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency: Sync and Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Is Rust an Object-Oriented Programming Language?</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> What Does Object-Oriented Mean?</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Trait Objects for Using Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Object-Oriented Design Pattern Implementations</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns Match the Structure of Values</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> All the Pattern Syntax</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> Advanced Functions &amp; Closures</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-slow-requests.html"><strong aria-hidden="true">20.2.</strong> How Slow Requests Affect Throughput</a></li><li><a href="ch20-03-designing-the-interface.html"><strong aria-hidden="true">20.3.</strong> Designing the Thread Pool Interface</a></li><li><a href="ch20-04-storing-threads.html"><strong aria-hidden="true">20.4.</strong> Creating the Thread Pool and Storing Threads</a></li><li><a href="ch20-05-sending-requests-via-channels.html"><strong aria-hidden="true">20.5.</strong> Sending Requests to Threads Via Channels</a></li><li><a href="ch20-06-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.6.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators</a></li><li><a href="_.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="_.html"><strong aria-hidden="true">21.4.</strong> D - Nightly Rust</a></li><li><a href="_.html"><strong aria-hidden="true">21.5.</strong> E - Macros</a></li><li><a href="_.html"><strong aria-hidden="true">21.6.</strong> F - Translations</a></li><li><a href="appendix-07-newest-features.html"><strong aria-hidden="true">21.7.</strong> G - Newest Features</a></li></ol></li></ol>
+        </nav>
 
-        <div id="page-wrapper" class="page-wrapper has-warning">
+        <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <header><p class="warning">You are reading a <strong>draft</strong> of the next edition of TRPL. For more, go <a href="../index.html">here</a>.</p></header>
+                
                 <div id="menu-bar" class="menu-bar">
-                    <div class="left-buttons">
-                        <i id="sidebar-toggle" class="fa fa-bars"></i>
-                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
-                    </div>
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="submenu">
+                                <li><button class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li><button class="theme" id="rust">Rust</button></li>
+                                <li><button class="theme" id="coal">Coal</button></li>
+                                <li><button class="theme" id="navy">Navy</button></li>
+                                <li><button class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                        </div>
 
-                    <h1 class="menu-title">Closures - The Rust Programming Language</h1>
+                        <h1 class="menu-title">The Rust Programming Language</h1>
 
-                    <div class="right-buttons">
-                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
 
                 <div id="content" class="content">
-                    <a class="header" href="ch13-01-closures.html#closures-anonymous-functions-that-can-capture-their-environment" id="closures-anonymous-functions-that-can-capture-their-environment"><h2>Closures: Anonymous Functions that can Capture their Environment</h2></a>
-<p>Rust’s <em>closures</em> are anonymous functions you can save in a variable or pass as
-arguments to other functions. You can create the closure in one place, and then
-call the closure to evaluate it in a different context. Unlike functions,
-closures are able to capture values from the scope in which they are called.
-We’re going to demonstrate how these features of closures allow for code reuse
-and customization of behavior.</p>
-<a class="header" href="ch13-01-closures.html#creating-an-abstraction-of-behavior-using-a-closure" id="creating-an-abstraction-of-behavior-using-a-closure"><h3>Creating an Abstraction of Behavior Using a Closure</h3></a>
-<p>Let’s work on an example of a situation in which it’s useful to store a closure
-to be executed at a later time. We’ll talk about the syntax of closures, type
-inference, and traits along the way.</p>
-<p>The hypothetical situation is this: we work at a startup that’s making an app
-to generate custom exercise workout plans. The backend is written in Rust, and
-the algorithm that generates the workout plan takes into account many different
-factors, like the app user’s age, Body Mass Index, preferences, recent
-workouts, and an intensity number they specify. The actual algorithm used isn’t
-important in this example; what’s important is that this calculation takes a
-few seconds. We only want to call this algorithm when we need to, and only call
-it once, so we aren’t making the user wait more than necessary.</p>
-<p>We’ll simulate calling this hypothetical algorithm with the
-<code>simulated_expensive_calculation</code> function shown in Listing 13-1, which will
-print <code>calculating slowly...</code>, wait for two seconds, and then return whatever
-number we passed in:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+                    <main>
+                        <a class="header" href="ch13-01-closures.html#클로저-환경을-캡쳐할-수-있는-익명-함수" id="클로저-환경을-캡쳐할-수-있는-익명-함수"><h2>클로저: 환경을 캡쳐할 수 있는 익명 함수</h2></a>
+<p>러스트의 <em>클로저</em>는 변수에 저장하거나 다른 함수에 인자로 넘길 수 있는 익명함수
+입니다. 한 곳에서 클로저를 만들고 다른 문맥에서 그것을 평가하기 위해 호출할 수
+있습니다. 함수와 다르게 클로저는 그들이 호출되는 스코프로 부터 변수들을 캡쳐할
+수 있습니다. 이 클로저 특성이 코드 재사용과 동작 사용자 정의를 어떤 식으로
+허용하는지 예를 들어 보여줄 것 입니다.</p>
+<a class="header" href="ch13-01-closures.html#클로저로-행위를-추상화-하기" id="클로저로-행위를-추상화-하기"><h3>클로저로 행위를 추상화 하기</h3></a>
+<p>클로저를 나중에 실행하기 위해 저장하는 것이 유용한 상황에 대한 예제로 작업해
+봅시다. 따라가다 보면, 클로저 문법과 타입 추론, 트레잇에 대해 이야기 할 것
+입니다.</p>
+<p>이런 가상의 상황을 생각해 봅시다: 우리는 맞춤 운동계획을 생성하는 앱을
+만드는 스타트업에서 일합니다. 백엔드는 러스트로 작성되어 있고, 운동 계획을 생성
+하는 알고리즘은 앱 사용자의 나이, 체질량 지소, 선호도, 최근 운동들과 그들이
+지정한 강도 숫자와 같은 많은 다른 요소들을 고려합니다. 이 예제에서 사용되는
+실제 알고리즘은 중요하지 않습니다; 중요한 것은 이 알고리즘이 몇 초가 걸린다는
+것 입니다. 이 알고리즘을 우리가 필요할 때 한번만 호출하기를 원하고, 그래서 사용
+자가 필요 이상으로 기다리지 않게 만들고 싶습니다.</p>
+<p>우리는 리스트 13-1 에 보여지는 <code>simulated_expensive_calculation</code> 함수를 사용해서
+이 가상의 알고리즘 호출을 실험할 것입니다. 이 함수는 <code>calculating slowly...</code> 을
+출력하고, 2초를 기다린 다음, 인자로 넘어온 어떤 값이든 돌려줍니다:</p>
+<p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -151,23 +153,22 @@ fn simulated_expensive_calculation(intensity: u32) -&gt; u32 {
     intensity
 }
 #}</code></pre></pre>
-<p><span class="caption">Listing 13-1: A function to stand in for a hypothetical
-calculation that takes about two seconds to run</span></p>
-<p>Next, we have a <code>main</code> function that contains the parts of the workout app
-important for this example. This represents the code that the app would call
-when a user asks for a workout plan. Because the interaction with the app’s
-frontend isn’t relevant to the use of closures, we’re going to hardcode values
-representing inputs to our program and print the outputs.</p>
-<p>The required inputs are:</p>
+<p><span class="caption">리스트 13-1: 실행시간이 2초 걸리는 가상의 계산을 대신하는
+함수</span></p>
+<p>다음은 이 예제에서 중요한 운동 앱의 일부를 담고 있는 <code>main</code> 함수 입니다.
+이 함수는 사용자가 운동 계획을 물어볼 때 앱이 호출 할 코드를 나타냅니다.
+앱의 프론트엔드와의 상호작용은 클로저를 사용하기에 적합하지 않기 때문에, 우리
+프로 그램에 대한 입력을 나타내는 값을 코드상에 넣어두고 결과를 출력 할 것
+입니다.</p>
+<p>필요한 입력들은:</p>
 <ul>
-<li><strong>An intensity number from the user</strong>, specified when they request a
-workout to indicate whether they’d like a low intensity workout or a high
-intensity workout</li>
-<li><strong>A random number</strong> that will generate some variety in the workout plans</li>
+<li><em>사용자로 부터의 강도 숫자</em>, 이것은 그들이 운동을 요청할 때 지정되며, 낮은
+강도 운동을 원하는지 혹은 고강도 운동을 원하는지를 나타냅니다.</li>
+<li><em>임의의 숫자</em>는 몇 가지 다양한 운동 계획들을 생성할 것 입니다.</li>
 </ul>
-<p>The output will be the recommended workout plan.</p>
-<p>Listing 13-2 shows the <code>main</code> function we’re going to use.</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p>결과는 추천 운동 계획이 될 것 입니다. 리스트 13-2 에 우리가 사용할 <code>main</code> 함수
+가 있습니다:</p>
+<p><span class="filename">파일이름: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     let simulated_user_specified_value = 10;
     let simulated_random_number = 7;
@@ -179,19 +180,17 @@ intensity workout</li>
 }
 # fn generate_workout(intensity: u32, random_number: u32) {}
 </code></pre></pre>
-<p><span class="caption">Listing 13-2: A <code>main</code> function with hardcoded values to
-simulate user input and random number generation</span></p>
-<p>We’ve hardcoded the variable <code>simulated_user_specified_value</code> to 10 and the
-variable <code>simulated_random_number</code> to 7 for simplicity’s sake; in an actual
-program we’d get the intensity number from the app frontend and we’d use the
-<code>rand</code> crate to generate a random number like we did in the Guessing Game
-example in Chapter 2. The <code>main</code> function calls a <code>generate_workout</code> function
-with the simulated input values.</p>
-<p>There’s the context, so let’s get to the algorithm. The <code>generate_workout</code>
-function in Listing 13-3 contains the business logic of the app that we’re most
-concerned with in this example. The rest of the code changes in this example
-will be made to this function:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p><span class="caption">리스트 13-2:사용자 입력과 임의의 숫자 생성을 시뮬레이션
+하기 위한  <code>main</code> 함수와 하드코딩된 값</span></p>
+<p>단순함을 위해서 <code>simulated_user_specified_value</code> 변수의 값을 10 으로하고
+<code>simulated_random_number</code> 변수의 값을 7로 하드코딩 했습니다; 실제 프로그램에서,
+강도 숫자를 앱 프론트엔드에서 얻고 2장의 추리게임에서 그랬던 것 처럼, 임의의
+숫자 생성을 위해 <code>rand</code> 크레이트를 사용합니다. <code>main</code> 함수는 <code>generate_workout</code>
+함수를 모의의 입력값으로 호출 합니다.</p>
+<p>이제 상황이 만들어 졌으니, 알고리즘으로 넘어가겠습니다. 리스트 13-3 에 있는
+<code>generate_workout</code> 함수는 이 예제에서 가장 신경써야 할 앱의 비즈니스 로직을
+포함하고 있습니다. 이 예제에서 나머지 코드를 변경 사항은 이 함수에 적용 됩니다:</p>
+<p><span class="filename">파일이름: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -226,34 +225,31 @@ fn generate_workout(intensity: u32, random_number: u32) {
     }
 }
 #}</code></pre></pre>
-<p><span class="caption">Listing 13-3: The business logic that prints the workout
-plans based on the inputs and calls to the <code>simulated_expensive_calculation</code>
-function</span></p>
-<p>The code in Listing 13-3 has multiple calls to the slow calculation function.
-The first <code>if</code> block calls <code>simulated_expensive_calculation</code> twice, the <code>if</code>
-inside the outer <code>else</code> doesn’t call it at all, and the code inside the
-second <code>else</code> case calls it once.</p>
-<p>The desired behavior of the <code>generate_workout</code> function is to first check if
-the user wants a low intensity workout (indicated by a number less than 25) or
-a high intensity workout (25 or more).</p>
-<p>Low intensity workout plans will recommend a number of pushups and situps based
-on the complex algorithm we’re simulating.</p>
-<p>If the user wants a high intensity workout, there’s some additional logic: if
-the value of the random number generated by the app happens to be 3, the app
-will recommend a break and hydration. If not, the user will get a number of
-minutes of running based on the complex algorithm.</p>
-<p>The data science team has let us know that we’ll have to make some changes to
-the way we call the algorithm in the future. To simplify the update when those
-changes happen, we want to refactor this code so it only calls the
-<code>simulated_expensive_calculation</code> function once. We also want to cut the place
-where we’re currently calling the function twice unnecessarily without adding
-any other calls to that function in the process. That is, we don’t want to call
-it if the result isn’t needed, and we still want to call it only once.</p>
-<a class="header" href="ch13-01-closures.html#refactoring-using-functions" id="refactoring-using-functions"><h4>Refactoring Using Functions</h4></a>
-<p>There are many ways we could restructure this program. First we’ll try
-extracting the duplicated call to the expensive calculation function into a
-variable, as shown in Listing 13-4:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p><span class="caption">리스트 13-3: 입력값과 <code>simulated_expensive_calculation</code> 함
+수 호출에 근거해서 운동 계획을 출력하는 비즈니스 로직</span></p>
+<p>리스트 13-3 의 코드는 느린 계산 함수에 대해 여려번 호출을 합니다.
+첫번째 <code>if</code> 블럭은 <code>simulated_expensive_calculation</code> 함수를 두번 호출하고,
+바깥 <code>else</code> 의 안쪽에 있는 <code>if</code> 문에서는 전혀 호출하지 않으며, 두번째 <code>else</code> 문
+의 경우는 한번 호출 합니다.</p>
+<!-- NEXT PARAGRAPH WRAPPED WEIRD INTENTIONALLY SEE #199 -->
+<p><code>generate_workout</code> 함수의 바람직한 행위는 먼저 사용자가 저강도 운동(25보다 작은
+수로 표시) 혹은 고강도 운동(25 혹은 더 큰수)을 원하는지 체크하는 것 입니다.</p>
+<p>저강도 운동 계획은 우리가 시뮬레이션 하는 복잡한 알고리즘에 근거에서 푸쉬업과
+싯업의 수를 추천 할 것입니다.</p>
+<p>사용자가 고강도 운동을 원한다면, 약간의 추가 로직이 있습니다: 앱에 의해 생성된
+임의의 숫자가 3이면, 앱은 휴식과 수분 섭취를 추천합니다. 그렇지 않다면, 사용자는
+복잡한 알고리즘을 기반으로 몇 분의 달리기를 안내 받을 것 입니다.</p>
+<p>데이터 과학팀은 앞으로 알고리즘 호출 방식을 일부 변경해야 한다고 알렸습니다.
+이러한 변경이 발생 했을 때 업데이트를 단순화 하기 위해서, 이 코드를 리팩토링
+하여 <code>simulated_expensive_calculation</code> 함수를 단지 한번만 호출 하도록 하려고
+합니다. 또한 현재 프로세스에서 해당 함수에 대한 다른 호출을 추가하지 않고
+불필요하게 함수를 두 번 호출하는 위치 없애고 싶습니다. 즉, 결과가 필요없다면
+함수를 호출하고 싶지 않고, 여전히 그것을 한번만 호출하고 싶습니다.</p>
+<a class="header" href="ch13-01-closures.html#함수를-사용해서-리팩토링-하기" id="함수를-사용해서-리팩토링-하기"><h4>함수를 사용해서 리팩토링 하기</h4></a>
+<p>우리는 여러 방향으로 운동 프로그램을 다시 구조화 할 수 있습니다. 우선, 리스트
+13-4 에 보여지는 것처럼, 중복된 <code>expensive_calculation</code> 함수 호출을 하나의
+변수로 추출 해볼 것입니다:</p>
+<p><span class="filename">파일이름: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -291,22 +287,19 @@ fn generate_workout(intensity: u32, random_number: u32) {
     }
 }
 #}</code></pre></pre>
-<p><span class="caption">Listing 13-4: Extracting the calls to
-<code>simulated_expensive_calculation</code> to one place and storing the result in the
-<code>expensive_result</code> variable</span></p>
-<p>This change unifies all the calls to <code>simulated_expensive_calculation</code> and
-solves the problem of the first <code>if</code> block calling the function twice
-unnecessarily. Unfortunately, we’re now calling this function and waiting for
-the result in all cases, which includes the inner <code>if</code> block that doesn’t use
-the result value at all.</p>
-<p>We want to define code in one place in our program, but only <em>execute</em> that
-code where we actually need the result. This is a use case for closures!</p>
-<a class="header" href="ch13-01-closures.html#refactoring-with-closures-to-store-code-for-later-execution" id="refactoring-with-closures-to-store-code-for-later-execution"><h4>Refactoring with Closures to Store Code for Later Execution</h4></a>
-<p>Instead of always calling the <code>simulated_expensive_calculation</code> function before
-the <code>if</code> blocks, we can define a closure and store the <em>closure</em> in a variable
-rather than storing the result, as shown in Listing 13-5. We can actually move
-the whole body of <code>simulated_expensive_calculation</code> within the closure we’re
-introducing here:</p>
+<p><span class="caption">리스트 13-4: <code>simulated_expensive_calculation</code> 에 대한
+호출들을 한 곳으로 추출하고 결과를 <code>expensive_result</code> 변수에 저장하기.</span></p>
+<p>이 변경은 <code>simulated_expensive_calculation</code> 에 대한 모든 호출들을 하나로 합치고
+첫번째 <code>if</code> 문에서 불필요하게 이 함수를 여러번 호출하던 문제를 해결 합니다.
+불행하게도, 이제 모든 경우에 대해서 이 함수를 호출하고 결과를 기다리며,
+이 결과를 전혀 사용하지 않는 안쪽 <code>if</code> 블럭도 해당됩니다.</p>
+<p>우리는 프로그램에서 한곳에서 코드를 정의하고, 실제로 결과가 필요한 곳에서만
+그 코드를 <em>실행하고</em> 싶습니다. 이것이 클로저의 유스 케이스 입니다.</p>
+<a class="header" href="ch13-01-closures.html#코드를-저장하기-위해-클로저를-사용해서-리팩토링-하기" id="코드를-저장하기-위해-클로저를-사용해서-리팩토링-하기"><h4>코드를 저장하기 위해 클로저를 사용해서 리팩토링 하기.</h4></a>
+<p><code>if</code> 블럭 전에 항상 <code>simulated_expensive_calculation</code> 함수를 호출하는 대신,
+리스트 13-5에 보여지는 것 처럼, 클로저를 정의하고 변수에 결과를 저장하기 보단
+<em>클로저</em>를 변수에 저장 할 수 있습니다. 여기서 소개하는 것처럼 실제로 클로저 안에
+<code>simulated_expensive_calculation</code> 의 전체 내용을 옮길 수 있습니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
@@ -321,31 +314,29 @@ let expensive_closure = |num| {
 };
 # expensive_closure(5);
 #}</code></pre></pre>
-<p><span class="caption">Listing 13-5: Defining a closure and storing it in the
-<code>expensive_closure</code> variable</span></p>
-<p>The closure definition comes after the <code>=</code> to assign it to the variable
-<code>expensive_closure</code>. To define a closure, we start with a pair of vertical
-pipes (<code>|</code>), inside which we specify the parameters to the closure; this syntax
-was chosen because of its similarity to closure definitions in Smalltalk and
-Ruby. This closure has one parameter named <code>num</code>; if we had more than one
-parameter, we would separate them with commas, like <code>|param1, param2|</code>.</p>
-<p>After the parameters, we place curly brackets that hold the body of the
-closure—these are optional if the closure body is a single expression. The end
-of the closure, after the curly brackets, needs a semicolon to complete the
-<code>let</code> statement. The value returned from the last line in the closure body
-(<code>num</code>) will be the value returned from the closure when it’s called, since
-that line doesn’t end in a semicolon; just like in function bodies.</p>
-<p>Note that this <code>let</code> statement means <code>expensive_closure</code> contains the
-<em>definition</em> of an anonymous function, not the <em>resulting value</em> of calling the
-anonymous function. Recall that we’re using a closure because we want to define
-the code to call at one point, store that code, and actually call it at a later
-point; the code we want to call is now stored in <code>expensive_closure</code>.</p>
-<p>Now that we have the closure defined, we can change the code in the <code>if</code> blocks
-to call the closure, in order to execute the code and get the resulting value.
-We call a closure like we do a function: we specify the variable name that
-holds the closure definition and follow it with parentheses containing the
-argument values we want to use, as shown in Listing 13-6:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p><span class="caption">리스트 13-5: 클로저를 정의하고 <code>expensive_closure</code> 변수에
+저장하기</span></p>
+<p>클로저 정의는 변수 <code>expensive_closure</code> 에 그것을 할당하기 위해 <code>=</code> 다음에
+옵니다. 클로저를 정의하기 위해, 수직의 파이프 (<code>|</code>) 한쌍으로 시작하며, 그 사이에
+클로저에 대한 파라미터를 기술합니다; 이 문법은 스몰토크와 루비에서 클로저
+정의와의 유사성 때문에 선택 되었습니다. 이 클로저는 <code>num</code> 이라는 하나의
+파라미터를 갖습니다: 하나 이상의 파라미터를 갖는다면, <code>|param1, param2|</code> 와 같이
+콤마로 구분합니다.</p>
+<p>파라미터들 다음에, 클로저의 바디를 포함하는 중괄호를 넣습니다—클로저 바디가
+하나의 표현식이라면 이것은 선택적 입니다. 중괄호 다음에 클로저의 끝에는 <code>let</code>
+문을 완성하기 위해 세미콜론이 필요합니다. 클로저 바디에서 마지막 줄로부터
+반환되는 값인 (<code>num</code>) 은 그것이 호출되었을 때 클로저로 부터 반환되는 값이 될
+것입니다, 왜냐하면 그 줄은 세미콜론으로 끝나지 않기 때문 입니다; 함수 본문 처럼.</p>
+<p><code>let</code> 문은 <code>expensive_closure</code> 가 익명함수의 <em>정의</em>를 포함하며, 익명함수를
+호출한 <em>결과 값</em>을 포함하지 않는다는 것에 유의 하세요. 우리가 클로저를 사용하는
+이유는 호출할 코드를 한 곳에서 정의하고, 그 코드를 저장하며, 이후 다른 곳에서
+그것을 호출하길 원하기 때문이라는 것을 상기하세요; 우리가 호출하고자 하는 코드가
+이제 <code>expensive_closure</code> 에 저장되었습니다.</p>
+<p>클로저를 정의하면서, 저장된 코드를 실행하고 결과값을 얻기 위하여 <code>if</code> 블록 안의
+코드를 클로저 호출 방식으로 변경할 수 있습니다. 우리는 함수를 호출하는 것 처럼
+클로저를 호출 합니다: 리스트 13-6 에 보여지는 것처럼, 클로저 정의를 갖고 있는
+변수명을 쓰고 다음엔 사용할 인자값을 포함하는 괄호가 따라 옵니다:</p>
+<p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -380,40 +371,35 @@ fn generate_workout(intensity: u32, random_number: u32) {
     }
 }
 #}</code></pre></pre>
-<p><span class="caption">Listing 13-6: Calling the <code>expensive_closure</code> we’ve
-defined</span></p>
-<p>Now the expensive calculation is called in only one place, and we’re only
-executing that code where we need the results.</p>
-<p>We have, however, reintroduced one of the problems from Listing 13-3: we’re
-still calling the closure twice in the first <code>if</code> block, which will call the
-expensive code twice and make the user wait twice as long as they need to. We
-could fix this problem by creating a variable local to that <code>if</code> block to hold
-the result of calling the closure, but closures provide us with another
-solution. We’ll get back to that solution in a bit; let’s first talk about why
-there aren’t type annotations in the closure definition and the traits involved
-with closures.</p>
-<a class="header" href="ch13-01-closures.html#closure-type-inference-and-annotation" id="closure-type-inference-and-annotation"><h3>Closure Type Inference and Annotation</h3></a>
-<p>Closures differ from functions defined with the <code>fn</code> keyword in a few ways. The
-first is that closures don’t require you to annotate the types of the
-parameters or the return value like <code>fn</code> functions do.</p>
-<p>Type annotations are required on functions because they are part of an explicit
-interface exposed to your users. Defining this interface rigidly is important
-for ensuring that everyone agrees on what types of values a function uses and
-returns. Closures aren’t used in an exposed interface like this, though:
-they’re stored in variables and used without naming them and exposing them to
-users of our library.</p>
-<p>Additionally, closures are usually short and only relevant within a narrow
-context rather than in any arbitrary scenario. Within these limited contexts,
-the compiler is reliably able to infer the types of the parameters and return
-type, similar to how it’s able to infer the types of most variables.</p>
-<p>Making programmers annotate the types in these small, anonymous functions would
-be annoying and largely redundant with the information the compiler already has
-available.</p>
-<p>Like variables, we can choose to add type annotations if we want to increase
-explicitness and clarity at the cost of being more verbose than is strictly
-necessary; annotating the types for the closure we defined in Listing 13-4
-would look like the definition shown in Listing 13-7:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p><span class="caption">리스트 13-6: 우리가 정의한 <code>expensive_closure</code> 호출하기
+</span></p>
+<p>이제 비용이 큰 계산은 단 한곳에서만 호출 되고, 우리가 결과가 필요한 곳에서만
+그 코드를 실행 합니다.</p>
+<p>그러나, 리스트 13-3 에 있는 문제중 하나를 다시 소개합니다: 우리는 여전히 첫번째
+<code>if</code> 블럭에서 클로저를 두번 호출 하는데, 이는 비용이 큰 코드를 두번 호출하고
+사용자가 실행시간 만큼 긴시간을 두번 기다리게 합니다. 우리는 그 <code>if</code> 블럭안에
+클로저 호출의 결과를 저장하는 로컬 변수를 만들어서 그 문제를 해결할 수 있지만,
+클로저는 다른 해결책을 제공합니다. 우리는 그 해결책에 대해 조금 이야기 할
+것입니다. 그러나 우선 클로저 정의에 타입 어노테이션이 없는 이유와 클로저와
+연관된 트레잇에 대해 이야기 합시다.</p>
+<a class="header" href="ch13-01-closures.html#클로저-타입-추론과-어노테이션" id="클로저-타입-추론과-어노테이션"><h3>클로저 타입 추론과 어노테이션</h3></a>
+<p>클로저는 <code>fn</code> 함수처럼 파라미터나 반환값의 타입을 명시할 것을 요구하지 않습니다.
+타입 어노테이션은 사용자에게 노출되는 명시적인 인터페이스의 일부이기 때문에
+함수에 필요 합니다. 이 인터페이스를 엄격하게 정의하는 것은 함수가 어떤 타입의
+값을 사용하고 반환하는지에 대해 모두가 합의 한다는 것을 보장하는데 중요 합니다.
+그러나 클로저는 이와 같이 노출된 인터페이스에 사용되지 않습니다: 변수에 저장되고
+이름없이 우리의 라이브러리 사용자들에게 노출되지 않고 사용 됩니다.</p>
+<p>추가적으로, 클로저는 보통 짧고 임의의 시나리오 보다 좁은 문맥 안에서만 관련이
+있습니다. 이런 제한된 문맥 안에서만, 컴파일러는 안정적으로 파라미터와 리턴타입을
+추론할 수 있으며, 이는 대부분의 변수 타입을 추론 할 수 있는 방법과 비슷 합니다.</p>
+<p>프로그래머들에게 이런 작고 익명의 함수들에 타입을 달도록하는 것은 짜증나고
+컴파일러가 이미 사용할수 있는 정보와 대게는 중복 됩니다.</p>
+<p>변수처럼, 엄밀하게 필요한 것 이상으로 자세히 표현하는 비용을 지불하고서라도
+명확성과 명료성을 높이고 싶다면 타입 어노테이션(혹은 타입 명시)를 추가할 수
+있습니다;
+리스트 13-4 에 정의한 클로저에 타입을 명시하는 것은 리스트 13-7 에 보여지는 것과
+같을 것 입니다:</p>
+<p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -426,41 +412,37 @@ let expensive_closure = |num: u32| -&gt; u32 {
     num
 };
 #}</code></pre></pre>
-<p><span class="caption">Listing 13-7: Adding optional type annotations of the
-parameter and return value types in the closure</span></p>
-<p>The syntax of closures and functions looks more similar with type annotations.
-Here’s a vertical comparison of the syntax for the definition of a function
-that adds one to its parameter, and a closure that has the same behavior. We’ve
-added some spaces here to line up the relevant parts). This illustrates how
-closure syntax is similar to function syntax, except for the use of pipes and
-the amount of syntax that is optional:</p>
+<p><span class="caption">리스트 13-7: 클로저에 파라미터와 반환값 타입에 대한 선택적
+인 타입 어노테이션 추가하기</span></p>
+<p>타입 어노테이션이 있으면 클로저와 함수의 문법은 더 비슷해 보입니다.
+다음은 파라미터에 1을 더하는 함수 정의와 동일한 행위를 하는 클로저를 수직으로
+비교한 것입니다. 관련 있는 부분들을 정렬하기 이해 약간의 공백을 추가했습니다.
+이것은 파이프를 사용하는 것과 선택적인 문법의 양을 제외하고 클로저 문법과 함수
+문법이 얼마나 비슷한지 보여줍니다:</p>
 <pre><code class="language-rust ignore">fn  add_one_v1   (x: u32) -&gt; u32 { x + 1 }
 let add_one_v2 = |x: u32| -&gt; u32 { x + 1 };
 let add_one_v3 = |x|             { x + 1 };
 let add_one_v4 = |x|               x + 1  ;
 </code></pre>
-<p>The first line shows a function definition, and the second line shows a fully
-annotated closure definition. The third line removes the type annotations from
-the closure definition, and the fourth line removes the brackets that are
-optional, since the closure body only has one expression. These are all valid
-definitions that will produce the same behavior when they’re called.</p>
-<p>Closure definitions will have one concrete type inferred for each of their
-parameters and for their return value. For instance, Listing 13-8 shows the
-definition of a short closure that just returns the value it receives as a
-parameter.</p>
-<p>This closure isn’t very useful except for the purposes of this example. Note
-that we haven’t added any type annotations to the definition: if we then try to
-call the closure twice, using a <code>String</code> as an argument the first time and an
-<code>u32</code> the second time, we’ll get an error:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p>첫번째 줄은 함수 정의를 보여주고, 두번째 줄은 타입을 모두 명기한 클로저 정의를
+보여 줍니다. 세번째 줄은 클로저 정의에서 타입 어노테이션을 지웠고, 네번째 줄은
+선택적인 중괄호를 지웠는데, 클로저 보디가 단 하나의 표현식을 갖기 때문 입니다.
+이것은 모두 호출 했을 때 동일한 행위를 수행하는 유효한 정의들 입니다.</p>
+<p>클로저 정의는 각 파리미터들과 그들의 반환값에 대해 단 하나의 추론된 구체적인
+타입을 갖을 것 입니다. 예를 들면, 리스트 13-8 은 파리미터로 받은 값을 그대로
+반환하는 짧은 클로저의 정의를 보여줍니다. 이 클로저는 이 예제의 목적 이에외는
+유용하지 않습니다. 정의에 타입 어노테이션을 추가하지 않았다는 것에 유의하세요:
+클로저를 두번 호출하는데, 첫번째는 <code>String</code> 을 인자로 사용하고 두번째는 <code>u32</code> 을
+사용한다면 에러가 발생합니다:</p>
+<p><span class="filename">파일명: src/main.rs</span></p>
 <pre><code class="language-rust ignore">let example_closure = |x| x;
 
 let s = example_closure(String::from(&quot;hello&quot;));
 let n = example_closure(5);
 </code></pre>
-<p><span class="caption">Listing 13-8: Attempting to call a closure whose types
-are inferred with two different types</span></p>
-<p>The compiler gives us this error:</p>
+<p><span class="caption">리스트 13-8: 두개의 다른 타입으로 추론된 타입을 갖는
+클로저 호출 해보기</span></p>
+<p>컴파일러는 이런 에러를 줍니다:</p>
 <pre><code class="language-text">error[E0308]: mismatched types
  --&gt; src/main.rs
   |
@@ -471,41 +453,38 @@ are inferred with two different types</span></p>
   = note: expected type `std::string::String`
              found type `{integer}`
 </code></pre>
-<p>The first time we call <code>example_closure</code> with the <code>String</code> value, the compiler
-infers the type of <code>x</code> and the return type of the closure to be <code>String</code>. Those
-types are then locked in to the closure in <code>example_closure</code>, and we get a type
-error if we try to use a different type with the same closure.</p>
-<a class="header" href="ch13-01-closures.html#storing-closures-using-generic-parameters-and-the-fn-traits" id="storing-closures-using-generic-parameters-and-the-fn-traits"><h3>Storing Closures Using Generic Parameters and the <code>Fn</code> Traits</h3></a>
-<p>Returning to our workout generation app, in Listing 13-6 we left our code still
-calling the expensive calculation closure more times than it needs to. One
-option to solve this issue is to save the result of the expensive closure in a
-variable for reuse and use the variable instead in each place we need the
-result instead of calling the closure again. This method, though, could result
-in a lot of repeated code.</p>
-<p>Fortunately, we have another solution available to us. We can create a struct
-that will hold the closure and the resulting value of calling the closure. The
-struct will only execute the closure if we need the resulting value, and it
-will cache the resulting value so that the rest of our code doesn’t have to be
-responsible for saving and reusing the result. You may know this pattern as
-<em>memoization</em> or <em>lazy evaluation</em>.</p>
-<p>In order to make a struct that holds a closure, we need to be able to specify
-the type of the closure, because a struct definition needs to know the types of
-each of its fields. Each closure instance has its own unique anonymous type:
-that is, even if two closures have the same signature, their types are still
-considered different. In order to define structs, enums, or function parameters
-that use closures, we use generics and trait bounds like we discussed in
-Chapter 10.</p>
-<p>The <code>Fn</code> traits are provided by the standard library. All closures implement
-one of the traits <code>Fn</code>, <code>FnMut</code>, or <code>FnOnce</code>. We’ll discuss the difference
-between these traits in the next section on capturing the environment; in this
-example, we can use the <code>Fn</code> trait.</p>
-<p>We add types to the <code>Fn</code> trait bound to represent the types of the parameters
-and return values the closures must have in order to match this trait bound. In
-this case, our closure has a parameter of type <code>u32</code> and returns an <code>u32</code>, so
-the trait bound we specify is <code>Fn(u32) -&gt; u32</code>.</p>
-<p>Listing 13-9 shows the definition of the <code>Cacher</code> struct that holds a closure
-and an optional result value:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p>처음 <code>String</code> 값으로 <code>example_closure</code> 을 호출하면, 컴파일러는 <code>x</code> 의 타입과
+클로저의 반환 타입을 <code>String</code> 으로 추론합니다. 이 타입들은 그다음에는
+<code>example_closure</code> 에 있는 클로저에 고정되고, 같은 클로저를 다른 타입으로
+사용하려고 할 때 타입 에러를 얻게 됩니다.</p>
+<a class="header" href="ch13-01-closures.html#제너릭-파라미터와-fn-트레잇을-사용하여-클로저-저장하기" id="제너릭-파라미터와-fn-트레잇을-사용하여-클로저-저장하기"><h3>제너릭 파라미터와 <code>Fn</code> 트레잇을 사용하여 클로저 저장하기</h3></a>
+<p>운동 생성 앱으로 돌아갑시다. 리스트 13-6 에서, 우리의 코드는 아직도 비용이 큰
+계산을 하는 클로저를 필요한 것 보다 더 많이  호출 합니다. 이 문제를 풀기위한
+한가지 옵션은 비싼 비용의 클로저 결과를 재활용을 위해 변수에 저장하고 결과가
+필요한 부분에서 클로저를 다시 호출하는 대신 그 변수를 사용하는 것 입니다.
+그러나, 이 방법은 많은 반복된 코드를 만들 수 있습니다.</p>
+<p>운 좋게도, 다른 해결책이 있습니다. 우리는 클로저와 클로저를 호출한 결과값을
+갖고 있는 구조체를 만들 수 있습니다. 그 구조체는 결과값을 필요로 할 때만
+클로저를 호출 할 것이며, 결과값을 캐시에 저장해 두어 우리의 나머지 코드에서
+결과를 저장하고 재사용 하지 않아도 되도록 할 것 입니다. 이 패턴을
+<em>메모이제이션(memoization)</em> 혹은 *지연 평가(lazy evaluation)*로 알고 있을 것
+입니다.</p>
+<p>구조체에서 클로저를 갖고 있도록 하기 위해, 클로저 타입을 기술 할 필요가 있는데,
+구조체 정의는 각 필드의 타입을 알 필요가 있기 때문 입니다. 각 클로저 인스턴스는
+자신의 유일한 익명 타입을 갖습니다: 즉, 두 클로저가 동일한 타입 서명을 갖더라도
+그들의 타입은 여전히 다른 것으로 간주 됩니다. 클로저를 사용하는 구조체, 열거형,
+함수 파라미터를 정의하기 위해, 10장에서 설명한 것 처럼 제네릭과 트레잇 바운드를
+사용합니다.</p>
+<p><code>Fn</code> 트레잇은 표준 라이브러리에서 제공 합니다. 모든 클로저들은 다음 트레잇 중
+하나를 구현 합니다: <code>Fn</code>, <code>FnMut</code>, 혹은 <code>FnOnce</code>. 환경을 캡쳐하는 것에 대한 다음
+절에서 이 트레잇들의 차이점들에 대해 설명할 것 입니다; 이 예제에서, <code>Fn</code> 트레잇
+을 사용할 수 있습니다.</p>
+<p>클로저가 이 트레잇 바운드에 맞춰야 하는 파라미터와 반환값의 타입을 표현하기 위해
+<code>Fn</code> 트레잇 바운드에 타입을 추가 합니다. 이 경우, 클로저는 파라미터 타입이 <code>u32</code>
+이고 <code>u32</code> 타입을 번환하므로, 명시하는 트레잇 바운드는 <code>Fn(u32) -&gt; u32</code> 입니다.</p>
+<p>리스트 13-9 는 <code>Cacher</code> 구조체의 정의를 보여주는데 클로저와 선택적인 반환값을
+갖고 있습니다:</p>
+<p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -516,28 +495,26 @@ struct Cacher&lt;T&gt;
     value: Option&lt;u32&gt;,
 }
 #}</code></pre></pre>
-<p><span class="caption">Listing 13-9: Defining a <code>Cacher</code> struct that holds a
-closure in <code>calculation</code> and an optional result in <code>value</code></span></p>
-<p>The <code>Cacher</code> struct has a <code>calculation</code> field of the generic type <code>T</code>. The
-trait bounds on <code>T</code> specify that it’s a closure by using the <code>Fn</code> trait. Any
-closure we want to store in the <code>calculation</code> field must have one <code>u32</code>
-parameter (specified within the parentheses after <code>Fn</code>) and must return an
-<code>u32</code> (specified after the <code>-&gt;</code>).</p>
+<p><span class="caption">리스트 13-9: <code>calculation</code> 에 클로저를 담고, 선택적인 결과
+를 <code>value</code> 에 담는 <code>Cacher</code> 구조체 정의하기</span></p>
+<p><code>Cacher</code> 구조체는 제너릭 타입 <code>T</code> 의 <code>calculation</code> 필드를 갖습니다.
+<code>T</code> 에 대한 트레잇 바운드는 <code>Fn</code> 트레잇을 사용하여 그것이 클로저라는 것을 기술
+합니다. <code>calculation</code> 필드에 저장하고자 하는 클로저는 하나의 <code>u32</code> 타입 파라미터
+(<code>Fn</code> 다음에 괄호안에 명시됨)를 갖고 <code>u32</code> (<code>-&gt;</code> 다음에 명시됨) 타입의 값을
+반환해야 합니다.</p>
 <blockquote>
-<p>Note: Functions implement all three of the <code>Fn</code> traits too. If what we want to
-do doesn’t require capturing a value from the environment, we can use a
-function rather than a closure where we need something that implements an <code>Fn</code>
-trait.</p>
+<p>노트: 함수는 세개의 <code>Fn</code> 트레잇도 모두 구현 합니다. 환경에서 값을 캡쳐할 필요
+가 없다면, <code>Fn</code> 트레잇을 구현한 어떤것을 필요로 하는 곳에 클로저 대신 함수를
+사용할 수 있습니다.</p>
 </blockquote>
-<p>The <code>value</code> field is of type <code>Option&lt;u32&gt;</code>. Before we execute the closure,
-<code>value</code> will be <code>None</code>. When code using a <code>Cacher</code> asks for the <em>result</em> of the
-closure, the <code>Cacher</code> will execute the closure at that time and store the
-result within a <code>Some</code> variant in the <code>value</code> field. Then if the code asks for
-the result of the closure again, instead of executing the closure again, the
-<code>Cacher</code> will return the result held in the <code>Some</code> variant.</p>
-<p>The logic around the <code>value</code> field we’ve just described is defined in Listing
-13-10:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p><code>value</code> 필드는 <code>Option&lt;u32&gt;</code> 타입 입니다. 클로저를 실행하기 전에는 <code>value</code> 는
+<code>None</code> 일 것 입니다. <code>Cacher</code> 를 사용하는 코드에서 클로저의 <em>결과</em> 를 요청할 경
+우, <code>Cacher</code> 는 그 때 클로저를 실행하고 결과를 <code>Some</code> variant 에 넣어서 <code>value</code>
+필드에 저장 할 것 입니다. 그 다음에는 코드에서 클로저의 결과를 다시 요청하면
+클로저를 다시 실행하는 대신, <code>Cacher</code> 는 <code>Some</code> variant 안에 있는 결과를 돌려줄
+것 입니다.</p>
+<p>방금 설명한 <code>value</code> 필드에 대한 로직은 리스트 13-10 에 정의되어 있습니다:</p>
+<p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -570,25 +547,24 @@ impl&lt;T&gt; Cacher&lt;T&gt;
     }
 }
 #}</code></pre></pre>
-<p><span class="caption">Listing 13-10: The caching logic of <code>Cacher</code></span></p>
-<p>We want <code>Cacher</code> to manage the struct fields’ values, rather than letting the
-calling code potentially change the values in these fields directly, so these
-fields are private.</p>
-<p>The <code>Cacher::new</code> function takes a generic parameter <code>T</code>, which we’ve defined
-as having the same trait bound as the <code>Cacher</code> struct. Then <code>Cacher::new</code>
-returns a <code>Cacher</code> instance that holds the closure specified in the
-<code>calculation</code> field and a <code>None</code> value in the <code>value</code> field, since we haven’t
-executed the closure yet.</p>
-<p>When the calling code wants the result of evaluating the closure, instead of
-calling the closure directly, it will call the <code>value</code> method. This method
-checks to see if we already have a resulting value in <code>self.value</code> in a <code>Some</code>;
-if we do, it returns the value within the <code>Some</code> without executing the closure
-again.</p>
-<p>If <code>self.value</code> is <code>None</code>, we call the closure stored in <code>self.calculation</code>,
-save the result in <code>self.value</code> for future use, and return the value as well.</p>
-<p>Listing 13-11 shows how we can use this <code>Cacher</code> struct in the
-<code>generate_workout</code> function from Listing 13-6:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p><span class="caption">리스트 13-10: <code>Cacher</code> 의 캐싱 로직</span></p>
+<p>우리는 이 필드에 있는 값을 호출하는 코드에서 잠재적으로 변경하도록 두기 보다
+<code>Cacher</code> 가 구조체 필드의 값을 관리하도록 하고 싶기 때문에, 이 필드는 비공개
+(private) 입니다.</p>
+<p><code>Cacher::new</code> 함수는 제네릭 파라미터 <code>T</code> 를 받는데, <code>Cacher</code> 구조체와 동일한
+트레잇 바운드를 갖도록 정의 되었습니다. 그 다음 <code>Cacher::new</code> 는 <code>calculation</code>
+필드에 명시된 클로저를 포함하고 클로저를 아직 실행한적이 없기 때문에 <code>value</code>
+필드가 <code>None</code> 값을 갖는 <code>Cacher</code> 인스턴스를 반환 합니다.</p>
+<p>호출하는 코드에서 클로저를 평가한 결과값을 원할때, 클로저를 직접 호출하기 보다,
+<code>value</code> 메서드를 호출 할 것 입니다. 이 메서드는 이미 <code>self.value</code> 에 결과값을
+<code>Some</code> 으로 갖고 있는지 체크 합니다; 만약 그렇다면 클로저를 다시 실행하는 대신
+<code>Some</code> 안에 있는 값을 반환 합니다.</p>
+<p>만약 <code>self.value</code> 라 <code>None</code> 이라면, <code>self.calculation</code> 에 저장된 클로저를 호출
+하고, 나중에 재사용 하기 위해 결과를 <code>self.value</code> 저장한 다음 그 값을 반환
+합니다.</p>
+<p>리스트 13-11 는 리스트 13-6 에 있는 <code>generate_workout</code> 함수에서 이 <code>Cacher</code> 구조
+체를 사용하는 방법을 보여줍니다:</p>
+<p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -652,28 +628,25 @@ fn generate_workout(intensity: u32, random_number: u32) {
     }
 }
 #}</code></pre></pre>
-<p><span class="caption">Listing 13-11: Using <code>Cacher</code> in the <code>generate_workout</code>
-function to abstract away the caching logic</span></p>
-<p>Instead of saving the closure in a variable directly, we save a new instance of
-<code>Cacher</code> that holds the closure. Then, in each place we want the result, we
-call the <code>value</code> method on the <code>Cacher</code> instance. We can call the <code>value</code>
-method as many times as we want, or not call it at all, and the expensive
-calculation will be run a maximum of once.</p>
-<p>Try running this program with the <code>main</code> function from Listing 13-2. Change the
-values in the <code>simulated_user_specified_value</code> and <code>simulated_random_number</code>
-variables to verify that in all of the cases in the various <code>if</code> and <code>else</code>
-blocks, <code>calculating slowly...</code> only shows up once and only when needed. The
-<code>Cacher</code> takes care of the logic necessary to ensure we aren’t calling the
-expensive calculation more than we need to, so that <code>generate_workout</code> can
-focus on the business logic.</p>
-<a class="header" href="ch13-01-closures.html#limitations-of-the-cacher-implementation" id="limitations-of-the-cacher-implementation"><h3>Limitations of the <code>Cacher</code> Implementation</h3></a>
-<p>Caching values is a generally useful behavior that we might want to use in
-other parts of our code with different closures. However, there are a few
-problems with the current implementation of <code>Cacher</code> that would make reusing it
-in different contexts difficult.</p>
-<p>The first problem is a <code>Cacher</code> instance assumes it will always get the same
-value for the parameter <code>arg</code> to the <code>value</code> method. That is, this test of
-<code>Cacher</code> will fail:</p>
+<p><span class="caption">리스트 13-11: 캐싱 로직을 추상화 하기 위해
+<code>generate_workout</code> 함수 안에서 <code>Cacher</code> 사용하기</span></p>
+<p>클로저를 변수에 직접 저장하는 대신, 클로저를 갖는 <code>Cacher</code> 의 새 인스턴스를
+저장 했습니다. 그러고는, 결과가 필요한 각 위치에 <code>Cacher</code> 인스턴스의 <code>value</code>
+메소드를 호출 했습니다. 우리는 <code>value</code> 메소드를 원하는 만큼 많이 호출할 수 있고,
+전혀 호출하지 않을 수도 있으며, 비싼 비용의 게산은 최대 한번만 수행 될 것입니다.</p>
+<p>리스트 13-2 의 <code>main</code> 함수로 이 프로그램을 실행해 보세요. 다양한 <code>if</code> 와 <code>else</code>
+블럭에 있는 모든 케이스들을 검증하기 위해 <code>simulated_user_specified_value</code> 와
+<code>simulated_random_number</code> 변수들을 변경해 보면, <code>calculating slowly...</code> 메세지는
+필요할 때 단지 한번만 나타 납니다. <code>Cacher</code> 는 필요한것 보다 더 많이 비싼 비용의
+계산을 호출하지 않도록 보장하는 필요한 로직을 처리해서, <code>generate_workout</code> 가
+비즈니스 로직에 집중하도록 해줍니다.</p>
+<a class="header" href="ch13-01-closures.html#cacher-구현의-제약사항" id="cacher-구현의-제약사항"><h3><code>Cacher</code> 구현의 제약사항</h3></a>
+<p>값을 캐싱하는 것은 일반적으로 유용한 동작이기 때문에 이와는 다른 클로저를 사용
+해서 우리 코드의 다른 부분에서 적용하고 싶을 수도 있습니다. 그러나 현재 <code>Cacher</code>
+구현은 다른 문맥에서 다르게 재사용 하기에는 두 가지 문제가 있습니다.</p>
+<p>첫 번째 문제는 <code>Cacher</code> 인스턴스가 <code>value</code> 메소드의 <code>arg</code> 파라미터에 대해
+항상 같은 값을 얻는다는 가정을 한다는 것입니다. 즉, 이 <code>Cacher</code> 테스트는 실패 할 것
+입니다:</p>
 <pre><code class="language-rust ignore">#[test]
 fn call_with_different_values() {
     let mut c = Cacher::new(|a| a);
@@ -684,38 +657,37 @@ fn call_with_different_values() {
     assert_eq!(v2, 2);
 }
 </code></pre>
-<p>This test creates a new <code>Cacher</code> instance with a closure that returns the value
-passed into it. We call the <code>value</code> method on this <code>Cacher</code> instance with an
-<code>arg</code> value of 1 and then an <code>arg</code> value of 2, and we expect that the call to
-<code>value</code> with the <code>arg</code> value of 2 should return 2.</p>
-<p>Run this with the <code>Cacher</code> implementation from Listing 13-9 and Listing 13-10
-and the test will fail on the <code>assert_eq!</code> with this message:</p>
-<pre><code class="language-text">thread 'call_with_different_arg_values' panicked at 'assertion failed:
-`(left == right)` (left: `1`, right: `2`)', src/main.rs
+<p>이 테스트는 인자로 받은 값을 그대로 돌려주는 클로저가 포함된 새로운 <code>Cacher</code>
+인스턴스를 생성 합니다. <code>arg</code> 값을 1로 그리고 <code>arg</code> 값을 2로 해서 이 <code>Cacher</code>
+인스턴스의 <code>value</code> 메소드를 호출하고, <code>arg</code> 값을 2로 <code>value</code> 를 호출 했을 때
+2를 반환 할 것으로 기대 합니다.</p>
+<p>리스트 13-9 와 13-10 에 있는 <code>Cacher</code> 구현에 대해 이 테스트를 돌리면, 테스트는
+이 메세지와 함께 <code>assert_eq!</code> 에서 실패 할 것입니다:</p>
+<pre><code class="language-text">thread 'call_with_different_values' panicked at 'assertion failed: `(left == right)`
+  left: `1`,
+ right: `2`', src/main.rs
 </code></pre>
-<p>The problem is that the first time we called <code>c.value</code> with 1, the <code>Cacher</code>
-instance saved <code>Some(1)</code> in <code>self.value</code>. After that, no matter what we pass in
-to the <code>value</code> method, it will always return 1.</p>
-<p>Try modifying <code>Cacher</code> to hold a hash map rather than a single value. The keys
-of the hash map will be the <code>arg</code> values that are passed in, and the values of
-the hash map will be the result of calling the closure on that key. Instead of
-looking at whether <code>self.value</code> directly has a <code>Some</code> or a <code>None</code> value, the
-<code>value</code> function will look up the <code>arg</code> in the hash map and return the value,
-if it’s present. If it’s not present, the <code>Cacher</code> will call the closure and
-save the resulting value in the hash map associated with its <code>arg</code> value.</p>
-<p>Another problem with the current <code>Cacher</code> implementation is that it only
-accepts closures that take one parameter of type <code>u32</code> and return an <code>u32</code>. We
-might want to cache the results of closures that take a string slice and return
-<code>usize</code> values, for example. To fix this issue, try introducing more generic
-parameters to increase the flexibility of the <code>Cacher</code> functionality.</p>
-<a class="header" href="ch13-01-closures.html#closures-can-capture-their-environment" id="closures-can-capture-their-environment"><h3>Closures Can Capture Their Environment</h3></a>
-<p>In the workout generator example, we only used closures as inline anonymous
-functions. Closures have an additional ability that functions don’t have,
-however: they can capture their environment and access variables from the scope
-in which they’re defined.</p>
-<p>Listing 13-12 has an example of a closure stored in the variable <code>equal_to_x</code>
-that uses the variable <code>x</code> from the closure’s surrounding environment:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p>문제는 처음 <code>c.value</code> 을 1로 호출 했을 때, <code>Cacher</code> 인스턴스는 <code>self.value</code> 에
+<code>Some(1)</code> 을 저장 합니다. 그 후에, <code>value</code> 값으로 무엇을 넘기던, 항상 1을 반환
+할 것 입니다.</p>
+<p><code>Cacher</code> 이 하나의 값보다 해시맵을 사용하도록 수정해 봅시다. 해시맵의 키는
+넘겨받은 <code>arg</code> 값이 될 것이고, 해시맵의 값은 그 키로 클로저를 호출한 결과가 될
+것 입니다. <code>self.value</code> 가 <code>Some</code> 혹은 <code>None</code> 값인지 직접 살펴보는 대신,
+<code>value</code> 함수는 해시맵의 <code>arg</code> 값을 살펴보고 값이 있으면 반환 할 것 입니다.
+값이 없으면, <code>Cacher</code> 는 클로저를 호출해서 해당 <code>arg</code> 값과 연관된 해시맵에
+결과값을 저장 할 것입니다.</p>
+<p>현재 <code>Cacher</code> 구현의 두 번째 문제는 <code>u32</code> 타입 파라미터 한 개만 받고 하나의
+<code>u32</code> 을 반환한다는 것 입니다. 예를 들면, 문자열 슬라이스를 넘겨주고 <code>usize</code>
+값을 반환하는 클로저의 결과를 캐시에 저장하고 싶을 수도 있습니다. 이 이슈를 수정
+하기 위해, <code>Cacher</code> 기능에 유연성을 높여주도록 더 중립적인 파라미터를 사용해
+봅시다.</p>
+<a class="header" href="ch13-01-closures.html#클로저로-환경-캡쳐-하기" id="클로저로-환경-캡쳐-하기"><h3>클로저로 환경 캡쳐 하기</h3></a>
+<p>운동 생성 예제에서, 우리는 클로저를 단지 인라인 익명 함수로 사용 했습니다.
+그러나 클로저는 함수에 없는 추가적인 능력을 갖고 있습니다: 환경을 캡쳐해서
+클로저가 정의된 스코프의 변수들을 접근할 수 있습니다.</p>
+<p><code>equal_to_x</code> 변수에 저장된 클로저가 클로저를 둘러싼 환경에 있는 <code>x</code> 변수를
+사용하는 예제가 리스트 13-12 에 있습니다:</p>
+<p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     let x = 4;
 
@@ -726,12 +698,13 @@ that uses the variable <code>x</code> from the closure’s surrounding environme
     assert!(equal_to_x(y));
 }
 </code></pre></pre>
-<p><span class="caption">Listing 13-12: Example of a closure that refers to a
-variable in its enclosing scope</span></p>
-<p>Here, even though <code>x</code> is not one of the parameters of <code>equal_to_x</code>, the
-<code>equal_to_x</code> closure is allowed to use the <code>x</code> variable that’s defined in the
-same scope that <code>equal_to_x</code> is defined in.</p>
-<p>We can’t do the same with functions; let’s see what happens if we try:</p>
+<p><span class="caption">리스트 13-12: 둘러싼 범위에 있는 변수를 참조하는 클로저의
+예</span></p>
+<p>비록 <code>x</code> 가 <code>equal_to_x</code> 의 파라미터 중에 하나가 아니더라도, <code>equal_to_x</code> 는
+<code>equal_to_x</code> 가 정의된 동일한 스코프에 정의된 <code>x</code> 변수를 사용하는 것이 허용
+됩니다.</p>
+<p>함수로는 이와 동일하게 할 수 없습니다; 다음 예제로 시도해 보면, 코드는 컴파일
+되지 않습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
     let x = 4;
@@ -743,47 +716,45 @@ same scope that <code>equal_to_x</code> is defined in.</p>
     assert!(equal_to_x(y));
 }
 </code></pre>
-<p>We get an error:</p>
-<pre><code class="language-text">error[E0434]: can't capture dynamic environment in a fn item; use the || { ... }
-closure form instead
- --&gt;
+<p>에러가 발생 합니다:</p>
+<pre><code class="language-text">error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
+} closure form instead
+ --&gt; src/main.rs
   |
 4 |     fn equal_to_x(z: i32) -&gt; bool { z == x }
   |                                          ^
 </code></pre>
-<p>The compiler even reminds us that this only works with closures!</p>
-<p>When a closure captures a value from its environment, it uses memory to store
-the values for use in the closure body. This use of memory is overhead that we
-don’t want to pay in more common cases, where we want to execute code that
-doesn’t capture its environment. Because functions are never allowed to capture
-their environment, defining and using functions will never incur this overhead.</p>
-<p>Closures can capture values from their environment in three ways, which
-directly map to the three ways a function can take a parameter: taking
-ownership, borrowing immutably, and borrowing mutably. These are encoded in the
-three <code>Fn</code> traits as follows:</p>
+<p>컴파일러는 이것은 클로저에서만 동작한다고 상기시켜 주기까지 합니다!</p>
+<p>클로저가 그것의 환경에서 값을 캡쳐할 때, 클로저 바디에서 사용하기 위해 그 값을
+저장하기 위한 메모리를 사용 합니다. 이 메모리 사용은 환경을 캡쳐하지 않는 코드를
+실행하길 원하는 더 흔한 상황에서는 지불하기 싶지 않은 오버헤드 입니다.
+왜냐하면 함수는 그들의 환경을 캡쳐할 수 없기 때문에, 함수를 정의하고 사용하는데
+결코 이런 오버헤드는 발생하지 않을 것이기 때문 입니다.</p>
+<p>클로저는 세가지 방식으로 그들의 환경에서 값을 캡쳐 할 수 있는데, 함수가 파라미터
+를 받는 세가지 방식과 직접 연결 됩니다: 소유권 받기, 불변으로 빌려오기, 가변으로
+빌려오기. 이것들은 다음과 같이 세개의 <code>Fn</code> 트레잇으로 표현 합니다:</p>
 <ul>
-<li><code>FnOnce</code> consumes the variables it captures from its enclosing scope, known
-as the closure’s <em>environment</em>. In order to consume the captured variables,
-the closure must take ownership of these variables and move them into the
-closure when it is defined. The <code>Once</code> part of the name is because the
-closure can’t take ownership of the same variables more than once, so it can
-only be called one time.</li>
-<li><code>Fn</code> borrows values from the environment immutably.</li>
-<li><code>FnMut</code> can change the environment since it mutably borrows values.</li>
+<li><code>FnOnce</code> 는 클로저의 <em>환경</em>으로 알고 있는, 그것을 둘러싼 환경에서 캡쳐한 변수
+들을 소비합니다. 캡쳐한 변수를 소비하기 위해, 클로저는 이 변수의 소유권을
+가져야 하고 그것이 정의될 때 클로저 안으로 그것들을 옮겨와야 합니다. 이름의
+일부인 <code>Once</code> 는 그 클로저가 동일한 변수들에 대해 한번이상 소유권을 얻을수
+없다는 사실을 의미하며, 그래서 한번만 호출 될 수 있습니다.</li>
+<li><code>Fn</code> 은 그 환경으로 부터 값들을 불변으로 빌려 옵니다.</li>
+<li><code>FnMut</code> 값들을 가변으로 빌려오기 때문에 그 환경을 변경할 수 있습니다.</li>
 </ul>
-<p>When we create a closure, Rust infers which to use based on how the closure
-uses the values from the environment. In Listing 13-12, the <code>equal_to_x</code>
-closure borrows <code>x</code> immutably (so <code>equal_to_x</code> has the <code>Fn</code> trait) since the
-body of the closure only needs to read the value in <code>x</code>.</p>
-<p>If we want to force the closure to take ownership of the values it uses in the
-environment, we can use the <code>move</code> keyword before the parameter list. This is
-mostly useful when passing a closure to a new thread in order to move the data
-so that it’s owned by the new thread.</p>
-<p>We’ll have more examples of <code>move</code> closures in Chapter 16 when we talk about
-concurrency, but for now here’s the code from Listing 13-12 with the <code>move</code>
-keyword added to the closure definition and using vectors instead of integers,
-since integers can be copied rather than moved:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p>우리가 클로저를 만들때, 러스트는 클로저가 환경에 있는 값을 어떻게 사용하는지에
+근거 해서 어떤 트레잇을 사용할지 추론 합니다. 리스트 13-12 에서, <code>equal_to_x</code>
+클로저의 바디에서는 <code>x</code> 에 있는 값을 읽기만 하면 되기 때문에 클로저는 <code>x</code> 를
+불변으로 빌려 옵니다. (그래서 <code>equal_to_x</code> 은 <code>Fn</code> 트래잇 입니다)</p>
+<p>만약 클로저가 환경으로부터 사용하는 값에 대해 소유권을 갖도록 강제하고 싶다면,
+파라미터 리스트 앞에 <code>move</code> 키워드를 사용할 수 있습니다. 이 기법은 클로저를
+다른 쓰레드로 넘길때 데이터를 이동시켜 새로운 쓰레드가 소유하도록 할때 대부분
+유용 합니다.</p>
+<p>16장에 병렬성에 대해 이야기 하는 부분에서 더 많은 <code>move</code> 클로저에 대한 예제가
+있습니다. 지금은 리스트 13-12 의 코드에서 클로저에 <code>move</code> 키워드를 추가하고
+정수 대신 벡터를 사용하도록 했는데, 정수는 이동되지 않고 복사되기 때문 입니다;
+이 코드는 아직 컴파일 되지 않습니다:</p>
+<p><span class="filename">파일명: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
     let x = vec![1, 2, 3];
 
@@ -796,7 +767,7 @@ since integers can be copied rather than moved:</p>
     assert!(equal_to_x(y));
 }
 </code></pre>
-<p>This example doesn’t compile:</p>
+<p>아래와 같은 에러가 발생합니다:</p>
 <pre><code class="language-text">error[E0382]: use of moved value: `x`
  --&gt; src/main.rs:6:40
   |
@@ -807,62 +778,80 @@ since integers can be copied rather than moved:</p>
   |                                        ^ value used here after move
   |
   = note: move occurs because `x` has type `std::vec::Vec&lt;i32&gt;`, which does not
-    implement the `Copy` trait
+  implement the `Copy` trait
 </code></pre>
-<p>The <code>x</code> value is moved into the closure when the closure is defined, because we
-added the <code>move</code> keyword. The closure then has ownership of <code>x</code>, and <code>main</code>
-isn’t allowed to use <code>x</code> anymore in the <code>println!</code> statement. Removing
-<code>println!</code> will fix this example.</p>
-<p>Most of the time when specifying one of the <code>Fn</code> trait bounds, you can start
-with <code>Fn</code> and the compiler will tell you if you need <code>FnMut</code> or <code>FnOnce</code> based
-on what happens in the closure body.</p>
-<p>To illustrate situations where closures that can capture their environment are
-useful as function parameters, let’s move on to our next topic: iterators.</p>
+<p><code>move</code> 키워드를 추가했기 때문에 클로저가 정의될 때 <code>x</code> 값은 클로저 안으로
+이동됩니다. <code>x</code> 의 소유권은 클로저가 갖게 되었고, <code>main</code> 은 더 이상  <code>println!</code>
+문에서 <code>x</code> 사용하도록 허용되지 않습니다. <code>println!</code> 를 삭제하면 이 예제는 수정
+됩니다.</p>
+<p><code>Fn</code> 트래잇 바운드 중 하나를 기술할 때 대부분의 경우, <code>Fn</code> 으로 시작해보면
+컴파일러는 클로저 바디에서 무슨일을 하는지에 근거해서 <code>FnMut</code> 혹은 <code>FnOnce</code> 이
+필요한지 말해 줍니다.</p>
+<p>클로저가 그들의 환경을 캡쳐할 수 있는 상황을 표현하는 것은 함수 파라미터로써
+유용 합니다. 다음 주제로 넘어가 봅시다: 반복자.</p>
 
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch13-00-functional-features.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch13-02-iterators.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
                 </div>
+            </div>
 
-                <!-- Mobile navigation buttons -->
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="ch13-00-functional-features.html" class="mobile-nav-chapters previous">
+                    <a href="ch13-00-functional-features.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="ch13-02-iterators.html" class="mobile-nav-chapters next">
+                    <a href="ch13-02-iterators.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
-
-            </div>
-
-            
-                <a href="ch13-00-functional-features.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-            
-
-            
-                <a href="ch13-02-iterators.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            
+            </nav>
 
         </div>
 
 
         <!-- Local fallback for Font Awesome -->
         <script>
-            if ($(".fa").css("font-family") !== "FontAwesome") {
-                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = '_FontAwesome/css/font-awesome.css';
+                document.head.insertBefore(link, document.head.firstChild)
             }
         </script>
 
-        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
         
 
         <script src="highlight.js"></script>
-        <script src="store.js"></script>
         <script src="book.js"></script>
+
+        <!-- Custom JS script -->
+        
+
     </body>
 </html>
