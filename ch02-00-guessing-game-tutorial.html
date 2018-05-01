@@ -1,121 +1,139 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" class="sidebar-visible no-js">
     <head>
+        <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>추리 게임 튜토리얼 - 추리 게임 튜토리얼 - </title>
+        <title>추리 게임 튜토리얼 - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
 
         <base href="">
 
         <link rel="stylesheet" href="book.css">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
 
         <link rel="shortcut icon" href="favicon.png">
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="_FontAwesome/css/font-awesome.css">
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
-        <style>
-            .page-wrapper.has-warning > .nav-chapters {
-              /* add height for warning content & margin */
-              top: 120px;
-            }
+        <link rel="stylesheet" href="ayu-highlight.css">
 
-            p.warning {
-                background-color: rgb(242, 222, 222);
-                border-bottom-color: rgb(238, 211, 215);
-                border-bottom-left-radius: 4px;
-                border-bottom-right-radius: 4px;
-                border-bottom-style: solid;
-                border-bottom-width: 0.666667px;
-                border-image-outset: 0 0 0 0;
-                border-image-repeat: stretch stretch;
-                border-image-slice: 100% 100% 100% 100%;
-                border-image-source: none;
-                border-image-width: 1 1 1 1;
-                border-left-color: rgb(238, 211, 215);
-                border-left-style: solid;
-                border-left-width: 0.666667px;
-                border-right-color: rgb(238, 211, 215);
-                border-right-style: solid;
-                border-right-width: 0.666667px;
-                border-top-color: rgb(238, 211, 215);
-                border-top-left-radius: 4px;
-                border-top-right-radius: 4px;
-                border-top-style: solid;
-                border-top-width: 0.666667px;
-                color: rgb(185, 74, 72);
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                margin-top: 30px;
-                padding-bottom: 8px;
-                padding-left: 14px;
-                padding-right: 35px;
-                padding-top: 8px;
-            }
-            p.warning strong {
-                color: rgb(185, 74, 72)
-            }
-            p.warning a {
-                color: rgb(0, 136, 204)
-            }
-        </style>
+        <!-- Custom theme stylesheets -->
+        
 
-        <!-- MathJax -->
-        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
 
-        <!-- Fetch JQuery from CDN but have a local fallback -->
-        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script>
-            if (typeof jQuery == 'undefined') {
-                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
-            }
-        </script>
     </head>
     <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
-            var theme = localStorage.getItem('theme');
-            if (theme == null) { theme = 'light'; }
-            $('body').removeClass().addClass(theme);
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script type="text/javascript">
-            var sidebar = localStorage.getItem('sidebar');
-            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
-            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
-        <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="ch01-00-introduction.html"><strong>1.</strong> Introduction</a></li><li><ul class="section"><li><a href="ch01-01-installation.html"><strong>1.1.</strong> Installation</a></li><li><a href="ch01-02-hello-world.html"><strong>1.2.</strong> Hello, World!</a></li></ul></li><li><a href="ch02-00-guessing-game-tutorial.html" class="active"><strong>2.</strong> 추리 게임 튜토리얼</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong>3.</strong> 보편적인 프로그래밍 개념</a></li><li><ul class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong>3.1.</strong> Variables and Mutability</a></li><li><a href="ch03-02-data-types.html"><strong>3.2.</strong> Data Types</a></li><li><a href="ch03-03-how-functions-work.html"><strong>3.3.</strong> How Functions Work</a></li><li><a href="ch03-04-comments.html"><strong>3.4.</strong> Comments</a></li><li><a href="ch03-05-control-flow.html"><strong>3.5.</strong> Control Flow</a></li></ul></li><li><a href="ch04-00-understanding-ownership.html"><strong>4.</strong> 소유권 이해하기</a></li><li><ul class="section"><li><a href="ch04-01-what-is-ownership.html"><strong>4.1.</strong> 소유권이 뭔가요?</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong>4.2.</strong> 참조자와 빌림</a></li><li><a href="ch04-03-slices.html"><strong>4.3.</strong> 슬라이스</a></li></ul></li><li><a href="ch05-00-structs.html"><strong>5.</strong> 연관된 데이터들을 구조체로 다루기</a></li><li><ul class="section"><li><a href="ch05-01-defining-structs.html"><strong>5.1.</strong> 구조체를 정의하고 생성하기</a></li><li><a href="ch05-02-example-structs.html"><strong>5.2.</strong> 구조체를 이용한 예제 프로그램</a></li><li><a href="ch05-03-method-syntax.html"><strong>5.3.</strong> 메소드 문법</a></li></ul></li><li><a href="ch06-00-enums.html"><strong>6.</strong> 열거형과 패턴 매칭</a></li><li><ul class="section"><li><a href="ch06-01-defining-an-enum.html"><strong>6.1.</strong> 열거형 정의하기</a></li><li><a href="ch06-02-match.html"><strong>6.2.</strong> <code>match</code> 흐름 제어 연산자</a></li><li><a href="ch06-03-if-let.html"><strong>6.3.</strong> <code>if let</code>을 사용한 간결한 흐름 제어</a></li></ul></li><li><a href="ch07-00-modules.html"><strong>7.</strong> 모듈</a></li><li><ul class="section"><li><a href="ch07-01-mod-and-the-filesystem.html"><strong>7.1.</strong> <code>mod</code>와 파일 시스템</a></li><li><a href="ch07-02-controlling-visibility-with-pub.html"><strong>7.2.</strong> <code>pub</code>으로 가시성 제어하기</a></li><li><a href="ch07-03-importing-names-with-use.html"><strong>7.3.</strong> <code>use</code>로 이름 가져오기</a></li></ul></li><li><a href="ch08-00-common-collections.html"><strong>8.</strong> 일반적인 컬렉션</a></li><li><ul class="section"><li><a href="ch08-01-vectors.html"><strong>8.1.</strong> 벡터</a></li><li><a href="ch08-02-strings.html"><strong>8.2.</strong> 스트링</a></li><li><a href="ch08-03-hash-maps.html"><strong>8.3.</strong> 해쉬맵</a></li></ul></li><li><a href="ch09-00-error-handling.html"><strong>9.</strong> 에러 처리</a></li><li><ul class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong>9.1.</strong> <code>panic!</code>과 함께하는 복구 불가능한 에러</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong>9.2.</strong> <code>Result</code>와 함께하는 복구 가능한 에러</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong>9.3.</strong> <code>panic!</code>이냐, <code>panic!</code>이 아니냐, 그것이 문제로다</a></li></ul></li><li><a href="ch10-00-generics.html"><strong>10.</strong> 제네릭 타입, 트레잇, 그리고 라이프타임</a></li><li><ul class="section"><li><a href="ch10-01-syntax.html"><strong>10.1.</strong> 제네릭 데이터 타입</a></li><li><a href="ch10-02-traits.html"><strong>10.2.</strong> 트레잇: 공유 동작을 정의하기</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong>10.3.</strong> 라이프타임을 이용한 참조자 유효화</a></li></ul></li><li><a href="ch11-00-testing.html"><strong>11.</strong> 테스팅</a></li><li><ul class="section"><li><a href="ch11-01-writing-tests.html"><strong>11.1.</strong> 테스트 작성하기</a></li><li><a href="ch11-02-running-tests.html"><strong>11.2.</strong> 테스트 실행하기</a></li><li><a href="ch11-03-test-organization.html"><strong>11.3.</strong> 테스트 조직화</a></li></ul></li><li><a href="ch12-00-an-io-project.html"><strong>12.</strong> An I/O Project</a></li><li><ul class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong>12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong>12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong>12.3.</strong> Improving Error Handling and Modularity</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong>12.4.</strong> Testing the Library's Functionality</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong>12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong>12.6.</strong> Writing to <code>stderr</code> instead of <code>stdout</code></a></li></ul></li><li><a href="ch13-00-functional-features.html"><strong>13.</strong> Functional Language Features in Rust</a></li><li><ul class="section"><li><a href="ch13-01-closures.html"><strong>13.1.</strong> Closures</a></li><li><a href="ch13-02-iterators.html"><strong>13.2.</strong> Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong>13.3.</strong> Improving our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong>13.4.</strong> Performance</a></li></ul></li><li><a href="ch14-00-more-about-cargo.html"><strong>14.</strong> More about Cargo and Crates.io</a></li><li><ul class="section"><li><a href="ch14-01-release-profiles.html"><strong>14.1.</strong> Release Profiles</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong>14.2.</strong> Publishing a Crate to Crates.io</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong>14.3.</strong> Cargo Workspaces</a></li><li><a href="ch14-04-installing-binaries.html"><strong>14.4.</strong> Installing Binaries from Crates.io with <code>cargo install</code></a></li><li><a href="ch14-05-extending-cargo.html"><strong>14.5.</strong> Extending Cargo with Custom Commands</a></li></ul></li><li><a href="ch15-00-smart-pointers.html"><strong>15.</strong> 스마트 포인터</a></li><li><ul class="section"><li><a href="ch15-01-box.html"><strong>15.1.</strong> <code>Box&lt;T&gt;</code>는 힙에 있는 데이터를 가리키고 알려진 크기를 갖습니다</a></li><li><a href="ch15-02-deref.html"><strong>15.2.</strong> <code>Deref</code> 트레잇은 참조자를 통하여 데이터로의 접근을 허용합니다</a></li><li><a href="ch15-03-drop.html"><strong>15.3.</strong> <code>Drop</code> 트레잇은 메모리 정리 코드를 실행시킵니다</a></li><li><a href="ch15-04-rc.html"><strong>15.4.</strong> <code>Rc&lt;T&gt;</code>, 참조 카운팅 스마트 포인터</a></li><li><a href="ch15-05-interior-mutability.html"><strong>15.5.</strong> <code>RefCell&lt;T&gt;</code>와 내부 가변성 패턴</a></li><li><a href="ch15-06-reference-cycles.html"><strong>15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ul></li><li><a href="ch16-00-concurrency.html"><strong>16.</strong> Fearless Concurrency</a></li><li><ul class="section"><li><a href="ch16-01-threads.html"><strong>16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong>16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong>16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong>16.4.</strong> Extensible Concurrency: <code>Sync</code> and <code>Send</code></a></li></ul></li><li><a href="ch17-00-oop.html"><strong>17.</strong> Is Rust an Object-Oriented Programming Language?</a></li><li><ul class="section"><li><a href="ch17-01-what-is-oo.html"><strong>17.1.</strong> What Does Object-Oriented Mean?</a></li><li><a href="ch17-02-trait-objects.html"><strong>17.2.</strong> Trait Objects for Using Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong>17.3.</strong> Object-Oriented Design Pattern Implementations</a></li></ul></li><li><a href="ch18-00-patterns.html"><strong>18.</strong> Patterns Match the Structure of Values</a></li><li><ul class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong>18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong>18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong>18.3.</strong> All the Pattern Syntax</a></li></ul></li><li><a href="ch19-00-advanced-features.html"><strong>19.</strong> Advanced Features</a></li><li><ul class="section"><li><a href="ch19-01-unsafe-rust.html"><strong>19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong>19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong>19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong>19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong>19.5.</strong> Advanced Functions &amp; Closures</a></li></ul></li><li><a href="ch20-00-final-project-a-web-server.html"><strong>20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ul class="section"><li><a href="ch20-01-single-threaded.html"><strong>20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-slow-requests.html"><strong>20.2.</strong> How Slow Requests Affect Throughput</a></li><li><a href="ch20-03-designing-the-interface.html"><strong>20.3.</strong> Designing the Thread Pool Interface</a></li><li><a href="ch20-04-storing-threads.html"><strong>20.4.</strong> Creating the Thread Pool and Storing Threads</a></li><li><a href="ch20-05-sending-requests-via-channels.html"><strong>20.5.</strong> Sending Requests to Threads Via Channels</a></li><li><a href="ch20-06-graceful-shutdown-and-cleanup.html"><strong>20.6.</strong> Graceful Shutdown and Cleanup</a></li></ul></li><li><a href="appendix-00.html"><strong>21.</strong> Appendix</a></li><li><ul class="section"><li><a href="appendix-01-keywords.html"><strong>21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong>21.2.</strong> B - Operators</a></li><li><a href="_.html"><strong>21.3.</strong> C - Derivable Traits</a></li><li><a href="_.html"><strong>21.4.</strong> D - Nightly Rust</a></li><li><a href="_.html"><strong>21.5.</strong> E - Macros</a></li><li><a href="_.html"><strong>21.6.</strong> F - Translations</a></li><li><a href="appendix-07-newest-features.html"><strong>21.7.</strong> G - Newest Features</a></li></ul></li></ul>
-        </div>
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="foreword.html">Foreword</a></li><li class="affix"><a href="ch00-00-introduction.html">Introduction</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html" class="active"><strong aria-hidden="true">2.</strong> 추리 게임 튜토리얼</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 보편적인 프로그래밍 개념</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> How Functions Work</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 소유권 이해하기</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 소유권이 뭔가요?</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 참조자와 빌림</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> 슬라이스</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 연관된 데이터들을 구조체로 다루기</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 구조체를 정의하고 생성하기</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 구조체를 이용한 예제 프로그램</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 메소드 문법</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 열거형과 패턴 매칭</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 열거형 정의하기</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 흐름 제어 연산자</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let을 사용한 간결한 흐름 제어</a></li></ol></li><li><a href="ch07-00-modules.html"><strong aria-hidden="true">7.</strong> 모듈</a></li><li><ol class="section"><li><a href="ch07-01-mod-and-the-filesystem.html"><strong aria-hidden="true">7.1.</strong> mod와 파일 시스템</a></li><li><a href="ch07-02-controlling-visibility-with-pub.html"><strong aria-hidden="true">7.2.</strong> pub으로 가시성 제어하기</a></li><li><a href="ch07-03-importing-names-with-use.html"><strong aria-hidden="true">7.3.</strong> use로 이름 가져오기</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 일반적인 컬렉션</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> 벡터</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 스트링</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 해쉬맵</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 에러 처리</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!과 함께하는 복구 불가능한 에러</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result와 함께하는 복구 가능한 에러</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!이냐, panic!이 아니냐, 그것이 문제로다</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 제네릭 타입, 트레잇, 그리고 라이프타임</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 제네릭 데이터 타입</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> 트레잇: 공유 동작을 정의하기</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 라이프타임을 이용한 참조자 유효화</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 테스팅</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 테스트 작성하기</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 테스트 실행하기</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 테스트 조직화</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 스마트 포인터</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T>는 힙에 있는 데이터를 가리키고 알려진 크기를 갖습니다</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Deref 트레잇은 참조자를 통하여 데이터로의 접근을 허용합니다</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop 트레잇은 메모리 정리 코드를 실행시킵니다</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, 참조 카운팅 스마트 포인터</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T>와 내부 가변성 패턴</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency: Sync and Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects that Allow for Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns Match the Structure of Values</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> All the Pattern Syntax</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> Advanced Functions &amp; Closures</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning our Single Threaded Server into a Multithreaded Server</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="appendix-04-macros.html"><strong aria-hidden="true">21.4.</strong> D - Macros</a></li><li><a href="appendix-05-translation.html"><strong aria-hidden="true">21.5.</strong> E - Translations</a></li><li><a href="appendix-06-newest-features.html"><strong aria-hidden="true">21.6.</strong> F - Newest Features</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+        </nav>
 
-        <div id="page-wrapper" class="page-wrapper has-warning">
+        <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <header><p class="warning">You are reading a <strong>draft</strong> of the next edition of TRPL. For more, go <a href="../index.html">here</a>.</p></header>
+                
                 <div id="menu-bar" class="menu-bar">
-                    <div class="left-buttons">
-                        <i id="sidebar-toggle" class="fa fa-bars"></i>
-                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
-                    </div>
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
 
-                    <h1 class="menu-title">추리 게임 튜토리얼 - </h1>
+                        <h1 class="menu-title">The Rust Programming Language</h1> 
 
-                    <div class="right-buttons">
-                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
 
                 <div id="content" class="content">
-                    <a class="header" href="ch02-00-guessing-game-tutorial.html#추리-게임" id="추리-게임"><h1>추리 게임</h1></a>
+                    <main>
+                        <a class="header" href="ch02-00-guessing-game-tutorial.html#a추리-게임" id="a추리-게임"><h1>추리 게임</h1></a>
 <p>실습 프로젝트를 통해 러스트를 사용해 봅시다. 이번 장은 실제 프로젝트에서 몇몇
 일반적인 Rust 개념이 어떻게 활용되는지를 소개하려 합니다. 이 과정에서 <code>let</code>, <code>match</code>,
 메소드, 연관함수(assiciated functions), 외부 크레이트(external crates) 등의 활용 방법을
@@ -125,7 +143,7 @@
 프로그램은 1~100 사이의 임의의 정수를 생성합니다. 다음으로 플레이어가 프로그램에 추리한
 정수를 입력합니다. 프로그램은 입력받은 추리값이 정답보다 높거나 낮은지를 알려줍니다.
 추리값이 정답이라면 축하 메세지를 보여주고 종료됩니다.</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#새로운-프로젝트를-준비하기" id="새로운-프로젝트를-준비하기"><h2>새로운 프로젝트를 준비하기</h2></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a새로운-프로젝트를-준비하기" id="a새로운-프로젝트를-준비하기"><h2>새로운 프로젝트를 준비하기</h2></a>
 <p>새로운 프로젝트를 준비하기 위해 1장에서 생성했던 디렉토리인 <em>projects</em> 로 이동하고
 아래 예제처럼 Cargo를 이용하여 새로운 프로젝트를 생성합니다.</p>
 <pre><code class="language-text">$ cargo new guessing_game --bin
@@ -163,7 +181,7 @@ Hello, world!
 <p><code>run</code> 명령어는 이번 실습 프로젝트처럼 빠르게 반복(iteration)을 하고 싶을 때 유용합니다.
 우리는 다음 iteration으로 넘어가기 전 빠르게 각 iteration을 테스트하고 싶습니다.</p>
 <p><em>src/main.rs</em> 를 다시 열어 두세요. 이 파일에 모든 코드를 작성할 것입니다.</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#추리값을-처리하기" id="추리값을-처리하기"><h2>추리값을 처리하기</h2></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a추리값을-처리하기" id="a추리값을-처리하기"><h2>추리값을 처리하기</h2></a>
 <p>프로그램의 첫 부분은 사용자 입력 요청, 입력값의 처리 후 입력값이 기대하던 형식인지
 검증합니다. 첫 시작으로 플레이어가 추리한 값을 입력받을 수 있게 할 것입니다.
 Listing 2-1의 코드를 <em>src/main.rs</em> 에 작성하세요.</p>
@@ -204,7 +222,7 @@ fn main() {
 println!(&quot;Please input your guess.&quot;);
 </code></pre>
 <p>이 코드는 게임에 대한 설명과 사용자의 입력을 요청하는 글자를 표시합니다.</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#값을-변수에-저장하기" id="값을-변수에-저장하기"><h3>값을 변수에 저장하기</h3></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a값을-변수에-저장하기" id="a값을-변수에-저장하기"><h3>값을 변수에 저장하기</h3></a>
 <p>다음으로 우리는 다음 코드처럼 사용자의 입력값을 저장할 공간을 생성할 수 있습니다.</p>
 <pre><code class="language-rust ignore">let mut guess = String::new();
 </code></pre>
@@ -320,7 +338,7 @@ let y = 10;
 println!(&quot;x = {} and y = {}&quot;, x, y);
 #}</code></pre></pre>
 <p>이 코드는 <code>x = 5 and y = 10</code>을 출력합니다.</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#첫번째-부분을-테스트하기" id="첫번째-부분을-테스트하기"><h3>첫번째 부분을 테스트하기</h3></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a첫번째-부분을-테스트하기" id="a첫번째-부분을-테스트하기"><h3>첫번째 부분을 테스트하기</h3></a>
 <p>추리 게임의 처음 부분을 테스트 해 봅시다. <code>cargo run</code>을 통해 실행할 수 있습니다.</p>
 <pre><code class="language-text">$ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
@@ -332,13 +350,13 @@ Please input your guess.
 You guessed: 6
 </code></pre>
 <p>지금까지 게임의 첫번째 부분을 작성했습니다. 우리는 입력값을 받고 그 값을 출력했습니다.</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#비밀번호를-생성하기" id="비밀번호를-생성하기"><h2>비밀번호를 생성하기</h2></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a비밀번호를-생성하기" id="a비밀번호를-생성하기"><h2>비밀번호를 생성하기</h2></a>
 <p>다음으로 사용자가 추리하기 위한 비밀번호를 생성해야 합니다. 게임을 다시
 하더라도 재미있도록 비밀번호는 매번 달라야 합니다. 게임이 너무 어렵지 않도록
 1에서 100 사이의 임의의 수를 사용합시다. 러스트는 아직 표준 라이브러리에
 임의의 값을 생성하는 기능이 없습니다. 하지만 러스트 팀에서는
 <a href="https://crates.io/crates/rand"><code>rand</code> 크레이트</a>를 제공합니다.</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#크레이트crate를-사용하여-더-많은-기능-가져오기" id="크레이트crate를-사용하여-더-많은-기능-가져오기"><h3>크레이트(Crate)를 사용하여 더 많은 기능 가져오기</h3></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a크레이트crate를-사용하여-더-많은-기능-가져오기" id="a크레이트crate를-사용하여-더-많은-기능-가져오기"><h3>크레이트(Crate)를 사용하여 더 많은 기능 가져오기</h3></a>
 <p><em>크레이트</em>는 러스트 코드의 묶음(package)임을 기억하세요. 우리가 만들고 있는
 프로젝트는 실행이 가능한 <em>binary crate</em> 입니다. <code>rand</code> crate는 다른
 프로그램에서 사용되기 위한 용도인 <em>library crate</em> 입니다.</p>
@@ -392,7 +410,7 @@ Cargo는 이미 의존 패키지들을 다운받고 컴파일했음을 알고 �
 보여줍니다. 의존 패키지가 변경되지 않았으므로 Cargo는 이미 다운받고 컴파일된 것들을
 재사용할 수 있음을 알고 있습니다. 따라서 Cargo는 여러분의 코드에 해당하는 부분만을
 다시 빌드합니다.</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#재현-가능한-빌드를-보장하는-cargolock" id="재현-가능한-빌드를-보장하는-cargolock"><h4>재현 가능한 빌드를 보장하는 <em>Cargo.lock</em></h4></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a재현-가능한-빌드를-보장하는-cargolock" id="a재현-가능한-빌드를-보장하는-cargolock"><h4>재현 가능한 빌드를 보장하는 <em>Cargo.lock</em></h4></a>
 <p>Cargo는 여러분만 아니라 다른 누구라도 여러분의 코드를 빌드할 경우 같은 산출물이
 나오도록 보장하는 방법을 가지고 있습니다. Cargo는 여러분이 다른 의존성을 추가하지
 전까지는 여러분이 명시한 의존 패키지만을 사용합니다. 예로 <code>rand</code> 크레이트의 다음
@@ -406,7 +424,7 @@ Cargo는 이미 의존 패키지들을 다운받고 컴파일했음을 알고 �
 사용합니다. 이는 여러분이 재현가능한 빌드를 자동으로 가능하게 합니다. 즉 여러분의
 프로젝트는 <em>Cargo.lock</em> 덕분에 당신이 명시적으로 업그레이드하지 않는 이상 <code>0.3.14</code>를
 이용합니다.</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#크레이트를-새로운-버전으로-업그레이드하기" id="크레이트를-새로운-버전으로-업그레이드하기"><h4>크레이트를 새로운 버전으로 업그레이드하기</h4></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a크레이트를-새로운-버전으로-업그레이드하기" id="a크레이트를-새로운-버전으로-업그레이드하기"><h4>크레이트를 새로운 버전으로 업그레이드하기</h4></a>
 <p>만약 당신이 <em>정말</em> 크레이트를 업데이트하고 싶은 경우를 위해 Cargo는 <code>update</code> 명령어를
 제공합니다. 이것은</p>
 <ol>
@@ -436,7 +454,7 @@ rand = &quot;0.4.0&quot;
 더 많은 것들은 14장에서 다뤄지지만 지금 당장은 이 정도만 알면 됩니다. Cargo는 라이브러리의
 재사용을 쉽게 하여 러스트 사용자들이 많은 패키지들과 결합된 더 작은 프로젝트들을 작성할
 수 있도록 도와줍니다.</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#임의의-숫자를-생성하기" id="임의의-숫자를-생성하기"><h3>임의의 숫자를 생성하기</h3></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a임의의-숫자를-생성하기" id="a임의의-숫자를-생성하기"><h3>임의의 숫자를 생성하기</h3></a>
 <p>이제 <code>rand</code>를 <em>사용</em> 해 봅시다. 다음 단계는 <em>src/main.rs</em> 를 Listing 2-3처럼
 업데이트하면 됩니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
@@ -505,7 +523,7 @@ Please input your guess.
 You guessed: 5
 </code></pre>
 <p>매 실행마다 다른 숫자면서 1부터 100 사이의 숫자가 나타나야 합니다. 잘 하셨습니다!</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#비밀번호와-추리값을-비교하기" id="비밀번호와-추리값을-비교하기"><h2>비밀번호와 추리값을 비교하기</h2></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a비밀번호와-추리값을-비교하기" id="a비밀번호와-추리값을-비교하기"><h2>비밀번호와 추리값을 비교하기</h2></a>
 <p>이제 우리는 입력값과 임의의 정수를 가지고 있음으로 비교가 가능합니다.
 Listing 2-4는 그 단계를 보여주고 있습니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
@@ -679,7 +697,7 @@ Too big!
 여러 시나리오를 검증해 봅시다.</p>
 <p>우리는 게임의 대부분이 동작하도록 처리 했지만 사용자는 한 번의 추리만 가능합니다.
 반복문을 추가하여 변경해 봅시다!</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#반복문을-이용하여-여러-번의-추리-허용" id="반복문을-이용하여-여러-번의-추리-허용"><h2>반복문을 이용하여 여러 번의 추리 허용</h2></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a반복문을-이용하여-여러-번의-추리-허용" id="a반복문을-이용하여-여러-번의-추리-허용"><h2>반복문을 이용하여 여러 번의 추리 허용</h2></a>
 <p><code>loop</code> 키워드는 무한루프를 제공합니다. 이것을 이용하여 사용자들에게 숫자를
 추리할 기회를 더 줍니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
@@ -753,7 +771,7 @@ error: Process didn't exit successfully: `target/debug/guess` (exit code: 101)
 <p><code>quit</code>를 입력하면 게임은 확실히 끝나지만 다른 입력값들 또한 마찬가지
 입니다. 하지만 이것은 최소한 차선책입니다. 우리는 정답을 입력할 경우 자동으로
 게임이 끝나도록 하고 싶습니다.</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#정답-이후에-종료하기" id="정답-이후에-종료하기"><h3>정답 이후에 종료하기</h3></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a정답-이후에-종료하기" id="a정답-이후에-종료하기"><h3>정답 이후에 종료하기</h3></a>
 <p>사용자가 정답을 맞췄을 때 게임이 종료되도록 <code>break</code>문을 추가합니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">extern crate rand;
@@ -796,7 +814,7 @@ fn main() {
 <p><code>break</code>문을 <code>You win!</code> 이후에 추가하여 사용자가 비밀번호를 맞췄을 때 프로그램이
 반복문을 끝내도록 합니다. 반복문이 <code>main</code>의 마지막 부분이므로 반복문의 종료는
 프로그램의 종료를 의미합니다.</p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#잘못된-입력값-처리하기" id="잘못된-입력값-처리하기"><h3>잘못된 입력값 처리하기</h3></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a잘못된-입력값-처리하기" id="a잘못된-입력값-처리하기"><h3>잘못된 입력값 처리하기</h3></a>
 <p>사용자가 숫자가 아닌 값을 입력했을 때 프로그램이 종료되는 동작을 더 다듬어
 숫자가 아닌 입력은 무시하여 사용자가 계속 입력할 수 있도록 해 봅시다.
 <code>guess</code>가 <code>String</code>에서 <code>u32</code>로 변환되는 라인을 수정하면 됩니다.</p>
@@ -884,7 +902,7 @@ fn main() {
 }
 </code></pre>
 <p><span class="caption">Listing 2-5: 추리 게임의 완성된 코드<span></p>
-<a class="header" href="ch02-00-guessing-game-tutorial.html#요약" id="요약"><h2>요약</h2></a>
+<a class="header" href="ch02-00-guessing-game-tutorial.html#a요약" id="a요약"><h2>요약</h2></a>
 <p>이 시점에서 여러분은 성공적으로 추리 게임을 만들었습니다! 축하합니다!</p>
 <p>이 프로젝트는 <code>let</code>, <code>match</code>, 메소드, 연관함수, 외부 크레이트 사용과 같은 많은
 새로운 러스트 개념들을 소개하기 위한 실습이었습니다. 다음 장들에서는 이 개념들의
@@ -893,50 +911,66 @@ fn main() {
 프로그래밍 언어와 차별화된 러스트의 특성인 소유권을 다룹니다. 5장에서는 구조체와
 메소드 문법을 다루며 6장에서는 열거형에 대해 다룹니다.</p>
 
-                </div>
+                    </main>
 
-                <!-- Mobile navigation buttons -->
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch01-03-hello-cargo.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch03-00-common-programming-concepts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="ch01-02-hello-world.html" class="mobile-nav-chapters previous">
+                    <a href="ch01-03-hello-cargo.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="ch03-00-common-programming-concepts.html" class="mobile-nav-chapters next">
+                    <a href="ch03-00-common-programming-concepts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
-
-            </div>
-
-            
-                <a href="ch01-02-hello-world.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-            
-
-            
-                <a href="ch03-00-common-programming-concepts.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            
+            </nav>
 
         </div>
 
-
-        <!-- Local fallback for Font Awesome -->
-        <script>
-            if ($(".fa").css("font-family") !== "FontAwesome") {
-                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
-            }
-        </script>
-
-        <!-- Livereload script (if served using the cli tool) -->
         
 
-        <script src="highlight.js"></script>
-        <script src="store.js"></script>
-        <script src="book.js"></script>
+        
+
+        
+
+        
+
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
     </body>
 </html>
