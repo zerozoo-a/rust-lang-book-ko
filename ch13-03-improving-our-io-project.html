@@ -133,18 +133,16 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="ch13-03-improving-our-io-project.html#improving-our-io-project" id="improving-our-io-project"><h2>Improving Our I/O Project</h2></a>
-<p>With this new knowledge about iterators, we can improve the I/O project in
-Chapter 12 by using iterators to make places in the code clearer and more
-concise. Let’s look at how iterators can improve our implementation of the
-<code>Config::new</code> function and the <code>search</code> function.</p>
-<a class="header" href="ch13-03-improving-our-io-project.html#removing-a-clone-using-an-iterator" id="removing-a-clone-using-an-iterator"><h3>Removing a <code>clone</code> Using an Iterator</h3></a>
-<p>In Listing 12-6, we added code that took a slice of <code>String</code> values and created
-an instance of the <code>Config</code> struct by indexing into the slice and cloning the
-values, allowing the <code>Config</code> struct to own those values. In Listing 13-24,
-we’ve reproduced the implementation of the <code>Config::new</code> function as it was in
-Listing 12-23:</p>
-<p><span class="filename">Filename: src/lib.rs</span></p>
+                        <a class="header" href="ch13-03-improving-our-io-project.html#io-프로젝트-개선하기" id="io-프로젝트-개선하기"><h2>I/O 프로젝트 개선하기</h2></a>
+<p>반복자에 대한 새로운 지식을 사용하여 12장의 I/O 프로젝트의 코드들을 더 깔끔하고
+간결하게 개선할 수 있습니다. 반복자를 사용하여 어떻게 <code>Config::new</code> 함수와
+<code>search</code> 함수의 구현을 개선할 수 있는지 살펴봅시다.</p>
+<a class="header" href="ch13-03-improving-our-io-project.html#a반복자를-사용하여-clone-제거하기" id="a반복자를-사용하여-clone-제거하기"><h3>반복자를 사용하여 <code>clone</code> 제거하기</h3></a>
+<p>리스트 12-6 에서, <code>String</code> 값의 슬라이스를 받고 슬라이스를 인덱싱하고 복사
+함으로써 <code>Config</code> 구조체의 인스턴스를 생성하였고, <code>Config</code> 구조체가 이 값들을
+소유하도록 했습니다. 리스트 13-24 에서는 리스트 12-23 에 있던 것 처럼
+<code>Config::new</code> 함수의 구현을 다시 재현 했습니다:</p>
+<p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">impl Config {
     pub fn new(args: &amp;[String]) -&gt; Result&lt;Config, &amp;'static str&gt; {
         if args.len() &lt; 3 {
@@ -160,25 +158,25 @@ Listing 12-23:</p>
     }
 }
 </code></pre>
-<p><span class="caption">Listing 13-24: Reproduction of the <code>Config::new</code> function
-from Listing 12-23</span></p>
-<p>At the time, we said not to worry about the inefficient <code>clone</code> calls because
-we would remove them in the future. Well, that time is now!</p>
-<p>We needed <code>clone</code> here because we have a slice with <code>String</code> elements in the
-parameter <code>args</code>, but the <code>new</code> function doesn’t own <code>args</code>. To return
-ownership of a <code>Config</code> instance, we had to clone the values from the <code>query</code>
-and <code>filename</code> fields of <code>Config</code> so the <code>Config</code> instance can own its values.</p>
-<p>With our new knowledge about iterators, we can change the <code>new</code> function to
-take ownership of an iterator as its argument instead of borrowing a slice.
-We’ll use the iterator functionality instead of the code that checks the length
-of the slice and indexes into specific locations. This will clarify what the
-<code>Config::new</code> function is doing because the iterator will access the values.</p>
-<p>Once <code>Config::new</code> takes ownership of the iterator and stops using indexing
-operations that borrow, we can move the <code>String</code> values from the iterator into
-<code>Config</code> rather than calling <code>clone</code> and making a new allocation.</p>
-<a class="header" href="ch13-03-improving-our-io-project.html#using-the-returned-iterator-directly" id="using-the-returned-iterator-directly"><h4>Using the Returned Iterator Directly</h4></a>
-<p>Open your I/O project’s <em>src/main.rs</em> file, which should look like this:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p><span class="caption">리스트 13-24: 리스트 12-23 의 <code>Config::new</code> 함수 재현
+</span></p>
+<p>그 당시, 비효율적인 <code>clone</code> 호출에 대해 걱정하지 말라고 얘기 했으며 미래에
+없앨 것이라고 했습니다. 자, 그때가 되었습니다!</p>
+<p><code>String</code> 요소들의 슬라이스를 <code>args</code> 파라미터로 받았지만 <code>new</code> 함수는 <code>args</code> 를
+소유하지 않기 때문에 <code>clone</code> 이 필요했습니다. <code>Config</code> 인스턴스의 소유권을
+반환하기 위해, <code>Config</code> 의 <code>query</code> 와 <code>filename</code> 필드로 값을 복제 함으로써
+<code>Config</code> 인스턴스는 그 값들을 소유할 수 있습니다.</p>
+<p>반복자에 대한 새로운 지식으로, 인자로써 슬라이스를 빌리는 대신 반복자의 소유권을
+갖도록 <code>new</code> 함수를 변경할 수 있습니다. 슬라이스의 길이를 체크하고 특정 위치로
+인덱싱을 하는 코드 대신 반복자의 기능을 사용할 것 입니다. 이것은 반복자가 값에
+접근 할 것이기 때문에 <code>Config::new</code> 함수가 무엇을 하는지를 명확하게 해줄 것
+입니다.</p>
+<p><code>Config::new</code> 가 반복자의 소유권을 갖고 빌린 값에 대한 인뎅싱을 사용하지 않게
+된다면, <code>clone</code> 을 호출하고 새로운 할당을 만드는 대신 <code>String</code> 값들을 반복자에서
+<code>Config</code> 로 이동할 수 있습니다.</p>
+<a class="header" href="ch13-03-improving-our-io-project.html#a반환된-반복자를-직접-사용하기" id="a반환된-반복자를-직접-사용하기"><h4>반환된 반복자를 직접 사용하기</h4></a>
+<p>I/O 프로젝트의 <em>src/main.rs</em> 파일을 열어보면, 아래와 같을 것 입니다:</p>
+<p><span class="filename">파일명: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
     let args: Vec&lt;String&gt; = env::args().collect();
 
@@ -190,10 +188,9 @@ operations that borrow, we can move the <code>String</code> values from the iter
     // --snip--
 }
 </code></pre>
-<p>We’ll change the start of the <code>main</code> function that we had in Listing 12-24 at
-to the code in Listing 13-25. This won’t compile until we update <code>Config::new</code>
-as well.</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p>우리는 리스트 12-24 에 있는 <code>main</code> 함수의 시작점을 리스트 13-25 에 있는 코드로
+바꿀 것 입니다. 이것은 <code>Config::new</code> 도 업데이트 해야 컴파일 됩니다.</p>
+<p><span class="filename">파일명: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
     let config = Config::new(env::args()).unwrap_or_else(|err| {
         eprintln!(&quot;Problem parsing arguments: {}&quot;, err);
@@ -203,34 +200,32 @@ as well.</p>
     // --snip--
 }
 </code></pre>
-<p><span class="caption">Listing 13-25: Passing the return value of <code>env::args</code> to
-<code>Config::new</code></span></p>
-<p>The <code>env::args</code> function returns an iterator! Rather than collecting the
-iterator values into a vector and then passing a slice to <code>Config::new</code>, now
-we’re passing ownership of the iterator returned from <code>env::args</code> to
-<code>Config::new</code> directly.</p>
-<p>Next, we need to update the definition of <code>Config::new</code>. In your I/O project’s
-<em>src/lib.rs</em> file, let’s change the signature of <code>Config::new</code> to look like
-Listing 13-26. This still won’t compile because we need to update the function
-body.</p>
-<p><span class="filename">Filename: src/lib.rs</span></p>
+<p><span class="caption">리스트 13-25: <code>Config::new</code> 로 <code>env::args</code> 의 반환값
+넘기기</span></p>
+<p><code>env::args</code> 함수는 반복자를 반환 합니다! 반복자의 값들을 벡터로 모아서
+<code>Config::new</code> 에 슬라이스를 넘기는 대신, <code>env::args</code> 에서 반환된 반복자의 소유권
+을 <code>Config::new</code> 로 직접 전달 합니다.</p>
+<p>그 다음, <code>Config::new</code> 정의를 업데이트 할 필요가 있습니다. I/O 프로젝트의
+<em>src/lib.rs</em> 파일에서, 리스트 13-26 처럼 <code>Config::new</code> 의 시그니처를 변경
+합시다. 함수 본문을 업데이트 해야 하기 때문이 아직 컴파일 되지 않습니다.</p>
+<p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">impl Config {
     pub fn new(mut args: std::env::Args) -&gt; Result&lt;Config, &amp;'static str&gt; {
         // --snip--
 </code></pre>
-<p><span class="caption">Listing 13-26: Updating the signature of <code>Config::new</code> to
-expect an iterator</span></p>
-<p>The standard library documentation for the <code>env::args</code> function shows that the
-type of the iterator it returns is <code>std::env::Args</code>. We’ve updated the
-signature of the <code>Config::new</code> function so the parameter <code>args</code> has the type
-<code>std::env::Args</code> instead of <code>&amp;[String]</code>. Because we’re taking ownership of
-<code>args</code> and we’ll be mutating <code>args</code> by iterating over it, we can add the <code>mut</code>
-keyword into the specification of the <code>args</code> parameter to make it mutable.</p>
-<a class="header" href="ch13-03-improving-our-io-project.html#using-iterator-trait-methods-instead-of-indexing" id="using-iterator-trait-methods-instead-of-indexing"><h4>Using <code>Iterator</code> Trait Methods Instead of Indexing</h4></a>
-<p>Next, we’ll fix the body of <code>Config::new</code>. The standard library documentation
-also mentions that <code>std::env::Args</code> implements the <code>Iterator</code> trait, so we know
-we can call the <code>next</code> method on it! Listing 13-27 updates the code from
-Listing 12-23 to use the <code>next</code> method:</p>
+<p><span class="caption">리스트 13-26: 반복자를 받도록 <code>Config::new</code> 의 시그니처
+업데이트 하기</span></p>
+<p><code>env::args</code> 함수에 대한 표준 라이브러리 문서에는 반환하는 반복자의 타입이
+<code>std::env::Args</code> 라고 명시되어 있습니다. <code>Config::new</code> 함수의 시그니처를 업데이
+트 해서 <code>args</code> 파리미터가 <code>&amp;[String]</code> 대신 <code>std::env::Args</code> 타입을 갖도록
+했습니다. <code>args</code> 의 소유권을 갖고 그것을 순회하면서 <code>args</code> 를 변경할 것이기
+때문에, 변경 가능하도록 하기 위해 <code>args</code> 파라미터의 명세에 <code>mut</code> 키워드를 추가
+할 수 있습니다.</p>
+<a class="header" href="ch13-03-improving-our-io-project.html#a인덱싱-대신-iterator-트레잇-메서드-사용하기" id="a인덱싱-대신-iterator-트레잇-메서드-사용하기"><h4>인덱싱 대신 <code>Iterator</code> 트레잇 메서드 사용하기</h4></a>
+<p>다음으로, <code>Config::new</code> 의 본문을 수정 할 것입니다. 표준 라이브러리 문서에는
+<code>std::env::Args</code> 이 <code>Iterator</code> 트레잇을 구현하고 있다는 것 역시 언급하고 있으
+므로, <code>next</code> 메서드를 호출 할 수 있다는 것을 알 수 있습니다! 리스트 13-27 은
+리스트 12-23 의 코드에서 <code>next</code> 메서드를 사용하도록 변경 합니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"># fn main() {}
 # use std::env;
@@ -261,19 +256,19 @@ impl Config {
     }
 }
 </code></pre></pre>
-<p><span class="caption">Listing 13-27: Changing the body of <code>Config::new</code> to use
-iterator methods</span></p>
-<p>Remember that the first value in the return value of <code>env::args</code> is the name of
-the program. We want to ignore that and get to the next value, so first we call
-<code>next</code> and do nothing with the return value. Second, we call <code>next</code> to get the
-value we want to put in the <code>query</code> field of <code>Config</code>. If <code>next</code> returns a
-<code>Some</code>, we use a <code>match</code> to extract the value. If it returns <code>None</code>, it means
-not enough arguments were given and we return early with an <code>Err</code> value. We do
-the same thing for the <code>filename</code> value.</p>
-<a class="header" href="ch13-03-improving-our-io-project.html#making-code-clearer-with-iterator-adaptors" id="making-code-clearer-with-iterator-adaptors"><h3>Making Code Clearer with Iterator Adaptors</h3></a>
-<p>We can also take advantage of iterators in the <code>search</code> function in our I/O
-project, which is reproduced here in Listing 13-28 as it was in Listing 12-19:</p>
-<p><span class="filename">Filename: src/lib.rs</span></p>
+<p><span class="caption">리스트 13-27: 반복자 메서드들을 사용하도록 <code>Config::new</code>
+의 본문 변경하기</span></p>
+<p><code>env::args</code> 반환값의 첫번째 값은 프로그램 이름이라는 것을 명심하세요.
+우리는 첫번째 값을 무시하고 그 다음 값을 얻기 위해 우선 <code>next</code> 를 호출한
+다음, 그 반환값으로 아무것도 하지 않았습니다. 두번째로, <code>Config</code> 의 <code>query</code> 에
+원하는 값을 넣기 위해 <code>next</code> 를 호출 했습니다. <code>next</code> 가 <code>Some</code> 을 반환하면,
+값을 추출하기 위해 <code>match</code> 를 사용 합니다. 만약 <code>None</code> 을 반환하면, 이것은
+충분한 인자가 넘어오지 않았다는 것을 의미하고, <code>Err</code> 값과 함께 조기 반환을
+합니다. <code>filename</code> 값도 동일하게 처리 합니다.</p>
+<a class="header" href="ch13-03-improving-our-io-project.html#a반복자-어댑터로-더-간결한-코드-만들기" id="a반복자-어댑터로-더-간결한-코드-만들기"><h3>반복자 어댑터로 더 간결한 코드 만들기</h3></a>
+<p>I/O 프로젝트의 <code>search</code> 함수에도 반복자의 장점을 활용할 수 있습니다.
+리스트 12-19 의 코드가 리스트 13-28 에 재현되어 있습니다:</p>
+<p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">pub fn search&lt;'a&gt;(query: &amp;str, contents: &amp;'a str) -&gt; Vec&lt;&amp;'a str&gt; {
     let mut results = Vec::new();
 
@@ -286,43 +281,40 @@ project, which is reproduced here in Listing 13-28 as it was in Listing 12-19:</
     results
 }
 </code></pre>
-<p><span class="caption">Listing 13-28: The implementation of the <code>search</code>
-function from Listing 12-19</span></p>
-<p>We can write this code in a more concise way using iterator adaptor methods.
-Doing so also lets us avoid having a mutable intermediate <code>results</code> vector. The
-functional programming style prefers to minimize the amount of mutable state to
-make code clearer. Removing the mutable state might enable a future enhancement
-to make searching happen in parallel, because we wouldn’t have to manage
-concurrent access to the <code>results</code> vector. Listing 13-29 shows this change:</p>
-<p><span class="filename">Filename: src/lib.rs</span></p>
+<p><span class="caption">리스트 13-28: 리스트 12-19 의 <code>search</code> 함수 구현</span></p>
+<p>우리는 반복자 어댑터 메서드를 사용해서 이 코드를 더 간결한 방식으로 작성할 수
+있습니다. 이렇게 함으로써 <code>results</code> 벡터가 변경 가능한 중간 상태를 갖는 것을
+피할 수 있습니다. 함수형 프로그래밍 스타일은 더 깔끔한 코드를 만들기 위해
+변경 가능한 상태의 양을 최소화 하는 것을 선호 합니다. 가변 상태를 제거하면
+<code>results</code> 벡터에 대한 동시 접근을 관리 할 필요가 없기 때문에, 추후에 검색을
+병렬로 수행하는 것과 같은 향상이 가능해 집니다. 리스트 13-29 는 이 변경을
+보여줍니다:</p>
+<p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">pub fn search&lt;'a&gt;(query: &amp;str, contents: &amp;'a str) -&gt; Vec&lt;&amp;'a str&gt; {
     contents.lines()
         .filter(|line| line.contains(query))
         .collect()
 }
 </code></pre>
-<p><span class="caption">Listing 13-29: Using iterator adaptor methods in the
-implementation of the <code>search</code> function</span></p>
-<p>Recall that the purpose of the <code>search</code> function is to return all lines in
-<code>contents</code> that contain the <code>query</code>. Similar to the <code>filter</code> example in Listing
-13-19, this code uses the <code>filter</code> adaptor to keep only the lines that
-<code>line.contains(query)</code> returns <code>true</code> for. We then collect the matching lines
-into another vector with <code>collect</code>. Much simpler! Feel free to make the same
-change to use iterator methods in the <code>search_case_insensitive</code> function as
-well.</p>
-<p>The next logical question is which style you should choose in your own code and
-why: the original implementation in Listing 13-28 or the version using
-iterators in Listing 13-29. Most Rust programmers prefer to use the iterator
-style. It’s a bit tougher to get the hang of at first, but once you get a feel
-for the various iterator adaptors and what they do, iterators can be easier to
-understand. Instead of fiddling with the various bits of looping and building
-new vectors, the code focuses on the high-level objective of the loop. This
-abstracts away some of the commonplace code so it’s easier to see the concepts
-that are unique to this code, such as the filtering condition each element in
-the iterator must pass.</p>
-<p>But are the two implementations truly equivalent? The intuitive assumption
-might be that the more low-level loop will be faster. Let’s talk about
-performance.</p>
+<p><span class="caption">리스트 13-29: <code>search</code> 함수 구현에서 반복자 어댑터 메서드
+사용하기</span></p>
+<p><code>search</code> 함수의 목적은 <code>query</code> 를 포함하는 <code>contents</code> 의 모든 줄을 반환하는 것임
+을 기억하세요. 리스트 13-19 의 <code>filter</code> 예제와 유사하게, 이 코드는
+<code>line.contains(query)</code> 이 <code>true</code> 를 반환하는 줄들만 유지하기 위해 <code>filter</code> 어댑
+터를 사용 합니다. 그러고나서 <code>collect</code> 를 통해서 일치하는 줄들을 모아 새로운
+벡터로 만듭니다. 훨씬 단순합니다! <code>search_case_insensitive</code> 도 역시 반복자
+메서드들을 사용하도록 같은 변경을 자유롭게 만들어 보세요.</p>
+<p>다음 논리적 질문은 당신의 코드에서 어떤 스타일을 선택하는 것이 좋은지와 그 이유
+입니다: 리스트 13-28 의 최초 구현 혹은 리스트 13-29 의 반복자를 사용하는 버전.
+대부분의 러스트 프로그래머는 반복자 스타일을 선호 합니다. 처음 사용하기는
+다소 어렵습니다만, 다양한 반복자 어댑터와 어떤 일을 하는지에 대해 한번 감이
+온다면, 반복자들은 이해하기 쉬워질 것 입니다. 루핑과 새로운 벡터 생성과 같은
+다양한 작업을 수행하는 대신, 코드는 루프의 고차원적 목표에 집중 합니다.
+이것은 아주 흔한 코드의 일부를 추상화해서 제거함으로써 반복자의 각 요소가 반드시
+통과 해야하는 필터링 조건과 같이 이 코드에 유일한 개념을 더 쉽게 볼 수 있도록
+합니다.</p>
+<p>그러나 두 구현은 정말 동일 할까요? 직관적으로 저수준의 루프가 더 빠르다고 가정할
+수도 있습니다. 그럼 성능에 대해서 얘기해 봅시다.</p>
 
                     </main>
 
