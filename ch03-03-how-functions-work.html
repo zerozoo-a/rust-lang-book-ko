@@ -154,8 +154,8 @@ fn another_function() {
 함수의 시작과 종료 지점을 알려주게 됩니다.</p>
 <p>우리는 함수의 이름과 괄호 형식을 기입하는 것을 통해 우리가 선언했던 어떤 함수든 호출할 수 있습니다.
 <code>another_function</code>이 프로그램 내에 정의되어 있으므로, <code>main</code> 함수에서 해당 함수를 호출할 수 있습니다.
-주의할 점은, 소스 코드 내에서 <code>another_function</code>이 <code>main</code> 함수 <em>이후에</em> 정의했다는 점 입니다. 우리는
-이를 이전에도 정의할 수 있습니다. Rust는 당신의 함수의 위치를 신경쓰지 않습니다, 어디든 정의만 되어 있으면 됩니다.</p>
+주의할 점은, 소스 코드 내에서 <code>another_function</code>이 <code>main</code> 함수 <em>뒤에</em> 정의했다는 점 입니다. 우리는
+이를 <code>main</code> 함수 앞에도 정의할 수 있습니다. Rust는 당신의 함수의 위치를 신경쓰지 않습니다, 어디든 정의만 되어 있으면 됩니다.</p>
 <p>함수를 추가로 탐색하기 위해 <em>functions</em> 이라는 이름의 새로운 바이너리 프로젝트를 시작합시다.
 <code>another_function</code> 예제를 * src / main.rs *에 넣고 실행해보세요.
 다음과 같은 결과가 나타납니다:</p>
@@ -257,7 +257,7 @@ Ruby와의 차이점 입니다. 이들 언어들은 <code>x = y = 6</code>와 �
 표현식입니다.</p>
 <p>표현식은 구문의 부분일 수 있습니다: 항목 3-3은 <code>let y = 6;</code>이란 구문을 갖는데, <code>6</code>은 <code>6</code>이란 값을
 산출하는 표현식입니다. 함수를 호출하는 것은 표현식입니다. 매크로를 호출하는 것은 표현식입니다. 예제처럼 새로운
-범위를 생성하는데 사용하는 block, <code>{}</code>, 은 표현식입니다:</p>
+범위를 생성하는데 사용하는 block <code>{}</code>은 표현식입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     let x = 5;
