@@ -134,11 +134,11 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="appendix-03-derivable-traits.html#appendix-c-derivable-traits" id="appendix-c-derivable-traits"><h2>Appendix C: Derivable Traits</h2></a>
-<p>In various places in the book, we’ve discussed the <code>derive</code> attribute that you
-can apply to a struct or enum definition.</p>
-<p>The <code>derive</code> attribute generates code that will implement a trait with its own
-default implementation on the type you’ve annotated with the <code>derive</code> syntax.
-In this appendix, we provide a reference of all the traits in the standard
+<p>In various places in the book, we’ve discussed the <code>derive</code> attribute, which
+you can apply to a struct or enum definition. The <code>derive</code> attribute generates
+code that will implement a trait with its own default implementation on the
+type you’ve annotated with the <code>derive</code> syntax.</p>
+<p>In this appendix, we provide a reference of all the traits in the standard
 library that you can use with <code>derive</code>. Each section covers:</p>
 <ul>
 <li>What operators and methods deriving this trait will enable</li>
@@ -156,14 +156,14 @@ so it’s up to you to implement them in the way that makes sense for what you�
 trying to accomplish.</p>
 <p>An example of a trait that can’t be derived is <code>Display</code>, which handles
 formatting for end users. You should always consider the appropriate way to
-display a type to an end user: for example, what parts of the type should an
-end user be allowed to see? What parts would they find relevant? What format of
-the data would be most relevant to them? The Rust compiler doesn’t have this
-insight, so it can’t provide appropriate default behavior for you.</p>
+display a type to an end user. What parts of the type should an end user be
+allowed to see? What parts would they find relevant? What format of the data
+would be most relevant to them? The Rust compiler doesn’t have this insight, so
+it can’t provide appropriate default behavior for you.</p>
 <p>The list of derivable traits provided in this appendix is not comprehensive:
 libraries can implement <code>derive</code> for their own traits, making the list of
 traits you can use <code>derive</code> with truly open-ended. Implementing <code>derive</code>
-involves using a procedural macro, which is covered in Appendix D, “Macros.”</p>
+involves using a procedural macro, which is covered in Appendix D.</p>
 <a class="header" href="appendix-03-derivable-traits.html#debug-for-programmer-output" id="debug-for-programmer-output"><h3><code>Debug</code> for Programmer Output</h3></a>
 <p>The <code>Debug</code> trait enables debug formatting in format strings, which you
 indicate by adding <code>:?</code> within <code>{}</code> placeholders.</p>
@@ -177,9 +177,9 @@ assertion fails so programmers can see why the two instances weren’t equal.</p
 <p>The <code>PartialEq</code> trait allows you to compare instances of a type to check for
 equality and enables use of the <code>==</code> and <code>!=</code> operators.</p>
 <p>Deriving <code>PartialEq</code> implements the <code>eq</code> method. When <code>PartialEq</code> is derived on
-structs, two instances are equal only if <em>all</em> fields are equal and not equal
-if any fields are not equal. When derived on enums, each variant is equal to
-itself and not equal to the other variants.</p>
+structs, two instances are equal only if <em>all</em> fields are equal, and the
+instances are not equal if any fields are not equal. When derived on enums,
+each variant is equal to itself and not equal to the other variants.</p>
 <p>The <code>PartialEq</code> trait is required, for example, with the use of the
 <code>assert_eq!</code> macro, which needs to be able to compare two instances of a type
 for equality.</p>
@@ -189,8 +189,8 @@ applied to types that also implement <code>PartialEq</code>, although not all ty
 implement <code>PartialEq</code> can implement <code>Eq</code>. One example of this is floating point
 number types: the implementation of floating point numbers states that two
 instances of the not-a-number (<code>NaN</code>) value are not equal to each other.</p>
-<p>An example of when <code>Eq</code> is required is for keys in a <code>HashMap</code> so the <code>HashMap</code>
-can tell whether two keys are the same.</p>
+<p>An example of when <code>Eq</code> is required is for keys in a <code>HashMap&lt;K, V&gt;</code> so the
+<code>HashMap&lt;K, V&gt;</code> can tell whether two keys are the same.</p>
 <a class="header" href="appendix-03-derivable-traits.html#partialord-and-ord-for-ordering-comparisons" id="partialord-and-ord-for-ordering-comparisons"><h3><code>PartialOrd</code> and <code>Ord</code> for Ordering Comparisons</h3></a>
 <p>The <code>PartialOrd</code> trait allows you to compare instances of a type for sorting
 purposes. A type that implements <code>PartialOrd</code> can be used with the <code>&lt;</code>, <code>&gt;</code>,
@@ -248,12 +248,12 @@ the code more concise.</p>
 code might be slower or have to use <code>clone</code> in places.</p>
 <a class="header" href="appendix-03-derivable-traits.html#hash-for-mapping-a-value-to-a-value-of-fixed-size" id="hash-for-mapping-a-value-to-a-value-of-fixed-size"><h3><code>Hash</code> for Mapping a Value to a Value of Fixed Size</h3></a>
 <p>The <code>Hash</code> trait allows you to take an instance of a type of arbitrary size and
-map that instance to a value of fixed size, using a hash function. Deriving
+map that instance to a value of fixed size using a hash function. Deriving
 <code>Hash</code> implements the <code>hash</code> method. The derived implementation of the <code>hash</code>
 method combines the result of calling <code>hash</code> on each of the parts of the type,
 meaning all fields or values must also implement <code>Hash</code> to derive <code>Hash</code>.</p>
-<p>An example of when <code>Hash</code> is required is in storing keys in a <code>HashMap</code> to
-store data efficiently.</p>
+<p>An example of when <code>Hash</code> is required is in storing keys in a <code>HashMap&lt;K, V&gt;</code>
+to store data efficiently.</p>
 <a class="header" href="appendix-03-derivable-traits.html#default-for-default-values" id="default-for-default-values"><h3><code>Default</code> for Default Values</h3></a>
 <p>The <code>Default</code> trait allows you to create a default value for a type. Deriving
 <code>Default</code> implements the <code>default</code> function. The derived implementation of the
@@ -265,10 +265,10 @@ update syntax discussed in the “Creating Instances From Other Instances With
 Struct Update Syntax” section in Chapter 5. You can customize a few fields of a
 struct and then set and use a default value for the rest of the fields by using
 <code>..Default::default()</code>.</p>
-<p>The <code>Default</code> trait is required when, for example, you use the
-<code>unwrap_or_default</code> method on <code>Option&lt;T&gt;</code> instances. If the <code>Option&lt;T&gt;</code> is
-<code>None</code>, the <code>unwrap_or_default</code> method will return the result of
-<code>Default::default</code> for the type <code>T</code> stored in the <code>Option&lt;T&gt;</code>.</p>
+<p>The <code>Default</code> trait is required when you use the method <code>unwrap_or_default</code> on
+<code>Option&lt;T&gt;</code> instances, for example. If the <code>Option&lt;T&gt;</code> is <code>None</code>, the method
+<code>unwrap_or_default</code> will return the result of <code>Default::default</code> for the type
+<code>T</code> stored in the <code>Option&lt;T&gt;</code>.</p>
 
                     </main>
 

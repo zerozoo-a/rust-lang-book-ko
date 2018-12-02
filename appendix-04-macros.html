@@ -145,11 +145,11 @@ follows:</p>
 <p>We’re covering the details of macros in an appendix because they’re still
 evolving in Rust. Macros have changed and, in the near future, will change at a
 quicker rate than the rest of the language and standard library since Rust 1.0,
-so this section is more likely to date than the rest of the book. Due to Rust’s
-stability guarantees, the code shown here will continue to work with future
-versions. But there may be additional capabilities or easier ways to write
-macros that weren’t available at the time of this publication. Bear that in
-mind when you try to implement anything from this appendix.</p>
+so this section is more likely to become out-of-date than the rest of the book.
+Due to Rust’s stability guarantees, the code shown here will continue to work
+with future versions, but there may be additional capabilities or easier ways
+to write macros that weren’t available at the time of this publication. Bear
+that in mind when you try to implement anything from this appendix.</p>
 <a class="header" href="appendix-04-macros.html#the-difference-between-macros-and-functions" id="the-difference-between-macros-and-functions"><h3>The Difference Between Macros and Functions</h3></a>
 <p>Fundamentally, macros are a way of writing code that writes other code, which
 is known as <em>metaprogramming</em>. In Appendix C, we discussed the <code>derive</code>
@@ -211,10 +211,10 @@ integers inside:</p>
 let v: Vec&lt;u32&gt; = vec![1, 2, 3];
 #}</code></pre></pre>
 <p>We could also use the <code>vec!</code> macro to make a vector of two integers or a vector
-of five string slices: we wouldn’t be able to use a function to do the same
+of five string slices. We wouldn’t be able to use a function to do the same
 because we wouldn’t know the number or type of values up front.</p>
 <p>Let’s look at a slightly simplified definition of the <code>vec!</code> macro in Listing
-D-1:</p>
+D-1.</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -387,11 +387,6 @@ quote = &quot;0.3.15&quot;
 <p>To start defining the procedural macro, place the code in Listing D-3 into your
 <em>src/lib.rs</em> file for the <code>hello_macro_derive</code> crate. Note that this code won’t
 compile until we add a definition for the <code>impl_hello_macro</code> function.</p>
-<p>Notice the way we’ve split the functions in D-3; this will be the same for
-almost every procedural macro crate you see or create, because it makes writing
-a procedural macro more convenient. What you choose to do in the place where
-the <code>impl_hello_macro</code> function is called will be different depending on your
-procedural macro’s purpose.</p>
 <p><span class="filename">Filename: hello_macro_derive/src/lib.rs</span></p>
 <pre><code class="language-rust ignore">extern crate proc_macro;
 extern crate syn;
@@ -417,6 +412,11 @@ pub fn hello_macro_derive(input: TokenStream) -&gt; TokenStream {
 </code></pre>
 <p><span class="caption">Listing D-3: Code that most procedural macro crates will
 need to have for processing Rust code</span></p>
+<p>Notice the way we’ve split the functions in D-3; this will be the same for
+almost every procedural macro crate you see or create, because it makes writing
+a procedural macro more convenient. What you choose to do in the place where
+the <code>impl_hello_macro</code> function is called will be different depending on your
+procedural macro’s purpose.</p>
 <p>We’ve introduced three new crates: <code>proc_macro</code>, <a href="https://crates.io/crates/syn"><code>syn</code></a>, and <a href="https://crates.io/crates/quote"><code>quote</code></a>. The
 <code>proc_macro</code> crate comes with Rust, so we didn’t need to add that to the
 dependencies in <em>Cargo.toml</em>. The <code>proc_macro</code> crate allows us to convert Rust
@@ -465,7 +465,7 @@ where we’ll build the new Rust code we want to include. But before we do, note
 that the last part of this <code>hello_macro_derive</code> function uses the <code>parse</code>
 function from the <code>quote</code> crate to turn the output of the <code>impl_hello_macro</code>
 function back into a <code>TokenStream</code>. The returned <code>TokenStream</code> is added to the
-code that our crate users write, so when they compile their crate, they get
+code that our crate users write, so when they compile their crate, they’ll get
 extra functionality that we provide.</p>
 <p>You might have noticed that we’re calling <code>unwrap</code> to panic if the calls to the
 <code>parse_derive_input</code> or <code>parse</code> functions fail here. Panicking on errors is
@@ -494,7 +494,7 @@ annotated type using <code>ast.ident</code>. The code in Listing D-2 specifies t
 <code>name</code> will be <code>Ident(&quot;Pancakes&quot;)</code>.</p>
 <p>The <code>quote!</code> macro lets us write the Rust code that we want to return and
 convert it into <code>quote::Tokens</code>. This macro also provides some very cool
-templating mechanics; we can write <code>#name</code> and <code>quote!</code> will replace it with
+templating mechanics; we can write <code>#name</code>, and <code>quote!</code> will replace it with
 the value in the variable named <code>name</code>. You can even do some repetition similar
 to the way regular macros work. Check out <a href="https://docs.rs/quote">the <code>quote</code> crate’s
 docs</a> for a thorough introduction.</p>

@@ -134,9 +134,9 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="ch10-03-lifetime-syntax.html#a라이프타임을-이용한-참조자-유효화" id="a라이프타임을-이용한-참조자-유효화"><h2>라이프타임을 이용한 참조자 유효화</h2></a>
-<p>4장에서 참조자에 대한 이야기를 할 때, 중요한 디테일을 한가지 남겨두었습니다: 러스트에서 모든 참조자는
+<p>4장에서 참조자에 대한 이야기를 할 때, 중요한 디테일을 한 가지 남겨두었습니다: 러스트에서 모든 참조자는
 <em>라이프타임(lifetime)</em> 을 갖는데, 이는 해당 참조자가 유효한 스코프입니다. 대부분의 경우에서 타입들이
-추론되는 것과 마찬가지로, 대부분의 경우에서 라이프타임 또한 암묵적이며 추론됩니다. 여러가지 타입이
+추론되는 것과 마찬가지로, 대부분의 경우에서 라이프타임 또한 암묵적이며 추론됩니다. 여러 가지 타입이
 가능하기 때문에 우리가 타입을 명시해야 하는 때와 비슷하게, 참조자의 라이프타임이 몇몇 다른 방식으로
 연관될 수 있는 경우들이 있으므로, 러스트는 우리에게 제네릭 라이프타임 파라미터를 이용하여 이 관계들을
 명시하길 요구하여 런타임에 실제 참조자가 확실히 유효하도록 확신할 수 있도록 합니다.</p>
@@ -146,7 +146,7 @@
 있도록 여러분이 라이프타임 문법을 맞닥뜨릴 흔한 경우에 대해 다룰 것입니다. 19장에서는 라이프타임이
 할 수 있는 좀 더 상급 정보를 다룰 것입니다.</p>
 <a class="header" href="ch10-03-lifetime-syntax.html#a라이프타임은-댕글링-참조자를-방지합니다" id="a라이프타임은-댕글링-참조자를-방지합니다"><h3>라이프타임은 댕글링 참조자를 방지합니다</h3></a>
-<p>라이프타임의 주 목적은 댕글링 참조자(dangling reference)를 방지하는 것인데, 댕글링 참조자는
+<p>라이프타임의 주목적은 댕글링 참조자(dangling reference)를 방지하는 것인데, 댕글링 참조자는
 프로그램이 우리가 참조하기로 의도한 데이터가 아닌 다른 데이터를 참조하는 원인이 됩니다.
 Listing 10-16의 프로그램과 같이 외부 스코프와 내부 스코프를 가진 프로그램을 생각해봅니다.
 외부 스코프는 <code>r</code>이라는 이름의 변수를 초기값 없이 선언하였고, 내부 스코프는 <code>x</code>라는 이름의 변수를
@@ -186,9 +186,9 @@ Listing 10-16의 프로그램과 같이 외부 스코프와 내부 스코프를 
 <p>변수 <code>x</code>는 &quot;충분히 오래 살지 못한다(does not live long enough)&quot;고 합니다. 왜 안될까요?
 <code>x</code>는 7번 라인의 닫는 중괄호 기호에 도달했을 때 내부 스코프가 끝나면서 스코프 밖으로 벗어날
 것입니다. 그러나 <code>r</code>은 외부 스코프에 대해 유효합니다; 이쪽의 스코프가 더 크고 우리는 이쪽이
-&quot;더 오래산다&quot;고 말합니다. 만일 러스트가 이 코드를 작동하도록 허용한다면, <code>r</code>은 <code>x</code>가 스코프
-밖으로 벗어났을 때 할당이 해제되는 메모리를 참조하게 될 것이고, <code>r</code>을 가지고 시도하려했던
-어떤 것이든 정확히 동작하지 않게 될 것입니다. 그렇다면 러스트는 이 코드가 허용되어서는 안된다는
+&quot;더 오래 산다&quot;라고 말합니다. 만일 러스트가 이 코드를 작동하도록 허용한다면, <code>r</code>은 <code>x</code>가 스코프
+밖으로 벗어났을 때 할당이 해제되는 메모리를 참조하게 될 것이고, <code>r</code>을 가지고 시도하려 했던
+어떤 것이든 정확히 동작하지 않게 될 것입니다. 그렇다면 러스트는 이 코드가 허용되어서는 안 된다는
 것을 어떻게 결정할까요?</p>
 <a class="header" href="ch10-03-lifetime-syntax.html#a빌림-검사기borrow-checker" id="a빌림-검사기borrow-checker"><h4>빌림 검사기(Borrow checker)</h4></a>
 <p><em>빌림 검사기(borrow checker)</em> 라고 불리는 컴파일러의 부분이 모든 빌림이 유효한지를 결정하기
@@ -216,18 +216,11 @@ clear -->
 line and ends with the first closing curly brace on the 7th line. Do you think
 the text art comments work or should we make an SVG diagram that has nicer
 looking arrows and labels? /Carol -->
-<p>We've annotated the lifetime of <code>r</code> with <code>'a</code> and the lifetime of <code>x</code> with
-<code>'b</code>. As you can see, the inner <code>'b</code> block is much smaller than the outer <code>'a</code>
-lifetime block. At compile time, Rust compares the size of the two lifetimes
-and sees that <code>r</code> has a lifetime of <code>'a</code>, but that it refers to an object with
-a lifetime of <code>'b</code>. The program is rejected because the lifetime <code>'b</code> is
-shorter than the lifetime of <code>'a</code>: the subject of the reference does not live
-as long as the reference.
-우리는 <code>r</code>의 라이프타임을 <code>'a</code>라고 명명하였고, <code>x</code>의 라이프타임을 <code>'b</code>라고 명명하였습니다.
+<p>우리는 <code>r</code>의 라이프타임을 <code>'a</code>라고 명명하였고, <code>x</code>의 라이프타임을 <code>'b</code>라고 명명하였습니다.
 보시다시피, 내부의 <code>'b</code> 블록은 외부의 <code>'a</code> 라이프타임 블록에 비해 훨씬 작습니다. 컴파일 타임에서,
 러스트는 두 라이프타임의 크기를 비교하고 <code>r</code>이 <code>'a</code> 라이프타임을 가지고 있지만, <code>'b</code> 라이프타임을
 가지고 있는 어떤 오브젝트를 참조하고 있음을 보게 됩니다. <code>'b</code> 라이프타임이 <code>'a</code> 라이프타임에 비해
-작기 때문에 이 프로그램은 거절됩니다: 참조자의 주체가 참조자만큼 오래 살지 못하고 있으니까요.</p>
+작기 때문에 러스트 컴파일러는 이 프로그램을 거부합니다: 참조자의 주체가 참조자만큼 오래 살지 못하고 있으니까요.</p>
 <p>댕글링 참조자를 만드는 시도가 없고 에러 없이 컴파일되는 Listing 10-18의 예제를 살펴봅시다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
@@ -248,7 +241,7 @@ as long as the reference.
 알고 있습니다.</p>
 <p>지금까지 참조자의 라이프타임이 구제적인 예제 어디에 나오는지를 보았고 러스트가 어떻게 라이프타임을
 분석하여 참조자가 항상 유효하도록 확신시키는지를 논의했으니, 이제 함수의 내용물 내에 있는 파라미터와
-반환값에 대한 제네릭 라이프타임에 대하여 이야기해 봅시다.</p>
+반환 값에 대한 제네릭 라이프타임에 대하여 이야기해 봅시다.</p>
 <a class="header" href="ch10-03-lifetime-syntax.html#a함수에서의-제네릭-라이프타임" id="a함수에서의-제네릭-라이프타임"><h3>함수에서의 제네릭 라이프타임</h3></a>
 <p>두 스트링 슬라이스 중에서 긴 쪽을 반환하는 함수를 작성해 봅시다. 이 함수에 두 개의 스트링 슬라이스를
 넘겨서 호출할 수 있기를 원하고, 스트링 슬라이스를 반환하기를 원합니다. Listing 10-19의 코드는
@@ -284,7 +277,7 @@ thoroughly in Chapter 4, which is why we put two back references here (above
 and below). If these topics are confusing you in this context, I'd be
 interested to know if rereading Chapter 4 clears up that confusion.
 /Carol -->
-<p>왜 이들이 우리가 원하는 인자들인지에 대한 더 많은 논의에 대해서는 4장의 &quot;인자로서의 스트링 슬라이스&quot;를
+<p>왜 이들이 우리가 원하는 인자 들인 지에 대한 더 많은 논의에 대해서는 4장의 &quot;인자로서의 스트링 슬라이스&quot;를
 참조하세요.</p>
 <p>만일 Listing 10-20에서 보는 바와 같이 <code>longest</code> 함수를 구현하는 시도를 한다면, 이는 컴파일되지
 않을 것입니다:</p>
@@ -320,21 +313,16 @@ Listing 10-17과 10-18에서 했던 것과 같이 스코프를 살펴볼 수도 
 있는지 알지 못하기 때문입니다. 우리는 참조자들 간의 관계를 정의하는 제네릭 라이프타임 파라미터를 추가하여
 빌림 검사기가 분석을 수행할 수 있도록 할 것입니다.</p>
 <a class="header" href="ch10-03-lifetime-syntax.html#a라이프타임-명시-문법" id="a라이프타임-명시-문법"><h3>라이프타임 명시 문법</h3></a>
-<p>Lifetime annotations don't change how long any of the references involved live.
-In the same way that functions can accept any type when the signature specifies
-a generic type parameter, functions can accept references with any lifetime
-when the signature specifies a generic lifetime parameter. What lifetime
-annotations do is relate the lifetimes of multiple references to each other.
-라이프타임 명시는 연관된 참조자가 얼마나 오랫동안 살게 되는지를 바꾸지는 않습니다. 함수의 시그니처가
+<p>라이프타임 명시는 연관된 참조자가 얼마나 오랫동안 살게 되는지를 바꾸지는 않습니다. 함수의 시그니처가
 제네릭 타입 파라미터를 특정할 때 이 함수가 어떠한 타입이든 허용할 수 있는 것과 같은 방식으로,
 함수의 시그니처가 제네릭 라이프타임 파라미터를 특정할 때라면 이 함수는 어떠한 라이프타임을 가진
 참조자라도 허용할 수 있습니다. 라이프타임 명시가 하는 것은 여러 개의 참조자에 대한 라이프타임들을
-서로 연관짓도록 하는 것입니다.</p>
+서로 연관 짓도록 하는 것입니다.</p>
 <p>라이프타임 명시는 약간 독특한 문법을 갖고 있습니다: 라이프타임 파라미터의 이름은 어퍼스트로피 <code>'</code>로
 시작해야 합니다. 라이프타임 파라미터의 이름은 보통 모두 소문자이며, 제네릭 타입과 비슷하게 그들의
-이름은 보통 메우 짧습니다. <code>'a</code>는 대부분의 사람들이 기본적으로 사용하는 이름입니다. 라이프타임 파라미터
+이름은 보통 매우 짧습니다. <code>'a</code>는 대부분의 사람들이 기본적으로 사용하는 이름입니다. 라이프타임 파라미터
 명시는 참조자의 <code>&amp;</code> 뒤에 오며, 공백 문자가 라이프타임 명시와 참조자의 타입을 구분해줍니다.</p>
-<p>여기 몇가지 예제가 있습니다: 라이프타임 파라미터가 없는 <code>i32</code>에 대한 참조자, <code>'a</code>라고 명명된
+<p>여기 몇 가지 예제가 있습니다: 라이프타임 파라미터가 없는 <code>i32</code>에 대한 참조자, <code>'a</code>라고 명명된
 라이프타임 파라미터를 가지고 있는 <code>i32</code>에 대한 참조자, 그리고 역시 라이프타임 <code>'a</code>를 갖고 있는
 <code>i32</code>에 대한 가변 참조자입니다:</p>
 <pre><code class="language-rust ignore">&amp;i32        // a reference
@@ -344,14 +332,14 @@ annotations do is relate the lifetimes of multiple references to each other.
 <p>스스로에 대한 하나의 라이프타임 명시는 큰 의미를 가지고 있지 않습니다: 라이프타임 명시는
 러스트에게 여러 개의 참조자에 대한 제네릭 라이프타임 파라미터가 서로 어떻게 연관되는지를
 말해줍니다. 만일 라이프타임 <code>'a</code>를 가지고 있는 <code>i32</code>에 대한 참조자인 <code>first</code>를
-파라미터로, 그리고 또한 라이프타임 <code>'a</code>를 가지고 있는 <code>i32</code>에 대한 또다른 참조자인
-<code>second</code>를 또다른 파라미터로 가진 함수가 있다면, 이 두개의 같은 이름를 가진 라이프타임
+파라미터로, 그리고 또한 라이프타임 <code>'a</code>를 가지고 있는 <code>i32</code>에 대한 또 다른 참조자인
+<code>second</code>를 또 다른 파라미터로 가진 함수가 있다면, 이 두 개의 같은 이름을 가진 라이프타임
 명시는 참조자 <code>first</code>와 <code>second</code>가 돌다 동일한 제네릭 라이프타임만큼 살아야 한다는
 것을 가리킵니다.</p>
 <a class="header" href="ch10-03-lifetime-syntax.html#a함수-시그니처-내의-라이프타임-명시" id="a함수-시그니처-내의-라이프타임-명시"><h3>함수 시그니처 내의 라이프타임 명시</h3></a>
 <p>우리가 작업하고 있던 <code>longest</code> 함수의 내용 중에서 라이프타임 명시 부분을 살펴봅시다.
 제네릭 타입 파라미터와 마찬가지로, 제네릭 라이프타임 파라미터도 함수 이름과 파라미터 리스트
-사이에 꺾쇠 괄호를 쓰고 그 안에 정의가 되어야 합니다. 우리가 파라미터들과 반환값에서의 참조자들에
+사이에 꺾쇠괄호를 쓰고 그 안에 정의가 되어야 합니다. 우리가 파라미터들과 반환 값에서의 참조자들에
 대해 러스트에게 말해주고 싶은 제약사항은 그들이 모두 동일한 라이프타임을 갖고 있어야 한다는
 것인데, 이는 Listing 10-21에서 보는 바와 같이 우리가 <code>'a</code>라고 명명하여 각각의 참조자에
 추가할 것입니다:</p>
@@ -377,25 +365,25 @@ fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
 싶은 것을 말해주는 계약입니다.</p>
 <p>이 함수 시그니처 내에 라이프타임 파라미터를 특정함으로써, 우리는 함수에 넘겨지거나 반환되는 어떠한
 값들의 라이프타임도 바꾸지 않지만, 이 계약에 부합하지 않는 어떠한 값들도 빌림 검사기에 의해 거부되어야
-함을 말해주는 것입니다. 이 함수는 <code>x</code>와 <code>y</code>가 정확히 얼마나 오래 살게될지 알지 못하지만 (혹은
+함을 말해주는 것입니다. 이 함수는 <code>x</code>와 <code>y</code>가 정확히 얼마나 오래 살게 될지 알지 못하지만 (혹은
 알 필요가 없지만), 다만 이 시그니처를 만족시킬 <code>'a</code>에 대입될 수 있는 어떤 스코프가 있음을
 알아야 할 필요가 있을 뿐입니다.</p>
 <p>함수 안에 라이프타임을 명시할 때, 이 명시는 함수 시그니처에 붙어 있으며, 함수의 본체 내에의 어떠한
 코드에도 붙어있지 않습니다. 이는 러스트가 다른 도움 없이 함수 내의 코드를 분석할 수 있지만,
-함수가 그 함수 밖의 코드에서의 참조자를 가지고 있을 때, 인자들 혹은 반환값들의 라이프타임이
+함수가 그 함수 밖의 코드에서의 참조자를 가지고 있을 때, 인자들 혹은 반환 값들의 라이프타임이
 함수가 호출될 때마다 달라질 가능성이 있기 때문입니다. 이는 러스트가 발견해내기에는 너무나 비용이
 크고 종종 불가능할 것입니다. 이 경우, 우리는 스스로 라이프타임을 명시할 필요가 있습니다.</p>
 <p>구체적인 참조자들이 <code>longest</code>로 넘겨질 때, <code>'a</code>에 대입되게 되는 구체적인 라이프타임은 <code>y</code>의
 스코프와 겹치는 <code>x</code> 스코프의 부분입니다. 스코프는 언제나 중첩되기 때문에, 이것이 제네릭 라이프타임
-<code>'a</code>이다라고 말하는 또다른 방법은 <code>x</code>와 <code>y</code>의 라이프타임 중에서 더 작은 쪽과 동일한 구체적인
+<code>'a</code>이다라고 말하는 또 다른 방법은 <code>x</code>와 <code>y</code>의 라이프타임 중에서 더 작은 쪽과 동일한 구체적인
 라이프타임을 구하는 것일 겁니다. 반환되는 참조자에 대해서도 같은 라이프타임 파라미터인 <code>'a</code>를
-명시했으므로, 반환되는 참조자도 <code>x</code> 와 <code>y</code>의 라이프타임 중 짧은 쪽 만큼은 길게 유효함을 보장할
+명시했으므로, 반환되는 참조자도 <code>x</code> 와 <code>y</code>의 라이프타임 중 짧은 쪽만큼은 길게 유효함을 보장할
 것입니다.</p>
 <p>서로 다른 구체적인 라이프타임을 가진 참조자들을 넘김으로써 이것이 <code>longest</code> 함수의 사용을 어떻게
 제한하는지 봅시다. Listing 10-22는 아무 언어에서나 여러분의 직관에 부합될 간단한 예제입니다:
-<code>string1</code>은 외부 스코프가 끝날때까지 유효하고 <code>string2</code>는 내부 스코프가 끝날때까지 유효하며,
-<code>result</code>는 내부 스코프가 끝날때까지 유효한 무언가를 참조합니다. 빌림 검사기는 이 코드를 승인합니다;
-이는 컴파일 되며 실행했을 때 <code>The longest string is long string is long</code>를 출력합니다:</p>
+<code>string1</code>은 외부 스코프가 끝날 때까지 유효하고 <code>string2</code>는 내부 스코프가 끝날 때까지 유효하며,
+<code>result</code>는 내부 스코프가 끝날 때까지 유효한 무언가를 참조합니다. 빌림 검사기는 이 코드를 승인합니다;
+이는 컴파일되며 실행했을 때 <code>The longest string is long string is long</code>를 출력합니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"># fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
 #     if x.len() &gt; y.len() {
@@ -448,20 +436,20 @@ Listing 10-23의 코드는 컴파일되지 않을 것입니다:</p>
 </code></pre>
 <p>이 에러는 <code>result</code>가 <code>println!</code>에서 유효하기 위해서는. <code>string2</code>가 외부 스코프의 끝까지
 유효할 필요가 있음을 말해줍니다. 러스트는 이를 알고 있는데, 그 이유는 우리가 함수의 파라미터들과
-반환값에 대해 동일한 라이프타임 파라미터 <code>'a</code>를 명시했기 때문입니다.</p>
+반환 값에 대해 동일한 라이프타임 파라미터 <code>'a</code>를 명시했기 때문입니다.</p>
 <p>우리는 인간으로서 이 코드를 살펴볼 수 있고 <code>string1</code>이 더 길기 때문에 <code>result</code>는 <code>string1</code>의
 참조자를 담게 될 것이라는 점을 알 수 있습니다. <code>string1</code>이 스코프 밖으로 아직 벗어나지 않았기
 때문에, <code>string1</code>의 참조자는 <code>println!</code> 구문에서 여전히 유효할 것입니다. 그렇지만, 우리가
 러스트에게 라이프타임 파라미터를 가지고 말해준 것은 <code>longest</code> 함수에 의해 반환되는 참조자의
 라이프타임이 인자로 넘겨준 라이프타임들 중 작은 쪽과 동일하다는 것이었지요. 따라서, 빌림 검사기는
-잠재적으로 유효하지 않은 참조자를 갖을 수 있는 문제로 인해 Listing 10-23의 코드를 허용하지
+잠재적으로 유효하지 않은 참조자를 가질 수 있는 문제로 인해 Listing 10-23의 코드를 허용하지
 않습니다.</p>
 <p><code>longest</code> 함수에 넘겨질 참조자들의 값과 라이프타임들, 그리고 반환된 참조자를 어떻게 이용하는지를
-다양화하여 더 많은 실험들을 디자인해 시도해보세요. 컴파일 하기전에 여러분의 실험이 빌림 검사기를
-통과할지 안할지에 대한 가설을 세워보고, 여러분이 맞았는지 확인해보세요!</p>
+다양화하여 더 많은 실험들을 디자인해 시도해보세요. 컴파일하기 전에 여러분의 실험이 빌림 검사기를
+통과할지 안 할지에 대한 가설을 세워보고, 여러분이 맞았는지 확인해보세요!</p>
 <a class="header" href="ch10-03-lifetime-syntax.html#a라이프타임의-측면에서-생각하기" id="a라이프타임의-측면에서-생각하기"><h3>라이프타임의 측면에서 생각하기</h3></a>
 <p>라이프타임 파라미터를 특정하는 정확한 방법은 여러분의 함수가 어떤 일을 하고 있는가에 따라 달린 문제입니다.
-예를 들면, <code>longest</code> 함수의 구현을 제일 긴 스트링 슬라이스 대신 항상 첫번째 인자를 반환하도록
+예를 들면, <code>longest</code> 함수의 구현을 제일 긴 스트링 슬라이스 대신 항상 첫 번째 인자를 반환하도록
 바꾸었다면, <code>y</code> 파라미터에 대한 라이프타임을 특정할 필요는 없을 것입니다. 아래 코드는 컴파일됩니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -471,8 +459,8 @@ fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;str) -&gt; &amp;'a str {
     x
 }
 #}</code></pre></pre>
-<p>이 예제에서, 파라미터 <code>x</code>와 반환값에 대한 라이프타임 파라미터 <code>'a</code>는 특정하였지만, 파라미터 <code>y</code>는
-특정하지 않았는데, 그 이유는 <code>y</code>의 라이프타임이 <code>x</code> 혹은 반환값의 라이프타임과 어떠한 관련도 없기
+<p>이 예제에서, 파라미터 <code>x</code>와 반환 값에 대한 라이프타임 파라미터 <code>'a</code>는 특정하였지만, 파라미터 <code>y</code>는
+특정하지 않았는데, 그 이유는 <code>y</code>의 라이프타임이 <code>x</code> 혹은 반환 값의 라이프타임과 어떠한 관련도 없기
 때문입니다.</p>
 <p>함수로부터 참조자를 반환할 때, 반환 타입에 대한 라이프타임 파라미터는 인자 중 하나의 라이프타임
 파라미터와 일치할 필요가 있습니다. 만일 반환되는 참조가 인자들 중 하나를 참조하지 <em>않는다면</em>,
@@ -487,7 +475,7 @@ fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;str) -&gt; &amp;'a str {
 </code></pre>
 <p>우리가 반환 타입에 대해 라이프타임 파라미터 <code>'a</code>를 특정했을지라도, 이러한 구현은 컴파일에 실패하게 되는데
 이는 반환되는 값의 라이프타임이 파라미터의 라이프타임과 아무런 관련이 없기 때문입니다. 여기 우리가 얻게
-되는 에러 메세지를 보시죠:</p>
+되는 에러 메시지를 보시죠:</p>
 <pre><code class="language-text">error: `result` does not live long enough
   |
 3 |     result.as_str()
@@ -504,18 +492,14 @@ at 1:44...
 <p>문제는 <code>result</code>가 <code>longest</code> 함수가 끝나는 지점에서 스코프 밖으로 벗어나게 되어 메모리 해제가
 일어나게 되는데, 이 함수로부터 <code>result</code>의 참조자를 반환하려는 시도를 한다는 점입니다. 이 댕글링
 참조자를 변경시킬 라이프타임 파라미터를 특정할 방법은 없으며, 러스트는 우리가 댕글링 참조자를 만들게끔
-놔두지 않스니다. 이 경우, 가장 좋은 수정 방법은 참조자보다는 차라리 값을 소유한 데이터 타입을 리턴하도록
+놔두지 않습니다. 이 경우, 가장 좋은 수정 방법은 참조자보다는 차라리 값을 소유한 데이터 타입을 리턴하도록
 하여 호출하는 함수가 값을 할당 해제하도록 하는 것입니다.</p>
-<p>궁극적으로, 라이프타임 문법은 함수들의 다양한 인자들과 반환값 사이를 연결하는 것에 대한 것입니다.
+<p>궁극적으로, 라이프타임 문법은 함수들의 다양한 인자들과 반환 값 사이를 연결하는 것에 대한 것입니다.
 이들이 일단 연결되고 나면, 러스트는 메모리에 안전한 연산들을 허용하고 댕글링 포인터를 생성하거나
 그렇지 않은 경우 메모리 안전을 위배하게 될 연산들을 배제하기에 충분한 정보를 갖게 됩니다.</p>
 <a class="header" href="ch10-03-lifetime-syntax.html#a구조체-정의-상에서의-라이프타임-명시" id="a구조체-정의-상에서의-라이프타임-명시"><h3>구조체 정의 상에서의 라이프타임 명시</h3></a>
-<p>Up until now, we've only defined structs to hold owned types. It is possible
-for structs to hold references, but we need to add a lifetime annotation on
-every reference in the struct's definition. Listing 10-24 has a struct named
-<code>ImportantExcerpt</code> that holds a string slice:
-현재까지 우리는 소유권 있는 타입만 들고 있는 구조체들만 정의해왔습니다. 구조체가 참조자를 들고
-있도록 할 수 있지만, 구조체 정의 내의 모든 참조자들에 대하여 라이프타임 명시를 달아줄 필요가 있습니다.
+<p>현재까지 우리는 소유권 있는 타입만 들고 있는 구조체들만 정의해왔습니다. 구조체가 참조자를 들고
+있도록 할 수 있지만, 구조체 정의 내의 모든 참조자들에 대하여 라이프타임을 표시할 필요가 있습니다.
 Listing 10-24에 스트링 슬라이스를 들고 있는 <code>ImportantExcerpt</code>라고 명명된 구조체가 있습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">struct ImportantExcerpt&lt;'a&gt; {
@@ -534,7 +518,7 @@ fn main() {
 정의 부분에 라이프타임 명시가 필요합니다</span></p>
 <p>이 구조체는 스트링 슬라이스를 담을 수 있는 <code>part</code>라는 하나의 필드를 갖고 있는데, 이것이
 참조자입니다. 제네릭 데이터 타입과 마찬가지로, 제네릭 라이프타임 파라미터의 이름을
-구조체의 이름 뒷편에 꺾쇠 괄호 안에다 선언하여 구조체 정의의 본체 내에서 이 라이프타임 파라미터를
+구조체의 이름 뒤편에 꺾쇠괄호 안에다 선언하여 구조체 정의의 본체 내에서 이 라이프타임 파라미터를
 이용할 수 있도록 해야 합니다.</p>
 <p>여기 이 <code>main</code> 함수는 변수 <code>novel</code>이 소유하고 있는 <code>String</code>의 첫 문장에 대한 참조자를
 들고 있는 <code>ImportantExcerpt</code> 구조체의 인스턴스를 생성합니다.</p>
@@ -558,35 +542,35 @@ fn first_word(s: &amp;str) -&gt; &amp;str {
     &amp;s[..]
 }
 #}</code></pre></pre>
-<p><span class="caption">Listing 10-25: 파라미터와 반환값의 타입이 참조자임에도 불구하고
+<p><span class="caption">Listing 10-25: 파라미터와 반환 값의 타입이 참조자임에도 불구하고
 라이프타임 명시 없이 컴파일되었던, 4장에서 정의한 바 있는 함수</span></p>
-<p>이 함수가 라이프타임 없이 컴파일 되는 이유는 역사가 있습니다: 1.0 이전 시절의 러스트에서는 이 코드가
+<p>이 함수가 라이프타임 없이 컴파일되는 이유는 역사가 있습니다: 1.0 이전 시절의 러스트에서는 이 코드가
 실제로 컴파일되지 않았습니다. 모든 참조자들은 명시적인 라이프타임이 필요했지요. 그 시절, 함수 시그니처는
 아래와 같이 작성되었습니다:</p>
 <pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str {
 </code></pre>
-<p>수많은 러스트 코드를 작성하고난 후, 러스트 팀은 러스트 프로그래머들이 특정항 상황에서 똑같은 라이프타임
-명시를 계속하여 타이핑하고 있다는 사실을 발견하게 되었습니다. 이 상황들은 예측 가능하며 몇가지 결정론적인
+<p>수많은 러스트 코드를 작성하고 난 후, 러스트 팀은 러스트 프로그래머들이 특정항 상황에서 똑같은 라이프타임
+명시를 계속하여 타이핑하고 있다는 사실을 발견하게 되었습니다. 이 상황들은 예측 가능하며 몇 가지 결정론적인
 패턴을 따르고 있었습니다. 그리하여 러스트 팀은 러스트 컴파일러 코드 내에 이 패턴들을 프로그래밍하여
 이러한 상황 내에서는 프로그래머가 명시적으로 라이프타임 명시를 추가하도록 강제하지 않고 빌림 검사기가
 라이프타임을 추론할 수 있도록 하였습니다.</p>
 <p>더 많은 결정론적인 패턴들이 출현하여 컴파일러 내에 추가될 가능성이 충분하기에 이러한 러스트의 역사에
 대해 언급하였습니다. 나중에는 더욱 적은 라이프타임 명시만이 필요할지도 모르지요.</p>
 <p>참조자에 대한 러스트의 분석 기능 내에 프로그래밍된 패턴들을 일컬어
-<em>라이프타임 생략 규칙(lifetime elision rules)</em> 이라고 합니다. 이들은 프로그래머가 따라야하는
+<em>라이프타임 생략 규칙(lifetime elision rules)</em> 이라고 합니다. 이들은 프로그래머가 따라야 하는
 규칙들이 아닙니다; 이 규칙들은 컴파일러가 고려할 특정한 경우의 집합이고, 여러분의 코드가 이러한
 경우에 들어맞으면, 여러분은 명시적으로 라이프타임을 작성할 필요가 없어집니다.</p>
 <p>생략 규칙들은 모든 추론을 제공하지는 않습니다: 만일 러스트가 결정론적으로 이 규칙들을 적용했지만
 여전히 참조자들이 어떤 라이프타임을 가지고 있는지에 대하여 모호하다면, 해당하는 남은 참조자들의
-라이프타임이 어떻게 되어야하는지에 대해 추측하지 않을 것입니다. 이러한 경우, 컴파일러는 여러분에게
+라이프타임이 어떻게 되어야 하는지에 대해 추측하지 않을 것입니다. 이러한 경우, 컴파일러는 여러분에게
 이 참조자들이 서로 어떻게 연관되는지에 대하여 여러분의 의도에 맞게끔 라이프타임을 추가함으로써
 해결 가능한 에러를 표시할 것입니다.</p>
-<p>먼저 몇가지 정의들을 봅시다: 함수나 메소드의 파라미터에 대한 라이프타임을
+<p>먼저 몇 가지 정의들을 봅시다: 함수나 메소드의 파라미터에 대한 라이프타임을
 <em>입력 라이프타임(input lifetime)</em> 이라고 하며, 반환 값에 대한 라이프타임을
 <em>출력 라이프타임(output lifetime)</em> 이라고 합니다.</p>
 <p>이제 명시적인 라이프타임이 없을 때 참조자가 어떤 라이프타임을 가져야 하는지 알아내기 위해서 컴파일러가
-사용하는 규칙들을 봅시다. 첫번째 규칙은 입력 라이프타임에 적용되고, 다음의 두 규칙들은 출력 라이프타임에
-적용됩니다. 만일 컴파일러가 이 세가지 규칙의 끝에 도달하고 여전히 라이프타임을 알아낼 수 없는 참조자가
+사용하는 규칙들을 봅시다. 첫 번째 규칙은 입력 라이프타임에 적용되고, 다음의 두 규칙들은 출력 라이프타임에
+적용됩니다. 만일 컴파일러가 이 세 가지 규칙의 끝에 도달하고 여전히 라이프타임을 알아낼 수 없는 참조자가
 있다면, 컴파일러는 에러와 함께 멈출 것입니다.</p>
 <ol>
 <li>
@@ -600,7 +584,7 @@ fn first_word(s: &amp;str) -&gt; &amp;str {
 대입됩니다: <code>fn foo&lt;'a&gt;(x: &amp;'a i32) -&gt; &amp;'a i32</code>.</p>
 </li>
 <li>
-<p>만일 여러 개의 입력 라이프타임 파라미터가 있는데, 메소드라서 그 중 하나가 <code>&amp;self</code> 혹은 <code>&amp;mut self</code>라고 한다면, <code>self</code>의 라이프타임이 모든 출력 라이프타임 파라미터에 대입됩니다. 이는
+<p>만일 여러 개의 입력 라이프타임 파라미터가 있는데, 메소드라서 그중 하나가 <code>&amp;self</code> 혹은 <code>&amp;mut self</code>라고 한다면, <code>self</code>의 라이프타임이 모든 출력 라이프타임 파라미터에 대입됩니다. 이는
 메소드의 작성을 더욱 멋지게 만들어줍니다.</p>
 </li>
 </ol>
@@ -609,26 +593,26 @@ fn first_word(s: &amp;str) -&gt; &amp;str {
 라이프타임도 없이 시작합니다:</p>
 <pre><code class="language-rust ignore">fn first_word(s: &amp;str) -&gt; &amp;str {
 </code></pre>
-<p>그러면 (컴파일러로서의) 우리는 첫번째 규칙을 적용하는데, 이는 각각의 파라미터가 고유의 라이프타임을 갖는다고
+<p>그러면 (컴파일러로서의) 우리는 첫 번째 규칙을 적용하는데, 이는 각각의 파라미터가 고유의 라이프타임을 갖는다고
 말해주고 있습니다. 우리는 이를 평범하게 <code>'a</code>라고 명명할 것이며, 따라서 이제 시그니처는 다음과 같습니다:</p>
 <pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;str {
 </code></pre>
-<p>두번째 규칙 상에 놓이게 되는데, 이는 정확히 단 하나의 입력 라이프타임만 존재하기 때문에 적용됩니다.
-두번째 규칙은 그 하나의 입력 파라미터에 대한 라이프타임이 출력 라이프타임에 대입된다고 말하고 있으므로,
+<p>두 번째 규칙 상에 놓이게 되는데, 이는 정확히 단 하나의 입력 라이프타임만 존재하기 때문에 적용됩니다.
+두 번째 규칙은 그 하나의 입력 파라미터에 대한 라이프타임이 출력 라이프타임에 대입된다고 말하고 있으므로,
 이제 시그니처는 다음과 같아집니다:</p>
 <pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str {
 </code></pre>
 <p>이제 이 함수 시그니처의 모든 참조자들이 라이프타임을 갖게 되었고, 컴파일러는 프로그래머에게
 이 함수 시그니처 내의 라이프타임을 명시하도록 요구하지 않고도 분석을 계속할 수 있게 되었습니다.</p>
-<p>또다른 예제를 해보려는데, 이번에는 Listing 10-20에서와 같이 우리가 처음 시작할때의
-아무런 라이프타임 파라미터도 가지고 있지 않은 <code>longest</code> 함수를 가지고 해봅시다:</p>
+<p>또 다른 예제를 해보려는데, 이번에는 Listing 10-20에서와 같이 우리가 처음 시작할 때의
+아무런 라이프타임 파라미터도 가지고 있지 않은 <code>longest</code> 함수를 가지고 해 봅시다:</p>
 <pre><code class="language-rust ignore">fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str {
 </code></pre>
-<p>다시 한번 우리가 컴파일러가 된 척하여, 첫번째 규칙을 적용해봅시다: 각각의 파라미터는 고유의 라이프타임을
-갖습니다. 이번에는 두개의 파라미터들이 있으므로, 두 개의 라이프타임을 갖게 됩니다:</p>
+<p>다시 한번 우리가 컴파일러가 된 척하여, 첫 번째 규칙을 적용해봅시다: 각각의 파라미터는 고유의 라이프타임을
+갖습니다. 이번에는 두 개의 파라미터들이 있으므로, 두 개의 라이프타임을 갖게 됩니다:</p>
 <pre><code class="language-rust ignore">fn longest&lt;'a, 'b&gt;(x: &amp;'a str, y: &amp;'b str) -&gt; &amp;str {
 </code></pre>
-<p>두번째 규칙을 살펴봤을 때, 하나 이상의 입력 라이프타임이 있으므로 적용되지 않습니다. 세번째 규칙을
+<p>두 번째 규칙을 살펴봤을 때, 하나 이상의 입력 라이프타임이 있으므로 적용되지 않습니다. 세번째 규칙을
 살펴봤을 때, 이 또한 적용되지 않는데 이는 이것이 메소드가 아니라 함수이고, 따라서 어떠한 파라미터도
 <code>self</code>가 아니기 때문입니다. 따라서 규칙이 더 이상 남아있지 않은데, 우리는 아직 반환 다임의
 라이프타임이 무엇인지 알아내지 못했습니다. 이것이 바로 Listing 10-20의 코드를 컴파일하려 시도했을
@@ -650,15 +634,15 @@ with the struct's fields or with references passed into or returned from
 methods. /Carol -->
 <p>라이프타임을 가진 구조체에 대한 메소드를 구현할 때, 문법은 또다시 Listing 10-10에서 보신 바와 같이
 제네릭 타입 파라미터의 그것과 같습니다: 라이프타임 파라미터가 선언되고 사용되는 곳은 라이프타임
-파라미터가 구조체의 필드들 혹은 메소드 인자와 반환값과 연관이 있는지 없는지에 따라 달린 문제입니다.</p>
-<p>구조체 필드를 위한 라이프타임 이름은 언제나 <code>impl</code> 키워드 뒤에 선언되어야 하며, 그리고나서 구조체의
+파라미터가 구조체의 필드들 혹은 메소드 인자와 반환 값과 연관이 있는지 없는지에 따라 달린 문제입니다.</p>
+<p>구조체 필드를 위한 라이프타임 이름은 언제나 <code>impl</code> 키워드 뒤에 선언되어야 하며, 그러고 나서 구조체의
 이름 뒤에 사용되어야 하는데, 이 라이프타임들은 구조체 타입의 일부이기 때문입니다.</p>
 <p><code>impl</code> 블록 안에 있는 메소드 시그니처에서, 참조자들이 구조체 필드에 있는 참조자들의 라이프타임과
 묶일 수도 있고, 혹은 서로 독립적일 수도 있습니다. 여기에 더해, 라이프타임 생략 규칙이 종종 적용되어
 메소드 시그니처 내에 라이프타임 명시를 할 필요가 없습니다. Listing 10-24에서 정의했던
-<code>ImportantExcerpt</code>라는 이름의 구조체를 이용한 몇가지 예제를 봅시다.</p>
+<code>ImportantExcerpt</code>라는 이름의 구조체를 이용한 몇 가지 예제를 봅시다.</p>
 <p>먼저, 여기 <code>level</code>라는 이름의 메소드가 있습니다. 파라미터는 오직 <code>self</code>에 대한 참조자이며,
-반환값은 무언가에 대한 참조자가 아닌, 그냥 <code>i32</code>입니다:</p>
+반환 값은 무언가에 대한 참조자가 아닌, 그냥 <code>i32</code>입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -672,7 +656,7 @@ impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
     }
 }
 #}</code></pre></pre>
-<p><code>impl</code>뒤의 라이프타임 파라미터 선언부와 타입 이름 뒤에서 이를 사용하는 것이 필요하지만, 첫번째 생략
+<p><code>impl</code>뒤의 라이프타임 파라미터 선언부와 타입 이름 뒤에서 이를 사용하는 것이 필요하지만, 첫 번째 생략
 규칙때문에 <code>self</code>로의 참조자의 라이프타임을 명시할 필요는 없습니다.</p>
 <p>아래는 세번째 라이프타임 생략 규칙이 적용되는 예제입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -689,7 +673,7 @@ impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
     }
 }
 #}</code></pre></pre>
-<p>두 개의 입력 라이프타임이 있으므로, 러스트는 첫번째 라이프타임 생략 규칙을 적용하여 <code>&amp;self</code>와
+<p>두 개의 입력 라이프타임이 있으므로, 러스트는 첫 번째 라이프타임 생략 규칙을 적용하여 <code>&amp;self</code>와
 <code>announcement</code>에게 각각 라이프타임을 부여합니다. 그다음, 파라미터 중 하나가 <code>&amp;self</code>이므로,
 반환 타입은 <code>&amp;self</code>의 라이프타임을 얻고, 모든 라이프타임들이 추론되었습니다.</p>
 <a class="header" href="ch10-03-lifetime-syntax.html#a정적-라이프타임static-lifetime" id="a정적-라이프타임static-lifetime"><h3>정적 라이프타임(Static lifetime)</h3></a>
@@ -705,10 +689,10 @@ let s: &amp;'static str = &quot;I have a static lifetime.&quot;;
 항상 이용이 가능하지요. 따라서, 모든 스트링 리터럴의 라이프타임은 <code>'static</code>입니다.</p>
 <!-- How would you add a static lifetime (below)? -->
 <!-- Just like you'd specify any lifetime, see above where it shows `&'static str`. /Carol -->
-<p>여러분은 어쩌면 에러 메세지 도움말에서 <code>'static</code> 라이프타임을 이용하라는 제안을 보셨을지도 모릅니다만,
+<p>여러분은 어쩌면 에러 메시지 도움말에서 <code>'static</code> 라이프타임을 이용하라는 제안을 보셨을지도 모릅니다만,
 참조자의 라이프타임으로서 <code>'static</code>으로 특정하기 전에, 여러분이 가지고 있는 참조자가 실제로 여러분
-프로그램의 전체 라이프타임동안 사는 것인지 대해 생각해보세요 (혹은 가능하다면 그렇게 오래 살게끔 하고
-싶어할지라도 말이죠). 대부분의 경우, 코드 내의 문제는 댕글링 참조자를 만드는 시도 혹은 사용가능한
+프로그램의 전체 라이프타임 동안 사는 것인지 대해 생각해보세요 (혹은 가능하다면 그렇게 오래 살게끔 하고
+싶어 할지라도 말이죠). 대부분의 경우, 코드 내의 문제는 댕글링 참조자를 만드는 시도 혹은 사용 가능한
 라이프타임들의 불일치이며, 해결책은 이 문제들을 해결하는 것이지 <code>'static</code> 라이프타임으로 특정하는
 것이 아닙니다.</p>
 <a class="header" href="ch10-03-lifetime-syntax.html#a제네릭-타입-파라미터-트레잇-바운드-라이프타임을-함께-써보기" id="a제네릭-타입-파라미터-트레잇-바운드-라이프타임을-함께-써보기"><h3>제네릭 타입 파라미터, 트레잇 바운드, 라이프타임을 함께 써보기</h3></a>
@@ -735,7 +719,7 @@ fn longest_with_an_announcement&lt;'a, T&gt;(x: &amp;'a str, y: &amp;'a str, ann
 가지고 특정한 바와 같이 <code>Display</code> 트레잇을 구현한 어떤 타입으로도 채워질 수 있습니다. 이 추가 인자는
 함수가 스트링 슬라이스들의 길이를 비교하기 전 출력될 것인데, 이것이 <code>Display</code> 트레잇 바운드가 필요한
 이유지요. 라이프타임이 제네릭의 한 종류이므로, 라이프타임 파라미터 <code>'a</code>와 제네릭 타입 파라미터 <code>T</code>
-둘 모두에 대한 선언이 함수 이름 뒤 꺾쇠 괄호 내에 나열되어 있습니다.</p>
+둘 모두에 대한 선언이 함수 이름 뒤 꺾쇠괄호 내에 나열되어 있습니다.</p>
 <a class="header" href="ch10-03-lifetime-syntax.html#a정리" id="a정리"><h2>정리</h2></a>
 <p>이번 절에서 참 많은 것을 다루었습니다! 이제 여러분은 제네릭 타입 파라미터, 트레잇과 트레잇 바운드,
 그리고 제네릭 라이프타임 파라미터에 대해 알게되었으니, 여러분은 중복되지 않지만 많은 서로 다른
@@ -743,9 +727,9 @@ fn longest_with_an_announcement&lt;'a, T&gt;(x: &amp;'a str, y: &amp;'a str, ann
 타입에 대해서 적용될 수 있음을 의미합니다. 트레잇과 트레잇 바운드는 그 타입이 제네릭일지라도
 해당 타입들이 코드에 필요한 동작을 할 수 있음을 보장합니다. 라이프타임 명시에 의해 특정된
 참조자들의 라이프타임 간의 관계는 이 유연한 코드가 어떠한 댕글링 참조자도 만들지 않을 것임을
-확신시켜줍니다. 그리고 이 모든 것들이 컴파일타임에 이루어지므로 런타임 성능에는 영향을 주지 않지요!</p>
+확신시켜줍니다. 그리고 이 모든 것들이 컴파일 타임에 이루어지므로 런타임 성능에는 영향을 주지 않지요!</p>
 <p>믿을진 모르겠지만, 이 부분에 대해 배울 것이 심지어 더 있습니다: 17장에서는 트레잇 객체(trait object)에
-대해 다룰 예정인데, 이는 트레잇을 사용하는 또다른 방법입니다. 19장에서는 라이프타임 명시를 포함하는
+대해 다룰 예정인데, 이는 트레잇을 사용하는 또 다른 방법입니다. 19장에서는 라이프타임 명시를 포함하는
 더 복잡한 시나리오를 다룰 것입니다. 20장에서는 더 고급 수준의 타입 시스템 특성을 다룰 것입니다. 하지만,
 다음 절에서는 러스트에서 어떻게 테스트를 작성하여 우리의 코드가 우리가 원했던 방식대로 모든 기능들을
 작동시킨다는 것을 확신할 수 있도록 하는 방법에 대해 이야기해봅시다!</p>
