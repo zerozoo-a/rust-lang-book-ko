@@ -262,12 +262,7 @@ mod network {
 어떤 형태의 구조이건 간에 여기서 보여준 나란한 모듈 및 중첩된(nested) 모듈을 만드는
 테크닉을 이용해 보세요.</p>
 <a class="header" href="ch07-01-mod-and-the-filesystem.html#a모듈을-다른-파일로-옮기기" id="a모듈을-다른-파일로-옮기기"><h3>모듈을 다른 파일로 옮기기</h3></a>
-<p>Modules form a hierarchical structure, much like another structure in computing
-that you’re used to: filesystems! We can use Rust’s module system along with
-multiple files to split up Rust projects so not everything lives in
-<em>src/lib.rs</em> or <em>src/main.rs</em>. For this example, let’s start with the code in
-Listing 7-3:
-모듈은 계층적인 구조를 형성하는데, 여러분이 익숙하게 사용하고 있는 다른 구조와 매우 닮았습니다: 바로
+<p>모듈은 계층적인 구조를 형성하는데, 여러분이 익숙하게 사용하고 있는 다른 구조와 매우 닮았습니다: 바로
 파일 시스템이죠! 러스트에서는 프로젝트를 잘게 나누기 위해 여러 개의 파일 상에서 모듈 시스템을 사용할
 수 있어, 모든 것들이 <em>src/lib.rs</em>나 <em>src/main.rs</em> 안에 존재하지 않게할 수 있습니다. 이러한
 예를 위해서, Listing 7-3에 있는 코드를 시작해봅시다:</p>
@@ -392,12 +387,7 @@ mod server {
 #}</code></pre></pre>
 <p>이 모듈 파일 내에는 <code>mod</code> 선언이 여전히 있음을 주목하세요; 이는 <code>server</code>가 <code>network</code>의 서브모듈로서
 여전히 필요하기 때문입니다.</p>
-<p>Run <code>cargo build</code> again. Success! We have one more module to extract: <code>server</code>.
-Because it’s a submodule—that is, a module within a module—our current tactic
-of extracting a module into a file named after that module won’t work. We’ll
-try anyway so you can see the error. First, change <em>src/network.rs</em> to have
-<code>mod server;</code> instead of the <code>server</code> module’s contents:
-<code>cargo build</code>를 다시 실행시키세요. 성공! 여기 또 추출할만한 모듈이 하나 더 있습니다: <code>server</code> 말이죠.
+<p><code>cargo build</code>를 다시 실행시키세요. 성공! 여기 또 추출할만한 모듈이 하나 더 있습니다: <code>server</code> 말이죠.
 이것이 서브모듈(즉, 모듈 내의 모듈)이기 때문에, 모듈을 파일로 추출해서 파일 이름을 모듈 이름으로 사용하는
 전략은 사용하기 힘듭니다. 어쨌든 시도해서 에러를 확인해보겠습니다. 먼저, <em>src/network.rs</em> 내에서
 <code>server</code> 모듈의 내용물 대신에 <code>mod server</code>을 쓰세요:</p>
@@ -407,9 +397,7 @@ try anyway so you can see the error. First, change <em>src/network.rs</em> to ha
 
 mod server;
 </code></pre>
-<p>Then create a <em>src/server.rs</em> file and enter the contents of the <code>server</code>
-module that we extracted:
-그후 <em>src/server.rs</em> 파일을 만들고 추출해둔 <code>server</code> 모듈의 내용물을 입력하세요:</p>
+<p>그후 <em>src/server.rs</em> 파일을 만들고 추출해둔 <code>server</code> 모듈의 내용물을 입력하세요:</p>
 <p><span class="filename">Filename: src/server.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
