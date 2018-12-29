@@ -1,139 +1,121 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en">
     <head>
-        <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>모듈성과 에러처리의 향상을 위한 리팩토링 - The Rust Programming Language</title>
+        <title>모듈성과 에러처리의 향상을 위한 리팩토링 - 모듈성과 에러처리의 향상을 위한 리팩토링 - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
 
         <base href="">
 
         <link rel="stylesheet" href="book.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
         <link rel="shortcut icon" href="favicon.png">
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="_FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <style>
+            .page-wrapper.has-warning > .nav-chapters {
+              /* add height for warning content & margin */
+              top: 120px;
+            }
 
-        <!-- Custom theme stylesheets -->
-        
+            p.warning {
+                background-color: rgb(242, 222, 222);
+                border-bottom-color: rgb(238, 211, 215);
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+                border-bottom-style: solid;
+                border-bottom-width: 0.666667px;
+                border-image-outset: 0 0 0 0;
+                border-image-repeat: stretch stretch;
+                border-image-slice: 100% 100% 100% 100%;
+                border-image-source: none;
+                border-image-width: 1 1 1 1;
+                border-left-color: rgb(238, 211, 215);
+                border-left-style: solid;
+                border-left-width: 0.666667px;
+                border-right-color: rgb(238, 211, 215);
+                border-right-style: solid;
+                border-right-width: 0.666667px;
+                border-top-color: rgb(238, 211, 215);
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+                border-top-style: solid;
+                border-top-width: 0.666667px;
+                color: rgb(185, 74, 72);
+                margin-bottom: 0px;
+                margin-left: 0px;
+                margin-right: 0px;
+                margin-top: 30px;
+                padding-bottom: 8px;
+                padding-left: 14px;
+                padding-right: 35px;
+                padding-top: 8px;
+            }
+            p.warning strong {
+                color: rgb(185, 74, 72)
+            }
+            p.warning a {
+                color: rgb(0, 136, 204)
+            }
+        </style>
 
-        
+        <!-- MathJax -->
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
     </head>
     <body class="light">
-        <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
-            try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
-
-                if (theme.startsWith('"') && theme.endsWith('"')) {
-                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
-                }
-
-                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
-                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
-                }
-            } catch (e) { }
-        </script>
-
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
-            var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var theme = localStorage.getItem('theme');
+            if (theme == null) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
-            if (document.body.clientWidth >= 1080) {
-                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
-                sidebar = sidebar || 'visible';
-            }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
         </script>
 
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+        <div id="sidebar" class="sidebar">
             <ol class="chapter"><li class="affix"><a href="foreword.html">들어가기 앞서</a></li><li class="affix"><a href="ch00-00-introduction.html">소개</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 시작하기</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 설치하기</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 추리 게임 튜토리얼</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 보편적인 프로그래밍 개념</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 변수와 가변성</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 데이터 타입들</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 함수 동작 원리</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 주석</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 제어문</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 소유권 이해하기</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 소유권이 뭔가요?</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 참조자와 빌림</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> 슬라이스</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 연관된 데이터들을 구조체로 다루기</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 구조체를 정의하고 생성하기</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 구조체를 이용한 예제 프로그램</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 메소드 문법</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 열거형과 패턴 매칭</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 열거형 정의하기</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 흐름 제어 연산자</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let을 사용한 간결한 흐름 제어</a></li></ol></li><li><a href="ch07-00-modules.html"><strong aria-hidden="true">7.</strong> 모듈</a></li><li><ol class="section"><li><a href="ch07-01-mod-and-the-filesystem.html"><strong aria-hidden="true">7.1.</strong> mod와 파일 시스템</a></li><li><a href="ch07-02-controlling-visibility-with-pub.html"><strong aria-hidden="true">7.2.</strong> pub으로 가시성 제어하기</a></li><li><a href="ch07-03-importing-names-with-use.html"><strong aria-hidden="true">7.3.</strong> use로 이름 가져오기</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 일반적인 컬렉션</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> 벡터</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 스트링</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 해쉬맵</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 에러 처리</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!과 함께하는 복구 불가능한 에러</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result와 함께하는 복구 가능한 에러</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!이냐, panic!이 아니냐, 그것이 문제로다</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 제네릭 타입, 트레잇, 그리고 라이프타임</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 제네릭 데이터 타입</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> 트레잇: 공유 동작을 정의하기</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 라이프타임을 이용한 참조자 유효화</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 테스팅</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 테스트 작성하기</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 테스트 실행하기</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 테스트 조직화</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> I/O 프로젝트: 커맨드 라인 프로그램 만들기</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 커맨드 라인 인자 허용하기</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 파일 읽기</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html" class="active"><strong aria-hidden="true">12.3.</strong> 모듈성과 에러처리의 향상을 위한 리팩토링</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 테스트 주도 개발로 라이브러리의 기능 개발하기</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 환경 변수들을 활용하기</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 표준출력 대신 표준에러로 에러메시지 출력하기</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> 함수형 언어의 특성들: 반복자들과 클로저들</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 클로저: 환경을 캡쳐할 수 있는 익명 함수</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 반복자로 일련의 항목들 처리하기</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> I/O 프로젝트 개선하기</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 성능 비교하기: 루프 vs. 반복자</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> Cargo와 Crates.io 더 알아보기</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 릴리즈 프로필을 이용해 빌드 커스터마이징하기</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.io에 크레이트 배포하기</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 작업공간</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo install을 이용해 Crates.io에서 바이너리 설치하기</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 커스텀 명령어로 Cargo 확장하기</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 스마트 포인터</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T>는 힙에 있는 데이터를 가리키고 알려진 크기를 갖습니다</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Deref 트레잇은 참조자를 통하여 데이터로의 접근을 허용합니다</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop 트레잇은 메모리 정리 코드를 실행시킵니다</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, 참조 카운팅 스마트 포인터</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T>와 내부 가변성 패턴</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 순환 참조를 만드는 것과 메모리 누수는 안전한 것에 해당됩니다</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 겁없는 동시성</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 스레드</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 메세지 패싱</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 공유 상태</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 확장 가능한 동시성: Sync와 Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> 러스트의 객체 지향 프로그래밍 기능들</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 객체 지향 언어의 특성</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 트레잇 객체를 사용하여 다른 타입 간의 값 허용하기</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 객체 지향 디자인 패턴 구현하기</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 값의 구조와 매칭되는 패턴</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 패턴이 사용될 수 있는 모든 곳</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> 반증 가능성: 패턴의 매칭이 실패할 수도 있는 경우</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 패턴 문법의 모든 것</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 고급 기능들</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 안전하지 않은 러스트</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> 고급 라이프타임</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> 고급 트레잇</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> 고급 타입</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> 고급 함수와 클로저</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 마지막 프로젝트: 멀티스레드 웹서버 만들기</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 싱글 스레드 웹서버</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 싱글 스레드 서버를 멀티스레드 서버로 바꾸기</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 우아한 종료와 정리</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="appendix-04-macros.html"><strong aria-hidden="true">21.4.</strong> D - Macros</a></li><li><a href="appendix-05-translation.html"><strong aria-hidden="true">21.5.</strong> E - Translations</a></li><li><a href="appendix-06-newest-features.html"><strong aria-hidden="true">21.6.</strong> F - Newest Features</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li><li><a href="appendix-08-glossary.html"><strong aria-hidden="true">21.8.</strong> F - 번역 용어 정리</a></li></ol></li></ol>
-        </nav>
+        </div>
 
-        <div id="page-wrapper" class="page-wrapper">
+        <div id="page-wrapper" class="page-wrapper has-warning">
 
             <div class="page">
-                
+                <header><p class="warning">You are reading a <strong>draft</strong> of the next edition of TRPL. For more, go <a href="../index.html">here</a>.</p></header>
                 <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
 
-                        <h1 class="menu-title">The Rust Programming Language</h1> 
+                    <h1 class="menu-title">모듈성과 에러처리의 향상을 위한 리팩토링 - The Rust Programming Language</h1>
 
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
                     </div>
                 </div>
 
-                
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-                    </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
-                        </ul>
-                    </div>
-                </div>
-                
-
-                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
-                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script>
 
                 <div id="content" class="content">
-                    <main>
-                        <a class="header" href="ch12-03-improving-error-handling-and-modularity.html#a모듈성과-에러처리의-향상을-위한-리팩토링" id="a모듈성과-에러처리의-향상을-위한-리팩토링"><h2>모듈성과 에러처리의 향상을 위한 리팩토링</h2></a>
+                    <a class="header" href="#a모듈성과-에러처리의-향상을-위한-리팩토링" id="a모듈성과-에러처리의-향상을-위한-리팩토링"><h2>모듈성과 에러처리의 향상을 위한 리팩토링</h2></a>
 <p>우리 프로그램을 향상시키기 위해 네 가지 수정하고 싶은 문제가 있는데, 이들은 프로그램을
 구조화하고 발생가능한 에러를 처리하는 방식과 관련있습니다.</p>
 <p>첫 번째, 우리 <code>main</code> 함수는 현재 두 가지 작업을 수행합니다: 인자들을 분석하고 파일을
@@ -159,7 +141,7 @@ bounds&quot; 오류가 발생하는데 이는 문제를 명확하게 설명하�
 참고하면 되니 더 좋죠. 또한, 모든 오류 처리 코드를 한 곳에 저장하면 우리가 최종 사용자에게
 도움이 되는 메시지를 출력하고 있는지 확신하는데도 도움이 됩니다.</p>
 <p>이런 문제들을 우리 프로젝트를 리팩토링하여 해결해보도록 하겠습니다.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#a바이너리-프로젝트를-위한-핵심기능concern-나누기" id="a바이너리-프로젝트를-위한-핵심기능concern-나누기"><h3>바이너리 프로젝트를 위한 핵심기능(concern) 나누기</h3></a>
+<a class="header" href="#a바이너리-프로젝트를-위한-핵심기능concern-나누기" id="a바이너리-프로젝트를-위한-핵심기능concern-나누기"><h3>바이너리 프로젝트를 위한 핵심기능(concern) 나누기</h3></a>
 <p><code>main</code> 함수가 여러 작업에 책임을 갖게 되는 구조적 문제는 많은 바이너리 프로젝트에서
 공통적입니다. 그래서 Rust 커뮤니티는 <code>main</code>이 커지기 시작할 때 바이너리 프로그램의
 핵심기능을 나누기 위한 가이드라인 프로세스를 개발했습니다. 프로세스에는 다음 단계가 있습니다:</p>
@@ -183,7 +165,7 @@ bounds&quot; 오류가 발생하는데 이는 문제를 명확하게 설명하�
 수 없지만, 이런 구조로 <em>lib.rs</em> 으로 프로그램의 모든 함수와 로직을 옮긴 후에는 테스트가
 가능해집니다. <em>main.rs</em>에는 읽어서 옳바른지 여부를 검증할 수 있을 정도로 적은 코드만을
 남겨두도록 합니다. 다음의 과정을 거치며 재작업을 해봅시다.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#a인자-파서의-추출" id="a인자-파서의-추출"><h3>인자 파서의 추출</h3></a>
+<a class="header" href="#a인자-파서의-추출" id="a인자-파서의-추출"><h3>인자 파서의 추출</h3></a>
 <p>먼저 우리는 커맨드라인 인자를 분석하는 기능을 추출할 겁니다. 항목 12-5에서 <code>main</code>의 시작 부분이 새로운 함수 <code>parse_config</code>를 호출하는 것을 볼 수 있을텐데, 이는 아직은  <em>src/main.rs</em>에 정의되어 있을 겁니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
@@ -213,7 +195,7 @@ fn parse_config(args: &amp;[String]) -&gt; (&amp;str, &amp;str) {
 점진적으로 리팩토링을 진행하고 있습니다. 이런 변화를 준 뒤에는, 프로그램을 다시 실행해 인자의
 파싱이 정상적으로 동작하고 있는지 확인해보십시오. 진행 상황을 자주 확인하면 문제가 생겼을 때
 원인을 파악하는데 도움이 됩니다.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#a설정-변수들을-그룹짓기" id="a설정-변수들을-그룹짓기"><h4>설정 변수들을 그룹짓기</h4></a>
+<a class="header" href="#a설정-변수들을-그룹짓기" id="a설정-변수들을-그룹짓기"><h4>설정 변수들을 그룹짓기</h4></a>
 <!-- 원문의 내용이 잘못 작성된 것 같음. At the moment, we’re returning a tuple, but then we immediately break that tuple up into individual parts again. 문장은 but 이후 문장이 부정적 의미로 와야맞는 될 것 같음 -->
 <p>우리는 이 함수의 기능을 더 향상시키기 위해 또 다른 작은 행동을 할 수 있습니다. 현재 우리는
 튜플을 반환하고 있는데, 그 시점에 즉시 튜플을 개별된 부분으로 나눌 수가 없습니다. 이는 우리가
@@ -270,7 +252,7 @@ fn parse_config(args: &amp;[String]) -&gt; Config {
 대여 규칙을 위반하게 됩니다.</p>
 <p>우리가 <code>String</code> 데이터를 관리하는 방식은 여러가지가 있겠습니다만, 가장 쉽고 약간 비효율적인 방법은 <code>clone</code> 메소드를 호출하는 겁니다. 이 방식은 <code>Config</code> 객체에서 소유하게 할 data 전체에 대한 복사본을 만들 것이며, 이런 방식은 참조만 보관하는 것에 비해 약간 더 많은 비용과 메모리가 소비됩니다. 하지만 데이터의 복제본을 만드는 방식은 우리가 참조의 생명주기를 관리하지 않아도 되기 때문에 우리의 코드를 매우 직관적이게 합니다. 그래서 이런 상황에서는 약간의 성능을 포기하고 간소함을 유지하는 것이 매우 가치있는 거래입니다.</p>
 <blockquote>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#clone-사용의-기회비용" id="clone-사용의-기회비용"><h3><code>clone</code> 사용의 기회비용</h3></a>
+<a class="header" href="#clone-사용의-기회비용" id="clone-사용의-기회비용"><h3><code>clone</code> 사용의 기회비용</h3></a>
 <p>많은 Rust 사용자들은 런타임 비용 때문에 소유권 문제를 수정하기 위해 clone을 사용하지
 않는 경향이 있습니다. 13장 이터레이터에서, 이런 상황에서보다 효율적인 메소드를
 사용하는 법을 배우겠지만, 지금은 한 번만 clone하며 query와 filename이 매우 작기
@@ -284,7 +266,7 @@ fn parse_config(args: &amp;[String]) -&gt; Config {
 필드를 사용하도록 <code>main</code>을 업데이트했습니다.</p>
 <p>우리의 코드는 이제 보다 분명하게 <code>query</code>와 <code>filename</code>이 연관되어 있으며 이들의 목적이
 프로그램이 어떻게 동작할지에 대한 설정이라는 의도를 전달할 수 있습니다. 이 값을 사용하는 모든 코드는 그들의 의도에 맞게 지정된 필드를 <code>config</code> 객체에서 찾을 수 있습니다.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#config를-위한-생성자-만들기" id="config를-위한-생성자-만들기"><h4><code>Config</code>를 위한 생성자 만들기.</h4></a>
+<a class="header" href="#config를-위한-생성자-만들기" id="config를-위한-생성자-만들기"><h4><code>Config</code>를 위한 생성자 만들기.</h4></a>
 <p>지금까지 우리는 <code>main</code>에서 <code>parse_config</code>함수로 커맨드라인 인자를 파싱하는 로직을
 추출했습니다. 이를 통해 우리 코드에서 <code>query</code>와 <code>filename</code>값이 연관되어 있고 그
 연결성이 전달되어야 한다는 것을 알았습니다. 그래서 우리는 <code>Config</code> 구조체를 추가하고
@@ -330,7 +312,7 @@ impl Config {
 호출하게 되었습니다. 우리는 <code>parse_config</code>의 이름을 <code>new</code>로 바꾸고 그를 <code>impl</code>블록
 안으로 옮겼는데, 이를 통해 <code>new</code>함수가 <code>Config</code>와 연결되게 됩니다. 다시 컴파일을 하고
 제대로 동작하는지 확인해보도록 합시다.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#a에러-처리-수정하기" id="a에러-처리-수정하기"><h3>에러 처리 수정하기</h3></a>
+<a class="header" href="#a에러-처리-수정하기" id="a에러-처리-수정하기"><h3>에러 처리 수정하기</h3></a>
 <p>이번에는 우리의 에러 처리를 수정해 볼 겁니다. 만일 <code>args</code> 벡터가 3개 미만의 아이템을<br />
 가지고 있을 때 인덱스 <code>2</code> 혹은 <code>3</code>의 값에 접근하려는 시도를 하면 프로그램은 패닉을
 일으키게 된다고 했던 것을 상기시켜 드립니다. 프로그램을 인자 없이 실행해보시면;
@@ -345,7 +327,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <p><code>index out of bounds: the len is 1 but the index is 1</code> 줄은
 프로그래머를 위해 의도된 에러 메시지이지, 최종 사용자에게는 무슨 일이 있었는지 무엇을 해야 하는지
 이해하는데 아무런 도움이 되지 않습니다. 당장 한번 고쳐보겠습니다.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#a에러-메시지-향상시키기" id="a에러-메시지-향상시키기"><h4>에러 메시지 향상시키기</h4></a>
+<a class="header" href="#a에러-메시지-향상시키기" id="a에러-메시지-향상시키기"><h4>에러 메시지 향상시키기</h4></a>
 <p>항목 12-8에서 <code>new</code>함수에 검사를 추가하여 인덱스 <code>1</code>과 <code>2</code>에 접근하기 전에 조각이
 충분한 길이인지를 확인합니다. 조각이 충분히 길지 않다면, 프로그램은 더 좋은 에러메시지
 <code>index out of bounds</code>를 보여주고 패닉을 일으킵니다:</p>
@@ -372,7 +354,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <code>panic!</code>에 대한 호출은 9장에서 논의했던 것처럼 사용 방법에 대한 문제가 아닌 아니라 프로그래밍
 관련 문제에 더 적합합니다. 대신, 우리는 9장에서 배운 다른 기법으로 <code>Result</code>를 반환하는 것을
 성공이나 오류를 나타낼 수 있습니다.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#new에서-panic을-호출하는-대신-result를-반환하기" id="new에서-panic을-호출하는-대신-result를-반환하기"><h4><code>new</code>에서 <code>panic!</code>을 호출하는 대신 <code>Result</code>를 반환하기.</h4></a>
+<a class="header" href="#new에서-panic을-호출하는-대신-result를-반환하기" id="new에서-panic을-호출하는-대신-result를-반환하기"><h4><code>new</code>에서 <code>panic!</code>을 호출하는 대신 <code>Result</code>를 반환하기.</h4></a>
 <p>우리는 <code>Result</code>를 반환 값으로 선택하여 성공인 경우에는 <code>Config</code> 객체를 포함시키고 에러가
 발생한 경우에는 문제가 무엇인지 설명할 수 있게 만들 수 있다. <code>Config::new</code>가 <code>main</code>과
 상호작용할 시에, 우리는 <code>Result</code>를 사용하여 문제가 있다고 신호할 수 있다. 그리고<code>main</code>에선
@@ -403,7 +385,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 반환 합니다. 이런 변경으로 인해 함수는 새로운 타입 선언을 갖게 됩니다.</p>
 <p><code>Config::new</code>가 <code>Err</code>값을 반환하게 함으로써, <code>main</code>함수는 <code>new</code>함수로부터 반환된
 <code>Result</code>값을 처리하고 에러 상황에 프로세스를 더 깨끗하게 종료 할 수 있습니다.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#confignew를-호출하고-에러-처리하기" id="confignew를-호출하고-에러-처리하기"><h4><code>Config::new</code>를 호출하고 에러 처리하기</h4></a>
+<a class="header" href="#confignew를-호출하고-에러-처리하기" id="confignew를-호출하고-에러-처리하기"><h4><code>Config::new</code>를 호출하고 에러 처리하기</h4></a>
 <p>에러 케이스를 처리하고 사용자-친화적인 메시지를 출력하기 위해서, 항목 12-10에서처럼
 <code>Config::new</code>가 리턴하는 <code>Result</code>를 처리하기 위해 <code>main</code>을 갱신해야 합니다. 그리고
 우리 커맨드라인 프로그램을 <code>panic!</code>으로 0이 아닌 값을 발생시킬 때에는 종료시켜야 하므로 직접
@@ -445,7 +427,7 @@ fn main() {
 Problem parsing arguments: not enough arguments
 </code></pre>
 <p>훌륭하네요! 이 출력은 우리 사용자들에게 훨씬 친화적입니다.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#run-함수-추출하기" id="run-함수-추출하기"><h3><code>run</code> 함수 추출하기</h3></a>
+<a class="header" href="#run-함수-추출하기" id="run-함수-추출하기"><h3><code>run</code> 함수 추출하기</h3></a>
 <p>이제 환경 설정 파싱 리팩토링을 마무리 했습니다. 우리 프로그램의 로직으로 돌아갑시다. 우리가
 &quot;바이너리 프로젝트에서 핵심 기능의 분리&quot;절에서 논의한 과정에 따라, 우리는 <code>main</code>함수에 구성
 설정 또는 오류 처리와 관계 없는 남아있는 모든 로직들을 담고있는 <code>run</code>함수를 추출 할 겁니다.
@@ -477,7 +459,7 @@ fn run(config: Config) {
 <p><span class="caption">항목 12-11: 남은 프로그램 로직을 <code>run</code> 함수로 추출하기 </span></p>
 <p>이제 <code>run</code>함수에는 <code>main</code>에 잔존하는 파일을 읽는 것부터 나머지 모든 로직이 포함됩니다.
 <code>run</code> 함수는 <code>Config</code> 객체를 인수로 취합니다.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#run-함수에서-에러-반환하기" id="run-함수에서-에러-반환하기"><h4><code>run</code> 함수에서 에러 반환하기</h4></a>
+<a class="header" href="#run-함수에서-에러-반환하기" id="run-함수에서-에러-반환하기"><h4><code>run</code> 함수에서 에러 반환하기</h4></a>
 <p>나머지 프로그램 로직을 <code>main</code>이 아닌<code>run</code> 함수로 분리하면, Listing 12-9의
 <code>Config::new</code>처럼 에러 처리를 향상시킬 수 있습니다. <code>expect</code>를 호출하여 프로그램을 패닉
 상태로 만드는 대신, <code>run</code>함수는 무언가가 잘못되었을 때 <code>Result &lt;T, E&gt;</code>를 리턴 할
@@ -524,7 +506,7 @@ fn run(config: Config) -&gt; Result&lt;(), Box&lt;Error&gt;&gt; {
 에러가 있는지 아닌지를 확인하지 않고 있고, 컴파일러는 우리에게 아마도 여기에 에러 처리 코드를
 작성해야 한다는 것을 상기 시켜줄 것입니다! 당장 바로잡아 봅시다.</p>
 <p>Rust는 우리 코드가 오류가 있음을 나타내는 'Result'값을 무시한다는 것을 알려줍니다. 우리는 에러가 있는지 아닌지를 확인하지 않고 있고, 컴파일러는 아마도 여기에 에러 처리 코드를 가지고 있다는 것을 상기 시켜줄 것입니다! 지금 바로 잡아 보자.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#main안의-run에서-반환되는-에러-처리하기" id="main안의-run에서-반환되는-에러-처리하기"><h4><code>main</code>안의 <code>run</code>에서 반환되는 에러 처리하기</h4></a>
+<a class="header" href="#main안의-run에서-반환되는-에러-처리하기" id="main안의-run에서-반환되는-에러-처리하기"><h4><code>main</code>안의 <code>run</code>에서 반환되는 에러 처리하기</h4></a>
 <p>우리는 항목 12-10의 <code>Config::new</code>를 사용하여 오류를 처리하는 방식과 비슷한 방법을 사용하여 오류를 검사하고 멋지게 처리합니다. 그러나 약간의 차이점이 있습니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
@@ -548,7 +530,7 @@ fn run(config: Config) -&gt; Result&lt;(), Box&lt;Error&gt;&gt; {
 값은 무조건 <code>()</code>일테니까요.</p>
 <p><code>if let</code>과 <code>unwrap_or_else</code> 함수의 내용은 동일한 경우에 동일한 동작을 합니다, 오류를
 출력하고 종료하죠.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#a라이브러리-크레이트로-코드를-나누기" id="a라이브러리-크레이트로-코드를-나누기"><h3>라이브러리 크레이트로 코드를 나누기</h3></a>
+<a class="header" href="#a라이브러리-크레이트로-코드를-나누기" id="a라이브러리-크레이트로-코드를-나누기"><h3>라이브러리 크레이트로 코드를 나누기</h3></a>
 <p>지금까지 꽤 좋아 보인다! 이제 우리는 <em>src/main.rs</em> 파일을 나눠서 <em>src/lib.rs</em>에 몇 개의 코드를 넣어서 테스트 할 수 있고 작은 <em>src/main.rs</em> 파일을 갖게 될 것입니다.</p>
 <p><em>src/main.rs</em>에 파편으로 존재하는 다음 코드들을 새 파일로 옮겨봅시다.
 <em>src/lib.rs</em>:</p>
@@ -595,7 +577,7 @@ pub fn run(config: Config) -&gt; Result&lt;(), Box&lt;Error&gt;&gt;{
 </code></pre>
 <p><span class="caption">항목 12-13: <code>Config</code>과 <code>run</code>을 <em>src/lib.rs</em>로 옮기기</span></p>
 <p>우리는 <code>Config</code>의 필드 및 <code>new</code> 메소드와 <code>run</code> 함수에 대해 <code>pub</code>을 자유롭게 사용했습니다. 이제 우리가 테스트 할 수있는 공개 API를 가진 라이브러리 크레이트가 생겼습니다.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#a바이너리-크레이트에서-라이브러리-크레이트-호출하기" id="a바이너리-크레이트에서-라이브러리-크레이트-호출하기"><h4>바이너리 크레이트에서 라이브러리 크레이트 호출하기</h4></a>
+<a class="header" href="#a바이너리-크레이트에서-라이브러리-크레이트-호출하기" id="a바이너리-크레이트에서-라이브러리-크레이트-호출하기"><h4>바이너리 크레이트에서 라이브러리 크레이트 호출하기</h4></a>
 <p>이제 우리는 <em>src/main.rs</em>에 있는 바이너리 크레이트의 범위에 <em>src/lib.rs</em>로 옮긴 코드를
 <code>extern crate greprs</code>를 사용하여 가져와야 합니다. 이후 <code>use greprs::Config</code>
 행을 추가하여 <code>Config</code> 타입을 범위로 가져오고 항목 12-14와 같이 크레이트 이름으로<code>run</code>
@@ -671,7 +653,7 @@ had only one place to consult in the code if the error-handling logic needed to
 change. Having all the error-handling code in one place will also ensure that
 we’re printing messages that will be meaningful to our end users.</p>
 <p>Let’s address these four problems by refactoring our project.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#separation-of-concerns-for-binary-projects" id="separation-of-concerns-for-binary-projects"><h3>Separation of Concerns for Binary Projects</h3></a>
+<a class="header" href="#separation-of-concerns-for-binary-projects" id="separation-of-concerns-for-binary-projects"><h3>Separation of Concerns for Binary Projects</h3></a>
 <p>The organizational problem of allocating responsibility for multiple tasks to
 the <code>main</code> function is common to many binary projects. As a result, the Rust
 community has developed a process to use as a guideline for splitting the
@@ -707,7 +689,7 @@ can’t test the <code>main</code> function directly, this structure lets you te
 your program’s logic by moving it into functions in <em>lib.rs</em>. The only code
 that remains in <em>main.rs</em> will be small enough to verify its correctness by
 reading it. Let’s rework our program by following this process.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#extracting-the-argument-parser" id="extracting-the-argument-parser"><h4>Extracting the Argument Parser</h4></a>
+<a class="header" href="#extracting-the-argument-parser" id="extracting-the-argument-parser"><h4>Extracting the Argument Parser</h4></a>
 <p>We’ll extract the functionality for parsing arguments into a function that
 <code>main</code> will call to prepare for moving the command line parsing logic to
 <em>src/lib.rs</em>. Listing 12-5 shows the new start of <code>main</code> that calls a new
@@ -743,7 +725,7 @@ correspond.</p>
 in small, incremental steps. After making this change, run the program again to
 verify that the argument parsing still works. It’s good to check your progress
 often, to help identify the cause of problems when they occur.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#grouping-configuration-values" id="grouping-configuration-values"><h4>Grouping Configuration Values</h4></a>
+<a class="header" href="#grouping-configuration-values" id="grouping-configuration-values"><h4>Grouping Configuration Values</h4></a>
 <p>We can take another small step to improve the <code>parse_config</code> function further.
 At the moment, we’re returning a tuple, but then we immediately break that
 tuple into individual parts again. This is a sign that perhaps we don’t have
@@ -811,7 +793,7 @@ because we don’t have to manage the lifetimes of the references; in this
 circumstance, giving up a little performance to gain simplicity is a worthwhile
 trade-off.</p>
 <blockquote>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#the-trade-offs-of-using-clone" id="the-trade-offs-of-using-clone"><h3>The Trade-Offs of Using <code>clone</code></h3></a>
+<a class="header" href="#the-trade-offs-of-using-clone" id="the-trade-offs-of-using-clone"><h3>The Trade-Offs of Using <code>clone</code></h3></a>
 <p>There’s a tendency among many Rustaceans to avoid using <code>clone</code> to fix
 ownership problems because of its runtime cost. In Chapter 13, you’ll learn
 how to use more efficient methods in this type of situation. But for now,
@@ -830,7 +812,7 @@ the fields on the <code>Config</code> struct instead.</p>
 that their purpose is to configure how the program will work. Any code that
 uses these values knows to find them in the <code>config</code> instance in the fields
 named for their purpose.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#creating-a-constructor-for-config" id="creating-a-constructor-for-config"><h4>Creating a Constructor for <code>Config</code></h4></a>
+<a class="header" href="#creating-a-constructor-for-config" id="creating-a-constructor-for-config"><h4>Creating a Constructor for <code>Config</code></h4></a>
 <p>So far, we’ve extracted the logic responsible for parsing the command line
 arguments from <code>main</code> and placed it in the <code>parse_config</code> function. Doing so
 helped us to see that the <code>query</code> and <code>filename</code> values were related and that
@@ -878,7 +860,7 @@ impl Config {
 <code>Config::new</code>. We’ve changed the name of <code>parse_config</code> to <code>new</code> and moved it
 within an <code>impl</code> block, which associates the <code>new</code> function with <code>Config</code>. Try
 compiling this code again to make sure it works.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#fixing-the-error-handling" id="fixing-the-error-handling"><h3>Fixing the Error Handling</h3></a>
+<a class="header" href="#fixing-the-error-handling" id="fixing-the-error-handling"><h3>Fixing the Error Handling</h3></a>
 <p>Now we’ll work on fixing our error handling. Recall that attempting to access
 the values in the <code>args</code> vector at index <code>1</code> or index <code>2</code> will cause the
 program to panic if the vector contains fewer than three items. Try running the
@@ -894,7 +876,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <p>The line <code>index out of bounds: the len is 1 but the index is 1</code> is an error
 message intended for programmers. It won’t help our end users understand what
 happened and what they should do instead. Let’s fix that now.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#improving-the-error-message" id="improving-the-error-message"><h4>Improving the Error Message</h4></a>
+<a class="header" href="#improving-the-error-message" id="improving-the-error-message"><h4>Improving the Error Message</h4></a>
 <p>In Listing 12-8, we add a check in the <code>new</code> function that will verify that the
 slice is long enough before accessing index <code>1</code> and <code>2</code>. If the slice isn’t
 long enough, the program panics and displays a better error message than the
@@ -932,7 +914,7 @@ the technique we used in Listing 9-9 isn’t the best to use here: a call to
 problem, as discussed in Chapter 9. Instead, we can use the other technique you
 learned about in Chapter 9—returning a <code>Result</code> that indicates either success
 or an error.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#returning-a-result-from-new-instead-of-calling-panic" id="returning-a-result-from-new-instead-of-calling-panic"><h4>Returning a <code>Result</code> from <code>new</code> Instead of Calling <code>panic!</code></h4></a>
+<a class="header" href="#returning-a-result-from-new-instead-of-calling-panic" id="returning-a-result-from-new-instead-of-calling-panic"><h4>Returning a <code>Result</code> from <code>new</code> Instead of Calling <code>panic!</code></h4></a>
 <p>We can instead return a <code>Result</code> value that will contain a <code>Config</code> instance in
 the successful case and will describe the problem in the error case. When
 <code>Config::new</code> is communicating to <code>main</code>, we can use the <code>Result</code> type to
@@ -970,7 +952,7 @@ make the function conform to its new type signature.</p>
 <p>Returning an <code>Err</code> value from <code>Config::new</code> allows the <code>main</code> function to
 handle the <code>Result</code> value returned from the <code>new</code> function and exit the process
 more cleanly in the error case.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#calling-confignew-and-handling-errors" id="calling-confignew-and-handling-errors"><h4>Calling <code>Config::new</code> and Handling Errors</h4></a>
+<a class="header" href="#calling-confignew-and-handling-errors" id="calling-confignew-and-handling-errors"><h4>Calling <code>Config::new</code> and Handling Errors</h4></a>
 <p>To handle the error case and print a user-friendly message, we need to update
 <code>main</code> to handle the <code>Result</code> being returned by <code>Config::new</code>, as shown in
 Listing 12-10. We’ll also take the responsibility of exiting the command line
@@ -1018,7 +1000,7 @@ it:</p>
 Problem parsing arguments: not enough arguments
 </code></pre>
 <p>Great! This output is much friendlier for our users.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#extracting-logic-from-main" id="extracting-logic-from-main"><h3>Extracting Logic from <code>main</code></h3></a>
+<a class="header" href="#extracting-logic-from-main" id="extracting-logic-from-main"><h3>Extracting Logic from <code>main</code></h3></a>
 <p>Now that we’ve finished refactoring the configuration parsing, let’s turn to
 the program’s logic. As we stated in “Separation of Concerns for Binary
 Projects”, we’ll extract a function named <code>run</code> that will hold all the logic
@@ -1056,7 +1038,7 @@ rest of the program logic</span></p>
 <p>The <code>run</code> function now contains all the remaining logic from <code>main</code>, starting
 from reading the file. The <code>run</code> function takes the <code>Config</code> instance as an
 argument.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#returning-errors-from-the-run-function" id="returning-errors-from-the-run-function"><h4>Returning Errors from the <code>run</code> Function</h4></a>
+<a class="header" href="#returning-errors-from-the-run-function" id="returning-errors-from-the-run-function"><h4>Returning Errors from the <code>run</code> Function</h4></a>
 <p>With the remaining program logic separated into the <code>run</code> function, we can
 improve the error handling, as we did with <code>Config::new</code> in Listing 12-9.
 Instead of allowing the program to panic by calling <code>expect</code>, the <code>run</code>
@@ -1114,7 +1096,7 @@ it doesn’t return a value we need.</p>
 might indicate that an error occurred. But we’re not checking to see whether or
 not there was an error, and the compiler reminds us that we probably meant to
 have some error handling code here! Let’s rectify that problem now.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#handling-errors-returned-from-run-in-main" id="handling-errors-returned-from-run-in-main"><h4>Handling Errors Returned from <code>run</code> in <code>main</code></h4></a>
+<a class="header" href="#handling-errors-returned-from-run-in-main" id="handling-errors-returned-from-run-in-main"><h4>Handling Errors Returned from <code>run</code> in <code>main</code></h4></a>
 <p>We’ll check for errors and handle them using a technique similar to one we used
 with <code>Config::new</code> in Listing 12-10, but with a slight difference:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
@@ -1139,7 +1121,7 @@ we only care about detecting an error, so we don’t need <code>unwrap_or_else</
 return the unwrapped value because it would only be <code>()</code>.</p>
 <p>The bodies of the <code>if let</code> and the <code>unwrap_or_else</code> functions are the same in
 both cases: we print the error and exit.</p>
-<a class="header" href="ch12-03-improving-error-handling-and-modularity.html#splitting-code-into-a-library-crate" id="splitting-code-into-a-library-crate"><h3>Splitting Code into a Library Crate</h3></a>
+<a class="header" href="#splitting-code-into-a-library-crate" id="splitting-code-into-a-library-crate"><h3>Splitting Code into a Library Crate</h3></a>
 <p>Our <code>minigrep</code> project is looking good so far! Now we’ll split the
 <em>src/main.rs</em> file and put some code into the <em>src/lib.rs</em> file so we can test
 it and have a <em>src/main.rs</em> file with fewer responsibilities.</p>
@@ -1209,66 +1191,50 @@ have been difficult with the old code but is easy with the new code: we’ll
 write some tests!
 --&gt;</p>
 
-                    </main>
-
-                    <nav class="nav-wrapper" aria-label="Page navigation">
-                        <!-- Mobile navigation buttons -->
-                        
-                            <a rel="prev" href="ch12-02-reading-a-file.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        
-
-                        
-                            <a rel="next" href="ch12-04-testing-the-librarys-functionality.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        
-
-                        <div style="clear: both"></div>
-                    </nav>
                 </div>
-            </div>
 
-            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                <!-- Mobile navigation buttons -->
                 
-                    <a href="ch12-02-reading-a-file.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="ch12-02-reading-a-file.html" class="mobile-nav-chapters previous">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="ch12-04-testing-the-librarys-functionality.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="ch12-04-testing-the-librarys-functionality.html" class="mobile-nav-chapters next">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
-            </nav>
+
+            </div>
+
+            
+                <a href="ch12-02-reading-a-file.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="ch12-04-testing-the-librarys-functionality.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
 
         </div>
 
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
         
 
-        
-
-        
-
-        
-
-        
-        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
-        
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
-
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
-
-        <!-- Custom JS scripts -->
-        
-
+        <script src="highlight.js"></script>
+        <script src="store.js"></script>
+        <script src="book.js"></script>
     </body>
 </html>

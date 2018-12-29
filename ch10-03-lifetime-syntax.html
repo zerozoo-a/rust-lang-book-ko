@@ -1,139 +1,121 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en">
     <head>
-        <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>라이프타임을 이용한 참조자 유효화 - The Rust Programming Language</title>
+        <title>라이프타임을 이용한 참조자 유효화 - 라이프타임을 이용한 참조자 유효화 - The Rust Programming Language</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
 
         <base href="">
 
         <link rel="stylesheet" href="book.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
         <link rel="shortcut icon" href="favicon.png">
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="_FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <style>
+            .page-wrapper.has-warning > .nav-chapters {
+              /* add height for warning content & margin */
+              top: 120px;
+            }
 
-        <!-- Custom theme stylesheets -->
-        
+            p.warning {
+                background-color: rgb(242, 222, 222);
+                border-bottom-color: rgb(238, 211, 215);
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+                border-bottom-style: solid;
+                border-bottom-width: 0.666667px;
+                border-image-outset: 0 0 0 0;
+                border-image-repeat: stretch stretch;
+                border-image-slice: 100% 100% 100% 100%;
+                border-image-source: none;
+                border-image-width: 1 1 1 1;
+                border-left-color: rgb(238, 211, 215);
+                border-left-style: solid;
+                border-left-width: 0.666667px;
+                border-right-color: rgb(238, 211, 215);
+                border-right-style: solid;
+                border-right-width: 0.666667px;
+                border-top-color: rgb(238, 211, 215);
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+                border-top-style: solid;
+                border-top-width: 0.666667px;
+                color: rgb(185, 74, 72);
+                margin-bottom: 0px;
+                margin-left: 0px;
+                margin-right: 0px;
+                margin-top: 30px;
+                padding-bottom: 8px;
+                padding-left: 14px;
+                padding-right: 35px;
+                padding-top: 8px;
+            }
+            p.warning strong {
+                color: rgb(185, 74, 72)
+            }
+            p.warning a {
+                color: rgb(0, 136, 204)
+            }
+        </style>
 
-        
+        <!-- MathJax -->
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
     </head>
     <body class="light">
-        <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
-            try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
-
-                if (theme.startsWith('"') && theme.endsWith('"')) {
-                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
-                }
-
-                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
-                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
-                }
-            } catch (e) { }
-        </script>
-
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
-            var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var theme = localStorage.getItem('theme');
+            if (theme == null) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
-            if (document.body.clientWidth >= 1080) {
-                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
-                sidebar = sidebar || 'visible';
-            }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
         </script>
 
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+        <div id="sidebar" class="sidebar">
             <ol class="chapter"><li class="affix"><a href="foreword.html">들어가기 앞서</a></li><li class="affix"><a href="ch00-00-introduction.html">소개</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 시작하기</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 설치하기</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 추리 게임 튜토리얼</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 보편적인 프로그래밍 개념</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 변수와 가변성</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 데이터 타입들</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 함수 동작 원리</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 주석</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 제어문</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 소유권 이해하기</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 소유권이 뭔가요?</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 참조자와 빌림</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> 슬라이스</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 연관된 데이터들을 구조체로 다루기</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 구조체를 정의하고 생성하기</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 구조체를 이용한 예제 프로그램</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 메소드 문법</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 열거형과 패턴 매칭</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 열거형 정의하기</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 흐름 제어 연산자</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let을 사용한 간결한 흐름 제어</a></li></ol></li><li><a href="ch07-00-modules.html"><strong aria-hidden="true">7.</strong> 모듈</a></li><li><ol class="section"><li><a href="ch07-01-mod-and-the-filesystem.html"><strong aria-hidden="true">7.1.</strong> mod와 파일 시스템</a></li><li><a href="ch07-02-controlling-visibility-with-pub.html"><strong aria-hidden="true">7.2.</strong> pub으로 가시성 제어하기</a></li><li><a href="ch07-03-importing-names-with-use.html"><strong aria-hidden="true">7.3.</strong> use로 이름 가져오기</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 일반적인 컬렉션</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> 벡터</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 스트링</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 해쉬맵</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 에러 처리</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!과 함께하는 복구 불가능한 에러</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result와 함께하는 복구 가능한 에러</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!이냐, panic!이 아니냐, 그것이 문제로다</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 제네릭 타입, 트레잇, 그리고 라이프타임</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 제네릭 데이터 타입</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> 트레잇: 공유 동작을 정의하기</a></li><li><a href="ch10-03-lifetime-syntax.html" class="active"><strong aria-hidden="true">10.3.</strong> 라이프타임을 이용한 참조자 유효화</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 테스팅</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 테스트 작성하기</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 테스트 실행하기</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 테스트 조직화</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> I/O 프로젝트: 커맨드 라인 프로그램 만들기</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 커맨드 라인 인자 허용하기</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 파일 읽기</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 모듈성과 에러처리의 향상을 위한 리팩토링</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 테스트 주도 개발로 라이브러리의 기능 개발하기</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 환경 변수들을 활용하기</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 표준출력 대신 표준에러로 에러메시지 출력하기</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> 함수형 언어의 특성들: 반복자들과 클로저들</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 클로저: 환경을 캡쳐할 수 있는 익명 함수</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 반복자로 일련의 항목들 처리하기</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> I/O 프로젝트 개선하기</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 성능 비교하기: 루프 vs. 반복자</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> Cargo와 Crates.io 더 알아보기</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 릴리즈 프로필을 이용해 빌드 커스터마이징하기</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.io에 크레이트 배포하기</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 작업공간</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo install을 이용해 Crates.io에서 바이너리 설치하기</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 커스텀 명령어로 Cargo 확장하기</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 스마트 포인터</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T>는 힙에 있는 데이터를 가리키고 알려진 크기를 갖습니다</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Deref 트레잇은 참조자를 통하여 데이터로의 접근을 허용합니다</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop 트레잇은 메모리 정리 코드를 실행시킵니다</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, 참조 카운팅 스마트 포인터</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T>와 내부 가변성 패턴</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 순환 참조를 만드는 것과 메모리 누수는 안전한 것에 해당됩니다</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 겁없는 동시성</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 스레드</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 메세지 패싱</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 공유 상태</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 확장 가능한 동시성: Sync와 Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> 러스트의 객체 지향 프로그래밍 기능들</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 객체 지향 언어의 특성</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 트레잇 객체를 사용하여 다른 타입 간의 값 허용하기</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 객체 지향 디자인 패턴 구현하기</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 값의 구조와 매칭되는 패턴</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 패턴이 사용될 수 있는 모든 곳</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> 반증 가능성: 패턴의 매칭이 실패할 수도 있는 경우</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 패턴 문법의 모든 것</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 고급 기능들</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 안전하지 않은 러스트</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> 고급 라이프타임</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> 고급 트레잇</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> 고급 타입</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> 고급 함수와 클로저</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 마지막 프로젝트: 멀티스레드 웹서버 만들기</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 싱글 스레드 웹서버</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 싱글 스레드 서버를 멀티스레드 서버로 바꾸기</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 우아한 종료와 정리</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="appendix-04-macros.html"><strong aria-hidden="true">21.4.</strong> D - Macros</a></li><li><a href="appendix-05-translation.html"><strong aria-hidden="true">21.5.</strong> E - Translations</a></li><li><a href="appendix-06-newest-features.html"><strong aria-hidden="true">21.6.</strong> F - Newest Features</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li><li><a href="appendix-08-glossary.html"><strong aria-hidden="true">21.8.</strong> F - 번역 용어 정리</a></li></ol></li></ol>
-        </nav>
+        </div>
 
-        <div id="page-wrapper" class="page-wrapper">
+        <div id="page-wrapper" class="page-wrapper has-warning">
 
             <div class="page">
-                
+                <header><p class="warning">You are reading a <strong>draft</strong> of the next edition of TRPL. For more, go <a href="../index.html">here</a>.</p></header>
                 <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
 
-                        <h1 class="menu-title">The Rust Programming Language</h1> 
+                    <h1 class="menu-title">라이프타임을 이용한 참조자 유효화 - The Rust Programming Language</h1>
 
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
                     </div>
                 </div>
 
-                
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-                    </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
-                        </ul>
-                    </div>
-                </div>
-                
-
-                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
-                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script>
 
                 <div id="content" class="content">
-                    <main>
-                        <a class="header" href="ch10-03-lifetime-syntax.html#a라이프타임을-이용한-참조자-유효화" id="a라이프타임을-이용한-참조자-유효화"><h2>라이프타임을 이용한 참조자 유효화</h2></a>
+                    <a class="header" href="#a라이프타임을-이용한-참조자-유효화" id="a라이프타임을-이용한-참조자-유효화"><h2>라이프타임을 이용한 참조자 유효화</h2></a>
 <p>4장에서 참조자에 대한 이야기를 할 때, 중요한 디테일을 한 가지 남겨두었습니다: 러스트에서 모든 참조자는
 <em>라이프타임(lifetime)</em> 을 갖는데, 이는 해당 참조자가 유효한 스코프입니다. 대부분의 경우에서 타입들이
 추론되는 것과 마찬가지로, 대부분의 경우에서 라이프타임 또한 암묵적이며 추론됩니다. 여러 가지 타입이
@@ -145,7 +127,7 @@
 <p>라이프타임은 이 장에서 전체를 다룰 수 없는 큰 주제이므로, 이 장에서는 여러분이 이 개념에 친숙해질 수
 있도록 여러분이 라이프타임 문법을 맞닥뜨릴 흔한 경우에 대해 다룰 것입니다. 19장에서는 라이프타임이
 할 수 있는 좀 더 상급 정보를 다룰 것입니다.</p>
-<a class="header" href="ch10-03-lifetime-syntax.html#a라이프타임은-댕글링-참조자를-방지합니다" id="a라이프타임은-댕글링-참조자를-방지합니다"><h3>라이프타임은 댕글링 참조자를 방지합니다</h3></a>
+<a class="header" href="#a라이프타임은-댕글링-참조자를-방지합니다" id="a라이프타임은-댕글링-참조자를-방지합니다"><h3>라이프타임은 댕글링 참조자를 방지합니다</h3></a>
 <p>라이프타임의 주목적은 댕글링 참조자(dangling reference)를 방지하는 것인데, 댕글링 참조자는
 프로그램이 우리가 참조하기로 의도한 데이터가 아닌 다른 데이터를 참조하는 원인이 됩니다.
 Listing 10-16의 프로그램과 같이 외부 스코프와 내부 스코프를 가진 프로그램을 생각해봅니다.
@@ -166,7 +148,7 @@ Listing 10-16의 프로그램과 같이 외부 스코프와 내부 스코프를 
 <p><span class="caption">Listing 10-16: 스코프 밖으로 벗어난 값에 대한 참조자를 사용하는
 시도</span></p>
 <blockquote>
-<a class="header" href="ch10-03-lifetime-syntax.html#a초기화되지-않은-변수는-사용할-수-없습니다" id="a초기화되지-않은-변수는-사용할-수-없습니다"><h4>초기화되지 않은 변수는 사용할 수 없습니다</h4></a>
+<a class="header" href="#a초기화되지-않은-변수는-사용할-수-없습니다" id="a초기화되지-않은-변수는-사용할-수-없습니다"><h4>초기화되지 않은 변수는 사용할 수 없습니다</h4></a>
 <p>다음에 나올 몇 가지 예제는 초기값을 주지 않고 변수를 선언하고 있으며, 따라서 해당 변수의 이름이 외부
 스코프에 존재하고 있습니다. 이는 러스트가 널(null) 값을 갖지 않는다는 개념과 충돌을 일으키는 것처럼
 보일지도 모릅니다. 그러나, 우리가 값을 제공하기 전에 변수를 사용하고자 시도하면, 컴파일 에러가 나올
@@ -190,7 +172,7 @@ Listing 10-16의 프로그램과 같이 외부 스코프와 내부 스코프를 
 밖으로 벗어났을 때 할당이 해제되는 메모리를 참조하게 될 것이고, <code>r</code>을 가지고 시도하려 했던
 어떤 것이든 정확히 동작하지 않게 될 것입니다. 그렇다면 러스트는 이 코드가 허용되어서는 안 된다는
 것을 어떻게 결정할까요?</p>
-<a class="header" href="ch10-03-lifetime-syntax.html#a빌림-검사기borrow-checker" id="a빌림-검사기borrow-checker"><h4>빌림 검사기(Borrow checker)</h4></a>
+<a class="header" href="#a빌림-검사기borrow-checker" id="a빌림-검사기borrow-checker"><h4>빌림 검사기(Borrow checker)</h4></a>
 <p><em>빌림 검사기(borrow checker)</em> 라고 불리는 컴파일러의 부분이 모든 빌림이 유효한지를 결정하기
 위해 스코프를 비교합니다. Listing 10-17은 변수들의 라이프타임을 보여주는 주석과 함께
 Listing 10-16과 동일한 예제를 보여줍니다:</p>
@@ -242,7 +224,7 @@ looking arrows and labels? /Carol -->
 <p>지금까지 참조자의 라이프타임이 구제적인 예제 어디에 나오는지를 보았고 러스트가 어떻게 라이프타임을
 분석하여 참조자가 항상 유효하도록 확신시키는지를 논의했으니, 이제 함수의 내용물 내에 있는 파라미터와
 반환 값에 대한 제네릭 라이프타임에 대하여 이야기해 봅시다.</p>
-<a class="header" href="ch10-03-lifetime-syntax.html#a함수에서의-제네릭-라이프타임" id="a함수에서의-제네릭-라이프타임"><h3>함수에서의 제네릭 라이프타임</h3></a>
+<a class="header" href="#a함수에서의-제네릭-라이프타임" id="a함수에서의-제네릭-라이프타임"><h3>함수에서의 제네릭 라이프타임</h3></a>
 <p>두 스트링 슬라이스 중에서 긴 쪽을 반환하는 함수를 작성해 봅시다. 이 함수에 두 개의 스트링 슬라이스를
 넘겨서 호출할 수 있기를 원하고, 스트링 슬라이스를 반환하기를 원합니다. Listing 10-19의 코드는
 <code>longest</code> 함수를 구현하면 <code>The longest string is abcd</code>를 출력해야 합니다:</p>
@@ -312,7 +294,7 @@ Listing 10-17과 10-18에서 했던 것과 같이 스코프를 살펴볼 수도 
 이를 결정할 수 없는데, 그 이유는 <code>x</code>와 <code>y</code>의 라이프타임이 반환 값의 라이프타임과 어떻게 연관되어
 있는지 알지 못하기 때문입니다. 우리는 참조자들 간의 관계를 정의하는 제네릭 라이프타임 파라미터를 추가하여
 빌림 검사기가 분석을 수행할 수 있도록 할 것입니다.</p>
-<a class="header" href="ch10-03-lifetime-syntax.html#a라이프타임-명시-문법" id="a라이프타임-명시-문법"><h3>라이프타임 명시 문법</h3></a>
+<a class="header" href="#a라이프타임-명시-문법" id="a라이프타임-명시-문법"><h3>라이프타임 명시 문법</h3></a>
 <p>라이프타임 명시는 연관된 참조자가 얼마나 오랫동안 살게 되는지를 바꾸지는 않습니다. 함수의 시그니처가
 제네릭 타입 파라미터를 특정할 때 이 함수가 어떠한 타입이든 허용할 수 있는 것과 같은 방식으로,
 함수의 시그니처가 제네릭 라이프타임 파라미터를 특정할 때라면 이 함수는 어떠한 라이프타임을 가진
@@ -336,7 +318,7 @@ Listing 10-17과 10-18에서 했던 것과 같이 스코프를 살펴볼 수도 
 <code>second</code>를 또 다른 파라미터로 가진 함수가 있다면, 이 두 개의 같은 이름을 가진 라이프타임
 명시는 참조자 <code>first</code>와 <code>second</code>가 돌다 동일한 제네릭 라이프타임만큼 살아야 한다는
 것을 가리킵니다.</p>
-<a class="header" href="ch10-03-lifetime-syntax.html#a함수-시그니처-내의-라이프타임-명시" id="a함수-시그니처-내의-라이프타임-명시"><h3>함수 시그니처 내의 라이프타임 명시</h3></a>
+<a class="header" href="#a함수-시그니처-내의-라이프타임-명시" id="a함수-시그니처-내의-라이프타임-명시"><h3>함수 시그니처 내의 라이프타임 명시</h3></a>
 <p>우리가 작업하고 있던 <code>longest</code> 함수의 내용 중에서 라이프타임 명시 부분을 살펴봅시다.
 제네릭 타입 파라미터와 마찬가지로, 제네릭 라이프타임 파라미터도 함수 이름과 파라미터 리스트
 사이에 꺾쇠괄호를 쓰고 그 안에 정의가 되어야 합니다. 우리가 파라미터들과 반환 값에서의 참조자들에
@@ -447,7 +429,7 @@ Listing 10-23의 코드는 컴파일되지 않을 것입니다:</p>
 <p><code>longest</code> 함수에 넘겨질 참조자들의 값과 라이프타임들, 그리고 반환된 참조자를 어떻게 이용하는지를
 다양화하여 더 많은 실험들을 디자인해 시도해보세요. 컴파일하기 전에 여러분의 실험이 빌림 검사기를
 통과할지 안 할지에 대한 가설을 세워보고, 여러분이 맞았는지 확인해보세요!</p>
-<a class="header" href="ch10-03-lifetime-syntax.html#a라이프타임의-측면에서-생각하기" id="a라이프타임의-측면에서-생각하기"><h3>라이프타임의 측면에서 생각하기</h3></a>
+<a class="header" href="#a라이프타임의-측면에서-생각하기" id="a라이프타임의-측면에서-생각하기"><h3>라이프타임의 측면에서 생각하기</h3></a>
 <p>라이프타임 파라미터를 특정하는 정확한 방법은 여러분의 함수가 어떤 일을 하고 있는가에 따라 달린 문제입니다.
 예를 들면, <code>longest</code> 함수의 구현을 제일 긴 스트링 슬라이스 대신 항상 첫 번째 인자를 반환하도록
 바꾸었다면, <code>y</code> 파라미터에 대한 라이프타임을 특정할 필요는 없을 것입니다. 아래 코드는 컴파일됩니다:</p>
@@ -497,7 +479,7 @@ at 1:44...
 <p>궁극적으로, 라이프타임 문법은 함수들의 다양한 인자들과 반환 값 사이를 연결하는 것에 대한 것입니다.
 이들이 일단 연결되고 나면, 러스트는 메모리에 안전한 연산들을 허용하고 댕글링 포인터를 생성하거나
 그렇지 않은 경우 메모리 안전을 위배하게 될 연산들을 배제하기에 충분한 정보를 갖게 됩니다.</p>
-<a class="header" href="ch10-03-lifetime-syntax.html#a구조체-정의-상에서의-라이프타임-명시" id="a구조체-정의-상에서의-라이프타임-명시"><h3>구조체 정의 상에서의 라이프타임 명시</h3></a>
+<a class="header" href="#a구조체-정의-상에서의-라이프타임-명시" id="a구조체-정의-상에서의-라이프타임-명시"><h3>구조체 정의 상에서의 라이프타임 명시</h3></a>
 <p>현재까지 우리는 소유권 있는 타입만 들고 있는 구조체들만 정의해왔습니다. 구조체가 참조자를 들고
 있도록 할 수 있지만, 구조체 정의 내의 모든 참조자들에 대하여 라이프타임을 표시할 필요가 있습니다.
 Listing 10-24에 스트링 슬라이스를 들고 있는 <code>ImportantExcerpt</code>라고 명명된 구조체가 있습니다:</p>
@@ -522,7 +504,7 @@ fn main() {
 이용할 수 있도록 해야 합니다.</p>
 <p>여기 이 <code>main</code> 함수는 변수 <code>novel</code>이 소유하고 있는 <code>String</code>의 첫 문장에 대한 참조자를
 들고 있는 <code>ImportantExcerpt</code> 구조체의 인스턴스를 생성합니다.</p>
-<a class="header" href="ch10-03-lifetime-syntax.html#a라이프타임-생략" id="a라이프타임-생략"><h3>라이프타임 생략</h3></a>
+<a class="header" href="#a라이프타임-생략" id="a라이프타임-생략"><h3>라이프타임 생략</h3></a>
 <p>이 절에서, 우리는 모든 참조자가 라이프타임을 가지고 있으며, 참조자를 사용하는 함수나 구조체에 대하여
 라이프타임 파라미터를 특정할 필요가 있다고 배웠습니다. 하지만, Listing 10-25에서 다시 보여주듯이,
 4장의 &quot;스트링 슬라이스&quot;절의 함수는 라이프타임 명시 없이도 컴파일이 됐었지요:</p>
@@ -624,7 +606,7 @@ to annotate lifetimes in method signatures very often.
 세번째 규칙이 오직 메소드 시그니처에 대해서만 실제로 적용되므로, 이제 그러한 경우에서의 라이프타임을
 살펴보고, 어째서 세번서 규칙이 메소드 시그니처의 라이프타임을 매우 흔하게 생략해도 된다는 것을
 의미하는지 알아봅시다.</p>
-<a class="header" href="ch10-03-lifetime-syntax.html#a메소드-정의-내에서의-라이프타임-명시" id="a메소드-정의-내에서의-라이프타임-명시"><h3>메소드 정의 내에서의 라이프타임 명시</h3></a>
+<a class="header" href="#a메소드-정의-내에서의-라이프타임-명시" id="a메소드-정의-내에서의-라이프타임-명시"><h3>메소드 정의 내에서의 라이프타임 명시</h3></a>
 <!-- Is this different to the reference lifetime annotations, or just a
 finalized explanation? -->
 <!-- This is about lifetimes on references in method signatures, which is where
@@ -676,7 +658,7 @@ impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
 <p>두 개의 입력 라이프타임이 있으므로, 러스트는 첫 번째 라이프타임 생략 규칙을 적용하여 <code>&amp;self</code>와
 <code>announcement</code>에게 각각 라이프타임을 부여합니다. 그다음, 파라미터 중 하나가 <code>&amp;self</code>이므로,
 반환 타입은 <code>&amp;self</code>의 라이프타임을 얻고, 모든 라이프타임들이 추론되었습니다.</p>
-<a class="header" href="ch10-03-lifetime-syntax.html#a정적-라이프타임static-lifetime" id="a정적-라이프타임static-lifetime"><h3>정적 라이프타임(Static lifetime)</h3></a>
+<a class="header" href="#a정적-라이프타임static-lifetime" id="a정적-라이프타임static-lifetime"><h3>정적 라이프타임(Static lifetime)</h3></a>
 <p>우리가 논의할 필요가 있는 특별한 라이프타임이 <em>딱 하나</em> 있습니다: 바로 <code>'static</code>입니다.
 <code>'static</code> 라이프타임은 프로그램의 전체 생애주기를 가리킵니다. 모든 스트링 리터럴은 <code>'static</code>
 라이프타임을 가지고 있는데, 아래와 같이 명시하는 쪽을 선택할 수 있습니다:</p>
@@ -695,7 +677,7 @@ let s: &amp;'static str = &quot;I have a static lifetime.&quot;;
 싶어 할지라도 말이죠). 대부분의 경우, 코드 내의 문제는 댕글링 참조자를 만드는 시도 혹은 사용 가능한
 라이프타임들의 불일치이며, 해결책은 이 문제들을 해결하는 것이지 <code>'static</code> 라이프타임으로 특정하는
 것이 아닙니다.</p>
-<a class="header" href="ch10-03-lifetime-syntax.html#a제네릭-타입-파라미터-트레잇-바운드-라이프타임을-함께-써보기" id="a제네릭-타입-파라미터-트레잇-바운드-라이프타임을-함께-써보기"><h3>제네릭 타입 파라미터, 트레잇 바운드, 라이프타임을 함께 써보기</h3></a>
+<a class="header" href="#a제네릭-타입-파라미터-트레잇-바운드-라이프타임을-함께-써보기" id="a제네릭-타입-파라미터-트레잇-바운드-라이프타임을-함께-써보기"><h3>제네릭 타입 파라미터, 트레잇 바운드, 라이프타임을 함께 써보기</h3></a>
 <p>그럼 제네릭 타입 파라미터, 트레잇 바운드, 그리고 라이프타임이 하나의 함수에 모두 특정된 문법을
 간단하게 살펴봅시다!</p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -720,7 +702,7 @@ fn longest_with_an_announcement&lt;'a, T&gt;(x: &amp;'a str, y: &amp;'a str, ann
 함수가 스트링 슬라이스들의 길이를 비교하기 전 출력될 것인데, 이것이 <code>Display</code> 트레잇 바운드가 필요한
 이유지요. 라이프타임이 제네릭의 한 종류이므로, 라이프타임 파라미터 <code>'a</code>와 제네릭 타입 파라미터 <code>T</code>
 둘 모두에 대한 선언이 함수 이름 뒤 꺾쇠괄호 내에 나열되어 있습니다.</p>
-<a class="header" href="ch10-03-lifetime-syntax.html#a정리" id="a정리"><h2>정리</h2></a>
+<a class="header" href="#a정리" id="a정리"><h2>정리</h2></a>
 <p>이번 절에서 참 많은 것을 다루었습니다! 이제 여러분은 제네릭 타입 파라미터, 트레잇과 트레잇 바운드,
 그리고 제네릭 라이프타임 파라미터에 대해 알게되었으니, 여러분은 중복되지 않지만 많은 서로 다른
 상활들에서 사용 가능한 코드를 작성할 준비가 되었습니다. 제네릭 타입 파라미터는 코드가 서로 다른
@@ -734,66 +716,50 @@ fn longest_with_an_announcement&lt;'a, T&gt;(x: &amp;'a str, y: &amp;'a str, ann
 다음 절에서는 러스트에서 어떻게 테스트를 작성하여 우리의 코드가 우리가 원했던 방식대로 모든 기능들을
 작동시킨다는 것을 확신할 수 있도록 하는 방법에 대해 이야기해봅시다!</p>
 
-                    </main>
-
-                    <nav class="nav-wrapper" aria-label="Page navigation">
-                        <!-- Mobile navigation buttons -->
-                        
-                            <a rel="prev" href="ch10-02-traits.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        
-
-                        
-                            <a rel="next" href="ch11-00-testing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        
-
-                        <div style="clear: both"></div>
-                    </nav>
                 </div>
-            </div>
 
-            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                <!-- Mobile navigation buttons -->
                 
-                    <a href="ch10-02-traits.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="ch10-02-traits.html" class="mobile-nav-chapters previous">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="ch11-00-testing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="ch11-00-testing.html" class="mobile-nav-chapters next">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
-            </nav>
+
+            </div>
+
+            
+                <a href="ch10-02-traits.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="ch11-00-testing.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
 
         </div>
 
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
         
 
-        
-
-        
-
-        
-
-        
-        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
-        
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
-
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
-
-        <!-- Custom JS scripts -->
-        
-
+        <script src="highlight.js"></script>
+        <script src="store.js"></script>
+        <script src="book.js"></script>
     </body>
 </html>
