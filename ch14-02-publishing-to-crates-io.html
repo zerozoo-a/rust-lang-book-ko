@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -145,7 +149,7 @@
 <p>러스트와 Cargo 는 여러분이 배포한 패키지를 사람들이 더 쉽게 찾고 사용할 수
 있도록 도와주는 기능이 있습니다. 다음 내용이 바로 이런 기능들 몇개에 대한
 설명과 패키지를 배포하는 방법에 대한 설명입니다.</p>
-<a class="header" href="#a유용한-문서화-주석-만들기" id="a유용한-문서화-주석-만들기"><h3>유용한 문서화 주석 만들기</h3></a>
+<a class="header" href="#유용한-문서화-주석-만들기" id="유용한-문서화-주석-만들기"><h3>유용한 문서화 주석 만들기</h3></a>
 <p>여러분의 패키지를 시간을 들여서 자세하게 문서화하는 작업은 굉장히 가치있는 일
 입니다. 문서는 다른 사람들이 그 패키지를 언제, 어떻게 써야할지 알게 해주는데
 굉장히 도움이 되거든요. 3장에서 우린 슬래시 두 개(<code>//</code>) 를 이용해 러스트
@@ -188,7 +192,7 @@ Figure 14-1 처럼요:</p>
 <p><img alt="Rendered HTML documentation for the `add_one` function of `my_crate`" src="img/trpl14-01.png" class="center" /></p>
 <p><span class="caption">Figure 14-1: <code>add_one</code> 함수에 대한
 HTML 문서화</span></p>
-<a class="header" href="#a자주-사용되는-구절" id="a자주-사용되는-구절"><h4>자주 사용되는 구절</h4></a>
+<a class="header" href="#자주-사용되는-구절" id="자주-사용되는-구절"><h4>자주 사용되는 구절</h4></a>
 <p>우린 Listing 14-1 에서 HTML 에 &quot;Examples.&quot; 제목을 가진 구절을 만들기 위해
 <code># Examples</code> 마크다운 헤더를 사용했습니다. 이외에 크레이트의 제작자가
 일반적으로 문서에 사용하는 구절은 다음과 같습니다.</p>
@@ -207,7 +211,7 @@ HTML 문서화</span></p>
 <p>대부분의 문서화 주석은 이 구절들이 모두 필요하진 않습니다.
 하지만 여러분의 코드를 사용하는 사람들이 관심을 가지고 알아보게 될 측면에 대해
 곱씹어 보게 만드는 좋은 체크리스트가 될 수 있습니다.</p>
-<a class="header" href="#a테스트로서의-문서화-주석" id="a테스트로서의-문서화-주석"><h4>테스트로서의 문서화 주석</h4></a>
+<a class="header" href="#테스트로서의-문서화-주석" id="테스트로서의-문서화-주석"><h4>테스트로서의 문서화 주석</h4></a>
 <p>여러분의 문서화 주석에 예시 코드를 추가하는 건 여러분의 라이브러리를 어떻게
 사용하는지 알려줄 수 있을뿐더러 또 다른 효과도 있습니다: 무려 <code>cargo test</code> 를
 실행하면 여러분의 문서에 들어있던 예시 코드들이 테스트로서 실행됩니다! 백문이
@@ -225,7 +229,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <p>이제 우리가 함수나 예제를 변경하고 예시 코드에서 패닉이 발생하는 상태로
 <code>cargo test</code> 를 실행하면, 문서 테스트 기능이 더이상 예시 코드가
 기능하지 못한다고 알려줄 겁니다.</p>
-<a class="header" href="#a주석을-포함하는-항목을-문서화-하기" id="a주석을-포함하는-항목을-문서화-하기"><h4>주석을 포함하는 항목을 문서화 하기</h4></a>
+<a class="header" href="#주석을-포함하는-항목을-문서화-하기" id="주석을-포함하는-항목을-문서화-하기"><h4>주석을 포함하는 항목을 문서화 하기</h4></a>
 <p>문서화 주석의 또 다른 스타일로 <code>//!</code> 가 있습니다.
 이는 주석 뒤에 오는 항목을 문서화 하는게 아닌 주석을
 포함하는 항목을 문서화 합니다. 일반적으로 크레이트의 루트 파일
@@ -422,7 +426,7 @@ fn main() {
 남들에겐 <em>비밀</em> 입니다: 어떤 이유로 남들에게 알려졌다면,
 (그 사람을 처리하거나, 혹은) <a href="https://crates.io">crates.io</a><!-- ignore--> 에서
 기존의 토큰을 무효화하고 새 토큰을 발급받으세요.</p>
-<a class="header" href="#a새-크레이트에-metadata-추가하기" id="a새-크레이트에-metadata-추가하기"><h3>새 크레이트에 Metadata 추가하기</h3></a>
+<a class="header" href="#새-크레이트에-metadata-추가하기" id="새-크레이트에-metadata-추가하기"><h3>새 크레이트에 Metadata 추가하기</h3></a>
 <p>계정을 만들었으니, 여러분이 크레이트를 배포하려고 한다고 가정합시다.
 여러분은 배포하기 전에 <em>Cargo.toml</em> 파일에 <code>[package]</code> 구절을
 추가하여 메타데이터(metadata) 를 추가해야합니다.</p>
@@ -510,7 +514,7 @@ Uploading guessing_game v0.1.0 (file:///projects/guessing_game)
 </code></pre>
 <p>축하합니다! 이제 여러분의 코드는 러스트 커뮤니티와 공유되고, 아무나 여러분의
 크레이트를 자신들의 프로젝트 의존성 목록에 쉽게 추가할 수 있을 겁니다.</p>
-<a class="header" href="#a이미-배포한-크레이트의-버전-업데이트하기" id="a이미-배포한-크레이트의-버전-업데이트하기"><h3>이미 배포한 크레이트의 버전 업데이트하기</h3></a>
+<a class="header" href="#이미-배포한-크레이트의-버전-업데이트하기" id="이미-배포한-크레이트의-버전-업데이트하기"><h3>이미 배포한 크레이트의 버전 업데이트하기</h3></a>
 <p>여러분의 크레이트에 변경사항을 적용하고 새 버전을 릴리즈하려면
 <em>Cargo.toml</em> 파일의 <code>version</code> 값을 새 버전으로 변경하면 됩니다.
 이때 변경사항의 종류에 맞춰서 적절한 버전을 결정하는 방법은

@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a객체-지향-디자인-패턴-구현하기" id="a객체-지향-디자인-패턴-구현하기"><h2>객체 지향 디자인 패턴 구현하기</h2></a>
+                        <a class="header" href="#객체-지향-디자인-패턴-구현하기" id="객체-지향-디자인-패턴-구현하기"><h2>객체 지향 디자인 패턴 구현하기</h2></a>
 <p><em>상태 패턴 (state pattern</em>은 객체 지향 디자인 패턴입니다. 이
 패턴의 핵심은 어떤 값이 <em>상태 객체들</em>의 집합으로 표현되는 일종의
 내부 상태를 가지며, 이 값의 동작은 내부 상태에 기반한여 바뀐다는
@@ -248,7 +252,7 @@ impl State for Draft {}
 보장합니다. <code>Post</code>의 <code>state</code> 필드가 비공개이기 때문에, 다른 상태로 <code>Post</code>를
 생성할 방법은 없습니다! <code>Post::new</code> 함수에서는 <code>content</code> 필드를 새로운, 빈
 <code>String</code>로 설정합니다.</p>
-<a class="header" href="#a게시물-콘텐츠의-글을-저장하기" id="a게시물-콘텐츠의-글을-저장하기"><h3>게시물 콘텐츠의 글을 저장하기</h3></a>
+<a class="header" href="#게시물-콘텐츠의-글을-저장하기" id="게시물-콘텐츠의-글을-저장하기"><h3>게시물 콘텐츠의 글을 저장하기</h3></a>
 <p>Listing 17-11은 우리가 <code>add_text</code>로 명명된 메소드를 호출하고 여기에
 <code>&amp;str</code>을 넘겨 블로그 게시물의 콘텐츠 글에 추가할 수 있도록 하길 원한다는
 것을 보여줍니다. 우리는 <code>content</code> 필드를 <code>pub</code>으로 노출시키는 것보다는
@@ -280,7 +284,7 @@ impl Post {
 상태와 무관하게 이뤄지므로, 상태 패턴의 일부가 아닙니다. <code>add_text</code> 메소드는
 <code>state</code> 필드와 전혀 상호작용을 하지 않지만, 우리가 지원하고자 하는 동작
 요소입니다.</p>
-<a class="header" href="#a초안-게시물의-내용이-비어있음을-보장하기" id="a초안-게시물의-내용이-비어있음을-보장하기"><h3>초안 게시물의 내용이 비어있음을 보장하기</h3></a>
+<a class="header" href="#초안-게시물의-내용이-비어있음을-보장하기" id="초안-게시물의-내용이-비어있음을-보장하기"><h3>초안 게시물의 내용이 비어있음을 보장하기</h3></a>
 <p>우리가 <code>add_text</code>를 호출하고 우리의 게시물에 어떤 콘텐츠를 추가한 이후일지라도,
 여전히 <code>content</code> 메소드가 빈 스트링 슬라이스을 반환하길 원하는데, 그 이유는
 Listing 17-11의 8번째 줄처럼 게시물이 여전히 초안 상태이기 때문입니다. 당장은
@@ -308,7 +312,7 @@ impl Post {
 반환하는 <code>Post</code>의 <code>content</code> 메소드에 대한 껍데기 구현 </span></p>
 <p><code>content</code> 메소드를 추가함으로서, Listing 17-11의 8번째 줄까지는
 의도한대로 작동됩니다.</p>
-<a class="header" href="#a게시물에-대한-리뷰-요청이-그의-상태를-변경합니다" id="a게시물에-대한-리뷰-요청이-그의-상태를-변경합니다"><h3>게시물에 대한 리뷰 요청이 그의 상태를 변경합니다</h3></a>
+<a class="header" href="#게시물에-대한-리뷰-요청이-그의-상태를-변경합니다" id="게시물에-대한-리뷰-요청이-그의-상태를-변경합니다"><h3>게시물에 대한 리뷰 요청이 그의 상태를 변경합니다</h3></a>
 <p>다음으로, 우리는 게시물의 리뷰를 요청하는 기능을 만들어야 하는데, 이는 게시물의 상태를 <code>Draft</code>에서
 <code>PendingReview</code>로 변경해야 합니다. Listing 17-15는 이에 관련된 코드 입니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
@@ -543,7 +547,7 @@ impl State for Published {
 <p>그리고 이제 끝났습니다—Listing 17-11의 모든 코드가 이제 작동합니다! 우리는
 블로그 게시물의 작업 흐름을 상태 패턴을 통해 구현해냈습니다. 규칙과 관련있는 로직들은
 <code>Post</code>에 흩어져있지 않고 상태 객체에 존재합니다.</p>
-<a class="header" href="#a상태-패턴의-기회비용" id="a상태-패턴의-기회비용"><h3>상태 패턴의 기회비용</h3></a>
+<a class="header" href="#상태-패턴의-기회비용" id="상태-패턴의-기회비용"><h3>상태 패턴의 기회비용</h3></a>
 <p>우리는 게시물이 각 상태에 대해 가져야 하는 서로 다른 종류의 동작을
 캡슐화하기 위해서 러스트로 객체 지향 상태 패턴을 충분히 구현할 수 있음을
 보여줬습니다. <code>Post</code>의 메소드는 이런 다양한 동작에 대해서 알지 못합니다.
@@ -594,7 +598,7 @@ impl State for Published {
 우리가 사용할 수 있는 러스트의 강점을 모두 이용하지 못하고 있습니다.
 유효하지 않은 상태 및 전환이 컴파일 타임 에러가 될 수 있도록 하기 위해
 우리가 할 수 있는 <code>blog</code> crate에 대한 변경 몇가지를 살펴봅시다.</p>
-<a class="header" href="#a상태와-동작을-타입처럼-인코딩하기" id="a상태와-동작을-타입처럼-인코딩하기"><h4>상태와 동작을 타입처럼 인코딩하기</h4></a>
+<a class="header" href="#상태와-동작을-타입처럼-인코딩하기" id="상태와-동작을-타입처럼-인코딩하기"><h4>상태와 동작을 타입처럼 인코딩하기</h4></a>
 <p>우리는 다른 기회 비용을 얻기 위해 상태 패턴을 재고하는 방법을 보여줄 것입니다.
 오히려 상태와 전환을 완전히 캡슐화하여 외부의 코드들이 이를 알지 못하는
 것보다는, 상태를 다른 타입들로 인코딩하려고 합니다. 결론적으로, 러스트의 타입
@@ -664,7 +668,7 @@ impl DraftPost {
 메소드가 없음을 주의하세요! 따라서 이제 프로그램은 모든 게시물이 초안 게시물로
 시작되고, 초안 게시물들은 그들의 내용을 출력할 능력이 없음을 보장합니다. 이 제약사항을
 벗어나는 어떤 시도라도 컴파일러 에러로 끝나게 될 것입니다.</p>
-<a class="header" href="#a다른-타입으로-변환하는-것처럼-전환-구현하기" id="a다른-타입으로-변환하는-것처럼-전환-구현하기"><h4>다른 타입으로 변환하는 것처럼 전환 구현하기</h4></a>
+<a class="header" href="#다른-타입으로-변환하는-것처럼-전환-구현하기" id="다른-타입으로-변환하는-것처럼-전환-구현하기"><h4>다른 타입으로 변환하는 것처럼 전환 구현하기</h4></a>
 <p>그러면 어떻게 게시된 게시물을 얻는 걸가요? 우리는 초안 게시물이
 공개되기 전에 리뷰와 승인을 받도록 강제하고 싶습니다. 리뷰를 기다리는
 상태인 게시물은 여전히 어떤 내용도 보여줘서는 안되구요. Listing
@@ -764,7 +768,7 @@ fn main() {
 이용하기 위해서는 문제를 다시 생각해보세요. 객체 지향 패턴은
 러스트 내에서 제공하는 소유권 같이 객체 지향 언어에서는 갖지 못한
 기능들 때문에 늘 최고의 해결책이 되지는 못합니다.</p>
-<a class="header" href="#a정리" id="a정리"><h2>정리</h2></a>
+<a class="header" href="#정리" id="정리"><h2>정리</h2></a>
 <p>이 장을 읽은 후 러스트가 객체 지향 언어라고 생각하든 아니든,
 이제 여러분은 트레잇 객체를 사용하여 몇가지 객체 지향 기능을 러스트
 내에서 사용할 수 있다는 것을 알게 되었습니다. 동적 디스패치는

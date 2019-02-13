@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a슬라이스slices" id="a슬라이스slices"><h2>슬라이스(Slices)</h2></a>
+                        <a class="header" href="#슬라이스slices" id="슬라이스slices"><h2>슬라이스(Slices)</h2></a>
 <p>소유권을 갖지 않는 또다른 데이터 타입은 <em>슬라이스</em>입니다. 슬라이스는 여러분이 컬렉션(collection)
 전체가 아닌 컬렉션의 연속된 일련의 요소들을 참조할 수 있게 합니다.</p>
 <p>여기 작은 프로그래밍 문제가 있습니다: 스트링을 입력 받아 그 스트링에서 찾은 첫번째 단어를 반환하는
@@ -234,7 +238,7 @@ fn main() {
 주위를 떠다니는 세 개의 관련없는 변수들을 갖게 되었습니다.</p>
 <p>운좋게도, 러스트는 이러한 문제에 대한 해결책을 갖고 있습니다: 바로 스트링 슬라이스(string slice)
 입니다.</p>
-<a class="header" href="#a스트링-슬라이스" id="a스트링-슬라이스"><h3>스트링 슬라이스</h3></a>
+<a class="header" href="#스트링-슬라이스" id="스트링-슬라이스"><h3>스트링 슬라이스</h3></a>
 <p><em>스트링 슬라이스</em>는 <code>String</code>의 일부분에 대한 참조자고, 아래와 같이 생겼습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
@@ -351,7 +355,7 @@ fn main() {
 점을 상기해보세요. <code>clear</code> 함수가 <code>String</code>을 잘라낼 필요가 있기 때문에, 이 함수는 가변 참조자를
 갖기 위한 시도를 할 것이고, 이는 실패하게 됩니다. 러스트는 우리의 API를 사용하기 쉽게 해줄 뿐만 아니라
 이러한 종류의 오류 전체를 컴파일 타임에 제거해 줍니다!</p>
-<a class="header" href="#a스트링-리터럴은-슬라이스입니다" id="a스트링-리터럴은-슬라이스입니다"><h4>스트링 리터럴은 슬라이스입니다</h4></a>
+<a class="header" href="#스트링-리터럴은-슬라이스입니다" id="스트링-리터럴은-슬라이스입니다"><h4>스트링 리터럴은 슬라이스입니다</h4></a>
 <p>스트링 리터럴이 바이너리 안에 저장된다고 하는 얘기를 상기해봅시다. 이제 슬라이스에 대해 알았으니,
 우리는 스트링 리터럴을 적합하게 이해할 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -361,7 +365,7 @@ let s = &quot;Hello, world!&quot;;
 #}</code></pre></pre>
 <p>여기서 <code>s</code>의 타입은 <code>&amp;str</code>입니다: 이것은 바이너리의 특정 지점을 가리키고 있는 슬라이스입니다.
 이는 왜 스트링 리터럴이 불변인가도 설명해줍니다; <code>&amp;str</code>은 불번 참조자이기 때문입니다.</p>
-<a class="header" href="#a파라미터로서의-스트링-슬라이스" id="a파라미터로서의-스트링-슬라이스"><h4>파라미터로서의 스트링 슬라이스</h4></a>
+<a class="header" href="#파라미터로서의-스트링-슬라이스" id="파라미터로서의-스트링-슬라이스"><h4>파라미터로서의 스트링 슬라이스</h4></a>
 <p>여러분이 리터럴과 <code>String</code>의 슬라이스를 얻을 수 있다는 것을 알게 되었다면 <code>first_word</code> 함수를
 한번 더 개선시킬 수 있는데, 바로 이 함수의 시그니처입니다:</p>
 <pre><code class="language-rust ignore">fn first_word(s: &amp;String) -&gt; &amp;str {
@@ -401,7 +405,7 @@ fn main() {
     let word = first_word(my_string_literal);
 }
 </code></pre></pre>
-<a class="header" href="#a그-밖의-슬라이스들" id="a그-밖의-슬라이스들"><h3>그 밖의 슬라이스들</h3></a>
+<a class="header" href="#그-밖의-슬라이스들" id="그-밖의-슬라이스들"><h3>그 밖의 슬라이스들</h3></a>
 <p>스트링 슬라이스는 여러분이 상상하는 바와 같이, 스트링에 특정되어 있습니다. 하지만 더 일반적인
 슬라이스 타입도 역시 있습니다. 아래 배열을 보시죠:</p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -422,7 +426,7 @@ let slice = &amp;a[1..3];
 첫번째 요소에 대한 참조자와 슬라이스의 길이를 저장하는 방식으로 동작합니다. 여러분은 다른 모든 종류의
 컬렉션들에 대하여 이런 종류의 슬라이스를 이용할 수 있습니다. 벡터에 대해서 8장에서 이야기할 때 이러한
 컬렉션에 대해 더 자세히 다루겠습니다.</p>
-<a class="header" href="#a정리" id="a정리"><h2>정리</h2></a>
+<a class="header" href="#정리" id="정리"><h2>정리</h2></a>
 <p>소유권, 빌림, 그리고 슬라이스의 개념은 러스트 프로그램의 메모리 안정성을 컴파일 타임에 보장하는 것입니다.
 러스트 언어는 다른 시스템 프로그래밍 언어와 같이 여러분의 메모리 사용에 대한 제어권을 주지만, 데이터의
 소유자가 스코프 밖으로 벗어났을 때 소유자가 자동적으로 데이터를 버리도록 하는 것은 곧 여러분이 이러한

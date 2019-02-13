@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,13 +140,13 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a변수와-가변성" id="a변수와-가변성"><h2>변수와 가변성</h2></a>
+                        <a class="header" href="#변수와-가변성" id="변수와-가변성"><h2>변수와 가변성</h2></a>
 <p>2 장에서 언급했듯이, 기본 변수는 <em>불변성</em> 입니다. 이것은 Rust가 제공하는 안전성과 손쉬운 동시성이라는 장점을
 취할 수 있도록 코드를 작성하게끔 강제하는 요소 중 하나 입니다. 하지만 여전히 당신은 가변 변수를 사용하고 싶을테죠.
 어떻게 그리고 왜 Rust에서 불변성을 애호해주길 권장하는지 알아보면 그런 생각을 포기할 수 있을지도 모르겠습니다.</p>
 <p>변수가 불변성인 경우, 일단 값이 이름에 bound되면 해당 값을 변경할 수 없습니다. 시험 삼아
-<code>cargo new --bin variables</code>을 실행해서 * projects * 디렉토리에 * variables *라는 새 프로젝트를
-생성 해 봅시다. 그런 다음 새 * variables * 디렉토리에서 * src / main.rs *를 열고 코드를 다음과 같이
+<code>cargo new --bin variables</code>을 실행해서 <em>projects</em> 디렉토리에 <em>variables</em> 라는 새 프로젝트를
+생성 해 봅시다. 그런 다음 새 <em>variables</em> 디렉토리에서 <em>src/main.rs</em> 를 열고 코드를 다음과 같이
 바꿉니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
@@ -199,7 +203,7 @@ The value of x is: 6
 다루는 경우 가변한 인스턴스를 사용하는 것이 새로 인스턴스를 할당하고 반환하는 것보다 빠를 수 있습니다. 데이터 규모가
 작을수록 새 인스턴스를 생성하고 함수적 프로그래밍 스타일로 작성하는 것이 더 합리적이고, 그렇기에 약간의 성능 하락을
 통해 가독성을 확보할 수 있다면 더 가치있는 선택입니다.</p>
-<a class="header" href="#a변수와-상수-간의-차이점들" id="a변수와-상수-간의-차이점들"><h3>변수와 상수 간의 차이점들</h3></a>
+<a class="header" href="#변수와-상수-간의-차이점들" id="변수와-상수-간의-차이점들"><h3>변수와 상수 간의 차이점들</h3></a>
 <p>변수의 값을 변경할 수 없다는 사항이 아마 당신에게 다른 언어가 가진 프로그래밍 개념을 떠오르게 하지 않나요: <em>상수</em>
 불변성 변수와 마찬가지로 상수 또한 이름으로 bound된 후에는 값의 변경이 허용되지 않지만, 상수와 변수는 조금
 다릅니다.</p>

@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a고급-라이프타임" id="a고급-라이프타임"><h2>고급 라이프타임</h2></a>
+                        <a class="header" href="#고급-라이프타임" id="고급-라이프타임"><h2>고급 라이프타임</h2></a>
 <p>10장의 “라이프타임을 이용한 참조자 유효화”절에서, 여러분은 러스트에게 서로 다른
 참조자의 라이프타임이 어떻게 연관되는지를 알려주기 위하여 참조자에 대한 라이프타임
 파라미터의 명시 방법을 배웠습니다. 여러분은 모든 참조자가 라이프타임을 갖지만,
@@ -148,7 +152,7 @@
 <li>트레잇 객체 라이프타임의 추론: 컴파일러는 어떻게 트레잇 객체의 라이프타임을 추론하며
 언제 이들을 명시할 필요가 있는지에 대하여</li>
 </ul>
-<a class="header" href="#a라이프타임-서브타이핑은-하나의-라이프타임이-다른-것보다-오래-사는-것을-보장합니다" id="a라이프타임-서브타이핑은-하나의-라이프타임이-다른-것보다-오래-사는-것을-보장합니다"><h3>라이프타임 서브타이핑은 하나의 라이프타임이 다른 것보다 오래 사는 것을 보장합니다</h3></a>
+<a class="header" href="#라이프타임-서브타이핑은-하나의-라이프타임이-다른-것보다-오래-사는-것을-보장합니다" id="라이프타임-서브타이핑은-하나의-라이프타임이-다른-것보다-오래-사는-것을-보장합니다"><h3>라이프타임 서브타이핑은 하나의 라이프타임이 다른 것보다 오래 사는 것을 보장합니다</h3></a>
 <p><em>라이프타임 서브타이핑</em>은 하나의 라이프타임이 다른 라이프타임보다 오래 살아야 함을
 명시합니다. 라이프타임 서브타이핑을 탐구하기 위해서, 우리가 파서를 작성하길 원한다고
 상상해 보세요. 우리가 파싱하는 중인 스트링에 대한 참조자를 가지고 있는 <code>Context</code>라는
@@ -390,7 +394,7 @@ struct Parser&lt;'c, 's: 'c&gt; {
 러스트의 고급 기능들은 매우 구체적입니다. 우리가 이 예제에서 묘사한
 문법이 자주 필요치는 않겠지만, 특정한 상황에서 여러분이 참조해야 하는
 무언가를 참조하는 방법을 알아둬야 할 것입니다.</p>
-<a class="header" href="#a제네릭-타입에-대한-참조자-상의-라이프타임-바운드" id="a제네릭-타입에-대한-참조자-상의-라이프타임-바운드"><h3>제네릭 타입에 대한 참조자 상의 라이프타임 바운드</h3></a>
+<a class="header" href="#제네릭-타입에-대한-참조자-상의-라이프타임-바운드" id="제네릭-타입에-대한-참조자-상의-라이프타임-바운드"><h3>제네릭 타입에 대한 참조자 상의 라이프타임 바운드</h3></a>
 <p>10장의 “트레잇 바운드”절에서, 우리는 제네릭 타입 상의 트레잇 바운드를 사용하는 것에 대해
 논했습니다. 우리는 또한 제네릭 타입의 제약사항으로서 라이프타임 파라미터를 추가할 수 있습니다;
 이를 <em>라이프타임 바운드 (lifetime bound)</em> 라고 부릅니다. 라이프타임 바운드는 제네릭 타입
@@ -461,7 +465,7 @@ struct StaticRef&lt;T: 'static&gt;(&amp;'static T);
 사는 참조자들을 가진 타입 간의 실질적 구분은 없습니다: 둘다 그것이 참조하고
 있는 것보다 더 짧은 라이프타임을 가진 참조자인지 아닌지를 결정하는 관점에서는
 같습니다.</p>
-<a class="header" href="#a트레잇-객체-라이프타임의-추론" id="a트레잇-객체-라이프타임의-추론"><h3>트레잇 객체 라이프타임의 추론</h3></a>
+<a class="header" href="#트레잇-객체-라이프타임의-추론" id="트레잇-객체-라이프타임의-추론"><h3>트레잇 객체 라이프타임의 추론</h3></a>
 <p>17장의 “서로 다른 타입의 값을 허용하는 트레잇 객체를 사용하기”절에서,
 우리는 동적 디스패치를 이용할 수 있게 해주는 참조자 뒤의 트레잇으로 구성된
 트레잇 객체를 논했습니다. 우리는 아직 트레잇 객체 내의 트레잇을 구현한

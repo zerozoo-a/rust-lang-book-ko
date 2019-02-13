@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,14 +140,14 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a커스텀-명령어로-cargo-확장하기" id="a커스텀-명령어로-cargo-확장하기"><h2>커스텀 명령어로 Cargo 확장하기</h2></a>
+                        <a class="header" href="#커스텀-명령어로-cargo-확장하기" id="커스텀-명령어로-cargo-확장하기"><h2>커스텀 명령어로 Cargo 확장하기</h2></a>
 <p>Cargo 는 여러분이 직접 Cargo 를 수정하지 않고도 새 보조 명령어를 추가할 수 있도록 되어 있습니다.
 만약 여러분의 <code>$PATH</code> 내 어떤 바이너리의 이름이 <code>cargo-something</code> 이고, 해당 바이너리가
 Cargo 의 보조 명령어 바이너리일 경우 <code>cargo something</code> 라는 명령어를 이용해
 실행할 수 있습니다. 이와 같은 커스텀 명령어들은 <code>cargo --list</code> 를 실행 할 때의
 목록에도 포함됩니다. 이런식으로 <code>cargo install</code> 을 이용해 확장 모듈을 설치하고
 Cargo 의 자체 툴처럼 이용할 수 있다는 점은 Cargo 의 무척 편리한 점 중 하나입니다.</p>
-<a class="header" href="#a정리" id="a정리"><h2>정리</h2></a>
+<a class="header" href="#정리" id="정리"><h2>정리</h2></a>
 <p>Cargo 와 <a href="https://crates.io">crates.io</a><!-- ignore --> 를 통해 코드를 공유하는
 행위는 러스트 생태계를 발전시키고, 러스트가 많은 방면에서 활약하도록 만드는데
 주축이 되는 행위입니다. 러스트의 기본 라이브러리는 작고 고정되어 있지만,

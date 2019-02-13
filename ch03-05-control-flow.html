@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a제어문" id="a제어문"><h2>제어문</h2></a>
+                        <a class="header" href="#제어문" id="제어문"><h2>제어문</h2></a>
 <p>조건의 상태가 참인지에 따라 어떤 코드의 실행 여부를 결정하거나 조건이 만족되는 동안 반복 수행을 하는 것은
 대부분의 프로그래밍 언어의 기초 문법입니다. 우리가 실행 흐름을 제어할 수 있는 가장 보편적인 작성 방식은
 <code>if</code>표현식과 반복문 입니다.</p>
@@ -308,7 +312,7 @@ Rust는 정확히 프로그램의 어느 지점에 문제가 있는지 보여줍
 확실히! 정의해야 합니다. 그래야 <code>number</code>가 사용되는 모든 곳에서 유효한지 검증할 수 있으니까요. Rust는
 <code>number</code>의 타입을 실행 시에 정의되도록 할 수 없습니다. 컴파일러가 모든 변수의 다양한 타입을 추적해서 알아내야<br />
 한다면 컴파일러는 보다 복잡해지고 보증할 수 있는 것은 적어지게 됩니다.</p>
-<a class="header" href="#a반복문과-반복" id="a반복문과-반복"><h3>반복문과 반복</h3></a>
+<a class="header" href="#반복문과-반복" id="반복문과-반복"><h3>반복문과 반복</h3></a>
 <p>코드 블록을 한 번 이상 수행하는 것은 자주 유용합니다. 반복 작업을 위해서, Rust는 몇 가지 <em>반복문</em>을 제공합니다.
 반복문은 반복문 시작부터 끝까지 수행하고 다시 처음부터 수행합니다. 반복문의 실험해보기 위해 <em>loops</em>으로 명명된
 새 프로젝트를 작성해 봅시다.</p>
@@ -428,7 +432,7 @@ using a <code>for</code> loop</span></p>
 }
 </code></pre></pre>
 <p>꽤 괜찮은 코드인것 같죠?</p>
-<a class="header" href="#a결론" id="a결론"><h2>결론</h2></a>
+<a class="header" href="#결론" id="결론"><h2>결론</h2></a>
 <p>해냈어요! 무지 긴 장이었어: 우리는 변수, 스칼라, <code>if</code>식과 반복문까지 배웠어요! 혹시 이번 장에서 나온 내용을
 연습해보고 싶으면 다음을 수행하는 프로그램을 만들어 보세요.</p>
 <ul>

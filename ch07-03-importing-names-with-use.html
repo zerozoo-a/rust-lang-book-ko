@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a이름-가져오기-importing-names" id="a이름-가져오기-importing-names"><h2>이름 가져오기 (Importing Names)</h2></a>
+                        <a class="header" href="#이름-가져오기-importing-names" id="이름-가져오기-importing-names"><h2>이름 가져오기 (Importing Names)</h2></a>
 <p>우리는 Listing 7-6에서 보시는 것과 같이 <code>nested_modules</code> 함수를 호출하는 것처럼,
 모듈 이름을 호출 구문의 일부분으로 사용하여 해당 모듈 내에 정의된 함수를 호출하는
 방법을 다룬바 있습니다:</p>
@@ -218,7 +222,7 @@ fn main() {
 </code></pre></pre>
 <p><code>Green</code> variant에 대해서는 여전히 <code>TrafficLight</code> 이름공간을 명시하고 있는데,
 이는 <code>use</code> 구문 내에 <code>Green</code>를 포함하지 않았기 때문입니다.</p>
-<a class="header" href="#a를-이용한-모두glob-가져오기" id="a를-이용한-모두glob-가져오기"><h3><code>*</code>를 이용한 모두(glob) 가져오기</h3></a>
+<a class="header" href="#를-이용한-모두glob-가져오기" id="를-이용한-모두glob-가져오기"><h3><code>*</code>를 이용한 모두(glob) 가져오기</h3></a>
 <p>이름공간 내의 모든 아이템을 가져오기 위해서는 <code>*</code> 문법을 이용할 수 있습니다. 예를 들면:</p>
 <pre><pre class="playpen"><code class="language-rust">enum TrafficLight {
     Red,
@@ -342,7 +346,7 @@ test tests::it_works ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
 </code></pre>
-<a class="header" href="#a정리" id="a정리"><h2>정리</h2></a>
+<a class="header" href="#정리" id="정리"><h2>정리</h2></a>
 <p>이제 여러분은 코드를 조직화하기 위한 몇가지 새로운 기술을 알게 되었습니다! 관련된
 기능들을 함께 묶여주는 이 기술들을 사용하고, 파일들이 너무 길어지지 않게 하고,
 여러분의 라이브러리 사용자들에게 깔끔한 공개 API를 제공해 보세요.</p>

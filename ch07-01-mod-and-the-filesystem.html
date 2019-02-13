@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -174,7 +178,7 @@ mod tests {
 것입니다.</p>
 <p>이제 여러분이 작성하는 코드의 의도에 따라 만들어지는 다양한 상황에 알맞도록 라이브러리
 코드를 조직화하는 다양한 옵션들을 살펴보겠습니다.</p>
-<a class="header" href="#a모듈-정의" id="a모듈-정의"><h3>모듈 정의</h3></a>
+<a class="header" href="#모듈-정의" id="모듈-정의"><h3>모듈 정의</h3></a>
 <p>우리의 <code>communicator</code> 네트워크 라이브러리를 위해서, 먼저 <code>connect</code>라는 이름의 함수가
 정의되어 있는 <code>network</code>라는 이름의 모듈을 정의하겠습니다. 러스트 내 모듈 정의는 모두
 <code>mod</code>로 시작됩니다. 이 코드를 <em>src/lib.rs</em>의 시작 부분, 즉 테스트 코드의 윗 쪽에
@@ -264,7 +268,7 @@ mod network {
 사용자들이 프로젝트 도메인에 대해 어떻게 생각하는지에 따라 달라집니다. 여러분이 선호하는
 어떤 형태의 구조이건 간에 여기서 보여준 나란한 모듈 및 중첩된(nested) 모듈을 만드는
 테크닉을 이용해 보세요.</p>
-<a class="header" href="#a모듈을-다른-파일로-옮기기" id="a모듈을-다른-파일로-옮기기"><h3>모듈을 다른 파일로 옮기기</h3></a>
+<a class="header" href="#모듈을-다른-파일로-옮기기" id="모듈을-다른-파일로-옮기기"><h3>모듈을 다른 파일로 옮기기</h3></a>
 <p>모듈은 계층적인 구조를 형성하는데, 여러분이 익숙하게 사용하고 있는 다른 구조와 매우 닮았습니다: 바로
 파일 시스템이죠! 러스트에서는 프로젝트를 잘게 나누기 위해 여러 개의 파일 상에서 모듈 시스템을 사용할
 수 있어, 모든 것들이 <em>src/lib.rs</em>나 <em>src/main.rs</em> 안에 존재하지 않게할 수 있습니다. 이러한
@@ -490,7 +494,7 @@ $ mv src/server.rs src/network
 모듈 내의 코드는 그후 <em>src/network/mod.rs</em> 파일로 가고, 서브모듈 <code>network::client</code>은
 <em>src/network/client.rs</em> 파일을 갖게할 수 있습니다. 이제 최상위 층의 <em>src/client.rs</em>는
 모호하지 않게 <code>client</code> 모듈이 소유한 코드가 됩니다.</p>
-<a class="header" href="#a모듈-파일-시스템의-규칙" id="a모듈-파일-시스템의-규칙"><h3>모듈 파일 시스템의 규칙</h3></a>
+<a class="header" href="#모듈-파일-시스템의-규칙" id="모듈-파일-시스템의-규칙"><h3>모듈 파일 시스템의 규칙</h3></a>
 <p>파일에 관한 모듈의 규칙을 정리해봅시다:</p>
 <ul>
 <li>만일 <code>foo</code>라는 이름의 모듈이 서브모듈을 가지고 있지 않다면, <em>foo.rs</em>라는 이름의 파일 내에

@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,10 +140,10 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a고급-함수와-클로저" id="a고급-함수와-클로저"><h2>고급 함수와 클로저</h2></a>
+                        <a class="header" href="#고급-함수와-클로저" id="고급-함수와-클로저"><h2>고급 함수와 클로저</h2></a>
 <p>마지막으로, 우리는 함수와 클로저와 관련된 몇가지 고급 기능들을 탐구할 것이며,
 여기에 함수 포인터 및 클로저 반환이 포함됩니다.</p>
-<a class="header" href="#a함수-포인터" id="a함수-포인터"><h3>함수 포인터</h3></a>
+<a class="header" href="#함수-포인터" id="함수-포인터"><h3>함수 포인터</h3></a>
 <p>우리는 어떻게 클로저를 함수 인자로 넘기는지에 대해 이야기 했었습니다;
 여러분은 또한 일반 함수를 함수 인자로 넘길 수 있습니다! 이 기법은 새로운
 클로저를 정의하는 것보다는 우리가 이미 정의해둔 함수를 넘기고 싶을때
@@ -210,7 +214,7 @@ let list_of_strings: Vec&lt;String&gt; = list_of_numbers
 대해서든 구현체를 가지고 있습니다.</p>
 <p>어떤 이들은 이런 스타일을 선호하고, 어떤 이들은 클로저의 사용을 선호합니다. 이들은 컴파일되어
 결국 같은 코드가 되므로, 어떤 스타일이든 여러분에게 더 깔끔해보이는 스타일로 이용하세요.</p>
-<a class="header" href="#a클로저-반환하기" id="a클로저-반환하기"><h3>클로저 반환하기</h3></a>
+<a class="header" href="#클로저-반환하기" id="클로저-반환하기"><h3>클로저 반환하기</h3></a>
 <p>클로저는 트레잇에 의해 표현되는데, 이는 우리가 클로저를 직접 반환할 수 없음을
 의미합니다. 우리가 트레잇을 반환하고 싶어하는 대부분의 경우에는 함수의
 반환값으로서 그 트레잇을 구현한 구체 타입을 대신 이용할 수 있습니다.
@@ -248,7 +252,7 @@ fn returns_closure() -&gt; Box&lt;Fn(i32) -&gt; i32&gt; {
 <p>이 코드는 그냥 잘 컴파일 될 것입니다. 트레잇 객체에 대한 더 자세한 내용은
 17장의 “서로 다른 타입의 값을 허용하기 위한 트레잇 객체 사용하기” 절을
 참고하세요.</p>
-<a class="header" href="#a정리" id="a정리"><h2>정리</h2></a>
+<a class="header" href="#정리" id="정리"><h2>정리</h2></a>
 <p>휘유! 이제 여러분은 자주 사용하지는 않겠지만 매우 특정한 환경에서는
 필요한 것임을 알게될 러스트의 몇가지 기능들을 여러분의 도구함에 챙겼습니다.
 우리가 몇몇 복잡한 주제를 소개했으므로 여러분이 이들을 에러 메세지

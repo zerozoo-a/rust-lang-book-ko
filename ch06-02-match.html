@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -209,7 +213,7 @@ fn value_in_cents(coin: Coin) -&gt; u32 {
     }
 }
 #}</code></pre></pre>
-<a class="header" href="#a값들을-바인딩하는-패턴들" id="a값들을-바인딩하는-패턴들"><h3>값들을 바인딩하는 패턴들</h3></a>
+<a class="header" href="#값들을-바인딩하는-패턴들" id="값들을-바인딩하는-패턴들"><h3>값들을 바인딩하는 패턴들</h3></a>
 <p>매치 갈래의 또 다른 유용한 기능은 패턴과 매치된 값들의 부분을 바인딩할 수 있다는 것입니다.
 이것이 열거형 variant로부터 어떤 값들을 추출할 수 있는 방법입니다.</p>
 <p>한 가지 예로서, 우리의 열거형 variant 중 하나를 내부에 값을 들고 있도록 바꿔봅시다. 1999년부터
@@ -325,7 +329,7 @@ let none = plus_one(None);
 많이 보게 될 것입니다: 열거형에 대한 <code>match</code>, 내부의 데이터에 변수 바인딩, 그런 다음 그에 대한
 수행 코드 말이지요. 처음에는 약간 까다롭지만, 여러분이 일단 익숙해지면, 이를 모든 언어에서 쓸 수
 있게 되기를 바랄 것입니다. 이것은 꾸준히 사용자들이 가장 좋아하는 기능입니다.</p>
-<a class="header" href="#a매치는-하나도-빠뜨리지-않습니다" id="a매치는-하나도-빠뜨리지-않습니다"><h3>매치는 하나도 빠뜨리지 않습니다</h3></a>
+<a class="header" href="#매치는-하나도-빠뜨리지-않습니다" id="매치는-하나도-빠뜨리지-않습니다"><h3>매치는 하나도 빠뜨리지 않습니다</h3></a>
 <p>우리가 논의할 필요가 있는 <code>match</code>의 다른 관점이 있습니다. <code>plus_one</code> 함수의 아래 버전을 고려해
 보세요:</p>
 <pre><code class="language-rust ignore">fn plus_one(x: Option&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
@@ -348,7 +352,7 @@ let none = plus_one(None);
 위해서는 모든 마지막 가능성까지 샅샅이 다루어야 합니다. 특히 <code>Option&lt;T&gt;</code>의 경우, 즉 러스트가
 우리로 하여금 <code>None</code> 케이스를 명시적으로 다루는 일을 잊는 것을 방지하는 경우에는, Null 일지도 모를
 값을 가지고 있음을 가정하여, 앞서 논의했던 수십억 달러짜리 실수를 하는 일을 방지해줍니다.</p>
-<a class="header" href="#a_-변경자placeholder" id="a_-변경자placeholder"><h3><code>_</code> 변경자(placeholder)</h3></a>
+<a class="header" href="#_-변경자placeholder" id="_-변경자placeholder"><h3><code>_</code> 변경자(placeholder)</h3></a>
 <p>러스트는 또한 우리가 모든 가능한 값을 나열하고 싶지 않을 경우에 사용할 수 있는 패턴을 가지고 있습니다.
 예를 들어, <code>u8</code>은 0에서부터 255까지 유효한 값을 가질 수 있습니다. 만일 우리가 1, 3, 5, 그리고 7
 값에 대해서만 신경 쓰고자 한다면, 나머지 0, 2, 4, 6, 8, 그리고 9부터 255까지를 모두 나열하고

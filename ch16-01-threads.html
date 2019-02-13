@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a스레드를-이용하여-코드를-동시에-실행하기" id="a스레드를-이용하여-코드를-동시에-실행하기"><h2>스레드를 이용하여 코드를 동시에 실행하기</h2></a>
+                        <a class="header" href="#스레드를-이용하여-코드를-동시에-실행하기" id="스레드를-이용하여-코드를-동시에-실행하기"><h2>스레드를 이용하여 코드를 동시에 실행하기</h2></a>
 <p>대부분의 요즘 운영 체제에서, 실행되는 프로그램의 코드는 <em>프로세스</em> 내에서 실행되고,
 운영 체제는 한번에 여러 개의 프로세스들을 관리합니다. 여러분의 프로그램 내에서도
 동시에 실행되는 독립적인 부분들을 가질 수 있습니다. 이러한 독립적인 부분들을 실행하는
@@ -334,7 +338,7 @@ hi number 4 from the main thread!
 </code></pre>
 <p><code>join</code>이 호출되는 위치와 같은 작은 디테일들이 여러분의 스레드가 동시에 실행되는지
 혹은 아닌지에 대해 영향을 미칠 수 있습니다.</p>
-<a class="header" href="#a스레드에-move-클로저-사용하기" id="a스레드에-move-클로저-사용하기"><h3>스레드에 <code>move</code> 클로저 사용하기</h3></a>
+<a class="header" href="#스레드에-move-클로저-사용하기" id="스레드에-move-클로저-사용하기"><h3>스레드에 <code>move</code> 클로저 사용하기</h3></a>
 <p><code>move</code> 클로저는 <code>thread::spawn</code>와 함께 자주 사용되는데 그 이유는 이것이 여러분으로
 하여금 어떤 스레드의 데이터를 다른 스레드 내에서 사용하도록 해주기 때문입니다.</p>
 <p>13장에서는 클로저의 파라미터 목록 앞에 <code>move</code> 키워드를 이용하여

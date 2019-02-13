@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a구조체를-정의하고-초기화하기" id="a구조체를-정의하고-초기화하기"><h2>구조체를 정의하고 초기화하기</h2></a>
+                        <a class="header" href="#구조체를-정의하고-초기화하기" id="구조체를-정의하고-초기화하기"><h2>구조체를 정의하고 초기화하기</h2></a>
 <p>구조체는 3장에서 학습한 튜플과 비슷합니다. 튜플과 유사하게, 구조체의 구성요소들은 각자 다른 타입을
 지닐 수 있습니다. 그러나 튜플과는 다르게 각 구성요소들은 명명할 수 있어 값이 의미하는 바를 명확하게
 인지할 수 있습니다. 구조체는 각 구성요소들에 명명을 할 수 있다는 점 덕분에 튜플보다 유연하게 다룰 수
@@ -185,7 +189,7 @@ let user1 = User {
 <code>user1.email</code> 과 같은 방식으로 접근하실 수 있습니다. 변경이 가능한 구조체에 들어있는 값을 바꾸고자
 할 때는, 아래와 같이 점(.) 표기법을 사용하여 새 값을 할당할 수 있습니다.
 <code>user1.email = String::from(&quot;someone-else@example.com&quot;);</code></p>
-<a class="header" href="#a변수명이-필드명과-같을-때-간단하게-필드-초기화하기" id="a변수명이-필드명과-같을-때-간단하게-필드-초기화하기"><h3>변수명이 필드명과 같을 때 간단하게 필드 초기화하기</h3></a>
+<a class="header" href="#변수명이-필드명과-같을-때-간단하게-필드-초기화하기" id="변수명이-필드명과-같을-때-간단하게-필드-초기화하기"><h3>변수명이 필드명과 같을 때 간단하게 필드 초기화하기</h3></a>
 <p>변수명과 구조체의 필드명이 같다면, 필드 초기화 축약법(<em>field init shorthand</em>) 을 이용할 수 있습니다.
 이를 활용하면 구조체를 생성하는 함수를 더 간단히 작성할 수 있게 됩니다.
 아래 예제 5-3의 <code>build_user</code> 함수에는 <code>email</code>과 <code>username</code> 라는 매개변수가
@@ -236,7 +240,7 @@ fn build_user(email: String, username: String) -&gt; User {
 #}</code></pre></pre>
 <p><span class="caption">예제 5-4: 매개변수 <code>email</code>과 <code>username</code>가 구조체의 필드와 이름이
 같아, 함수 내에서 특별히 명시하지 않고 초기화한 예인 <code>build_user</code> 함수</span></p>
-<a class="header" href="#a구조체-갱신법을-이용하여-기존-구조체-인스턴스로-새-구조체-인스턴스-생성하기" id="a구조체-갱신법을-이용하여-기존-구조체-인스턴스로-새-구조체-인스턴스-생성하기"><h3>구조체 갱신법을 이용하여 기존 구조체 인스턴스로 새 구조체 인스턴스 생성하기</h3></a>
+<a class="header" href="#구조체-갱신법을-이용하여-기존-구조체-인스턴스로-새-구조체-인스턴스-생성하기" id="구조체-갱신법을-이용하여-기존-구조체-인스턴스로-새-구조체-인스턴스-생성하기"><h3>구조체 갱신법을 이용하여 기존 구조체 인스턴스로 새 구조체 인스턴스 생성하기</h3></a>
 <p>존재하는 인스턴스에서 기존 값의 대부분은 재사용하고, 몇몇 값만 바꿔 새로운 인스턴스를 정의하는 방법은
 유용합니다. 예제 5-5는 변수 <code>user2</code>에 <code>email</code>과 <code>username</code>은 새로 할당하고, 나머지
 필드들은 예제 5-2에서 정의한 <code>user1</code>의 값들을 그대로 사용하는 방식으로 <code>User</code> 인스턴스를
@@ -297,7 +301,7 @@ let user2 = User {
 #}</code></pre></pre>
 <p><span class="caption">예제 5-6: 인스턴스 갱신 문법의 사용 예시 - 새 <code>User</code> 구조체 생성 시
 <code>email</code>과 <code>username</code> 필드에는 새 값을 할당하고, 나머지 필드는 <code>user1</code>에서 재사용</span></p>
-<a class="header" href="#a이름이-없고-필드마다-타입은-다르게-정의-가능한-튜플-구조체" id="a이름이-없고-필드마다-타입은-다르게-정의-가능한-튜플-구조체"><h3>이름이 없고 필드마다 타입은 다르게 정의 가능한 튜플 구조체</h3></a>
+<a class="header" href="#이름이-없고-필드마다-타입은-다르게-정의-가능한-튜플-구조체" id="이름이-없고-필드마다-타입은-다르게-정의-가능한-튜플-구조체"><h3>이름이 없고 필드마다 타입은 다르게 정의 가능한 튜플 구조체</h3></a>
 <p>구조체명을 통해 의미를 부여할 수 있으나 필드의 타입만 정의할 수 있고 명명은 할 수 없는,
 튜플 구조체(<em>tuple structs</em>)라 불리는 튜플과 유사한 형태의 구조체도 정의할 수 있습니다.</p>
 <p>튜플 구조체는 일반적인 구조체 정의방법과 똑같이 <code>struct</code> 키워드를 통해 정의할 수 있고, 튜플의
@@ -315,13 +319,13 @@ let origin = Point(0, 0, 0);
 <p>다른 튜플 구조체이기 때문에, <code>black</code>과 <code>origin</code>이 다른 타입이란 것을 유념해 두셔야 합니다.
 구조체 내의 타입이 모두 동일하더라도 각각의 구조체는 고유의 타입이기 때문입니다. 한편 튜플 구조체
 인스턴스는, 3장에서 살펴 본 튜플과 비슷하게 동작합니다.</p>
-<a class="header" href="#a필드가-없는-유사-유닛-구조체" id="a필드가-없는-유사-유닛-구조체"><h3>필드가 없는 유사 유닛 구조체</h3></a>
+<a class="header" href="#필드가-없는-유사-유닛-구조체" id="필드가-없는-유사-유닛-구조체"><h3>필드가 없는 유사 유닛 구조체</h3></a>
 <p>또한 어떤 필드도 없는 구조체 역시 정의할 수 있습니다! 이는 유닛 타입인 <code>()</code>와 비슷하게 동작하고,
 그 때문에 유사 유닛 구조체(<em>unit-like structs</em>)라 불립니다.
 유사 유닛 구조체는 특정한 타입의 트레잇(trait)을 구현해야하지만 타입 자체에 데이터를 저장하지 않는
 경우에 유용합니다. 트레잇(trait)에 대해서는 10장에서 더 살펴보도록 하겠습니다.</p>
 <blockquote>
-<a class="header" href="#a구조체-데이터의-소유권ownership" id="a구조체-데이터의-소유권ownership"><h3>구조체 데이터의 소유권(Ownership)</h3></a>
+<a class="header" href="#구조체-데이터의-소유권ownership" id="구조체-데이터의-소유권ownership"><h3>구조체 데이터의 소유권(Ownership)</h3></a>
 <p>예제 5-1에서의 <code>User</code> 구조체 정의에서는, <code>&amp;str</code> 문자 슬라이스 타입 대신 <code>String</code>타입을
 사용했습니다. 이는 의도적인 선택으로, 구조체 전체가 유효한 동안 구조체가 그 데이터를 소유하게 하고자
 함입니다.</p>

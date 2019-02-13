@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -216,7 +220,7 @@ name as the crate, <code>communicator</code>. We call the top-level module of a 
 된 이론적인 외부 사용에 대해 이 함수가 “사용되었다”라고 간주합니다. 따라서, 어떤 것이
 공개로 표시될 때, 러스트는 그것이 우리 프로그램 내에서 이용되는 것을 요구하지
 않으며 해당 아이템이 미사용에 대한 경고를 멈출 것입니다.</p>
-<a class="header" href="#a함수를-공개로-만들기" id="a함수를-공개로-만들기"><h3>함수를 공개로 만들기</h3></a>
+<a class="header" href="#함수를-공개로-만들기" id="함수를-공개로-만들기"><h3>함수를 공개로 만들기</h3></a>
 <p>러스트에게 어떤 것을 공개하도록 말하기 위해서는, 공개하길 원하는 아이템의 선언 시작
 부분에 <code>pub</code> 키워드를 추가합니다. 지금은 <code>client::connect</code>가 사용된 적 없음을 알리는
 경고와 바이너리 크레이트에서 나온 <code>module `client` is private</code> 에러를 제거하는데
@@ -303,14 +307,14 @@ pub mod network;
   | ^
 </code></pre>
 <p>경고 딱 하나 남았네요! 여러분이 직접 고쳐보세요!</p>
-<a class="header" href="#a비공개-규칙privacy-rules" id="a비공개-규칙privacy-rules"><h3>비공개 규칙(Privacy Rules)</h3></a>
+<a class="header" href="#비공개-규칙privacy-rules" id="비공개-규칙privacy-rules"><h3>비공개 규칙(Privacy Rules)</h3></a>
 <p>종합해보면, 아이템 가시성에 관한 규칙은 다음과 같습니다:</p>
 <ol>
 <li>만일 어떤 아이템이 공개라면, 이는 부모 모듈의 어디에서건 접근 가능합니다.</li>
 <li>만일 어떤 아이템이 비공개라면, 같은 파일 내에 있는 부모 모듈 및 이 부모의
 자식 모듈에서만 접근 가능합니다.</li>
 </ol>
-<a class="header" href="#a비공개-예제privacy-examples" id="a비공개-예제privacy-examples"><h3>비공개 예제(Privacy Examples)</h3></a>
+<a class="header" href="#비공개-예제privacy-examples" id="비공개-예제privacy-examples"><h3>비공개 예제(Privacy Examples)</h3></a>
 <p>연습을 위해 몇 가지 비공개에 관한 예제를 봅시다. 새로운 라이브러리 프로젝트를 만들고
 이 새로운 프로젝트의 <em>src/lib.rs</em>에 Listing 7-5와 같이 코드를 넣으세요:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
@@ -337,7 +341,7 @@ fn try_me() {
 <p>이 코드를 컴파일하기 전에, <code>try_me</code> 함수의 어떤 라인이 에러를 발생시킬지 추측해보세요.
 그리고나서 컴파일을 하여 여러분이 맞았는지 확인하고, 에러에 대한 논의를 위해 계속
 읽어주세요!</p>
-<a class="header" href="#a에러-보기" id="a에러-보기"><h4>에러 보기</h4></a>
+<a class="header" href="#에러-보기" id="에러-보기"><h4>에러 보기</h4></a>
 <p><code>try_me</code> 함수는 우리 프로젝트의 루트 모듈 내에 있습니다. <code>outermost</code> 모듈은
 비공개지만, 두 번째 비공개 규칙은 <code>try_me</code>함수가 <code>outermost</code> 모듈에 접근하는 것이
 허용됨을 알려주는데, 이는 <code>outermost</code>가 <code>try_me</code> 함수와 마찬가지로 현재의 (루트)
@@ -352,7 +356,7 @@ fn try_me() {
 <p><code>inside</code> 모듈은 비공개고 자식 모듈이 없으므로, 이것의 현재 모듈인 <code>outermost</code>에 의해서만
 접근될 수 있습니다. 이는 즉 <code>try_me</code> 함수는 <code>outermost::inside::inner_function</code>나
 <code>outermost::inside::secret_function</code>를 호출할 수 없음을 의미합니다.</p>
-<a class="header" href="#a에러-고치기" id="a에러-고치기"><h4>에러 고치기</h4></a>
+<a class="header" href="#에러-고치기" id="에러-고치기"><h4>에러 고치기</h4></a>
 <p>여기 이 에러들을 고치기 위해 코드를 수정하는것에 관한 몇 가지 제안이 있습니다.
 각각을 시도해보기 전에, 이 시도가 에러를 고칠지 그렇지 않을지 추측해 보고,
 컴파일을 해서 여러분이 맞췄는지 그렇지 않은지 확인하고, 왜 그랬는지 이해하기 위해

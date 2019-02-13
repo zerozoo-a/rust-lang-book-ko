@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a모듈성과-에러처리의-향상을-위한-리팩토링" id="a모듈성과-에러처리의-향상을-위한-리팩토링"><h2>모듈성과 에러처리의 향상을 위한 리팩토링</h2></a>
+                        <a class="header" href="#모듈성과-에러처리의-향상을-위한-리팩토링" id="모듈성과-에러처리의-향상을-위한-리팩토링"><h2>모듈성과 에러처리의 향상을 위한 리팩토링</h2></a>
 <p>우리 프로그램을 향상시키기 위해 네 가지 수정하고 싶은 문제가 있는데, 이들은 프로그램을
 구조화하고 발생가능한 에러를 처리하는 방식과 관련있습니다.</p>
 <p>첫 번째, 우리 <code>main</code> 함수는 현재 두 가지 작업을 수행합니다: 인자들을 분석하고 파일을
@@ -162,7 +166,7 @@ bounds&quot; 오류가 발생하는데 이는 문제를 명확하게 설명하�
 참고하면 되니 더 좋죠. 또한, 모든 오류 처리 코드를 한 곳에 저장하면 우리가 최종 사용자에게
 도움이 되는 메시지를 출력하고 있는지 확신하는데도 도움이 됩니다.</p>
 <p>이런 문제들을 우리 프로젝트를 리팩토링하여 해결해보도록 하겠습니다.</p>
-<a class="header" href="#a바이너리-프로젝트를-위한-핵심기능concern-나누기" id="a바이너리-프로젝트를-위한-핵심기능concern-나누기"><h3>바이너리 프로젝트를 위한 핵심기능(concern) 나누기</h3></a>
+<a class="header" href="#바이너리-프로젝트를-위한-핵심기능concern-나누기" id="바이너리-프로젝트를-위한-핵심기능concern-나누기"><h3>바이너리 프로젝트를 위한 핵심기능(concern) 나누기</h3></a>
 <p><code>main</code> 함수가 여러 작업에 책임을 갖게 되는 구조적 문제는 많은 바이너리 프로젝트에서
 공통적입니다. 그래서 Rust 커뮤니티는 <code>main</code>이 커지기 시작할 때 바이너리 프로그램의
 핵심기능을 나누기 위한 가이드라인 프로세스를 개발했습니다. 프로세스에는 다음 단계가 있습니다:</p>
@@ -186,7 +190,7 @@ bounds&quot; 오류가 발생하는데 이는 문제를 명확하게 설명하�
 수 없지만, 이런 구조로 <em>lib.rs</em> 으로 프로그램의 모든 함수와 로직을 옮긴 후에는 테스트가
 가능해집니다. <em>main.rs</em>에는 읽어서 옳바른지 여부를 검증할 수 있을 정도로 적은 코드만을
 남겨두도록 합니다. 다음의 과정을 거치며 재작업을 해봅시다.</p>
-<a class="header" href="#a인자-파서의-추출" id="a인자-파서의-추출"><h3>인자 파서의 추출</h3></a>
+<a class="header" href="#인자-파서의-추출" id="인자-파서의-추출"><h3>인자 파서의 추출</h3></a>
 <p>먼저 우리는 커맨드라인 인자를 분석하는 기능을 추출할 겁니다. 항목 12-5에서 <code>main</code>의 시작 부분이 새로운 함수 <code>parse_config</code>를 호출하는 것을 볼 수 있을텐데, 이는 아직은  <em>src/main.rs</em>에 정의되어 있을 겁니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
@@ -216,7 +220,7 @@ fn parse_config(args: &amp;[String]) -&gt; (&amp;str, &amp;str) {
 점진적으로 리팩토링을 진행하고 있습니다. 이런 변화를 준 뒤에는, 프로그램을 다시 실행해 인자의
 파싱이 정상적으로 동작하고 있는지 확인해보십시오. 진행 상황을 자주 확인하면 문제가 생겼을 때
 원인을 파악하는데 도움이 됩니다.</p>
-<a class="header" href="#a설정-변수들을-그룹짓기" id="a설정-변수들을-그룹짓기"><h4>설정 변수들을 그룹짓기</h4></a>
+<a class="header" href="#설정-변수들을-그룹짓기" id="설정-변수들을-그룹짓기"><h4>설정 변수들을 그룹짓기</h4></a>
 <!-- 원문의 내용이 잘못 작성된 것 같음. At the moment, we’re returning a tuple, but then we immediately break that tuple up into individual parts again. 문장은 but 이후 문장이 부정적 의미로 와야맞는 될 것 같음 -->
 <p>우리는 이 함수의 기능을 더 향상시키기 위해 또 다른 작은 행동을 할 수 있습니다. 현재 우리는
 튜플을 반환하고 있는데, 그 시점에 즉시 튜플을 개별된 부분으로 나눌 수가 없습니다. 이는 우리가
@@ -333,7 +337,7 @@ impl Config {
 호출하게 되었습니다. 우리는 <code>parse_config</code>의 이름을 <code>new</code>로 바꾸고 그를 <code>impl</code>블록
 안으로 옮겼는데, 이를 통해 <code>new</code>함수가 <code>Config</code>와 연결되게 됩니다. 다시 컴파일을 하고
 제대로 동작하는지 확인해보도록 합시다.</p>
-<a class="header" href="#a에러-처리-수정하기" id="a에러-처리-수정하기"><h3>에러 처리 수정하기</h3></a>
+<a class="header" href="#에러-처리-수정하기" id="에러-처리-수정하기"><h3>에러 처리 수정하기</h3></a>
 <p>이번에는 우리의 에러 처리를 수정해 볼 겁니다. 만일 <code>args</code> 벡터가 3개 미만의 아이템을<br />
 가지고 있을 때 인덱스 <code>2</code> 혹은 <code>3</code>의 값에 접근하려는 시도를 하면 프로그램은 패닉을
 일으키게 된다고 했던 것을 상기시켜 드립니다. 프로그램을 인자 없이 실행해보시면;
@@ -348,7 +352,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <p><code>index out of bounds: the len is 1 but the index is 1</code> 줄은
 프로그래머를 위해 의도된 에러 메시지이지, 최종 사용자에게는 무슨 일이 있었는지 무엇을 해야 하는지
 이해하는데 아무런 도움이 되지 않습니다. 당장 한번 고쳐보겠습니다.</p>
-<a class="header" href="#a에러-메시지-향상시키기" id="a에러-메시지-향상시키기"><h4>에러 메시지 향상시키기</h4></a>
+<a class="header" href="#에러-메시지-향상시키기" id="에러-메시지-향상시키기"><h4>에러 메시지 향상시키기</h4></a>
 <p>항목 12-8에서 <code>new</code>함수에 검사를 추가하여 인덱스 <code>1</code>과 <code>2</code>에 접근하기 전에 조각이
 충분한 길이인지를 확인합니다. 조각이 충분히 길지 않다면, 프로그램은 더 좋은 에러메시지
 <code>index out of bounds</code>를 보여주고 패닉을 일으킵니다:</p>
@@ -551,7 +555,7 @@ fn run(config: Config) -&gt; Result&lt;(), Box&lt;Error&gt;&gt; {
 값은 무조건 <code>()</code>일테니까요.</p>
 <p><code>if let</code>과 <code>unwrap_or_else</code> 함수의 내용은 동일한 경우에 동일한 동작을 합니다, 오류를
 출력하고 종료하죠.</p>
-<a class="header" href="#a라이브러리-크레이트로-코드를-나누기" id="a라이브러리-크레이트로-코드를-나누기"><h3>라이브러리 크레이트로 코드를 나누기</h3></a>
+<a class="header" href="#라이브러리-크레이트로-코드를-나누기" id="라이브러리-크레이트로-코드를-나누기"><h3>라이브러리 크레이트로 코드를 나누기</h3></a>
 <p>지금까지 꽤 좋아 보인다! 이제 우리는 <em>src/main.rs</em> 파일을 나눠서 <em>src/lib.rs</em>에 몇 개의 코드를 넣어서 테스트 할 수 있고 작은 <em>src/main.rs</em> 파일을 갖게 될 것입니다.</p>
 <p><em>src/main.rs</em>에 파편으로 존재하는 다음 코드들을 새 파일로 옮겨봅시다.
 <em>src/lib.rs</em>:</p>
@@ -598,7 +602,7 @@ pub fn run(config: Config) -&gt; Result&lt;(), Box&lt;Error&gt;&gt;{
 </code></pre>
 <p><span class="caption">항목 12-13: <code>Config</code>과 <code>run</code>을 <em>src/lib.rs</em>로 옮기기</span></p>
 <p>우리는 <code>Config</code>의 필드 및 <code>new</code> 메소드와 <code>run</code> 함수에 대해 <code>pub</code>을 자유롭게 사용했습니다. 이제 우리가 테스트 할 수있는 공개 API를 가진 라이브러리 크레이트가 생겼습니다.</p>
-<a class="header" href="#a바이너리-크레이트에서-라이브러리-크레이트-호출하기" id="a바이너리-크레이트에서-라이브러리-크레이트-호출하기"><h4>바이너리 크레이트에서 라이브러리 크레이트 호출하기</h4></a>
+<a class="header" href="#바이너리-크레이트에서-라이브러리-크레이트-호출하기" id="바이너리-크레이트에서-라이브러리-크레이트-호출하기"><h4>바이너리 크레이트에서 라이브러리 크레이트 호출하기</h4></a>
 <p>이제 우리는 <em>src/main.rs</em>에 있는 바이너리 크레이트의 범위에 <em>src/lib.rs</em>로 옮긴 코드를
 <code>extern crate greprs</code>를 사용하여 가져와야 합니다. 이후 <code>use greprs::Config</code>
 행을 추가하여 <code>Config</code> 타입을 범위로 가져오고 항목 12-14와 같이 크레이트 이름으로<code>run</code>

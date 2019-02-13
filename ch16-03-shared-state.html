@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a공유-상태-동시성" id="a공유-상태-동시성"><h2>공유 상태 동시성</h2></a>
+                        <a class="header" href="#공유-상태-동시성" id="공유-상태-동시성"><h2>공유 상태 동시성</h2></a>
 <p>메세지 패싱은 동시성을 다루는 좋은 방법이지만, 유일한 수단은
 아닙니다. Go 언어 문서로부터 나온 슬로건의 일부를 다시한번 고려해보죠:
 “메모리를 공유함으로써 소통하세요.”</p>
@@ -151,7 +155,7 @@
 러스트의 타입 시스템과 소유권 규칙은 이러한 관리를 올바르도록 훌륭히 유도합니다.
 예를 들면, 공유 메모리를 위한 더 일반적인 동시성의 기초 재료 중 하나인
 뮤텍스 (mutex)를 살펴 봅시다.</p>
-<a class="header" href="#a뮤텍스를-사용하여-한번에-한-스레드에서의-데이터-접근을-허용하기" id="a뮤텍스를-사용하여-한번에-한-스레드에서의-데이터-접근을-허용하기"><h3>뮤텍스를 사용하여 한번에 한 스레드에서의 데이터 접근을 허용하기</h3></a>
+<a class="header" href="#뮤텍스를-사용하여-한번에-한-스레드에서의-데이터-접근을-허용하기" id="뮤텍스를-사용하여-한번에-한-스레드에서의-데이터-접근을-허용하기"><h3>뮤텍스를 사용하여 한번에 한 스레드에서의 데이터 접근을 허용하기</h3></a>
 <p><em>뮤텍스</em>는 <em>상호 배제 (mutual exclusion)</em> 의 줄임말로서, 내부에서 뮤텍스는
 주어진 시간에 오직 하나의 스레드만 데이터 접근을 허용합니다. 뮤텍스 내부의 데이터에
 접근하기 위해서 스레드는 먼저 뮤텍스의 <em>락 (lock)</em> 을 얻기를 요청함으로써 접근을
@@ -217,7 +221,7 @@ fn main() {
 됩니다.</p>
 <p>락이 버려진 후, 뮤텍스 값을 출력하여 내부의 <code>i32</code>를 6으로 바꿀 수 있음을
 확인할 수 있습니다.</p>
-<a class="header" href="#a여러-스레드들-사이에서-mutext-공유하기" id="a여러-스레드들-사이에서-mutext-공유하기"><h4>여러 스레드들 사이에서 <code>Mutex&lt;T&gt;</code> 공유하기</h4></a>
+<a class="header" href="#여러-스레드들-사이에서-mutext-공유하기" id="여러-스레드들-사이에서-mutext-공유하기"><h4>여러 스레드들 사이에서 <code>Mutex&lt;T&gt;</code> 공유하기</h4></a>
 <p>이제 <code>Mutex&lt;T&gt;</code>를 사용하여 여러 스레드들 사이에서 값을 공유하는 시도를 해봅시다.
 우리는 10개의 스레드를 돌리고 이들이 카운터 값을 1만큼씩 증가 시켜서,
 카운터가 0에서 10으로 가도록 할 것입니다. 다음 몇 개의 예제가 컴파일
@@ -358,7 +362,7 @@ error: aborting due to 2 previous errors
 루프 내에 있었고, 러스트는 루프의 다른 반복 회체 내의 다른 스레드를 지적할 수
 없기 때문입니다. 우리가 15장에서 다루었던 복수 소유자 메소드를 이용하여 이 컴파일에러를
 고쳐봅시다.</p>
-<a class="header" href="#a여러-스레드들과-함께하는-복수-소유권" id="a여러-스레드들과-함께하는-복수-소유권"><h4>여러 스레드들과 함께하는 복수 소유권</h4></a>
+<a class="header" href="#여러-스레드들과-함께하는-복수-소유권" id="여러-스레드들과-함께하는-복수-소유권"><h4>여러 스레드들과 함께하는 복수 소유권</h4></a>
 <p>15장에서 우리는 참조 카운팅 값을 만들기 위해 스마트 포인터 <code>Rc&lt;T&gt;</code>을
 사용함으로써 값에게 복수의 소유권자를 주었습니다. 동일한 일을 여기서도 해서
 어떻게 되는지 봅시다. Listing 16-14에에서 <code>Mutex&lt;T&gt;</code>를 <code>Rc&lt;T&gt;</code>로 감싸서

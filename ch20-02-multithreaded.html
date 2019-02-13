@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a서버를-싱글-스레드에서-멀티-스레드로-바꾸기" id="a서버를-싱글-스레드에서-멀티-스레드로-바꾸기"><h2>서버를 싱글 스레드에서 멀티 스레드로 바꾸기</h2></a>
+                        <a class="header" href="#서버를-싱글-스레드에서-멀티-스레드로-바꾸기" id="서버를-싱글-스레드에서-멀티-스레드로-바꾸기"><h2>서버를 싱글 스레드에서 멀티 스레드로 바꾸기</h2></a>
 <p>현재, 서버는 한번에 하나의 요청만 처리할 것입니다.
 즉 첫번째 요청에 대한 작업이 끝나기 전에 두번째 요청이 들어온다면
 앞선 작업이 끝날때까지 대기하게 됩니다. 만약 서버가 훨씬 더 많은
@@ -144,7 +148,7 @@
 나중에 들어온 요청은 앞선 요청보다 더 빠르게 처리 될 수 있더라도
 긴 시간을 기다려야 할 것입니다.
 우린 이 문제를 해결해야 합니다만, 먼저 현재 우리의 문제를 살펴보도록 하죠.</p>
-<a class="header" href="#a현재-서버에서-느린-요청을-시뮬레이팅하기" id="a현재-서버에서-느린-요청을-시뮬레이팅하기"><h3>현재 서버에서 느린 요청을 시뮬레이팅하기</h3></a>
+<a class="header" href="#현재-서버에서-느린-요청을-시뮬레이팅하기" id="현재-서버에서-느린-요청을-시뮬레이팅하기"><h3>현재 서버에서 느린 요청을 시뮬레이팅하기</h3></a>
 <p>우린 현재의 우리가 만든 서버에서 느린 요청이 어떻게
 다른 요청들에게 영향을 미칠 수 있는지 살펴 볼 것입니다.
 Listing 20-10은 <code>/sleep</code> 요청을 처리할때 응답하기 전에
@@ -197,7 +201,7 @@ fn handle_connection(mut stream: TcpStream) {
 <p>우리 웹 서버가 모든 요청들을 느린 요청 뒤에 처리하도록 하는것을
 피하는 방법은 여러가지가 있지만, 그중 우리가 사용할 방법은
 스레드 풀 (thread pool) 입니다.</p>
-<a class="header" href="#a스레드-풀을-이용한-처리량-증진" id="a스레드-풀을-이용한-처리량-증진"><h3>스레드 풀을 이용한 처리량 증진</h3></a>
+<a class="header" href="#스레드-풀을-이용한-처리량-증진" id="스레드-풀을-이용한-처리량-증진"><h3>스레드 풀을 이용한 처리량 증진</h3></a>
 <p><em>스레드 풀</em> 은 대기중이거나 작업을 처리할 준비가 되어 있는
 스레드들의 그룹입니다. 프로그램이 새 작업을 받았을때,
 스레드 풀은 작업을 풀(pool) 안에 있는 스레드중 하나에게 맡기고
@@ -235,7 +239,7 @@ Rust같은 저레벨 언어로는 이와 같은 방법들이 전부 가능합니
 우린 여기서 컴파일러 주도 개발을 할 것입니다. 이는 우리가 원하는대로
 기능을 호출하는 코드를 작성하고, 컴파일러로부터의 에러를 조사하여
 어떻게 코드를 변화시켜야 작동시킬 수 있을지 알아내는 과정을 말합니다.</p>
-<a class="header" href="#a요청마다-스레드를-생성할-수-있는-코드-구조" id="a요청마다-스레드를-생성할-수-있는-코드-구조"><h4>요청마다 스레드를 생성할 수 있는 코드 구조</h4></a>
+<a class="header" href="#요청마다-스레드를-생성할-수-있는-코드-구조" id="요청마다-스레드를-생성할-수-있는-코드-구조"><h4>요청마다 스레드를 생성할 수 있는 코드 구조</h4></a>
 <p>먼저, 모든 연결에 대해 스레드를 새로 생성했을때의 코드는 어떤 모습이 될지 알아봅시다.
 물론 앞에서 말했듯이, 이는 스레드들을 무한대로 만들어낼 수 있기 때문에
 문제를 해결하기 위한 최종적인 대책은 될 수 없습니다만,
@@ -268,7 +272,7 @@ fn main() {
 둘 이상의 브라우저 탭으로 <code>/</code> 에 접속하신다면, <code>/</code> 로의 요청이
 <code>/sleep</code> 이 끝나길 기다리지 않고 완료 되는 것을 보실 수 있을 것입니다.
 하지만 말했듯이, 스레드를 무한정 생성하는 것은 결국 시스템의 과부화를 일으킬 것입니다.</p>
-<a class="header" href="#a유한-스레드-수를-위한-인터페이스-만들기" id="a유한-스레드-수를-위한-인터페이스-만들기"><h4>유한 스레드 수를 위한 인터페이스 만들기</h4></a>
+<a class="header" href="#유한-스레드-수를-위한-인터페이스-만들기" id="유한-스레드-수를-위한-인터페이스-만들기"><h4>유한 스레드 수를 위한 인터페이스 만들기</h4></a>
 <p>우린 스레드 풀을 비슷하고 익숙하게 작동하도록 만들어서
 스레드 풀 방식으로 변경할때 우리 API를 사용하는
 코드를 크게 변경할 필요가 없도록 하고자 합니다.
@@ -528,7 +532,7 @@ impl ThreadPool {
 두 버전을 비교해보세요.</p>
 <pre><code class="language-rust ignore">pub fn new(size: usize) -&gt; Result&lt;ThreadPool, PoolCreationError&gt; {
 </code></pre>
-<a class="header" href="#a스레드를-보관하기-위한-공간-생성하기" id="a스레드를-보관하기-위한-공간-생성하기"><h4>스레드를 보관하기 위한 공간 생성하기</h4></a>
+<a class="header" href="#스레드를-보관하기-위한-공간-생성하기" id="스레드를-보관하기-위한-공간-생성하기"><h4>스레드를 보관하기 위한 공간 생성하기</h4></a>
 <p>이제 우린 스레드풀에 보관할 스레드의 개수가 유효하단 것을 확인했으니,
 반환하기 전에 <code>ThreadPool</code> 구조체에 스레드들을 생성하고 보관해 놓을 수 있습니다.
 그런데, 어떻게 스레드를 &quot;보관&quot; 할까요?
@@ -681,7 +685,7 @@ impl Worker {
 <p>이 코드는 컴파일 되고 <code>Thread::new</code> 의 인자로서 지정된 <code>Worker</code> 인스턴스의 개수를 저장합니다.
 하지만 우린 <em>여전히</em> <code>execute</code> 에서 전달받은 클로저를 처리하지 않고 있습니다.
 다음에 그 작업을 수행하는 방법을 살펴 보겠습니다.</p>
-<a class="header" href="#a채널을-통해-스레드에-요청-보내기" id="a채널을-통해-스레드에-요청-보내기"><h4>채널을 통해 스레드에 요청 보내기</h4></a>
+<a class="header" href="#채널을-통해-스레드에-요청-보내기" id="채널을-통해-스레드에-요청-보내기"><h4>채널을 통해 스레드에 요청 보내기</h4></a>
 <p>이제 우린 <code>thread::spawn</code> 에 주어진 클로저가 아무것도 하지 않는다는 문제점을 해결할 겁니다.
 현재 우린 실행하고 싶은 클로저를 <code>execute</code> 메소드로 받고 있습니다.
 하지만 우리가 <code>thread::spawn</code> 에 전달할 클로저는 <code>ThreadPool</code> 의 생성중

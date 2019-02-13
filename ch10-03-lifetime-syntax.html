@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a라이프타임을-이용한-참조자-유효화" id="a라이프타임을-이용한-참조자-유효화"><h2>라이프타임을 이용한 참조자 유효화</h2></a>
+                        <a class="header" href="#라이프타임을-이용한-참조자-유효화" id="라이프타임을-이용한-참조자-유효화"><h2>라이프타임을 이용한 참조자 유효화</h2></a>
 <p>4장에서 참조자에 대한 이야기를 할 때, 중요한 디테일을 한 가지 남겨두었습니다: 러스트에서 모든 참조자는
 <em>라이프타임(lifetime)</em> 을 갖는데, 이는 해당 참조자가 유효한 스코프입니다. 대부분의 경우에서 타입들이
 추론되는 것과 마찬가지로, 대부분의 경우에서 라이프타임 또한 암묵적이며 추론됩니다. 여러 가지 타입이
@@ -148,7 +152,7 @@
 <p>라이프타임은 이 장에서 전체를 다룰 수 없는 큰 주제이므로, 이 장에서는 여러분이 이 개념에 친숙해질 수
 있도록 여러분이 라이프타임 문법을 맞닥뜨릴 흔한 경우에 대해 다룰 것입니다. 19장에서는 라이프타임이
 할 수 있는 좀 더 상급 정보를 다룰 것입니다.</p>
-<a class="header" href="#a라이프타임은-댕글링-참조자를-방지합니다" id="a라이프타임은-댕글링-참조자를-방지합니다"><h3>라이프타임은 댕글링 참조자를 방지합니다</h3></a>
+<a class="header" href="#라이프타임은-댕글링-참조자를-방지합니다" id="라이프타임은-댕글링-참조자를-방지합니다"><h3>라이프타임은 댕글링 참조자를 방지합니다</h3></a>
 <p>라이프타임의 주목적은 댕글링 참조자(dangling reference)를 방지하는 것인데, 댕글링 참조자는
 프로그램이 우리가 참조하기로 의도한 데이터가 아닌 다른 데이터를 참조하는 원인이 됩니다.
 Listing 10-16의 프로그램과 같이 외부 스코프와 내부 스코프를 가진 프로그램을 생각해봅니다.
@@ -169,7 +173,7 @@ Listing 10-16의 프로그램과 같이 외부 스코프와 내부 스코프를 
 <p><span class="caption">Listing 10-16: 스코프 밖으로 벗어난 값에 대한 참조자를 사용하는
 시도</span></p>
 <blockquote>
-<a class="header" href="#a초기화되지-않은-변수는-사용할-수-없습니다" id="a초기화되지-않은-변수는-사용할-수-없습니다"><h4>초기화되지 않은 변수는 사용할 수 없습니다</h4></a>
+<a class="header" href="#초기화되지-않은-변수는-사용할-수-없습니다" id="초기화되지-않은-변수는-사용할-수-없습니다"><h4>초기화되지 않은 변수는 사용할 수 없습니다</h4></a>
 <p>다음에 나올 몇 가지 예제는 초기값을 주지 않고 변수를 선언하고 있으며, 따라서 해당 변수의 이름이 외부
 스코프에 존재하고 있습니다. 이는 러스트가 널(null) 값을 갖지 않는다는 개념과 충돌을 일으키는 것처럼
 보일지도 모릅니다. 그러나, 우리가 값을 제공하기 전에 변수를 사용하고자 시도하면, 컴파일 에러가 나올
@@ -193,7 +197,7 @@ Listing 10-16의 프로그램과 같이 외부 스코프와 내부 스코프를 
 밖으로 벗어났을 때 할당이 해제되는 메모리를 참조하게 될 것이고, <code>r</code>을 가지고 시도하려 했던
 어떤 것이든 정확히 동작하지 않게 될 것입니다. 그렇다면 러스트는 이 코드가 허용되어서는 안 된다는
 것을 어떻게 결정할까요?</p>
-<a class="header" href="#a빌림-검사기borrow-checker" id="a빌림-검사기borrow-checker"><h4>빌림 검사기(Borrow checker)</h4></a>
+<a class="header" href="#빌림-검사기borrow-checker" id="빌림-검사기borrow-checker"><h4>빌림 검사기(Borrow checker)</h4></a>
 <p><em>빌림 검사기(borrow checker)</em> 라고 불리는 컴파일러의 부분이 모든 빌림이 유효한지를 결정하기
 위해 스코프를 비교합니다. Listing 10-17은 변수들의 라이프타임을 보여주는 주석과 함께
 Listing 10-16과 동일한 예제를 보여줍니다:</p>
@@ -245,7 +249,7 @@ looking arrows and labels? /Carol -->
 <p>지금까지 참조자의 라이프타임이 구제적인 예제 어디에 나오는지를 보았고 러스트가 어떻게 라이프타임을
 분석하여 참조자가 항상 유효하도록 확신시키는지를 논의했으니, 이제 함수의 내용물 내에 있는 파라미터와
 반환 값에 대한 제네릭 라이프타임에 대하여 이야기해 봅시다.</p>
-<a class="header" href="#a함수에서의-제네릭-라이프타임" id="a함수에서의-제네릭-라이프타임"><h3>함수에서의 제네릭 라이프타임</h3></a>
+<a class="header" href="#함수에서의-제네릭-라이프타임" id="함수에서의-제네릭-라이프타임"><h3>함수에서의 제네릭 라이프타임</h3></a>
 <p>두 스트링 슬라이스 중에서 긴 쪽을 반환하는 함수를 작성해 봅시다. 이 함수에 두 개의 스트링 슬라이스를
 넘겨서 호출할 수 있기를 원하고, 스트링 슬라이스를 반환하기를 원합니다. Listing 10-19의 코드는
 <code>longest</code> 함수를 구현하면 <code>The longest string is abcd</code>를 출력해야 합니다:</p>
@@ -315,7 +319,7 @@ Listing 10-17과 10-18에서 했던 것과 같이 스코프를 살펴볼 수도 
 이를 결정할 수 없는데, 그 이유는 <code>x</code>와 <code>y</code>의 라이프타임이 반환 값의 라이프타임과 어떻게 연관되어
 있는지 알지 못하기 때문입니다. 우리는 참조자들 간의 관계를 정의하는 제네릭 라이프타임 파라미터를 추가하여
 빌림 검사기가 분석을 수행할 수 있도록 할 것입니다.</p>
-<a class="header" href="#a라이프타임-명시-문법" id="a라이프타임-명시-문법"><h3>라이프타임 명시 문법</h3></a>
+<a class="header" href="#라이프타임-명시-문법" id="라이프타임-명시-문법"><h3>라이프타임 명시 문법</h3></a>
 <p>라이프타임 명시는 연관된 참조자가 얼마나 오랫동안 살게 되는지를 바꾸지는 않습니다. 함수의 시그니처가
 제네릭 타입 파라미터를 특정할 때 이 함수가 어떠한 타입이든 허용할 수 있는 것과 같은 방식으로,
 함수의 시그니처가 제네릭 라이프타임 파라미터를 특정할 때라면 이 함수는 어떠한 라이프타임을 가진
@@ -339,7 +343,7 @@ Listing 10-17과 10-18에서 했던 것과 같이 스코프를 살펴볼 수도 
 <code>second</code>를 또 다른 파라미터로 가진 함수가 있다면, 이 두 개의 같은 이름을 가진 라이프타임
 명시는 참조자 <code>first</code>와 <code>second</code>가 돌다 동일한 제네릭 라이프타임만큼 살아야 한다는
 것을 가리킵니다.</p>
-<a class="header" href="#a함수-시그니처-내의-라이프타임-명시" id="a함수-시그니처-내의-라이프타임-명시"><h3>함수 시그니처 내의 라이프타임 명시</h3></a>
+<a class="header" href="#함수-시그니처-내의-라이프타임-명시" id="함수-시그니처-내의-라이프타임-명시"><h3>함수 시그니처 내의 라이프타임 명시</h3></a>
 <p>우리가 작업하고 있던 <code>longest</code> 함수의 내용 중에서 라이프타임 명시 부분을 살펴봅시다.
 제네릭 타입 파라미터와 마찬가지로, 제네릭 라이프타임 파라미터도 함수 이름과 파라미터 리스트
 사이에 꺾쇠괄호를 쓰고 그 안에 정의가 되어야 합니다. 우리가 파라미터들과 반환 값에서의 참조자들에
@@ -450,7 +454,7 @@ Listing 10-23의 코드는 컴파일되지 않을 것입니다:</p>
 <p><code>longest</code> 함수에 넘겨질 참조자들의 값과 라이프타임들, 그리고 반환된 참조자를 어떻게 이용하는지를
 다양화하여 더 많은 실험들을 디자인해 시도해보세요. 컴파일하기 전에 여러분의 실험이 빌림 검사기를
 통과할지 안 할지에 대한 가설을 세워보고, 여러분이 맞았는지 확인해보세요!</p>
-<a class="header" href="#a라이프타임의-측면에서-생각하기" id="a라이프타임의-측면에서-생각하기"><h3>라이프타임의 측면에서 생각하기</h3></a>
+<a class="header" href="#라이프타임의-측면에서-생각하기" id="라이프타임의-측면에서-생각하기"><h3>라이프타임의 측면에서 생각하기</h3></a>
 <p>라이프타임 파라미터를 특정하는 정확한 방법은 여러분의 함수가 어떤 일을 하고 있는가에 따라 달린 문제입니다.
 예를 들면, <code>longest</code> 함수의 구현을 제일 긴 스트링 슬라이스 대신 항상 첫 번째 인자를 반환하도록
 바꾸었다면, <code>y</code> 파라미터에 대한 라이프타임을 특정할 필요는 없을 것입니다. 아래 코드는 컴파일됩니다:</p>
@@ -500,7 +504,7 @@ at 1:44...
 <p>궁극적으로, 라이프타임 문법은 함수들의 다양한 인자들과 반환 값 사이를 연결하는 것에 대한 것입니다.
 이들이 일단 연결되고 나면, 러스트는 메모리에 안전한 연산들을 허용하고 댕글링 포인터를 생성하거나
 그렇지 않은 경우 메모리 안전을 위배하게 될 연산들을 배제하기에 충분한 정보를 갖게 됩니다.</p>
-<a class="header" href="#a구조체-정의-상에서의-라이프타임-명시" id="a구조체-정의-상에서의-라이프타임-명시"><h3>구조체 정의 상에서의 라이프타임 명시</h3></a>
+<a class="header" href="#구조체-정의-상에서의-라이프타임-명시" id="구조체-정의-상에서의-라이프타임-명시"><h3>구조체 정의 상에서의 라이프타임 명시</h3></a>
 <p>현재까지 우리는 소유권 있는 타입만 들고 있는 구조체들만 정의해왔습니다. 구조체가 참조자를 들고
 있도록 할 수 있지만, 구조체 정의 내의 모든 참조자들에 대하여 라이프타임을 표시할 필요가 있습니다.
 Listing 10-24에 스트링 슬라이스를 들고 있는 <code>ImportantExcerpt</code>라고 명명된 구조체가 있습니다:</p>
@@ -525,7 +529,7 @@ fn main() {
 이용할 수 있도록 해야 합니다.</p>
 <p>여기 이 <code>main</code> 함수는 변수 <code>novel</code>이 소유하고 있는 <code>String</code>의 첫 문장에 대한 참조자를
 들고 있는 <code>ImportantExcerpt</code> 구조체의 인스턴스를 생성합니다.</p>
-<a class="header" href="#a라이프타임-생략" id="a라이프타임-생략"><h3>라이프타임 생략</h3></a>
+<a class="header" href="#라이프타임-생략" id="라이프타임-생략"><h3>라이프타임 생략</h3></a>
 <p>이 절에서, 우리는 모든 참조자가 라이프타임을 가지고 있으며, 참조자를 사용하는 함수나 구조체에 대하여
 라이프타임 파라미터를 특정할 필요가 있다고 배웠습니다. 하지만, Listing 10-25에서 다시 보여주듯이,
 4장의 &quot;스트링 슬라이스&quot;절의 함수는 라이프타임 명시 없이도 컴파일이 됐었지요:</p>
@@ -627,7 +631,7 @@ to annotate lifetimes in method signatures very often.
 세번째 규칙이 오직 메소드 시그니처에 대해서만 실제로 적용되므로, 이제 그러한 경우에서의 라이프타임을
 살펴보고, 어째서 세번서 규칙이 메소드 시그니처의 라이프타임을 매우 흔하게 생략해도 된다는 것을
 의미하는지 알아봅시다.</p>
-<a class="header" href="#a메소드-정의-내에서의-라이프타임-명시" id="a메소드-정의-내에서의-라이프타임-명시"><h3>메소드 정의 내에서의 라이프타임 명시</h3></a>
+<a class="header" href="#메소드-정의-내에서의-라이프타임-명시" id="메소드-정의-내에서의-라이프타임-명시"><h3>메소드 정의 내에서의 라이프타임 명시</h3></a>
 <!-- Is this different to the reference lifetime annotations, or just a
 finalized explanation? -->
 <!-- This is about lifetimes on references in method signatures, which is where
@@ -679,7 +683,7 @@ impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
 <p>두 개의 입력 라이프타임이 있으므로, 러스트는 첫 번째 라이프타임 생략 규칙을 적용하여 <code>&amp;self</code>와
 <code>announcement</code>에게 각각 라이프타임을 부여합니다. 그다음, 파라미터 중 하나가 <code>&amp;self</code>이므로,
 반환 타입은 <code>&amp;self</code>의 라이프타임을 얻고, 모든 라이프타임들이 추론되었습니다.</p>
-<a class="header" href="#a정적-라이프타임static-lifetime" id="a정적-라이프타임static-lifetime"><h3>정적 라이프타임(Static lifetime)</h3></a>
+<a class="header" href="#정적-라이프타임static-lifetime" id="정적-라이프타임static-lifetime"><h3>정적 라이프타임(Static lifetime)</h3></a>
 <p>우리가 논의할 필요가 있는 특별한 라이프타임이 <em>딱 하나</em> 있습니다: 바로 <code>'static</code>입니다.
 <code>'static</code> 라이프타임은 프로그램의 전체 생애주기를 가리킵니다. 모든 스트링 리터럴은 <code>'static</code>
 라이프타임을 가지고 있는데, 아래와 같이 명시하는 쪽을 선택할 수 있습니다:</p>
@@ -698,7 +702,7 @@ let s: &amp;'static str = &quot;I have a static lifetime.&quot;;
 싶어 할지라도 말이죠). 대부분의 경우, 코드 내의 문제는 댕글링 참조자를 만드는 시도 혹은 사용 가능한
 라이프타임들의 불일치이며, 해결책은 이 문제들을 해결하는 것이지 <code>'static</code> 라이프타임으로 특정하는
 것이 아닙니다.</p>
-<a class="header" href="#a제네릭-타입-파라미터-트레잇-바운드-라이프타임을-함께-써보기" id="a제네릭-타입-파라미터-트레잇-바운드-라이프타임을-함께-써보기"><h3>제네릭 타입 파라미터, 트레잇 바운드, 라이프타임을 함께 써보기</h3></a>
+<a class="header" href="#제네릭-타입-파라미터-트레잇-바운드-라이프타임을-함께-써보기" id="제네릭-타입-파라미터-트레잇-바운드-라이프타임을-함께-써보기"><h3>제네릭 타입 파라미터, 트레잇 바운드, 라이프타임을 함께 써보기</h3></a>
 <p>그럼 제네릭 타입 파라미터, 트레잇 바운드, 그리고 라이프타임이 하나의 함수에 모두 특정된 문법을
 간단하게 살펴봅시다!</p>
 <pre><pre class="playpen"><code class="language-rust">
@@ -723,7 +727,7 @@ fn longest_with_an_announcement&lt;'a, T&gt;(x: &amp;'a str, y: &amp;'a str, ann
 함수가 스트링 슬라이스들의 길이를 비교하기 전 출력될 것인데, 이것이 <code>Display</code> 트레잇 바운드가 필요한
 이유지요. 라이프타임이 제네릭의 한 종류이므로, 라이프타임 파라미터 <code>'a</code>와 제네릭 타입 파라미터 <code>T</code>
 둘 모두에 대한 선언이 함수 이름 뒤 꺾쇠괄호 내에 나열되어 있습니다.</p>
-<a class="header" href="#a정리" id="a정리"><h2>정리</h2></a>
+<a class="header" href="#정리" id="정리"><h2>정리</h2></a>
 <p>이번 절에서 참 많은 것을 다루었습니다! 이제 여러분은 제네릭 타입 파라미터, 트레잇과 트레잇 바운드,
 그리고 제네릭 라이프타임 파라미터에 대해 알게되었으니, 여러분은 중복되지 않지만 많은 서로 다른
 상활들에서 사용 가능한 코드를 작성할 준비가 되었습니다. 제네릭 타입 파라미터는 코드가 서로 다른

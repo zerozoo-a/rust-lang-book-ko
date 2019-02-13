@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a테스트의-실행-방식-제어하기" id="a테스트의-실행-방식-제어하기"><h2>테스트의 실행 방식 제어하기</h2></a>
+                        <a class="header" href="#테스트의-실행-방식-제어하기" id="테스트의-실행-방식-제어하기"><h2>테스트의 실행 방식 제어하기</h2></a>
 <p><code>cargo run</code>이 여러분의 코드를 컴파일하고 난 뒤 그 결과인 바이너리를 실행하는 것과 마찬가지로,
 <code>cargo test</code>는 여러분의 코드를 테스트 모드에서 컴파일하고 결과로 발생한 테스트 바이너리를 실행합니다.
 여러분은 커맨드 라인 옵션을 지정하여 <code>cargo test</code>의 기본 동작을 변경할 수 있습니다.
@@ -149,7 +153,7 @@
 나열합니다. <code>cargo test --help</code>를 실행하는 것은 <code>cargo test</code>에서 사용할 수 있는 옵션을
 표시하고, <code>cargo test -- --help</code>를 실행하는 것은 구분자 <code>--</code> 이후에 나올 수 있는
 옵션을 표시합니다.</p>
-<a class="header" href="#a테스트를-병렬-혹은-연속으로-실행하기" id="a테스트를-병렬-혹은-연속으로-실행하기"><h3>테스트를 병렬 혹은 연속으로 실행하기</h3></a>
+<a class="header" href="#테스트를-병렬-혹은-연속으로-실행하기" id="테스트를-병렬-혹은-연속으로-실행하기"><h3>테스트를 병렬 혹은 연속으로 실행하기</h3></a>
 <p>여러 개의 테스트를 실행할 때는, 기본적으로 스레드를 이용하여 병렬적으로 수행됩니다. 이는 테스트가
 더 빠르게 실행되어 끝낼 수 있다는 의미이므로, 우리의 코드가 잘 동작하는지 혹은 그렇지 않은지에
 대한 피드백을 더 빨리 얻을 수 있습니다. 테스트가 동시에 실행되므로, 여러분의 테스트가 서로
@@ -170,7 +174,7 @@
 <p>여기서는 테스트 스레드의 개수에 1을 지정했는데, 이는 프로그램이 어떠한 병렬 처리도 사용하지 않음을
 얘기해줍니다. 테스트를 하나의 스레드에서 실행하는 것은 병렬로 수행하는 것에 비해 시간이 더 오래
 걸리겠지만, 테스트들이 어떤 상태를 공유할 경우 서로가 간섭할 가능성이 없어질 것입니다.</p>
-<a class="header" href="#a함수-결과-보여주기" id="a함수-결과-보여주기"><h3>함수 결과 보여주기</h3></a>
+<a class="header" href="#함수-결과-보여주기" id="함수-결과-보여주기"><h3>함수 결과 보여주기</h3></a>
 <p>기본적으로 어떤 테스트가 통과하면, 러스트의 테스트 라이브러리는 표준 출력(standard output)으로
 출력되는 어떤 것이든 캡처합니다. 예를 들면, 우리가 테스트 내에서 <code>println!</code>을 호출하고 이 테스트가
 통과하면, <code>println!</code> 출력을 터미널에서 볼 수 없습니다: 우리는 오직 그 테스트가 통과되었다고 표시된
@@ -253,7 +257,7 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <p>테스트에서의 출력과 테스트 결과 출력이 분리된 점을 주목하세요; 이는 우리가 이전 절에서 다룬 내용처럼
 테스트가 병렬적으로 수행되기 때문입니다. <code>--test-threads=1</code> 옵션과 <code>--nocapture</code> 기능을
 동시에 시도하고 출력이 어떻게 바뀌는지를 확인해 보세요!</p>
-<a class="header" href="#a이름으로-테스트의-일부분만-실행하기" id="a이름으로-테스트의-일부분만-실행하기"><h3>이름으로 테스트의 일부분만 실행하기</h3></a>
+<a class="header" href="#이름으로-테스트의-일부분만-실행하기" id="이름으로-테스트의-일부분만-실행하기"><h3>이름으로 테스트의 일부분만 실행하기</h3></a>
 <p>가끔, 모든 테스트 셋을 실행하는 것은 시간이 오래 걸릴 수 있습니다. 만일 여러분이 특정 영역의 코드에
 대해서 작업하고 있다면, 그 코드와 연관된 테스트만 실행시키고 싶어 할 수도 있습니다. 여러분은
 <code>cargo test</code>에 여러분이 실행시키고 싶어 하는 테스트(들)의 이름들을 인자로 넘김으로써 어떤
@@ -297,7 +301,7 @@ test tests::one_hundred ... ok
 
 test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 </code></pre>
-<a class="header" href="#a단일-테스트-실행하기" id="a단일-테스트-실행하기"><h4>단일 테스트 실행하기</h4></a>
+<a class="header" href="#단일-테스트-실행하기" id="단일-테스트-실행하기"><h4>단일 테스트 실행하기</h4></a>
 <p>단 하나의 테스트만 실행시키기 위해 <code>cargo test</code>에 그 테스트 함수의 이름을 넘길 수 있습니다:</p>
 <pre><code class="language-text">$ cargo test one_hundred
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
@@ -313,7 +317,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out
 많은 테스트를 가지고 있음을 우리에게 알려줍니다.</p>
 <p>이 방법으로는 여러 테스트의 이름들을 특정할 수는 없고, <code>cargo test</code>에 주어진 제일 첫 번째 값만
 이용될 것입니다.</p>
-<a class="header" href="#a여러-개의-테스트를-실행시키기-위한-필터링" id="a여러-개의-테스트를-실행시키기-위한-필터링"><h4>여러 개의 테스트를 실행시키기 위한 필터링</h4></a>
+<a class="header" href="#여러-개의-테스트를-실행시키기-위한-필터링" id="여러-개의-테스트를-실행시키기-위한-필터링"><h4>여러 개의 테스트를 실행시키기 위한 필터링</h4></a>
 <p>우리는 테스트 이름의 일부분을 특정할 수 있고, 해당 값과 일치하는 이름의 테스트가 실행될 것입니다.
 예를 들면, 우리의 테스트 이름들 중에서 두 개가 <code>add</code>를 포함하므로, <code>cargo test add</code>라고
 실행하여 이 두 개의 테스트를 실행시킬 수 있습니다:</p>
@@ -330,7 +334,7 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out
 <p>이는 <code>add</code>가 이름에 포함된 모든 테스트를 실행시켰고 <code>one_hundred</code>라는 이름의 테스트를 걸러냈습니다.
 또한 테스트가 있는 모듈이 테스트의 이름의 일부가 되어 있으므로, 모듈의 이름으로 필터링하여 그 모듈
 내의 모든 테스트를 실행시킬 수 있다는 점도 주목하세요.</p>
-<a class="header" href="#a특별한-요청이-없는-한-몇몇-테스트들-무시하기" id="a특별한-요청이-없는-한-몇몇-테스트들-무시하기"><h3>특별한 요청이 없는 한 몇몇 테스트들 무시하기</h3></a>
+<a class="header" href="#특별한-요청이-없는-한-몇몇-테스트들-무시하기" id="특별한-요청이-없는-한-몇몇-테스트들-무시하기"><h3>특별한 요청이 없는 한 몇몇 테스트들 무시하기</h3></a>
 <p>이따금씩 몇몇 특정 테스트들은 실행하는데 너무나 시간이 많이 소모될 수 있어서, 여러분은 <code>cargo test</code>의
 실행 시 이 테스트들을 배제하고 싶어 할지도 모릅니다. 여러분이 실행시키고자 하는 모든 테스트들을 인자로서
 열거하는 것 대신, 다음과 같이 시간이 많이 걸리는 테스트들에 <code>ignore</code> 속성을 어노테이션하여 이들을

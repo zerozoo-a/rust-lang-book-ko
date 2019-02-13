@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a해쉬맵hash-map" id="a해쉬맵hash-map"><h2>해쉬맵(hash map)</h2></a>
+                        <a class="header" href="#해쉬맵hash-map" id="해쉬맵hash-map"><h2>해쉬맵(hash map)</h2></a>
 <p>마지막으로 볼 일반적인 컬렉션은 <em>해쉬맵</em>입니다. <code>HashMap&lt;K, V&gt;</code> 타입은 <code>K</code> 타입의 키에
 <code>V</code> 타입의 값을 매핑한 것을 저장합니다. 이 매핑은 <em>해쉬 함수(hashing function)</em> 을 통해
 동작하는데, 해쉬 함수는 이 키와 값을 메모리 어디에 저장할지 결정합니다. 많은 다른 프로그래밍 언어들도
@@ -149,7 +153,7 @@
 <p>이 장에서는 해쉬맵의 기본 API를 다룰 것이지만, 표준 라이브러리의 <code>HashMap</code>에 정의되어 있는
 함수 중에는 더 좋은 것들이 숨어있습니다. 항상 말했듯이, 더 많은 정보를 원하신다면 표준 라이브러리
 문서를 확인하세요.</p>
-<a class="header" href="#a새로운-해쉬맵-생성하기" id="a새로운-해쉬맵-생성하기"><h3>새로운 해쉬맵 생성하기</h3></a>
+<a class="header" href="#새로운-해쉬맵-생성하기" id="새로운-해쉬맵-생성하기"><h3>새로운 해쉬맵 생성하기</h3></a>
 <p>우리는 빈 해쉬맵을 <code>new</code>로 생성할 수 있고, <code>insert</code>를 이용하여 요소를 추가할 수 있습니다.
 Listing 8-20에서, 우리는 팀 이름이 각각 블루(Blue)와 옐로우(Yellow)인 두 팀의 점수를
 유지하고 있습니다. 블루 팀은 10점, 옐로우 팀은 50점으로 시작할 것입니다:</p>
@@ -194,7 +198,7 @@ let scores: HashMap&lt;_, _&gt; = teams.iter().zip(initial_scores.iter()).collec
 러스트는 여러분이 특정하지 않으면 어떤 것을 원하는지 모르기 때문입니다. 그러나 키와 값의 타입에 대한
 타입 파라미터에 대해서는 밑줄을 쓸 수 있으며 러스트는 벡터에 담긴 데이터의 타입에 기초하여 해쉬에
 담길 타입을 추론할 수 있습니다.</p>
-<a class="header" href="#a해쉬맵과-소유권" id="a해쉬맵과-소유권"><h3>해쉬맵과 소유권</h3></a>
+<a class="header" href="#해쉬맵과-소유권" id="해쉬맵과-소유권"><h3>해쉬맵과 소유권</h3></a>
 <p><code>i32</code>와 같이 <code>Copy</code> 트레잇을 구현한 타입에 대하여, 그 값들은 해쉬맵 안으로 복사됩니다. <code>String</code>과
 같이 소유된 값들에 대해서는, 아래의 Listing 8-22와 같이 값들이 이동되어 해쉬맵이 그 값들에 대한
 소유자가 될 것입니다:</p>
@@ -218,7 +222,7 @@ map.insert(field_name, field_value);
 <p>만일 우리가 해쉬맵에 값들의 참조자들을 삽입한다면, 이 값들은 해쉬맵으로 이동되지 않을 것입니다. 하지만
 참조자가 가리키고 있는 값은 해쉬맵이 유효할 때까지 계속 유효해야합니다. 이것과 관련하여 10장의
 “라이프타임을 이용한 참조자 유효화”절에서 더 자세히 이야기할 것입니다.</p>
-<a class="header" href="#a해쉬맵-내의-값-접근하기" id="a해쉬맵-내의-값-접근하기"><h3>해쉬맵 내의 값 접근하기</h3></a>
+<a class="header" href="#해쉬맵-내의-값-접근하기" id="해쉬맵-내의-값-접근하기"><h3>해쉬맵 내의 값 접근하기</h3></a>
 <p>Listing 8-23과 같이 해쉬맵의 <code>get</code> 메소드에 키를 제공하여 해쉬맵으로부터 값을 얻어올 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
@@ -258,14 +262,14 @@ for (key, value) in &amp;scores {
 <pre><code class="language-text">Yellow: 50
 Blue: 10
 </code></pre>
-<a class="header" href="#a해쉬맵-갱신하기" id="a해쉬맵-갱신하기"><h3>해쉬맵 갱신하기</h3></a>
+<a class="header" href="#해쉬맵-갱신하기" id="해쉬맵-갱신하기"><h3>해쉬맵 갱신하기</h3></a>
 <p>키와 값의 개수가 증가할 수 있을지라도, 각각의 개별적인 키는 한번에 연관된 값 하나만을 가질 수 있습니다.
 해쉬맵 내의 데이터를 변경하길 원한다면, 키에 이미 값이 할당되어 있을 경우에 대한 처리를 어떻게 할지
 결정해야 합니다. 예전 값을 완전히 무시하면서 예전 값을 새 값으로 대신하할 수도 있습니다.
 혹은 예전 값을 계속 유지하면서 새 값은 무시하고, 해당 키에 값이 할당되지 <em>않을</em> 경우에만 새 값을
 추가하는 방법을 선택할 수도 있습니다. 또는 예전 값과 새 값을 조합할 수도 있습니다. 각각의 경우를
 어떻게 할지 살펴봅시다!</p>
-<a class="header" href="#a값을-덮어쓰기" id="a값을-덮어쓰기"><h4>값을 덮어쓰기</h4></a>
+<a class="header" href="#값을-덮어쓰기" id="값을-덮어쓰기"><h4>값을 덮어쓰기</h4></a>
 <p>만일 해쉬맵에 키와 값을 삽입하고, 그 후 똑같은 키에 다른 값을 십입하면, 키에 연관지어진 값은 새 값으로
 대신될 것입니다. 아래 Listing 8-24의 코드가 <code>insert</code>를 두 번 호출함에도, 해쉬맵은 딱 하나의
 키/값 쌍을 담게 될 것인데 그 이유는 두 번 모두 블루 팀의 키에 대한 값을 삽입하고 있기 때문입니다:</p>
@@ -283,7 +287,7 @@ println!(&quot;{:?}&quot;, scores);
 #}</code></pre></pre>
 <p><span class="caption">Listing 8-24: 특정한 키로 저장된 값을 덮어쓰기</span></p>
 <p>이 코드는 <code>{&quot;Blue&quot;: 25}</code>를 출력할 것입니다. 원래의 값 10은 덮어써졌습니다.</p>
-<a class="header" href="#a키에-할당된-값이-없을-경우에만-삽입하기" id="a키에-할당된-값이-없을-경우에만-삽입하기"><h4>키에 할당된 값이 없을 경우에만 삽입하기</h4></a>
+<a class="header" href="#키에-할당된-값이-없을-경우에만-삽입하기" id="키에-할당된-값이-없을-경우에만-삽입하기"><h4>키에 할당된 값이 없을 경우에만 삽입하기</h4></a>
 <p>특정 키가 값을 가지고 있는지 검사하고, 만일 가지고 있지 않다면 이 키에 대한 값을 삽입하고자 하는 경우는
 흔히 발생합니다. 해쉬맵은 이를 위하여 <code>entry</code>라고 하는 특별한 API를 가지고 있는데, 이는 우리가 검사하고자
 하는 키를 파라미터로 받습니다. <code>entry</code> 함수의 리턴값은 열거형 <code>Entry</code>인데, 해당 키가 있는지 혹은
@@ -313,7 +317,7 @@ println!(&quot;{:?}&quot;, scores);
 <code>entry</code> 호출은 옐로우 팀에 대한 키에 대하여 값 50을 삽입하는데, 이는 옐로우 팀이 값을 가지고 있지
 않기 떄문입니다. 두번째 <code>entry</code> 호출은 해쉬맵을 변경하지 않는데, 왜냐하면 블루 팀은 이미 값 10을
 가지고 있기 때문입니다.</p>
-<a class="header" href="#a예전-값을-기초로-값을-갱신하기" id="a예전-값을-기초로-값을-갱신하기"><h4>예전 값을 기초로 값을 갱신하기</h4></a>
+<a class="header" href="#예전-값을-기초로-값을-갱신하기" id="예전-값을-기초로-값을-갱신하기"><h4>예전 값을 기초로 값을 갱신하기</h4></a>
 <p>해쉬맵에 대한 또다른 흔한 사용 방식은 키에 대한 값을 찾아서 예전 값에 기초하여 값을 갱신하는 것입니다.
 예를 들어, Listing 8-26은 어떤 텍스트 내에 각 단어가 몇번이나 나왔는지를 세는 코드를 보여줍니다.
 단어를 키로 사용하는 해쉬맵을 이용하여 해당 단어가 몇번이나 나왔는지를 유지하기 위해 값을 증가시켜 줍니다.
@@ -341,7 +345,7 @@ println!(&quot;{:?}&quot;, map);
 가변 참조자를 저장하였고, 여기에 값을 할당하기 위해 먼저 애스터리스크 (<code>*</code>)를 사용하여 <code>count</code>를
 역참조해야 합니다. 가변 참조자는 <code>for</code> 루프의 끝에서 스코프 밖으로 벗어나고, 따라서 모든 값들의 변경은
 안전하며 빌림 규칙에 위배되지 않습니다.</p>
-<a class="header" href="#a해쉬-함수" id="a해쉬-함수"><h3>해쉬 함수</h3></a>
+<a class="header" href="#해쉬-함수" id="해쉬-함수"><h3>해쉬 함수</h3></a>
 <p>기본적으로, <code>HashMap</code>은 서비스 거부 공격(Denial of Service(DoS) attack)에 저항 기능을 제공할
 수 있는 암호학적으로 보안되는 해쉬 함수를 사용합니다. 이는 사용 가능한 가장 빠른 해쉬 알고리즘은 아니지만,
 성능을 떨어트리면서 더 나은 보안을 취하는 거래는 가치가 있습니다. 만일 여러분이 여러분의 코드를 프로파일하여
@@ -350,7 +354,7 @@ println!(&quot;{:?}&quot;, map);
 구현하는지에 대해서는 10장에서 다룰 것입니다. 여러분의 해쉬어를 바닥부터 새로 구현해야할 필요는 없습니다;
 <a href="https://crates.io">crates.io</a>에서는 많은 수의 범용적인 해쉬 알고리즘을 구현한 해쉬어를 제공하는
 공유 라이브러리를 제공합니다.</p>
-<a class="header" href="#a정리" id="a정리"><h2>정리</h2></a>
+<a class="header" href="#정리" id="정리"><h2>정리</h2></a>
 <p>벡터, 스트링, 그리고 해쉬맵은 프로그램 내에서 여러분이 데이터를 저장하고, 접근하고, 수정하고 싶어하는
 곳마다 필요한 수많은 기능들을 제공해줄 것입니다. 이제 여러분이 풀 준비가 되어있어야 할만한 몇가지
 연습문제를 소개합니다:</p>

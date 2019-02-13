@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a트레잇-객체를-사용하여-다른-타입-간의-값-허용하기" id="a트레잇-객체를-사용하여-다른-타입-간의-값-허용하기"><h2>트레잇 객체를 사용하여 다른 타입 간의 값 허용하기</h2></a>
+                        <a class="header" href="#트레잇-객체를-사용하여-다른-타입-간의-값-허용하기" id="트레잇-객체를-사용하여-다른-타입-간의-값-허용하기"><h2>트레잇 객체를 사용하여 다른 타입 간의 값 허용하기</h2></a>
 <p>8장에서는 벡터가 한 번에 하나의 타입만 보관할 수 있다는 제약사향이 있다고
 언급했습니다. 우리가 만들었던 Listing 8-10의 작업내역에서는 정수, 부동소수점,
 그리고 문자를 보관하기 위한 variant들을 가지고 있는 <code>SpreadsheetCell</code>
@@ -169,7 +173,7 @@ GUI 도구들에게 있어서는 흔한 방식이죠. 우리가 만들 라이브
 것처럼 다룰 수 있고 <code>draw</code>를 호출할 수 있습니다. 하지만 러스트가 상속이 없는 관계로,
 <code>gui</code> 라이브러리를 구축하는 다른 방법을 찾아 사용자들이 새로운 타입을 정의하고 확장할
 수 있도록 할 필요가 있습니다.</p>
-<a class="header" href="#a공통된-동작을-위한-트레잇-정의하기" id="a공통된-동작을-위한-트레잇-정의하기"><h3>공통된 동작을 위한 트레잇 정의하기</h3></a>
+<a class="header" href="#공통된-동작을-위한-트레잇-정의하기" id="공통된-동작을-위한-트레잇-정의하기"><h3>공통된 동작을 위한 트레잇 정의하기</h3></a>
 <p><code>gui</code>가 갖길 원하는 동작을 구현하기 위해, 우리는 <code>draw</code>라는 이름의 메소드
 하나를 갖는 <code>Draw</code>라는 이름의 트레잇을 정의할 것입니다. 그러면 <em>트레잇 객체
 (trait object)</em> 를 취하는 벡터를 정의할 수 있습니다. 트레잇 객체는 특정
@@ -283,7 +287,7 @@ impl&lt;T&gt; Screen&lt;T&gt;
 <code>Box&lt;Button&gt;</code> 혹은  <code>Box&lt;TextField&gt;</code>도 담을 수 있는 <code>Vec&lt;T&gt;</code>를 보유할
 수 있습니다. 이것이 어떻게 작동하는지 살펴보고 런타임 성능에 미치는 영향에 대해
 설명하겠습니다.</p>
-<a class="header" href="#a트레잇-구현하기" id="a트레잇-구현하기"><h3>트레잇 구현하기</h3></a>
+<a class="header" href="#트레잇-구현하기" id="트레잇-구현하기"><h3>트레잇 구현하기</h3></a>
 <p>이제 우리는 <code>Draw</code> 트레잇을 구현하는 몇가지 타입을 추가하려고 합니다. 우리는
 <code>Button</code> 타입을 제공할 것입니다. 다시금 말하지만, 실제 GUI 라이브러리를
 구현하는 것은 이 책의 범위를 벗어나므로, 우리는 <code>draw</code>에는 별다른 구현을 하지
@@ -423,7 +427,7 @@ fn main() {
 <p>이 에러는 우리가 넘길 뜻이 없었던 무언가를 <code>Screen</code>에게 넘기는 중이고 이를
 다른 타입으로 교체해야 하거나, 혹은 우리가 <code>String</code>에 대해 <code>Draw</code>를 구현하여
 <code>Screen</code>이 이것에 대해 <code>draw</code>를 호출할 수 있도록 해야한다는 것을 알려줍니다.</p>
-<a class="header" href="#a트레잇-객체는-동적-디스패치를-수행합니다" id="a트레잇-객체는-동적-디스패치를-수행합니다"><h3>트레잇 객체는 동적 디스패치를 수행합니다</h3></a>
+<a class="header" href="#트레잇-객체는-동적-디스패치를-수행합니다" id="트레잇-객체는-동적-디스패치를-수행합니다"><h3>트레잇 객체는 동적 디스패치를 수행합니다</h3></a>
 <p>10장의 “제네릭을 사용한 코드의 성능“ 절에서 우리가 제네릭에 트레잇
 바운드를 사용했을 때 컴파일러에 의해 이뤄지는 단형성화 프로세스의 실행에
 대한 논의를 상기해보세요: 컴파일러는 우리가 제네릭 타입 파라미터를 사용한
@@ -444,7 +448,7 @@ dispatch)</em> 와 반대되는 개념으로, 동적 디스패치는 컴파일�
 우리는 추가적인 유연성을 얻어 Listing 17-5와 같은 코드를 작성할 수 있었고,
 Listing 17-9과 같은 지원이 가능해졌으니, 여기에는 고려할 기회비용이 있다고
 하겠습니다.</p>
-<a class="header" href="#a트레잇-객체에-대하여-객체-안전성이-요구됩니다" id="a트레잇-객체에-대하여-객체-안전성이-요구됩니다"><h3>트레잇 객체에 대하여 객체 안전성이 요구됩니다</h3></a>
+<a class="header" href="#트레잇-객체에-대하여-객체-안전성이-요구됩니다" id="트레잇-객체에-대하여-객체-안전성이-요구됩니다"><h3>트레잇 객체에 대하여 객체 안전성이 요구됩니다</h3></a>
 <p>여러분은 <em>객체-안전 (object-safe)</em> 한 트레잇만 트레잇 객체로 만들 수 있습니다.
 트레잇 객체를 안전하게 만드는 모든 속성들을 관장하는 몇가지 복잡한 규칙이 있지만,
 실전에서는 두 가지 규칙만 관련되어 있습니다. 어떤 트레잇 내의 모든 메소드들이 다음과

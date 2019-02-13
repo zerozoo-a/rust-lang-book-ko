@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a객체-지향-언어의-특성" id="a객체-지향-언어의-특성"><h2>객체 지향 언어의 특성</h2></a>
+                        <a class="header" href="#객체-지향-언어의-특성" id="객체-지향-언어의-특성"><h2>객체 지향 언어의 특성</h2></a>
 <p>객체 지향적인 언어가 반드시 갖춰야 할 기능에 대해 프로그래밍 커뮤니티들은
 의견 일치를 보지 못하고 있습니다. 러스트는 OOP도 포함하여 많은
 프로그래밍 패러다임에 영향을 받았습니다; 예를 들면, 우리가 13장에서
@@ -144,7 +148,7 @@
 거의 틀림없이 몇가지 공통적인 특성을 공유하는데, 객체, 캡슐화 및 상속이
 있습니다. 이 특성들이 각각 뜻하는 것과 러스트가 이를 지원하는지에
 대해 살펴봅시다.</p>
-<a class="header" href="#a객체는-데이터와-동작을-담습니다" id="a객체는-데이터와-동작을-담습니다"><h3>객체는 데이터와 동작을 담습니다</h3></a>
+<a class="header" href="#객체는-데이터와-동작을-담습니다" id="객체는-데이터와-동작을-담습니다"><h3>객체는 데이터와 동작을 담습니다</h3></a>
 <p>흔히 The Gang of Four라고도 불리우는 Enoch Gamma, Richard Helm, Ralph Johnson,
 그리고 John Vlissides (Addison-Wesley Professional, 1994)의 책 <em>Design Patterns:
 Elements of Reusable Object-Oriented Software</em>은 객체 지향 디자인 패턴의 편람입니다.
@@ -158,7 +162,7 @@ Elements of Reusable Object-Oriented Software</em>은 객체 지향 디자인 �
 <code>impl</code> 블럭은 그 구조체와 열거형에 대한 메소드를 제공하죠. 설령 메소드를 갖는
 구조체와 열거형을 객체라고 <em>호칭</em>하지 않더라도, 그들은 동일한 기능을 수행하며,
 이는 Gang of Four의 객체에 대한 정의를 따릅니다.</p>
-<a class="header" href="#a상세-구현을-은닉하는-캡슐화" id="a상세-구현을-은닉하는-캡슐화"><h3>상세 구현을 은닉하는 캡슐화</h3></a>
+<a class="header" href="#상세-구현을-은닉하는-캡슐화" id="상세-구현을-은닉하는-캡슐화"><h3>상세 구현을 은닉하는 캡슐화</h3></a>
 <p>일반적으로 OOP와 관련된 또다른 면은 캡슐화로, 그 의미는 객체를
 이용하는 코드에서 그 객체의 상세 구현에 접근할 수 없게 한다는
 것입니다. 따라서, 유일하게 객체와 상호작용하는 방법은 이것의
@@ -251,7 +255,7 @@ impl AveragedCollection {
 <p>만약 캡슐화가 객체 지향을 염두하는 언어를 위한 필요 요소라면,
 러스트는 이를 만족합니다. 코드의 서로 다른 부분들에 대해 <code>pub</code>을
 사용하거나 사용하지 않는 옵션이 구현 세부 사항의 캡슐화를 가능케 합니다.</p>
-<a class="header" href="#a타입-시스템과-코드-공유로서의-상속" id="a타입-시스템과-코드-공유로서의-상속"><h3>타입 시스템과 코드 공유로서의 상속</h3></a>
+<a class="header" href="#타입-시스템과-코드-공유로서의-상속" id="타입-시스템과-코드-공유로서의-상속"><h3>타입 시스템과 코드 공유로서의 상속</h3></a>
 <p><em>상속</em>은 어떤 객체가 다른 객체의 정의를 상속받아서, 이를 통해 부모
 객체의 데이터와 동작들을 다시 정의하지 않고도 얻을 수 있게 해주는
 메커니즘입니다.</p>
@@ -277,7 +281,7 @@ Listing 10-14에서 우리가 <code>Summary</code> 트레잇에 <code>summarize<
 <em>다형성 (polymorphism)</em> 이라고도 부르는데, 이는 여러 객체들이 일정한 특성을
 공유한다면 이들을 런타임에 서로 바꿔 대입하여 사용할 수 있음을 의미합니다.</p>
 <blockquote>
-<a class="header" href="#a다형성" id="a다형성"><h3>다형성</h3></a>
+<a class="header" href="#다형성" id="다형성"><h3>다형성</h3></a>
 <p>많은 사람들아 다형성을 상속과 동일시 합니다. 하지만 다형성은 다수의
 타입들의 데이터에 대해 동작 가능한 코드를 나타내는 더 범용적인 개념입니다.
 상속에서는 이런 타입들이 일반적으로 하위클래스에 해당합니다.</p>

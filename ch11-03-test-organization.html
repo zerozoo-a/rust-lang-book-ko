@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a테스트-조직화" id="a테스트-조직화"><h2>테스트 조직화</h2></a>
+                        <a class="header" href="#테스트-조직화" id="테스트-조직화"><h2>테스트 조직화</h2></a>
 <p>이 장의 시작 부분에서 언급했듯이, 테스팅은 복잡한 분야이고, 여러 사람들이 서로 다른 용어와 조직화 방식을
 이용합니다. 러스트 커뮤니티에서는 테스트에 대해서 두 개의 주요한 카테고리로 나눠 생각합니다:
 <em>단위 테스트(unit test)</em> 그리고 *통합 테스트(integration test)*입니다. 단위 테스트는 작고
@@ -146,13 +150,13 @@ interface)를 테스트합니다. 통합 테스트는 완전히 여러분의 라
 하는 방식과 동일한 형태로 여러분의 코드를 이용합니다.</p>
 <p>두 종류의 테스트 작성 모두가 여러분의 라이브러리 코드 조각들이 따로따로 혹은 함께 사용되었을 때 여러분이
 기대하는 바와 같이 작동하는 지를 확신시키는데 중요합니다.</p>
-<a class="header" href="#a단위-테스트" id="a단위-테스트"><h3>단위 테스트</h3></a>
+<a class="header" href="#단위-테스트" id="단위-테스트"><h3>단위 테스트</h3></a>
 <p>단위 테스트의 목적은 각 코드의 단위를 나머지 부분과 분리하여 테스트하는 것인데, 이는 코드가 어디 있고
 어느 부분이 기대한 대로 동작하지 않는지를 빠르게 정확히 찾아낼 수 있도록 하기 위함입니다. 단위 테스트는
 <em>src</em> 디렉토리 내에 넣는데, 각 파일마다 테스트하는 코드를 담고 있습니다. 관례는 각 파일마다 테스트
 함수를 담고 있는 <code>tests</code>라는 이름의 모듈을 만들고, 이 모듈에 <code>cfg(test)</code>라고 어노테이션 하는
 것입니다.</p>
-<a class="header" href="#a테스트-모듈과-cfgtest" id="a테스트-모듈과-cfgtest"><h4>테스트 모듈과 <code>#[cfg(test)]</code></h4></a>
+<a class="header" href="#테스트-모듈과-cfgtest" id="테스트-모듈과-cfgtest"><h4>테스트 모듈과 <code>#[cfg(test)]</code></h4></a>
 <p>테스트 모듈 상의 <code>#[cfg(test)]</code> 어노테이션은 러스트에게 우리가 <code>cargo build</code>를 실행시킬 때가
 아니라 <code>cargo test</code>를 실행시킬 때에만 컴파일하고 실행시키라고 말해줍니다. 이는 우리가 오직 라이브러리만
 빌드하고 싶을 때 컴파일 시간을 절약시켜주고, 테스트가 포함되어 있지 않으므로 컴파일 결과물의 크기를
@@ -179,7 +183,7 @@ mod tests {
 카고는 우리가 능동적으로 <code>cargo test</code>를 이용해서 테스트를 실행시킬 경우에만 우리의 테스트 코드를
 컴파일합니다. 이는 이 모듈 내에 있을지도 모를 어떠한 헬퍼 함수들, 추가적으로 <code>#[test]</code>라고
 어노테이션 된 함수들을 포함합니다.</p>
-<a class="header" href="#a비공개-함수-테스트하기" id="a비공개-함수-테스트하기"><h4>비공개 함수 테스트하기</h4></a>
+<a class="header" href="#비공개-함수-테스트하기" id="비공개-함수-테스트하기"><h4>비공개 함수 테스트하기</h4></a>
 <p>테스팅 커뮤니티 내에서 비공개 함수가 직접적으로 테스트되어야 하는지 혹은 그렇지 않은지에 대한 논쟁이
 있었고, 다른 언어들은 비공개 함수를 테스트하는 것이 어렵거나 불가능하게 만들어두었습니다. 여러분이
 어떤 테스트 이데올로기를 고수하는지와는 상관없이, 러스트의 비공개 규칙은 여러분이 비공개 함수를
@@ -212,7 +216,7 @@ mod tests {
 <code>tests</code> 모듈도 그냥 또 다른 모듈이기 때문에, <code>internal_adder</code>를 불러들여 호출하는 것이 그냥 되는
 것을 주목하세요. 만약 여러분이 비공개 함수를 테스트해야 한다고 생각하지 않는다면, 러스트에서는 여러분이
 그렇게 하도록 강제할 일은 없습니다.</p>
-<a class="header" href="#a통합-테스트" id="a통합-테스트"><h3>통합 테스트</h3></a>
+<a class="header" href="#통합-테스트" id="통합-테스트"><h3>통합 테스트</h3></a>
 <p>러스트에서 통합 테스트들은 완전히 여러분의 라이브러리 외부에 있습니다. 이들은 여러분의 라이브러리를
 다른 코드들과 동일한 방식으로 이용하는데, 이는 이 외부 테스트들이 오직 여러분의 라이브러리의 공개
 API 부분에 속하는 함수들만 호출할 수 있다는 의미입니다. 이들의 목적은 여러분의 라이브러리의 수많은
@@ -289,7 +293,7 @@ test it_adds_two ... ok
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 </code></pre>
 <p>이 커맨드는 <em>tests/integration_test.rs</em> 내의 테스트만 실행합니다.</p>
-<a class="header" href="#a통합-테스트-내의-서브모듈" id="a통합-테스트-내의-서브모듈"><h4>통합 테스트 내의 서브모듈</h4></a>
+<a class="header" href="#통합-테스트-내의-서브모듈" id="통합-테스트-내의-서브모듈"><h4>통합 테스트 내의 서브모듈</h4></a>
 <p>더 많은 통합 테스트를 추가하게 되면, 이들을 조직화하기 쉽도록 <em>tests</em> 디렉토리 내에 하나 이상의
 파일을 만들고 싶어 할지도 모릅니다; 예를 들면, 여러분은 이들이 테스트하는 기능별로 테스트 함수들을
 묶을 수 있습니다. 앞서 언급했듯이, <em>tests</em> 디렉토리 내의 각 파일은 고유의 개별적인 크레이트인 것처럼
@@ -365,7 +369,7 @@ fn it_adds_two() {
 </code></pre>
 <p><code>mod common;</code> 선언은 Listing 7-4에서 보여주었던 모듈 선언과 동일한 점을 주목하세요. 그런 다음
 테스트 함수 내에서 <code>common::setup()</code> 함수를 호출 할 수 있습니다.</p>
-<a class="header" href="#a바이너리-크레이트를-위한-통합-테스트" id="a바이너리-크레이트를-위한-통합-테스트"><h4>바이너리 크레이트를 위한 통합 테스트</h4></a>
+<a class="header" href="#바이너리-크레이트를-위한-통합-테스트" id="바이너리-크레이트를-위한-통합-테스트"><h4>바이너리 크레이트를 위한 통합 테스트</h4></a>
 <p>만약 우리의 프로젝트가 <em>src/lib.rs</em> 파일이 없고 <em>src/main.rs</em> 파일만 갖고 있는 바이너리 프로젝트라면,
 <em>tests</em> 디렉토리 내에 통합 테스트를 만들어서 <em>src/main.rs</em>에 정의된 함수를 가져오기 위하여
 <code>extern crate</code>를 이용할 수 없습니다. 오직 라이브러리 크레이트만 다른 크레이트에서 호출하고 사용할
@@ -375,7 +379,7 @@ fn it_adds_two() {
 이용하여 중요한 기능들을 커버하도록 하기 위해 통합 테스트가 라이브러리 크레이트를 <em>테스트할 수 있습니다</em>.
 만일 중요 기능이 작동한다면, <em>src/main.rs</em> 내의 소량의 코드 또한 동작할 것이고, 이 소량의 코드는
 테스트할 필요가 없습니다.</p>
-<a class="header" href="#a정리" id="a정리"><h2>정리</h2></a>
+<a class="header" href="#정리" id="정리"><h2>정리</h2></a>
 <p>러스트의 테스트 기능은 코드를 변경하더라도 계속하여 우리가 기대한 대로 동작할 것이라는 확신을 주기 위하여
 코드가 어떻게 기능하는지 명시하는 방법을 제공합니다. 단위 테스트는 라이브러리의 서로 다른 부분을 개별적으로
 시험하며 비공개된 구현 세부사항을 테스트할 수 있습니다. 통합 테스트는 라이브러리의 많은 부분이 함께 작동하는

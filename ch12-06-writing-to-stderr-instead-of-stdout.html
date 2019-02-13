@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,13 +140,13 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a표준출력-대신-표준에러로-에러메시지-출력하기" id="a표준출력-대신-표준에러로-에러메시지-출력하기"><h2>표준출력 대신 표준에러로 에러메시지 출력하기</h2></a>
+                        <a class="header" href="#표준출력-대신-표준에러로-에러메시지-출력하기" id="표준출력-대신-표준에러로-에러메시지-출력하기"><h2>표준출력 대신 표준에러로 에러메시지 출력하기</h2></a>
 <p>지금까지 우리는 모든 출력을 <code>println!</code>을 사용하여 터미널에 출력했습니다. 대부분의 터미널은 두 가지 방식의 출력
 을 지원합니다: <em>표준 출력</em> (<code>stdout</code>)은 일반적인 정보전달용이고 <em>표준 에러</em> (<code>stderr</code>)는 에러 메시지용
 입니다. 이렇게 구분지음으로 인해 사용자는 프로그램의 출력을 직접 파일에 작성하면서도 여전히 에러메시지를 화면에 출력할
 수 있습니다.</p>
 <p><code>println!</code> 함수는 오직 표준출력만 사용할 수 있으므로, 우리는 표준에러에 출력을 위한 다른 것을 알아보겠습니다.</p>
-<a class="header" href="#a에러가-어디에-출력될지-검사" id="a에러가-어디에-출력될지-검사"><h3>에러가 어디에 출력될지 검사</h3></a>
+<a class="header" href="#에러가-어디에-출력될지-검사" id="에러가-어디에-출력될지-검사"><h3>에러가 어디에 출력될지 검사</h3></a>
 <p>먼저, <code>minigrep</code>의 출력 내용이 어떻게 표준출력에 작성되는지를 후에 우리가 표준에러로 바꾸려는 에러메시지를 염두하며
 살펴봅시다. 에러가 발생할 것을 인지한채로 우리는 표준출력 스트림을 파일로 변경하고자 합니다. 표준에러 스트림은 변경하지
 않을 것이므로, 표준에러로 보내진 모든 출력내용은 화면에 표시될 겁니다.</p>
@@ -160,7 +164,7 @@
 </code></pre>
 <p>역시, 우리의 에러메시지는 표준출력으로 출력되었네요. 이런 에러메시지가 표준에러로 출력된다면 훨씬 유용하고 우리가 같은
 방법으로 표준출력을 변경했을때 오직 성공적 실행에 관련된 데이터만 저장할 수 있게 될 겁니다. 지금 바꿔봅시다.</p>
-<a class="header" href="#a에러를-표준에러로-출력하기" id="a에러를-표준에러로-출력하기"><h3>에러를 표준에러로 출력하기</h3></a>
+<a class="header" href="#에러를-표준에러로-출력하기" id="에러를-표준에러로-출력하기"><h3>에러를 표준에러로 출력하기</h3></a>
 <p>우리는 항목 12-24의 코드를 출력되는 에러메시지들을 변경하는데 사용하고자 합니다. 이번 장 진입부에서 리팩토링한 결과
 모든 에러메시지는 하나의 함수 <code>main에서 출력되고 있습니다. 표준라이브러리에 존재하는 표준에러에 출력해주는 매크로 </code>eprintln!<code>를 사용하여</code>println!<code>을 사용하여 에러를 출력하던 두 부분을</code>eprintln!`을 사용하도록 변경
 해봅시다.</p>
@@ -197,7 +201,7 @@ Problem parsing arguments: not enough arguments
 How dreary to be somebody!
 </code></pre>
 <p>이번 시연은 우리가 표준출력에 성공적출력을 표준에러에 에러출력을 의도한 대로 수행하고 있음을 보여줍니다.</p>
-<a class="header" href="#a종합" id="a종합"><h2>종합</h2></a>
+<a class="header" href="#종합" id="종합"><h2>종합</h2></a>
 <p>이번 장에서는 지금까지 우리가 배웠던 몇 가지 주요 개념을 되짚어보고 Rust 문법에서 범용 I/O 작업수행을 하는 방법을
 알아봤습니다. 커맨드라인 인자, 파일, 환경변수, 그리고 <code>eprintln!</code>매크로로 에러출력를 사용하여 당신은 이제
 커맨드라인 응용프로그램을 작성할 준비가 됐습니다. 이전 장들의 개념을 활용하여, 당신의 코드는 잘 구조화되고, 적합한 데이터

@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,13 +140,13 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a메소드-문법" id="a메소드-문법"><h2>메소드 문법</h2></a>
+                        <a class="header" href="#메소드-문법" id="메소드-문법"><h2>메소드 문법</h2></a>
 <p><em>메소드(method)</em> 는 함수와 유사합니다: 이들은 <code>fn</code> 키워드와 이름을 가지고 선언되고, 파라미터와
 반환값을 가지고 있으며, 다른 어딘가로부터 호출되었을때 실행될 어떤 코드를 담고 있습니다. 하지만,
 메소드는 함수와는 달리 구조체의 내용 안에 정의되며 (혹은 열거형이나 트레잇 객체 안에 정의되는데,
 이는 6장과 17장에서 각각 다루겠습니다), 첫번째 파라미터가 언제나 <code>self</code>인데, 이는 메소드가
 호출되고 있는 구조체의 인스턴스를 나타냅니다.</p>
-<a class="header" href="#a메소드-정의하기" id="a메소드-정의하기"><h3>메소드 정의하기</h3></a>
+<a class="header" href="#메소드-정의하기" id="메소드-정의하기"><h3>메소드 정의하기</h3></a>
 <p>Listing 5-12에서 보는 바와 같이 <code>Rectangle</code> 인스턴스를 파라미터로 가지고 있는 <code>area</code> 함수를
 바꿔서 그 대신 <code>Rectangle</code> 구조체 위에서 정의된 <code>area</code> 메소드를 만들어 봅시다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
@@ -193,7 +197,7 @@ fn main() {
 사용할 사람들이 우리가 제공하는 라이브러리 내의 다양한 곳에서 <code>Rectangle</code>이 사용 가능한 지점을
 찾도록 하는 것보다 하나의 <code>impl</code> 블록 내에 해당 타입의 인스턴스로 할 수 있는 모든 것을 모아두었습니다.</p>
 <blockquote>
-<a class="header" href="#a--연산자는-어디로-갔나요" id="a--연산자는-어디로-갔나요"><h3><code>-&gt;</code> 연산자는 어디로 갔나요?</h3></a>
+<a class="header" href="#--연산자는-어디로-갔나요" id="--연산자는-어디로-갔나요"><h3><code>-&gt;</code> 연산자는 어디로 갔나요?</h3></a>
 <p>C++ 같은 언어에서는, 메소드 호출을 위해서 서로 다른 두 개의 연산자가 사용됩니다: 만일 어떤 객체의
 메소드를 직접 호출하는 중이라면 <code>.</code>를 이용하고, 어떤 객체의 포인터에서의 메소드를 호출하는 중이고
 이 포인터를 역참조할 필요가 있다면 <code>-&gt;</code>를 쓰지요. 달리 표현하면, 만일 <code>object</code>가 포인터라면,
@@ -232,7 +236,7 @@ p1.distance(&amp;p2);
 알아낼 수 있습니다. 러스트가 메소드 수신자를 암묵적으로 빌리도록 하는 사실은 실사용 환경에서 소유권을
 인간공학적으로 만드는 중요한 부분입니다.</p>
 </blockquote>
-<a class="header" href="#a더-많은-파라미터를-가진-메소드" id="a더-많은-파라미터를-가진-메소드"><h3>더 많은 파라미터를 가진 메소드</h3></a>
+<a class="header" href="#더-많은-파라미터를-가진-메소드" id="더-많은-파라미터를-가진-메소드"><h3>더 많은 파라미터를 가진 메소드</h3></a>
 <p><code>Rectangle</code> 구조체의 두번째 메소드를 구현하여 메소드 사용법을 연습해 봅시다. 이번에는 <code>Rectangle</code>의
 인스턴스가 다른 <code>Rectangle</code> 인스턴스를 가져와서 이 두번째 <code>Rectangle</code>이 <code>self</code>내에 완전히
 안에 들어갈 수 있다면 <code>true</code>를 반환하고, 그렇지 않으면 <code>false</code>를 반환하고 싶어합니다. 즉,
@@ -289,7 +293,7 @@ impl Rectangle {
 <p>Listing 5-13에 있는 <code>main</code> 함수와 함꼐 이 코드를 실행하면, 원하는 출력을 얻을 수 있을 것입니다.
 메소드는 <code>self</code> 파라미터 뒤에 추가된 여러 개의 파라미터를 가질 수 있으며, 이 파라미터들은 함수에서의
 파라미터와 동일하게 기능합니다.</p>
-<a class="header" href="#a연관-함수" id="a연관-함수"><h3>연관 함수</h3></a>
+<a class="header" href="#연관-함수" id="연관-함수"><h3>연관 함수</h3></a>
 <p><code>impl</code> 블록의 또다른 유용한 기능은 <code>self</code> 파라미터를 <em>갖지 않는</em> 함수도 <code>impl</code> 내에 정의하는
 것이 허용된다는 점입니다. 이를 <em>연관 함수 (associated functions)</em> 라고 부르는데, 그 이유는
 이 함수가 해당 구조체와 연관되어 있기 때문입니다. 이들은 메소드가 아니라 여전히 함수인데, 이는
@@ -317,7 +321,7 @@ impl Rectangle {
 <p>이 연관 함수를 호출하기 위해서는 <code>let sq = Rectangle::square(3);</code> 처럼, 구조체 이름과 함께
 <code>::</code> 문법을 이용합니다. 이 함수는 구조체의 이름공간 내에 있습니다: <code>::</code> 문법은 연관 함수와 모듈에
 의해 생성된 이름공간 두 곳 모두에서 사용되는데, 모듈에 대해서는 7장에서 다룰 것입니다.</p>
-<a class="header" href="#a정리" id="a정리"><h2>정리</h2></a>
+<a class="header" href="#정리" id="정리"><h2>정리</h2></a>
 <p>구조체는 우리의 문제 영역에 대해 의미있는 커스텀 타입을 만들수 있도록 해줍니다. 구조체를 이용함으로써,
 우리는 연관된 데이터의 조각들을 서로 연결하여 유지할 수 있으며 각 데이터 조각에 이름을 붙여 코드를 더
 명확하게 만들어 줄 수 있습니다. 메소드는 우리 구조체의 인스턴스가 가지고 있는 동작을 명시하도록 해주며,

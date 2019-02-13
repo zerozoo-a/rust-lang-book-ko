@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a함수-동작-원리" id="a함수-동작-원리"><h2>함수 동작 원리</h2></a>
+                        <a class="header" href="#함수-동작-원리" id="함수-동작-원리"><h2>함수 동작 원리</h2></a>
 <p>함수는 Rust에 녹아들어 있습니다. 여러분은 이미 언어에서 가장 중요하게 생각하는 <code>main</code>함수를 보셨습니다.
 이는 다수의 프로그램에서 실행 지점입니다. 여러분은 또한 <code>fn</code> 키워드도 보셨을텐데, 이는 새로운 함수의 선언을
 가용하게 합니다.</p>
@@ -160,7 +164,7 @@ fn another_function() {
 주의할 점은, 소스 코드 내에서 <code>another_function</code>이 <code>main</code> 함수 <em>뒤에</em> 정의했다는 점 입니다. 우리는
 이를 <code>main</code> 함수 앞에도 정의할 수 있습니다. Rust는 당신의 함수의 위치를 신경쓰지 않습니다, 어디든 정의만 되어 있으면 됩니다.</p>
 <p>함수를 추가로 탐색하기 위해 <em>functions</em> 이라는 이름의 새로운 바이너리 프로젝트를 시작합시다.
-<code>another_function</code> 예제를 * src / main.rs *에 넣고 실행해보세요.
+<code>another_function</code> 예제를 <em>src/main.rs</em> 에 넣고 실행해보세요.
 다음과 같은 결과가 나타납니다:</p>
 <pre><code class="language-text">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
@@ -171,7 +175,7 @@ Another function.
 </code></pre>
 <p><code>main</code> 함수 안의 내용이 줄의 순서대로 수행됩니다. 처음으로, &quot;Hello, world!&quot; 메시지가 출력되고,
 <code>another_function</code>이 호출되고 그의 메시지를 출력합니다.</p>
-<a class="header" href="#a함수-매개변수" id="a함수-매개변수"><h3>함수 매개변수</h3></a>
+<a class="header" href="#함수-매개변수" id="함수-매개변수"><h3>함수 매개변수</h3></a>
 <p>함수는 함수 고유한 부분인 특별한 변수 <em>매개변수</em>를 갖는 형식으로 선언될 수 있습니다. 함수가 매개변수를 취할 때, 우리는
 상수를 그들의 전달인자로 제공할 수 있습니다. 기술적으로, 여기서 전달되는 상수를 <em>전달인자</em>라고 부릅니다만, 사람들은 보통
 “전달인자”와 “매개변수”를 혼용해서 사용하는 경향이 있습니다.</p>
@@ -220,12 +224,12 @@ The value of x is: 5
 The value of y is: 6
 </code></pre>
 <p>우리는 값 <code>5</code>와 <code>6</code>을 <code>x</code>와 <code>y</code>로 전달했기 때문에, 이 값들이 담긴 두 문장을 출력합니다.</p>
-<a class="header" href="#a함수-본문" id="a함수-본문"><h3>함수 본문</h3></a>
+<a class="header" href="#함수-본문" id="함수-본문"><h3>함수 본문</h3></a>
 <p>함수 본문은 필요에 따라 표현식으로 종결되는 구문의 나열로 구성됩니다. 지금까지 우리는 종결 표현식이 없는 함수만
 다뤘기에, 표현식이 구문의 일부처럼 여겨질지 모르겠습니다. Rust가 표현식에 기반한 언어기 때문에, 이것은 이해하셔야
 하는 중요한 차이점 입니다. 다른 언어들은 이와 같은 차이가 없으니, 구문과 표현식이 함수의 본문에 어떤 식으로 차이나게
 적용되는지 살펴보도록 하겠습니다.</p>
-<a class="header" href="#a구문과-표현식" id="a구문과-표현식"><h3>구문과 표현식</h3></a>
+<a class="header" href="#구문과-표현식" id="구문과-표현식"><h3>구문과 표현식</h3></a>
 <p>사실 우리는 이미 구문과 표현식을 사용했습니다. <em>구문</em>은 어떤 명령들의 나열로 값을 반환하지 않는 어떤 동작을 수행
 합니다. <em>포현식</em>은 결과 값을 산출해냅니다. 다음 몇 개의 예제를 살펴보도록 합시다. <code>let</code> 키워드를 통해 변수를
 만들고 값을 할당하는 구문을 만듭니다. 항목 3-3의, <code>let y = 6;</code>은 구문 입니다:</p>
@@ -284,7 +288,7 @@ Ruby와의 차이점 입니다. 이들 언어들은 <code>x = y = 6</code>와 �
 표현식은 종결을 나타내는 세미콜론을 사용하지 않습니다. 만약 세미콜론을 표현식 마지막에 추가하면,
 이는 구문으로 변경되고 반환 값이 아니게 됩니다. 이후부터 함수의 반환 값과 표현식을 살펴보실때
 이 점을 유의하세요.</p>
-<a class="header" href="#a반환-값을-갖는-함수" id="a반환-값을-갖는-함수"><h3>반환 값을 갖는 함수</h3></a>
+<a class="header" href="#반환-값을-갖는-함수" id="반환-값을-갖는-함수"><h3>반환 값을 갖는 함수</h3></a>
 <p>함수는 그들을 호출한 코드에 값을 반환할 수 있습니다. 우리는 반환되는 값을 명명해야 할 필요는 없지만, 그들의
 타입은 화살표(<code>-&gt;</code>) 뒤에 선언해야 합니다. Rust에서 반환 값은 함수 본문의 마지막 표현식의 값과 동일합니다.
 <code>return</code> 키워드와 값을 써서 함수로부터 일찍 반환할 수 있지만, 대부분의 함수들은 암묵적으로 마지막

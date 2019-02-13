@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a메세지-패싱을-사용하여-스레드-간에-데이터-전송하기" id="a메세지-패싱을-사용하여-스레드-간에-데이터-전송하기"><h2>메세지 패싱을 사용하여 스레드 간에 데이터 전송하기</h2></a>
+                        <a class="header" href="#메세지-패싱을-사용하여-스레드-간에-데이터-전송하기" id="메세지-패싱을-사용하여-스레드-간에-데이터-전송하기"><h2>메세지 패싱을 사용하여 스레드 간에 데이터 전송하기</h2></a>
 <p>안전한 동시성을 보장하는 인기 상승중인 접근법 하나는 <em>메세지 패싱 (message passing)</em>
 인데, 이는 스레드들 혹은 액터들이 데이터를 담고 있는 메세지를 서로 주고받는
 것입니다. <a href="http://golang.org/doc/effective_go.html">Go 언어 문서</a>
@@ -263,7 +267,7 @@ fn main() {
 <pre><code class="language-text">Got: hi
 </code></pre>
 <p>완벽하군요!</p>
-<a class="header" href="#a채널과-소유권-전달" id="a채널과-소유권-전달"><h3>채널과 소유권 전달</h3></a>
+<a class="header" href="#채널과-소유권-전달" id="채널과-소유권-전달"><h3>채널과 소유권 전달</h3></a>
 <p>소유권 규칙은 여러분들이 안전하고 동시적인 코드를 작성하는 것을 돕기 때문에
 메세지 보내기 방식 내에서 강건한 역할을 합니다. 동시성 프로그래밍 내에서 에러를
 방지하는 것은 여러분의 러스트 프로그램 전체에 걸친 소유권에 대한 생각해볼 수 있는
@@ -311,7 +315,7 @@ not implement the `Copy` trait
 그 파라미터의 소유권을 가져가고, 이 값이 이동될 때, 수신자가 이에 대한 소유권을
 얻습니다. 이는 우리가 값을 보낸 이후에 우발적으로 이 값을 다시 사용하는 것을
 방지합니다; 소유권 시스템은 모든게 정상인지 확인합니다.</p>
-<a class="header" href="#a복수의-값들을-보내고-수신자가-기다리는지-보기" id="a복수의-값들을-보내고-수신자가-기다리는지-보기"><h3>복수의 값들을 보내고 수신자가 기다리는지 보기</h3></a>
+<a class="header" href="#복수의-값들을-보내고-수신자가-기다리는지-보기" id="복수의-값들을-보내고-수신자가-기다리는지-보기"><h3>복수의 값들을 보내고 수신자가 기다리는지 보기</h3></a>
 <p>Listing 16-8의 코드는 컴파일되고 실행도 되지만, 두개의 분리된 스레드가
 채널을 통해 서로 대화를 했는지를 우리에게 명확히 보여주진 못했습니다.
 Listing 16-10에서는 Listing 16-8의 코드가 동시에 실행된다는 것을
@@ -363,7 +367,7 @@ Got: thread
 <p>메인 스레드의 <code>for</code> 루프 내에는 어떠한 멈춤 혹은 지연 코드를 넣지 않았으므로,
 우리는 메인 스레드가 생성된 스레드로부터 값을 전달받는 것을 기다리는 중이라고
 말할 수 있습니다.</p>
-<a class="header" href="#a송신자를-복제하여-여러-생성자-만들기" id="a송신자를-복제하여-여러-생성자-만들기"><h3>송신자를 복제하여 여러 생성자 만들기</h3></a>
+<a class="header" href="#송신자를-복제하여-여러-생성자-만들기" id="송신자를-복제하여-여러-생성자-만들기"><h3>송신자를 복제하여 여러 생성자 만들기</h3></a>
 <p>이전에 <code>mpsc</code>가 <em>복수 생성자 단일 소비자 (multiple producer, single consumer)</em>
 의 약어라는 것을 언급했었지요. <code>mpsc</code>를 Listing 16-10의 코드에 넣어 모두 동일한
 수신자로 값들을 보내는 여러 스레드들을 만들도록 코드를 확장해봅시다. Listing 16-11에서

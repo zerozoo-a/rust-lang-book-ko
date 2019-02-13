@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a성능-비교하기-루프-vs-반복자" id="a성능-비교하기-루프-vs-반복자"><h2>성능 비교하기: 루프 vs. 반복자</h2></a>
+                        <a class="header" href="#성능-비교하기-루프-vs-반복자" id="성능-비교하기-루프-vs-반복자"><h2>성능 비교하기: 루프 vs. 반복자</h2></a>
 <p>루프와 반복자 중에 어떤것을 사용할지 결정하기 위해, 어떤 버전의 <code>search</code> 함수가
 더 빠른지 알 필요가 있습니다: 명시적으로 <code>for</code> 루프를 사용한 버전과 반복자를
 사용한 버전.</p>
@@ -201,7 +205,7 @@ for i in 12..buffer.len() {
 이런 모든 최적화들은 결과 코드를 아주 효율적으로 만듭니다. 이제 이것을 알게
 되었으니, 반복자와 클로저를 공포없이 사용할 수 있습니다! 이것들은 코드를 고수준
 으로 보이도록 하지만, 그렇게 하기 위해 실행시간 성능 저하를 만들지 않습니다.</p>
-<a class="header" href="#a요약" id="a요약"><h2>요약</h2></a>
+<a class="header" href="#요약" id="요약"><h2>요약</h2></a>
 <p>클로저와 반복자는 함수형 프로그래밍 아이디어에서 영감을 받은 러스트의 특징들
 입니다. 이것들은 고수준의 개념을 저수준의 성능으로 명확하게 표현할 수 있는
 러스트의 능력에 기여하고 있습니다. 클로저와 반복자의 구현들은 런타임 성능에

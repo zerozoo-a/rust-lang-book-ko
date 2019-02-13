@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a테스트를-작성하는-방법" id="a테스트를-작성하는-방법"><h2>테스트를 작성하는 방법</h2></a>
+                        <a class="header" href="#테스트를-작성하는-방법" id="테스트를-작성하는-방법"><h2>테스트를 작성하는 방법</h2></a>
 <p>테스트는 테스트 아닌 코드가 프로그램 내에서 기대했던 대로 기능을 하는지 검증하는 러스트
 함수입니다. 테스트 함수의 본체는 통상적으로 다음의 세 가지 동작을 수행합니다:</p>
 <ol>
@@ -146,7 +150,7 @@
 </ol>
 <p>이러한 동작을 하는 테스트 작성을 위해 러스트가 특별히 제공하는 기능들을 살펴봅시다.
 <code>test</code> 속성, 몇 가지 매크로, 그리고 <code>should_panic</code> 속성들을 포함해서 말이죠.</p>
-<a class="header" href="#a테스트-함수의-해부" id="a테스트-함수의-해부"><h3>테스트 함수의 해부</h3></a>
+<a class="header" href="#테스트-함수의-해부" id="테스트-함수의-해부"><h3>테스트 함수의 해부</h3></a>
 <p>가장 단순하게 말하면, 러스트 내의 테스트란 <code>test</code> 속성(attribute)이 주석으로 달려진
 (annotated) 함수입니다. 속성은 러스트 코드 조각에 대한 메타데이터입니다: 한 가지 예로
 5장에서 우리가 구조체와 함께 사용했던 <code>derive</code> 속성이 있습니다. 함수를 테스트 함수로
@@ -531,7 +535,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 두 트레잇 모두 추론 가능한(derivable) 트레잇이기 때문에, 이 트레잇의 구현은 보통
 <code>#[derive(PartialEq, Debug)]</code> 어노테이션을 여러분의 구조체나 열거형 정의부에 추가하는 정도로
 간단합니다. 이에 대한 것과 다른 추론 가능한 트레잇에 대한 더 자세한 내용은 부록 C를 참고하세요.</p>
-<a class="header" href="#a커스텀-실패-메세지-추가하기" id="a커스텀-실패-메세지-추가하기"><h3>커스텀 실패 메세지 추가하기</h3></a>
+<a class="header" href="#커스텀-실패-메세지-추가하기" id="커스텀-실패-메세지-추가하기"><h3>커스텀 실패 메세지 추가하기</h3></a>
 <p>또한 우리는 <code>assert!</code>, <code>assert_eq!</code> 및 <code>assert_ne!</code> 매크로의 추가 인자로서 커스텀 메세지를 입력하여
 실패 메세지와 함께 출력되도록 할 수 있습니다. <code>assert!</code>가 요구하는 하나의 인자 후에 지정된 인자들이나
 <code>assert_eq!</code>와 <code>assert_ne!</code>가 요구하는 두 개의 인자 후에 지정된 인자들은 우리가 8장의 “<code>+</code> 연산자나

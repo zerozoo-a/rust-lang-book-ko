@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a안전하지-않은-러스트" id="a안전하지-않은-러스트"><h2>안전하지 않은 러스트</h2></a>
+                        <a class="header" href="#안전하지-않은-러스트" id="안전하지-않은-러스트"><h2>안전하지 않은 러스트</h2></a>
 <p>우리가 여지껏 논해온 모든 코드들은 컴파일 타임에 강제되는 러스트의 메모리 안전성 보장을
 갖습니다. 그러나, 러스트는 이러한 메모리 안전성 보장을 강제하지 않는 숨겨진 내부의
 두번째 언어를 갖고 있습니다: 이것을 <em>안전하지 않은 러스트 (unsafe Rust)</em> 라고
@@ -156,7 +160,7 @@
 하는 것을 허용하고 싶어합니다. 저수준의 시스템 프로그래밍 작업은 이 언어의 목표 중
 하나입니다. 안전하지 않은 러스트를 가지고 무엇을 할 수 있으며 또 어떻게 하는지에
 대해서 탐구해봅시다.</p>
-<a class="header" href="#a안전하지-않은-슈퍼파워" id="a안전하지-않은-슈퍼파워"><h3>안전하지 않은 슈퍼파워</h3></a>
+<a class="header" href="#안전하지-않은-슈퍼파워" id="안전하지-않은-슈퍼파워"><h3>안전하지 않은 슈퍼파워</h3></a>
 <p>안전하지 않은 러스트로 전환하기 위해서는 <code>unsafe</code> 키워드를 이용하며, 그 다음 안전하지 않은
 코드를 감싸주는 새 블록을 시작합니다. 우리는 안전하지 않은 러스트 내에서 4개의 행동을 할 수
 있는데, 이를 <em>안전하지 않은 슈퍼파워</em>라고 부르며, 안전한 러스트 내에서는 할 수 없는 것들입니다.
@@ -191,7 +195,7 @@
 사용하는 것은 안전하기 때문입니다.</p>
 <p>네 가지 안전하지 않은 슈퍼파워 각각을 차례로 살펴봅시다: 또한 안전하지 않은 코드에
 대한 안전한 인터페이스를 제공하는 몇몇 추상화도 살펴볼 것입니다.</p>
-<a class="header" href="#a로우-포인터를-역참조하기" id="a로우-포인터를-역참조하기"><h3>로우 포인터를 역참조하기</h3></a>
+<a class="header" href="#로우-포인터를-역참조하기" id="로우-포인터를-역참조하기"><h3>로우 포인터를 역참조하기</h3></a>
 <p>4장의 “댕글링 참조자”절에서 우리는 참조자들이 언제나 유효함을 컴파일러가
 보장한다고 언급했었습니다. 안전하지 않은 러스트는 <em>로우 포인터 (raw
 pointer)</em> 라고 불리는 참조자와 유사한 두가지 새로운 타입을 갖습니다.
@@ -277,7 +281,7 @@ unsafe {
 검사기가 이해하지 못하는 안전한 추상화를 만들 때입니다. 우리는 안전하지
 않은 함수를 소개한 다음 안전하지 않은 코드를 사용하는 안전한 주상화의 예를
 살펴보겠습니다.</p>
-<a class="header" href="#a안전하지-않은-함수-혹은-메소드-호출하기" id="a안전하지-않은-함수-혹은-메소드-호출하기"><h3>안전하지 않은 함수 혹은 메소드 호출하기</h3></a>
+<a class="header" href="#안전하지-않은-함수-혹은-메소드-호출하기" id="안전하지-않은-함수-혹은-메소드-호출하기"><h3>안전하지 않은 함수 혹은 메소드 호출하기</h3></a>
 <p>안전하지 않은 블록을 필요로하는 연산의 두번째 타입은 안전하지 않은 함수의
 호출입니다. 안전하지 않은 함수와 메소드는 보통의 함수와 메소드와 똑같이
 생겼지만, 함수 정의의 앞부분에 추가적으로 <code>unsafe</code>가 붙어있습니다.
@@ -311,7 +315,7 @@ unsafe {
 <p>안전하지 않은 함수의 본체는 사실상 <code>unsafe</code> 블록이므로, 안전하지 않은 함수 내에서
 다른 안전하지 않은 연산을 수행하기 위해서 별도의 <code>unsafe</code> 블록을 추가할 필요는
 없습니다.</p>
-<a class="header" href="#a안전하지-않은-코드-상에-안전한-추상화-생성하기" id="a안전하지-않은-코드-상에-안전한-추상화-생성하기"><h4>안전하지 않은 코드 상에 안전한 추상화 생성하기</h4></a>
+<a class="header" href="#안전하지-않은-코드-상에-안전한-추상화-생성하기" id="안전하지-않은-코드-상에-안전한-추상화-생성하기"><h4>안전하지 않은 코드 상에 안전한 추상화 생성하기</h4></a>
 <p>어떤 함수가 단지 안전하지 않은 코드를 담고 있다는 것이 함수 전체를 안전하지 않은 것으로
 표시할 필요가 있음을 뜻하지는 않습니다. 사실, 안전한 함수 내에 안전하지 않은 코드를
 감싸는 것은 일반적인 추상화입니다. 한가지 예로, 표준 라이브러리가 제공하는 함수
@@ -470,7 +474,7 @@ fn main() {
 API는 어셈플리 수준에서 함수를 어떻게 호출하는지를 정의합니다. <code>&quot;C&quot;</code> ABI는
 가장 흔하며 C 프로그래밍 언어의 ABI를 준수합니다.</p>
 <blockquote>
-<a class="header" href="#a다른-언어로부터-러스트-함수-호출하기" id="a다른-언어로부터-러스트-함수-호출하기"><h4>다른 언어로부터 러스트 함수 호출하기</h4></a>
+<a class="header" href="#다른-언어로부터-러스트-함수-호출하기" id="다른-언어로부터-러스트-함수-호출하기"><h4>다른 언어로부터 러스트 함수 호출하기</h4></a>
 <p>우리는 또한 <code>extern</code>을 사용하여 다른 언어들이 러스트 함수를 호출할 수 있도록
 하는 인터페이스를 만들 수 있습니다. <code>extern</code> 블록 대신, <code>fn</code> 키워드 전에
 <code>extern</code> 키워드를 추가하고 사용할 ABI를 명시합니다. 우리는 또한
@@ -493,7 +497,7 @@ pub extern &quot;C&quot; fn call_from_c() {
 #}</code></pre></pre>
 <p>이러한 <code>extern</code>의 사용에는 <code>unsafe</code>가 필요 없습니다.</p>
 </blockquote>
-<a class="header" href="#a가변-정적-변수의-접근-혹은-수정하기" id="a가변-정적-변수의-접근-혹은-수정하기"><h3>가변 정적 변수의 접근 혹은 수정하기</h3></a>
+<a class="header" href="#가변-정적-변수의-접근-혹은-수정하기" id="가변-정적-변수의-접근-혹은-수정하기"><h3>가변 정적 변수의 접근 혹은 수정하기</h3></a>
 <p>지금까지 우리는 <em>전역 변수 (global variable)</em> 에 대하여 이야기한 적이 없는데,
 이는 러스트가 지원하기는 하지만 러스트의 소유권 규칙에 문제를 일으킬 수 있습니다. 만일 두
 스레드가 동일한 가변 전역 변수에 접근하는 중이라면, 이는 데이터 레이스를 야기할 수 있습니다.</p>
@@ -553,7 +557,7 @@ fn main() {
 간주하는 이유입니다. 가능하다면 우리가 16장에서 논의했던 동시성 기술과 스레드-안전한
 스마트 포인터를 이용하여, 컴파일러가 서로 다른 스레드로부터 접근되는 데이터가 안전하게
 사용됨을 검사하도록 하는 편이 좋습니다.</p>
-<a class="header" href="#a안전하지-않은-트레잇-구현하기" id="a안전하지-않은-트레잇-구현하기"><h3>안전하지 않은 트레잇 구현하기</h3></a>
+<a class="header" href="#안전하지-않은-트레잇-구현하기" id="안전하지-않은-트레잇-구현하기"><h3>안전하지 않은 트레잇 구현하기</h3></a>
 <p><code>unsafe</code>에서만 동작하는 마지막 기능은 안전하지 않은 트레잇 구현하기 입니다. 트레잇은
 적어도 메소드 중 하나가 컴파일러가 검사할 수 없는 몇몇 불변성 (invariant) 을 갖고 있을
 때 안전하지 않게 됩니다. 우리는 <code>trait</code> 전에 <code>unsafe</code>를 추가함으로써 어떤 트레잇이
@@ -583,7 +587,7 @@ unsafe impl Foo for i32 {
 우리의 타입이 스레드 사이로 안전하게 보내지거나 여러 스레드로부터 안전하게 접근되는
 것에 대한 보장을 유지하는 것을 검사할 수 없습니다; 따라서, 우리는 손수 이를
 검사하고 <code>unsafe</code>를 이용하여 이러한 사항을 나타낼 필요가 있습니다.</p>
-<a class="header" href="#a언제-안전하지-않은-코드를-이용할까요" id="a언제-안전하지-않은-코드를-이용할까요"><h3>언제 안전하지 않은 코드를 이용할까요?</h3></a>
+<a class="header" href="#언제-안전하지-않은-코드를-이용할까요" id="언제-안전하지-않은-코드를-이용할까요"><h3>언제 안전하지 않은 코드를 이용할까요?</h3></a>
 <p>방금까지 논했던 네 가지 행동 (슈퍼파워) 을 얻기 위해 <code>unsafe</code>를 사용하는 것은 잘못된 것도
 아니고, 심지어 눈살을 찌푸릴 일도 아닙니다. 하지만 <code>unsafe</code> 코드를 올바르게 이용하는 것은 좀
 더 힘든데 그 이유는 컴파일러가 메모리 안전성응 유지하는데 도움을 줄 수 없기 때문입니다. 여러분이

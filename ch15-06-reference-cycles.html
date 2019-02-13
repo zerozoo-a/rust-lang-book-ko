@@ -32,7 +32,10 @@
     </head>
     <body class="light">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script type="text/javascript">
@@ -54,7 +57,7 @@
         <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
+            if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
         </script>
@@ -89,7 +92,7 @@
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                                 <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -108,6 +111,7 @@
                             <a href="print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#a순환-참조는-메모리-릭을-발생시킬-수-있습니다" id="a순환-참조는-메모리-릭을-발생시킬-수-있습니다"><h2>순환 참조는 메모리 릭을 발생시킬 수 있습니다</h2></a>
+                        <a class="header" href="#순환-참조는-메모리-릭을-발생시킬-수-있습니다" id="순환-참조는-메모리-릭을-발생시킬-수-있습니다"><h2>순환 참조는 메모리 릭을 발생시킬 수 있습니다</h2></a>
 <p>러스트의 메모리 안정성 보장은 (<em>메모리 릭 (memory leak)</em> 이라고도 알려져 있는) 뜻하지
 않게 해제되지 않는 메모리를 생성하기 힘들게 하지만, 그게 불가능한 것은 아닙니다.
 메모리 릭을 완전히 방지하는 것은 컴파일 타임에 데이터 레이스를 허용하지 않는 것과 마찬가지로
@@ -145,7 +149,7 @@
 알 수 있습니다: 즉 아이템들이 서로를 순환 참조하는 참조자를 만드는 것이 가능합니다. 이는
 메모리 릭을 발생시키는데, 그 이유는 순환 고리 안의 각 아이템들의 참조 카운트는 결코 0이
 되지 않을 것이고, 그러므로 값들은 버려지지 않을 것이기 때문입니다.</p>
-<a class="header" href="#a순환-참조-만들기" id="a순환-참조-만들기"><h3>순환 참조 만들기</h3></a>
+<a class="header" href="#순환-참조-만들기" id="순환-참조-만들기"><h3>순환 참조 만들기</h3></a>
 <p>Listing 15-25의 <code>List</code> 열거형과 <code>tail</code> 메소드 정의를 가지고서
 어떻게 순환 참조가 생길 수 있고, 이를 어떻게 방지하는지
 알아봅시다:</p>
@@ -285,7 +289,7 @@ a rc count after changing a = 2
 언제 소유권 없는 관계가 순환 참조를 방지하는 적절한 방법이 되는 때인지를
 알기 위해서 부모 노드와 자식 노드로 구성된 그래프를 이용하는 예제를
 살펴봅시다.</p>
-<a class="header" href="#a참조-순환-방지하기-rct를-weakt로-바꾸기" id="a참조-순환-방지하기-rct를-weakt로-바꾸기"><h3>참조 순환 방지하기: <code>Rc&lt;T&gt;</code>를 <code>Weak&lt;T&gt;</code>로 바꾸기</h3></a>
+<a class="header" href="#참조-순환-방지하기-rct를-weakt로-바꾸기" id="참조-순환-방지하기-rct를-weakt로-바꾸기"><h3>참조 순환 방지하기: <code>Rc&lt;T&gt;</code>를 <code>Weak&lt;T&gt;</code>로 바꾸기</h3></a>
 <p>이제까지 우리는 <code>Rc::clone</code>을 호출하는 것이 <code>Rc&lt;T&gt;</code> 인스턴스의 <code>strong_count</code>를
 증가시키고, <code>Rc&lt;T&gt;</code> 인스턴스는 이것의 <code>strong_count</code>가 0이 된 경우에만 제거되는
 것을 보았습니다. 여러분은 또한 <code>Rc::downgrade</code>를 호출하고 여기에 <code>Rc&lt;T&gt;</code>에 대한
@@ -311,7 +315,7 @@ a rc count after changing a = 2
 <p>예제로서 어떤 아이템이 오직 다음 아이템에 대해서만 알고 있는 리스트를 이용하는
 것보다는 자식 아이템 <em>그리고</em> 부모 아이템에 대해 모두 알고 있는 아이템을 갖는
 트리를 만들어 보겠습니다.</p>
-<a class="header" href="#a트리-데이터-구조-만들기-자식-노드를-가진-node" id="a트리-데이터-구조-만들기-자식-노드를-가진-node"><h4>트리 데이터 구조 만들기: 자식 노드를 가진 <code>Node</code></h4></a>
+<a class="header" href="#트리-데이터-구조-만들기-자식-노드를-가진-node" id="트리-데이터-구조-만들기-자식-노드를-가진-node"><h4>트리 데이터 구조 만들기: 자식 노드를 가진 <code>Node</code></h4></a>
 <p>자신의 자식 노드에 대해 알고 있는 노드를 갖는 트리를 만드는 것으로 시작해 보겠습니다.
 우리는 <code>i32</code>값은 물론 자식 <code>Node</code>들의 참조자들 또한 가지고 있는 <code>Node</code>라는 이름의
 구조체를 만들 것입니다:</p>
@@ -366,7 +370,7 @@ fn main() {
 접근할 방법은 없습니다. 그 이유는 <code>leaf</code>가 <code>branch</code>에 대한 참조자를 가지고 있지 않아서
 이들간의 연관성을 알지 못하기 때문입니다. 우리는 <code>leaf</code>로 하여금 <code>branch</code>가 그의
 부모임을 알도록 하기를 원합니다. 이걸 다음에 해보겠습니다.</p>
-<a class="header" href="#a자식으로부터-부모로-가는-참조자-추가하기" id="a자식으로부터-부모로-가는-참조자-추가하기"><h4>자식으로부터 부모로 가는 참조자 추가하기</h4></a>
+<a class="header" href="#자식으로부터-부모로-가는-참조자-추가하기" id="자식으로부터-부모로-가는-참조자-추가하기"><h4>자식으로부터 부모로 가는 참조자 추가하기</h4></a>
 <p>자식 노드가 그의 부모를 알도록 만들기 위하여, <code>parent</code> 필드를 우리의 <code>Node</code> 구조체
 정의에 추가할 필요가 있습니다. 문제는 <code>parent</code>의 타입이 어떤 것이 되어야 하는지를 결정하는
 중에 발생합니다. 이것이 <code>Rc&lt;T&gt;</code>를 담을 수 없음을 우리는 알고 있는데, 그렇게 하게 되면
@@ -541,7 +545,7 @@ fn main() {
 <code>Weak&lt;T&gt;</code> 참조자로 되어야 함을 특정함으로서, 여러분은 순환 참조와
 메모리 릭을 만들지 않고도 자식 노드를 가리키는 부모 노드 혹은 그 반대의
 것을 가지게 될 수 있습니다.</p>
-<a class="header" href="#a정리" id="a정리"><h2>정리</h2></a>
+<a class="header" href="#정리" id="정리"><h2>정리</h2></a>
 <p>이번 장에서는 러스트가 일반적인 참조자를 가지고 기본적으로 보장하는 것들과는
 다른 보장 및 트레이드 오프를 만들어내기 위해 스마트 포인터를 사용하는 방법을
 다루었습니다. <code>Box&lt;T&gt;</code> 타입은 알려진 크기를 갖고 있고 힙에 할당된 데이터를
