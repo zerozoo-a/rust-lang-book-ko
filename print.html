@@ -13892,7 +13892,7 @@ Figure 14-2 처럼 <code>my_crate</code> 문서 첫 페이지 내용 중
 이것을 마치 다른 위치에서 정의한 것처럼 공개 항목으로 만드는 것을 의미합니다.</p>
 <p>예를 들어, 우리가 예술적인 개념을 모델링 하기 위해 <code>art</code> 라는 라이브러리를
 만들었다고 가정해 봅시다. 해당 라이브러리에는 두 모듈이 들어 있습니다:
-<code>kinds</code> 모듈은 <code>PrimaryColor</code> 과 <code>SecondaryColor</code> 열거체를 포함하고,
+<code>kinds</code> 모듈은 <code>PrimaryColor</code> 과 <code>SecondaryColor</code> 열거형를 포함하고,
 <code>utils</code> 모듈은 <code>mix</code> 라는 이름의 함수를 포함합니다. Listing 14-3 처럼요.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">//! # Art
@@ -18935,7 +18935,7 @@ match x {
 <p>러스트는 <code>c</code> 가 첫번째 패턴(앞쪽 순서의 알파벳들)의 범위 안에 속한다는 것을
 알아낼 수 있고, <code>early ASCII letter</code> 을 출력합니다.</p>
 <a class="header" href="#값을-해체하여-분리하기" id="값을-해체하여-분리하기"><h3>값을 해체하여 분리하기</h3></a>
-<p>우린 패턴을 이용해 구조체, 열거체, 튜플, 참조자 등의 값들을
+<p>우린 패턴을 이용해 구조체, 열거형, 튜플, 참조자 등의 값들을
 해체(destructuring)할 수도 있습니다. 각각에 대해 알아봅시다.</p>
 <a class="header" href="#구조체-해체하기" id="구조체-해체하기"><h4>구조체 해체하기</h4></a>
 <p>Listing 18-12 는 <code>x</code> 와 <code>y</code> 두개의 필드를 가진 <code>Point</code> 구조체를 나타냅니다.
@@ -23488,56 +23488,56 @@ impl Worker {
 <a class="header" href="#부록" id="부록"><h1>부록</h1></a>
 <p>이번 장에는 러스트를 사용하는데 유용한 참고자료들이
 포함되어 있습니다.</p>
-<a class="header" href="#appendix-a-keywords" id="appendix-a-keywords"><h2>Appendix A: Keywords</h2></a>
-<p>The following list contains keywords that are reserved for current or future
-use by the Rust language. As such, they cannot be used as identifiers, such as
-names of functions, variables, parameters, struct fields, modules, crates,
-constants, macros, static values, attributes, types, traits, or lifetimes.</p>
-<a class="header" href="#keywords-currently-in-use" id="keywords-currently-in-use"><h3>Keywords Currently in Use</h3></a>
-<p>The following keywords currently have the functionality described.</p>
+<a class="header" href="#부록-a-키워드" id="부록-a-키워드"><h2>부록 A: 키워드</h2></a>
+<p>다음 목록은 러스트에서 현재 사용중이거나 미래에 사용될 키워드들입니다.
+따라서 이들은 식별자, 함수명, 변수, 매개변수, 구조체 필드, 모듈,
+크레이트, 상수, 매크로, 정적 변수, 속성, 타입, 트레잇, 라이프타임에
+사용할 수 없습니다.</p>
+<a class="header" href="#현재-사용되고-있는-키워드" id="현재-사용되고-있는-키워드"><h3>현재 사용되고 있는 키워드</h3></a>
+<p>다음 키워드들은 현재 각각의 설명에 해당하는 기능으로 사용되고 있습니다.</p>
 <ul>
-<li><code>as</code> - perform primitive casting, disambiguate the specific trait containing
-an item, or rename items in <code>use</code> and <code>extern crate</code> statements</li>
-<li><code>break</code> - exit a loop immediately</li>
-<li><code>const</code> - define constant items or constant raw pointers</li>
-<li><code>continue</code> - continue to the next loop iteration</li>
-<li><code>crate</code> - link an external crate or a macro variable representing the crate in
-which the macro is defined</li>
-<li><code>else</code> - fallback for <code>if</code> and <code>if let</code> control flow constructs</li>
-<li><code>enum</code> - define an enumeration</li>
-<li><code>extern</code> - link an external crate, function, or variable</li>
-<li><code>false</code> - Boolean false literal</li>
-<li><code>fn</code> - define a function or the function pointer type</li>
-<li><code>for</code> - loop over items from an iterator, implement a trait, or specify a
-higher-ranked lifetime</li>
-<li><code>if</code> - branch based on the result of a conditional expression</li>
-<li><code>impl</code> - implement inherent or trait functionality</li>
-<li><code>in</code> - part of <code>for</code> loop syntax</li>
-<li><code>let</code> - bind a variable</li>
-<li><code>loop</code> - loop unconditionally</li>
-<li><code>match</code> - match a value to patterns</li>
-<li><code>mod</code> - define a module</li>
-<li><code>move</code> - make a closure take ownership of all its captures</li>
-<li><code>mut</code> - denote mutability in references, raw pointers, or pattern bindings</li>
-<li><code>pub</code> - denote public visibility in struct fields, <code>impl</code> blocks, or modules</li>
-<li><code>ref</code> - bind by reference</li>
-<li><code>return</code> - return from function</li>
-<li><code>Self</code> - a type alias for the type implementing a trait</li>
-<li><code>self</code> - method subject or current module</li>
-<li><code>static</code> - global variable or lifetime lasting the entire program execution</li>
-<li><code>struct</code> - define a structure</li>
-<li><code>super</code> - parent module of the current module</li>
-<li><code>trait</code> - define a trait</li>
-<li><code>true</code> - Boolean true literal</li>
-<li><code>type</code> - define a type alias or associated type</li>
-<li><code>unsafe</code> - denote unsafe code, functions, traits, or implementations</li>
-<li><code>use</code> - import symbols into scope</li>
-<li><code>where</code> - denote clauses that constrain a type</li>
-<li><code>while</code> - loop conditionally based on the result of an expression</li>
+<li><code>as</code> - 캐스팅하거나, 항목을 포함하는 특정 트레잇을 명확히 하거나,
+<code>use</code> 와 <code>extern crate</code> 구문에서 항목의 이름을 변경</li>
+<li><code>break</code> - 반복문 즉각 탈출</li>
+<li><code>const</code> - 상수 혹은 상수 로우 포인터 정의</li>
+<li><code>continue</code> - 다음 반복 루프로 넘어감</li>
+<li><code>crate</code> - 외부 크레이트를 링크하거나 해당 매크로가 정의되어 있는 크레이트를
+대표하는 매크로 변수를 생성합니다.</li>
+<li><code>else</code> - <code>if</code> 와 <code>if let</code> 제어 흐름 구조에 대한 대비책</li>
+<li><code>enum</code> - 열거형 정의</li>
+<li><code>extern</code> - 외부 크레이트, 함수 혹은 변수를 링크</li>
+<li><code>false</code> - Boolean 의 거짓(false)을 나타내는 상수</li>
+<li><code>fn</code> - 함수 혹은 함수 포인터 타입 정의</li>
+<li><code>for</code> - 반복자의 항목들을 반복하거나, 트레잇을 구현하거나,
+더 높은 수준의 라이프타임을 명시</li>
+<li><code>if</code> - 조건식 결과를 이용한 분기</li>
+<li><code>impl</code> - 내재된 특성 혹은 트레잇 특성 구현</li>
+<li><code>in</code> - <code>for</code> 반복문 문법의 일부</li>
+<li><code>let</code> - 변수 바인딩</li>
+<li><code>loop</code> - 무조건적인 반복</li>
+<li><code>match</code> - 패턴에 값을 매치</li>
+<li><code>mod</code> - 모듈 정의</li>
+<li><code>move</code> - 클로저가 사용하는 모든 값에 대해 소유권을 갖도록 만듬</li>
+<li><code>mut</code> - 레퍼런스, 로우 포인터, 배턴 바인딩에 대한 가변성 표시</li>
+<li><code>pub</code> - 구조체 필드, <code>impl</code> 블록, 모듈의 public 가시성 표시</li>
+<li><code>ref</code> - 레퍼런스로 바인딩</li>
+<li><code>return</code> - 함수의 반환</li>
+<li><code>Self</code> - 트레잇을 구현하고 있는 타입의 별칭</li>
+<li><code>self</code> - 메소드의 주체 혹은 현재 모듈</li>
+<li><code>static</code> - 글로벌 변수 혹은 전체 프로그램 실행에서 지속되는 라이프타임</li>
+<li><code>struct</code> - 구조체 선언</li>
+<li><code>super</code> - 현재 모듈의 부모 모듈</li>
+<li><code>trait</code> - 트레잇 선언</li>
+<li><code>true</code> - Boolean 의 참(true)을 나타내는 상수</li>
+<li><code>type</code> - 타입 별칭 혹은 관련 타입 선언</li>
+<li><code>unsafe</code> - 코드, 함수, 트레잇, 구현이 안전하지 않다는 것을 표시</li>
+<li><code>use</code> - 심볼을 범위 내로 불러옴</li>
+<li><code>where</code> - 특정 타입으로 제한하는 절을 나타냄</li>
+<li><code>while</code> - 표현식의 결과에 따라 반복</li>
 </ul>
-<a class="header" href="#keywords-reserved-for-future-use" id="keywords-reserved-for-future-use"><h3>Keywords Reserved for Future Use</h3></a>
-<p>The following keywords do not have any functionality but are reserved by Rust
-for potential future use.</p>
+<a class="header" href="#추후-이용하도록-예약된-키워드들" id="추후-이용하도록-예약된-키워드들"><h3>추후 이용하도록 예약된 키워드들</h3></a>
+<p>다음 키워드들은 아무 기능도 갖지 않지만,
+러스트가 장래에 이용하도록 예약되어 있습니다.</p>
 <ul>
 <li><code>abstract</code></li>
 <li><code>alignof</code></li>
@@ -23727,224 +23727,224 @@ macros and specifying attributes on an item.</p>
 <tr><td> <code>expr[expr]</code> </td><td> Collection indexing. Overloadable (<code>Index</code>, <code>IndexMut</code>) </td></tr>
 <tr><td> <code>expr[..]</code>, <code>expr[a..]</code>, <code>expr[..b]</code>, <code>expr[a..b]</code> </td><td> Collection indexing pretending to be collection slicing, using <code>Range</code>, <code>RangeFrom</code>, <code>RangeTo</code>, or <code>RangeFull</code> as the “index” </td></tr>
 </tbody></table>
-<a class="header" href="#appendix-c-derivable-traits" id="appendix-c-derivable-traits"><h2>Appendix C: Derivable Traits</h2></a>
-<p>In various places in the book, we’ve discussed the <code>derive</code> attribute, which
-you can apply to a struct or enum definition. The <code>derive</code> attribute generates
-code that will implement a trait with its own default implementation on the
-type you’ve annotated with the <code>derive</code> syntax.</p>
-<p>In this appendix, we provide a reference of all the traits in the standard
-library that you can use with <code>derive</code>. Each section covers:</p>
+<a class="header" href="#부록-c-derive-가능한-트레잇" id="부록-c-derive-가능한-트레잇"><h2>부록 C: derive 가능한 트레잇</h2></a>
+<p>책의 여러 곳에서 구조체나 열거형 정의 시
+적용할 수 있는 <code>derive</code> 속성을 다뤘습니다.
+<code>derive</code> 속성은 여러분이 <code>derive</code> 문법을 명시함으로써
+생성할 수 있는 기본 트레잇 구현체를 생성해줍니다.</p>
+<p>이 부록에선 표준 라이브러리에 존재하는 트레잇 중 <code>derive</code> 로 이용 가능한
+트레잇들의 레퍼런스를 제공합니다. 각 절에서 다루는 내용은 다음과 같습니다:</p>
 <ul>
-<li>What operators and methods deriving this trait will enable</li>
-<li>What the implementation of the trait provided by <code>derive</code> does</li>
-<li>What implementing the trait signifies about the type</li>
-<li>The conditions in which you’re allowed or not allowed to implement the trait</li>
-<li>Examples of operations that require the trait</li>
+<li>어떤 연산자와 메소드가 해당 트레잇에 derive 가능한지</li>
+<li><code>derive</code> 로 제공된 트레잇의 구현체가 하는 일</li>
+<li>타입에 트레잇을 구현한다는 것의 의미</li>
+<li>트레잇을 구현하도록 허용되거나 허용되지 않는 조건</li>
+<li>트레잇이 필수적인 연산들의 예시</li>
 </ul>
-<p>If you want different behavior than that provided by the <code>derive</code> attribute,
-consult the standard library documentation for each trait for details on how to
-manually implement them.</p>
-<p>The rest of the traits defined in the standard library can’t be implemented on
-your types using <code>derive</code>. These traits don’t have sensible default behavior,
-so it’s up to you to implement them in the way that makes sense for what you’re
-trying to accomplish.</p>
-<p>An example of a trait that can’t be derived is <code>Display</code>, which handles
-formatting for end users. You should always consider the appropriate way to
-display a type to an end user. What parts of the type should an end user be
-allowed to see? What parts would they find relevant? What format of the data
-would be most relevant to them? The Rust compiler doesn’t have this insight, so
-it can’t provide appropriate default behavior for you.</p>
-<p>The list of derivable traits provided in this appendix is not comprehensive:
-libraries can implement <code>derive</code> for their own traits, making the list of
-traits you can use <code>derive</code> with truly open-ended. Implementing <code>derive</code>
-involves using a procedural macro, which is covered in Appendix D.</p>
-<a class="header" href="#debug-for-programmer-output" id="debug-for-programmer-output"><h3><code>Debug</code> for Programmer Output</h3></a>
-<p>The <code>Debug</code> trait enables debug formatting in format strings, which you
-indicate by adding <code>:?</code> within <code>{}</code> placeholders.</p>
-<p>The <code>Debug</code> trait allows you to print instances of a type for debugging
-purposes, so you and other programmers using your type can inspect an instance
-at a particular point in a program’s execution.</p>
-<p>The <code>Debug</code> trait is required, for example, in use of the <code>assert_eq!</code> macro.
-This macro prints the values of instances given as arguments if the equality
-assertion fails so programmers can see why the two instances weren’t equal.</p>
-<a class="header" href="#partialeq-and-eq-for-equality-comparisons" id="partialeq-and-eq-for-equality-comparisons"><h3><code>PartialEq</code> and <code>Eq</code> for Equality Comparisons</h3></a>
-<p>The <code>PartialEq</code> trait allows you to compare instances of a type to check for
-equality and enables use of the <code>==</code> and <code>!=</code> operators.</p>
-<p>Deriving <code>PartialEq</code> implements the <code>eq</code> method. When <code>PartialEq</code> is derived on
-structs, two instances are equal only if <em>all</em> fields are equal, and the
-instances are not equal if any fields are not equal. When derived on enums,
-each variant is equal to itself and not equal to the other variants.</p>
-<p>The <code>PartialEq</code> trait is required, for example, with the use of the
-<code>assert_eq!</code> macro, which needs to be able to compare two instances of a type
-for equality.</p>
-<p>The <code>Eq</code> trait has no methods. Its purpose is to signal that for every value of
-the annotated type, the value is equal to itself. The <code>Eq</code> trait can only be
-applied to types that also implement <code>PartialEq</code>, although not all types that
-implement <code>PartialEq</code> can implement <code>Eq</code>. One example of this is floating point
-number types: the implementation of floating point numbers states that two
-instances of the not-a-number (<code>NaN</code>) value are not equal to each other.</p>
-<p>An example of when <code>Eq</code> is required is for keys in a <code>HashMap&lt;K, V&gt;</code> so the
-<code>HashMap&lt;K, V&gt;</code> can tell whether two keys are the same.</p>
-<a class="header" href="#partialord-and-ord-for-ordering-comparisons" id="partialord-and-ord-for-ordering-comparisons"><h3><code>PartialOrd</code> and <code>Ord</code> for Ordering Comparisons</h3></a>
-<p>The <code>PartialOrd</code> trait allows you to compare instances of a type for sorting
-purposes. A type that implements <code>PartialOrd</code> can be used with the <code>&lt;</code>, <code>&gt;</code>,
-<code>&lt;=</code>, and <code>&gt;=</code> operators. You can only apply the <code>PartialOrd</code> trait to types
-that also implement <code>PartialEq</code>.</p>
-<p>Deriving <code>PartialOrd</code> implements the <code>partial_cmp</code> method, which returns an
-<code>Option&lt;Ordering&gt;</code> that will be <code>None</code> when the values given don’t produce an
-ordering. An example of a value that doesn’t produce an ordering, even though
-most values of that type can be compared, is the not-a-number (<code>NaN</code>) floating
-point value. Calling <code>partial_cmp</code> with any floating point number and the <code>NaN</code>
-floating point value will return <code>None</code>.</p>
-<p>When derived on structs, <code>PartialOrd</code> compares two instances by comparing the
-value in each field in the order in which the fields appear in the struct
-definition. When derived on enums, variants of the enum declared earlier in the
-enum definition are considered less than the variants listed later.</p>
-<p>The <code>PartialOrd</code> trait is required, for example, for the <code>gen_range</code> method
-from the <code>rand</code> crate that generates a random value in the range specified by a
-low value and a high value.</p>
-<p>The <code>Ord</code> trait allows you to know that for any two values of the annotated
-type, a valid ordering will exist. The <code>Ord</code> trait implements the <code>cmp</code> method,
-which returns an <code>Ordering</code> rather than an <code>Option&lt;Ordering&gt;</code> because a valid
-ordering will always be possible. You can only apply the <code>Ord</code> trait to types
-that also implement <code>PartialOrd</code> and <code>Eq</code> (and <code>Eq</code> requires <code>PartialEq</code>). When
-derived on structs and enums, <code>cmp</code> behaves the same way as the derived
-implementation for <code>partial_cmp</code> does with <code>PartialOrd</code>.</p>
-<p>An example of when <code>Ord</code> is required is when storing values in a <code>BTreeSet&lt;T&gt;</code>,
-a data structure that stores data based on the sort order of the values.</p>
-<a class="header" href="#clone-and-copy-for-duplicating-values" id="clone-and-copy-for-duplicating-values"><h3><code>Clone</code> and <code>Copy</code> for Duplicating Values</h3></a>
-<p>The <code>Clone</code> trait allows you to explicitly create a deep copy of a value, and
-the duplication process might involve running arbitrary code and copying heap
-data. See the “Ways Variables and Data Interact: Clone” section in Chapter 4
-for more information on <code>Clone</code>.</p>
-<p>Deriving <code>Clone</code> implements the <code>clone</code> method, which when implemented for the
-whole type, calls <code>clone</code> on each of the parts of the type. This means all the
-fields or values in the type must also implement <code>Clone</code> to derive <code>Clone</code>.</p>
-<p>An example of when <code>Clone</code> is required is when calling the <code>to_vec</code> method on a
-slice. The slice doesn’t own the type instances it contains, but the vector
-returned from <code>to_vec</code> will need to own its instances, so <code>to_vec</code> calls
-<code>clone</code> on each item. Thus, the type stored in the slice must implement <code>Clone</code>.</p>
-<p>The <code>Copy</code> trait allows you to duplicate a value by only copying bits stored on
-the stack; no arbitrary code is necessary. See the “Stack-Only Data: Copy”
-section in Chapter 4 for more information on <code>Copy</code>.</p>
-<p>The <code>Copy</code> trait doesn’t define any methods to prevent programmers from
-overloading those methods and violating the assumption that no arbitrary code
-is being run. That way, all programmers can assume that copying a value will be
-very fast.</p>
-<p>You can derive <code>Copy</code> on any type whose parts all implement <code>Copy</code>. You can
-only apply the <code>Copy</code> trait to types that also implement <code>Clone</code>, because a
-type that implements <code>Copy</code> has a trivial implementation of <code>Clone</code> that
-performs the same task as <code>Copy</code>.</p>
-<p>The <code>Copy</code> trait is rarely required; types that implement <code>Copy</code> have
-optimizations available, meaning you don’t have to call <code>clone</code>, which makes
-the code more concise.</p>
-<p>Everything possible with <code>Copy</code> you can also accomplish with <code>Clone</code>, but the
-code might be slower or have to use <code>clone</code> in places.</p>
-<a class="header" href="#hash-for-mapping-a-value-to-a-value-of-fixed-size" id="hash-for-mapping-a-value-to-a-value-of-fixed-size"><h3><code>Hash</code> for Mapping a Value to a Value of Fixed Size</h3></a>
-<p>The <code>Hash</code> trait allows you to take an instance of a type of arbitrary size and
-map that instance to a value of fixed size using a hash function. Deriving
-<code>Hash</code> implements the <code>hash</code> method. The derived implementation of the <code>hash</code>
-method combines the result of calling <code>hash</code> on each of the parts of the type,
-meaning all fields or values must also implement <code>Hash</code> to derive <code>Hash</code>.</p>
-<p>An example of when <code>Hash</code> is required is in storing keys in a <code>HashMap&lt;K, V&gt;</code>
-to store data efficiently.</p>
-<a class="header" href="#default-for-default-values" id="default-for-default-values"><h3><code>Default</code> for Default Values</h3></a>
-<p>The <code>Default</code> trait allows you to create a default value for a type. Deriving
-<code>Default</code> implements the <code>default</code> function. The derived implementation of the
-<code>default</code> function calls the <code>default</code> function on each part of the type,
-meaning all fields or values in the type must also implement <code>Default</code> to
-derive <code>Default.</code></p>
-<p>The <code>Default::default</code> function is commonly used in combination with the struct
-update syntax discussed in the “Creating Instances From Other Instances With
-Struct Update Syntax” section in Chapter 5. You can customize a few fields of a
-struct and then set and use a default value for the rest of the fields by using
-<code>..Default::default()</code>.</p>
-<p>The <code>Default</code> trait is required when you use the method <code>unwrap_or_default</code> on
-<code>Option&lt;T&gt;</code> instances, for example. If the <code>Option&lt;T&gt;</code> is <code>None</code>, the method
-<code>unwrap_or_default</code> will return the result of <code>Default::default</code> for the type
-<code>T</code> stored in the <code>Option&lt;T&gt;</code>.</p>
-<a class="header" href="#appendix-d-macros" id="appendix-d-macros"><h2>Appendix D: Macros</h2></a>
-<p>We’ve used macros like <code>println!</code> throughout this book but haven’t fully
-explored what a macro is and how it works. This appendix explains macros as
-follows:</p>
+<p><code>derive</code> 속성을 통해 제공되는 것과 다른 동작을 원하신다면,
+표준 라이브러리 문서에서 각 트레잇을 직접 구현하는 법을 찾아보시기
+바랍니다.</p>
+<p>표준 라이브러리의 나머지 트레잇들은 <code>derive</code> 를 통해
+여러분의 타입에 구현 될 수 없습니다.
+이 트레잇들은 적절한 기본 동작을 갖지 않기 때문에,
+여러분이 수행하려는 작업에 맞춰서 직접 구현해야 합니다.</p>
+<p>derive 될 수 없는 트레잇의 대표적인 예는 <code>Display</code> 트레잇입니다.
+이 트레잇의 역할은 최종 사용자(end user) 들을 위한 포맷팅입니다.
+다만 적절한 포맷팅을 만들기 위해선 어느 부분을 보여줘야 할지, 관련성 있는 부분은
+어느 곳인지, 데이터의 형식은 어떤 것이 가장 적절할지 등을 여러분이 직접
+끊임없이 고민해야 합니다. 러스트 컴파일러는 이런 식으로 적절한 포맷팅을
+생성해낼 수 없고, 따라서 derive 를 지원하지 않습니다.</p>
+<p>이 부록에 나온 트레잇들이 derive 가능한 트레잇의 전부는 아닙니다:
+라이브러리에서 자신들의 트레잇에 <code>derive</code> 를 구현할 수도 있기 때문에, 여러분이
+<code>derive</code> 를 사용할 수 있는 트레잇은 사실상 무제한이라고 보셔도 됩니다.
+<code>derive</code> 를 구현하는 법에 관해선 절차 매크로 사용을 포함해 부록 D 에서 다루고 있습니다.</p>
+<a class="header" href="#프로그래머-출력을-위한-debug" id="프로그래머-출력을-위한-debug"><h3>프로그래머 출력을 위한 <code>Debug</code></h3></a>
+<p><code>Debug</code> 트레잇을 사용하면 형식 문자열에서 디버그 포맷팅을 사용할 수 있습니다.
+디버그 포맷팅은 형식 문자열의 <code>{}</code> 변경자 내에 <code>:?</code> 를 추가해서 사용합니다.</p>
+<p><code>Debug</code> 트레잇을 사용하면 해당 타입의 인스턴스를 디버깅 목적으로서 출력 가능합니다.
+이는 여러분들의 타입을 사용하는 다른 프로그래머들이 프로그램의 실행 도중
+인스턴스를 점검할 수 있게 해줍니다.</p>
+<p><code>Debug</code> 트레잇이 필수적인 경우의 예는, <code>assert_eq</code> 매크로를 사용할 때입니다.
+이 매크로는 동치 비교 결과가 거짓일 경우, 프로그래머가 두 인스턴스가 같지 않다는
+것을 확인할 수 있도록 인수로 넘겨받은 인스턴스의 값들을 출력하기 때문입니다.</p>
+<a class="header" href="#동치-비교를-위한-partialeq-와-eq" id="동치-비교를-위한-partialeq-와-eq"><h3>동치 비교를 위한 <code>PartialEq</code> 와 <code>Eq</code></h3></a>
+<p><code>PartialEq</code> 트레잇을 사용하면 타입의 인스턴스를 동치 비교할 수 있고
+<code>==</code> 와 <code>!=</code> 연산자를 사용할 수 있습니다.</p>
+<p><code>PartialEq</code> derive 는 <code>eq</code> 메소드를 구현합니다. <code>PartialEq</code> 가 구조체에 derive
+된다면, 인스턴스를 비교할 때 각 인스턴스의 <em>모든</em> 필드가 서로 동일한 경우에만
+두 인스턴스가 동일하다고 판별하며, 만약 서로 다른 필드가 하나라도 있다면 동일하지
+않다고 판별합니다. 열거형에 derive 될 경우, 각각의 variant 는 자신과 동일하며 그 외의 variant 와는 동일하지 않습니다.</p>
+<p><code>PartialEq</code> 트레잇이 필수적인 경우는 <code>assert_eq!</code> 매크로를 사용할 때 입니다.
+타입의 두 인스턴스가 서로 동일한지 비교할 수 있어야 하기
+때문입니다.</p>
+<p><code>Eq</code> 트레잇은 메소드를 갖지 않습니다. 그저 어노테이션 된 타입의 모든 값에 대해
+값이 그 자체와 동일하다는 것을 알리는 것이 목적이기 때문입니다.
+<code>Eq</code> 트레잇은 <code>PartialEq</code> 를 구현한 타입에만 적용 가능합니다.
+하지만 그렇다고 해서 <code>PartialEq</code> 를 구현한 모든 타입이 <code>Eq</code> 를 구현할 수 있는 것은
+아닌데, 대표적인 예로 부동 소수점 타입이 있습니다: 부동 소수점 숫자의 구현체에
+따르면, 두 비수(<code>NaN</code>, not-a-number) 의 인스턴스는 서로 같지 않습니다.</p>
+<p><code>Eq</code> 가 필수적인 예는 <code>HashMap&lt;K, V&gt;</code> 의 키값으로 사용될 경우입니다.
+<code>HashMap&lt;K, V&gt;</code> 에서 두 키값이 서로 같은지 확인해야 하기 때문입니다.</p>
+<a class="header" href="#순서-비교를-위한-partialord-와-ord" id="순서-비교를-위한-partialord-와-ord"><h3>순서 비교를 위한 <code>PartialOrd</code> 와 <code>Ord</code></h3></a>
+<p><code>PartialOrd</code> 트레잇은 정렬 목적으로 타입의 인스턴스를 비교할 수 있게 해줍니다.
+이를 구현한 타입은 <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code> 등의 연산자를 사용할 수 있습니다.
+<code>PartialOrd</code> 트레잇은 <code>PartialEq</code> 트레잇을 구현한 타입에만
+적용할 수 있습니다.</p>
+<p><code>PartialOrd</code> derive 는 <code>partial_cmp</code> 메소드를 구현해야 합니다.
+이 메소드는 <code>Option&lt;Ordering&gt;</code> 을 반환하며, 주어진 값으로 순서를 비교할 수
+없을때 반환값은 <code>None</code> 이 됩니다. 해당 타입의 대부분의 값은 비교가 가능하지만,
+순서를 비교할수 없는 값의 예는 비수(<code>NaN</code>, not-a-number) 부동 소수점 값입니다.
+아무 부동 소수점 값과 <code>NaN</code> 부동 소수점 값으로 <code>partial_cmp</code> 를 호출하면
+<code>None</code> 이 리턴되는걸 보실 수 있습니다.</p>
+<p>구조체에 derive 될 경우 <code>PartialOrd</code> 는 두 인스턴스의
+각 필드를 구조체 정의에 나타난 순서대로 비교합니다.
+열거형에 derive 될 경우는 해당 열거형 정의문에 먼저 선언한
+variant 가 나중에 선언한 variant 보다 더 적게(less) 평가됩니다.</p>
+<p><code>PartialOrd</code> 트레잇이 필수적인 예는,
+특정 범위 내에서 랜덤한 값을 생성해내는
+<code>rand</code> 크레이트의 <code>gen_range</code> 메소드가 있습니다.</p>
+<p><code>Ord</code> 트레잇은 명시된 해당 타입에 있어서, 이 타입의 어떠한 두 값간에 순서를 비교하는
+것이 가능하다는 것을 나타냅니다. <code>Ord</code> 트레잇은 <code>cmp</code> 메소드를 구현하고, 이 메소드는
+<code>Ordering</code> 을 반환합니다. 어째서 <code>Option&lt;Ordering&gt;</code> 이 아닌 <code>Ordering</code> 을 반환하는가
+함은, 언제나 순서 비교가 가능하다는 것을 보장하기 위해서입니다.
+<code>Ord</code> 트레잇은 <code>PartialOrd</code> 와 <code>Eq</code> (그리고 <code>Eq</code> 는 <code>PartialEq</code> 가 필수적이죠) 를
+구현한 타입에만 적용 가능합니다. 구조체나 열거형에 derive 될 시에는 <code>cmp</code> 가
+<code>PartialOrd</code>  의 <code>partial_cmp</code> 가 derive 되어 구현된 것과 똑같이 작동할 것입니다.</p>
+<p><code>Ord</code> 가 필수적인 예는, 값을 정렬해서 저장하는 자료구조인
+<code>BTreeSet&lt;T&gt;</code> 에 값을 저장할 때입니다.</p>
+<a class="header" href="#값-복제를-위한-clone-와-copy" id="값-복제를-위한-clone-와-copy"><h3>값 복제를 위한 <code>Clone</code> 와 <code>Copy</code></h3></a>
+<p><code>Clone</code> 트레잇은 명시적으로 값의 깊은 복사를 생성할 수 있게 해주며,
+복제 과정은 임의의 코드 실행과 힙 데이터 복사가 포함될 수 있습니다.
+<code>Clone</code> 에 대한 자세한 내용을 원하시는 분은 4-1 장의
+&quot;변수와 데이터가 상호작용하는 방법: 클론&quot; 절을 참고하시기 바랍니다.</p>
+<p><code>Clone</code> derive 는 <code>clone</code> 메소드를 구현합니다.
+유의할 점은 타입의 모든 부분에 <code>clone</code> 메소드가 호출되기 때문에,
+해당 타입의 모든 필드 혹은 값이 <code>Clone</code> 을 derive 하거나 구현해야 한다는 것입니다.</p>
+<p><code>Clone</code> 이 필수적인 예는 슬라이스에 <code>to_vec</code> 메소드를 호출할 경우입니다.
+슬라이스는 자신이 포함하는 타입 인스턴스를 소유하지 않기 때문에,
+<code>to_vec</code> 메소드는 슬라이스의 각 항목에 <code>clone</code> 을 호출하여
+자신이 반환할 벡터가 인스턴스들을 소유할 수 있도록 합니다.</p>
+<p><code>Copy</code> 트레잇은 값을 복제할 때 스택에 저장된 비트들을 복사할 과정만을 거칩니다;
+어떠한 임의의 코드도 실행할 필요가 없습니다. <code>Copy</code> 에 대한 내용을 더
+원하시는 분은 4-1장의 &quot;스택에만 있는 데이터: 복사&quot; 를 참고하시기 바랍니다.</p>
+<p><code>Copy</code> 트레잇은 어떠한 메소드도 정의하지 않음으로써 프로그래머가
+메소드를 오버로딩해 임의의 코드를 실행시키는 경우를 방지합니다.
+따라서 모든 프로그래머들은 값의 복사가
+느려질 것을 염려하지 않아도 됩니다.</p>
+<p><code>Copy</code> derive 는 타입의 모든 부분이 <code>Copy</code> 를 구현한 타입에만 가능합니다.
+<code>Copy</code> 트레잇 적용은 <code>Clone</code> 을 구현하고 있는 타입에만 적용 가능합니다.
+이는 <code>Copy</code> 를 구현하는 타입은 <code>Copy</code> 와 같은 작업을 하는
+<code>Clone</code> 의 간단한 구현을 지니기 때문입니다.</p>
+<p><code>Copy</code> 트레잇을 요구하는 경우는 매우 드뭅니다;
+<code>Copy</code> 를 구현한 타입은 최적화가 가능하기에, <code>clone</code> 을
+호출할 필요가 사라짐으로써 코드를 간결하게 만들 수 있기 때문입니다.</p>
+<p><code>Copy</code> 로 할 수 있는 것은 <code>Clone</code> 으로도 할 수 있습니다만,
+이 경우 코드가 좀 느려지거나 코드에서 <code>clone</code> 을 사용해야 할 수도 있습니다.</p>
+<a class="header" href="#값을-고정된-크기의-값으로-매핑하기-위한-hash" id="값을-고정된-크기의-값으로-매핑하기-위한-hash"><h3>값을 고정된 크기의 값으로 매핑하기 위한 <code>Hash</code></h3></a>
+<p><code>Hash</code> 트레잇은 해쉬 함수를 이용해 임의 크기 타입의 인스턴스를
+고정된 크기의 값으로 매핑할 수 있게 해줍니다. <code>Hash</code> derive 는
+<code>hash</code> 메소드를 구현합니다. <code>hash</code> 메소드의 구현 상 타입의 각 부분에
+<code>hash</code> 를 호출하도록 되어 있으므로, <code>Hash</code> 를 derive 하기 위해선
+모든 필드나 값은 <code>Hash</code> 를 구현해야 합니다.</p>
+<p><code>Hash</code> 가 필수적인 예는 <code>HashMap&lt;K, V&gt;</code> 에 효율적으로 데이터를 저장하기 위해
+key 값을 저장하는 경우입니다.</p>
+<a class="header" href="#기본-값을-위한-default" id="기본-값을-위한-default"><h3>기본 값을 위한 <code>Default</code></h3></a>
+<p><code>Default</code> 트레잇은 타입의 기본 값을 생성할 수 있게 해줍니다.
+<code>Default</code> derive 는 <code>default</code> 함수를 구현합니다.
+<code>default</code> 메소드의 구현 상 타입의 각 부분에 <code>default</code> 를
+호출하도록 되어 있으므로, <code>Default</code> 를 derive 하기 위해선
+모든 필드나 값은 <code>Default</code> 를 구현해야 합니다.</p>
+<p><code>Default::default</code> 함수는 5-1 장의 &quot;구조체 갱신법을 이용하여
+기존 구조체 인스턴스로 새 구조체 인스턴스 생성하기&quot; 에서 다룬
+구조체 갱신법과 연계하여 사용하는 것이 일반적입니다. 여러분은
+구조체의 일부 필드를 원하는대로 설정하고 나머지 필드는
+<code>..Default::default()</code> 를 이용해 기본 값으로 설정할 수 있습니다.</p>
+<p><code>Default</code> 트레잇은 <code>Option&lt;T&gt;</code> 인스턴스에 <code>unwrap_or_default</code> 메소드를
+사용할때 필수적입니다. 예를 들어, <code>Option&lt;T&gt;</code> 가 <code>None</code> 일 경우
+<code>unwrap_or_default</code> 메소드는 <code>Option&lt;T&gt;</code> 에 해당하는
+<code>T</code> 형식의 <code>Default::default</code> 호출 결과를 반환합니다.</p>
+<a class="header" href="#부록-d-매크로" id="부록-d-매크로"><h2>부록 D: 매크로</h2></a>
+<p>우린 이 책에서 <code>println!</code> 등의 매크로를 사용했습니다.
+하지만 아직 매크로가 정확히 무엇이고, 어떻게 동작하는지는 알아보지 않았습니다.
+이번 부록에선 매크로에 대해 다음과 같은 순서로 알아볼 것입니다:</p>
 <ul>
-<li>What macros are and how they differ from functions</li>
-<li>How to define a declarative macro to do metaprogramming</li>
-<li>How to define a procedural macro to create custom <code>derive</code> traits</li>
+<li>매크로가 무엇이고, 함수와 다른 점</li>
+<li>메타프로그래밍을 하기 위한 '선언적 매크로' 정의법</li>
+<li><code>derive</code> 트레잇을 커스텀하기 위한 절차적 매크로 정의법</li>
 </ul>
-<p>We’re covering the details of macros in an appendix because they’re still
-evolving in Rust. Macros have changed and, in the near future, will change at a
-quicker rate than the rest of the language and standard library since Rust 1.0,
-so this section is more likely to become out-of-date than the rest of the book.
-Due to Rust’s stability guarantees, the code shown here will continue to work
-with future versions, but there may be additional capabilities or easier ways
-to write macros that weren’t available at the time of this publication. Bear
-that in mind when you try to implement anything from this appendix.</p>
-<a class="header" href="#the-difference-between-macros-and-functions" id="the-difference-between-macros-and-functions"><h3>The Difference Between Macros and Functions</h3></a>
-<p>Fundamentally, macros are a way of writing code that writes other code, which
-is known as <em>metaprogramming</em>. In Appendix C, we discussed the <code>derive</code>
-attribute, which generates an implementation of various traits for you. We’ve
-also used the <code>println!</code> and <code>vec!</code> macros throughout the book. All of these
-macros <em>expand</em> to produce more code than the code you’ve written manually.</p>
-<p>Metaprogramming is useful for reducing the amount of code you have to write and
-maintain, which is also one of the roles of functions. However, macros have
-some additional powers that functions don’t have.</p>
-<p>A function signature must declare the number and type of parameters the
-function has. Macros, on the other hand, can take a variable number of
-parameters: we can call <code>println!(&quot;hello&quot;)</code> with one argument or
-<code>println!(&quot;hello {}&quot;, name)</code> with two arguments. Also, macros are expanded
-before the compiler interprets the meaning of the code, so a macro can, for
-example, implement a trait on a given type. A function can’t, because it gets
-called at runtime and a trait needs to be implemented at compile time.</p>
-<p>The downside to implementing a macro instead of a function is that macro
-definitions are more complex than function definitions because you’re writing
-Rust code that writes Rust code. Due to this indirection, macro definitions are
-generally more difficult to read, understand, and maintain than function
-definitions.</p>
-<p>Another difference between macros and functions is that macro definitions
-aren’t namespaced within modules like function definitions are. To prevent
-unexpected name clashes when using external crates, you have to explicitly
-bring the macros into the scope of your project at the same time as you bring
-the external crate into scope, using the <code>#[macro_use]</code> annotation. The
-following example would bring all the macros defined in the <code>serde</code> crate into
-the scope of the current crate:</p>
+<p>매크로에 대한 자세한 내용을 부록에서 다루는 이유는,
+러스트의 매크로는 아직 진화중이기 때문입니다. 러스트 1.0 이래로, 매크로는
+언어의 나머지 부분과 표준 라이브러리보다 빠르게 바뀌었고, 향후에도 그럴 것입니다.
+따라서 이 절은 책의 다른 부분보다 시대에 뒤처질 가능성이 높습니다.
+러스트는 안정성을 보증하므로 여기 나오는 코드는 이후 버전에서도 동작할 테지만,
+그때쯤엔 이 책이 발행된 시점에선 사용할 수 없었던 추가 기능이나,
+보다 쉽게 매크로를 작성하는 여러 방법이 존재할 것입니다.
+만약 이 부록을 참고해 무언가 구현하려 하신다면 이 점을 염두해두시기 바랍니다.</p>
+<a class="header" href="#매크로와-함수의-차이" id="매크로와-함수의-차이"><h3>매크로와 함수의 차이</h3></a>
+<p>근본적으로, 매크로는 다른 코드를 작성하는 코드입니다.
+이 개념은 <em>메타프로그래밍(metaprogramming)</em> 으로 잘 알려져 있죠.
+우린 부록 C 에서 트레잇에 다양한 구현체를 생성해주는 <code>derive</code> 속성에 대해 다뤘고,
+책 중간중간 <code>println!</code> 과 <code>vec!</code> 매크로도 사용했습니다. 이 모든 매크로들은
+수동으로 코드를 작성하지 않고도 많은 코드를 생산해낼 수 있게 합니다.</p>
+<p>메타프로그래밍은 여러분이 작성하고 관리해야 할 코드의 양을 줄여줍니다.
+물론 이는 함수의 역할이기도 합니다만,
+매크로는 함수가 하지 못하는 일도 할 수 있습니다.</p>
+<p>함수 시그니처는 해당 함수가 갖는 매개변수의 개수와 타입을 선언해야만
+하는 반면, 매크로는 매개변수의 개수를 가변적으로 처리할 수 있습니다:
+간단한 예로, <code>println!(&quot;hello&quot;)</code> 와 같이 1 개의 매개변수를 사용하거나,
+<code>println!(&quot;hello {}&quot;, name)</code> 처럼 2 개의 매개변수를 사용할 수 있습니다.
+또한 매크로는 컴파일러가 코드의 의미를 해석하기 이전에 작동합니다.
+따라서 주어진 타입에 트레잇을 구현하는 등, 런타임에 호출되는 함수로는
+불가능한 일을 할 수 있습니다.</p>
+<p>단, 함수 대신 매크로를 구현하는 것도 단점이 존재합니다.
+매크로를 구현한다는 것은 러스트 코드를 만들어내는 코드를 작성한다는 것입니다.
+이는 추상화 계층을 하나 더 만들어 낸다는 것이기 때문에,
+매크로 정의는 일반적으로 함수 정의에 비해 읽고, 이해하고, 관리하기 어렵습니다.
+요약해서, 매크로 정의의 단점은 함수 정의보다 복잡하다는 겁니다.</p>
+<p>함수와 매크로의 또다른 차이는, 매크로 정의는 함수 정의와는 달리
+모듈의 네임스페이스에 소속되지 않는다는 것입니다.
+이로 인한 외부 크레이트 사용 시 발생하는 예기치 않은 이름 충돌을
+막기 위해선, 외부 크레이트를 스코프 내로 가져오는 동시에
+<code>#[macro_use]</code> 어노테이션을 사용하여 가져올 매크로를 명시해야 합니다.
+다음은 <code>serde</code> 크레이트에 정의된 매크로를
+현재 크레이트의 스코프로 가져오는 예제입니다:</p>
 <pre><code class="language-rust ignore">#[macro_use]
 extern crate serde;
 </code></pre>
-<p>If <code>extern crate</code> was able to bring macros into scope by default without this
-explicit annotation, you would be prevented from using two crates that happened
-to define macros with the same name. In practice, this conflict doesn’t occur
-often, but the more crates you use, the more likely it is.</p>
-<p>There is one last important difference between macros and functions: you must
-define or bring macros into scope <em>before</em> you call them in a file, whereas you
-can define functions anywhere and call them anywhere.</p>
-<a class="header" href="#declarative-macros-with-macro_rules-for-general-metaprogramming" id="declarative-macros-with-macro_rules-for-general-metaprogramming"><h3>Declarative Macros with <code>macro_rules!</code> for General Metaprogramming</h3></a>
-<p>The most widely used form of macros in Rust are <em>declarative macros</em>. These are
-also sometimes referred to as <em>macros by example</em>, <em><code>macro_rules!</code> macros</em>, or
-just plain <em>macros</em>. At their core, declarative macros allow you to write
-something similar to a Rust <code>match</code> expression. As discussed in Chapter 6,
-<code>match</code> expressions are control structures that take an expression, compare the
-resulting value of the expression to patterns, and then run the code associated
-with the matching pattern. Macros also compare a value to patterns that have
-code associated with them; in this situation, the value is the literal Rust
-source code passed to the macro, the patterns are compared with the structure
-of that source code, and the code associated with each pattern is the code that
-replaces the code passed to the macro. This all happens during compilation.</p>
-<p>To define a macro, you use the <code>macro_rules!</code> construct. Let’s explore how to
-use <code>macro_rules!</code> by looking at how the <code>vec!</code> macro is defined. Chapter 8
-covered how we can use the <code>vec!</code> macro to create a new vector with particular
-values. For example, the following macro creates a new vector with three
-integers inside:</p>
+<p>만약 어노테이션을 명시하지 않더라도 <code>extern crate</code> 만으로 스코프 내에 매크로가
+자동적으로 들어오게 됐더라면, 여러분은 같은 이름의 매크로가 정의된 크레이트를
+동시에 사용하지 못했을 겁니다. 충돌이 실제로 자주 발생하는 건 아니지만,
+많은 크레이트를 사용할수록 충돌이 발생할 확률은 높아집니다.</p>
+<p>마지막으로, 매크로와 함수의 차이 중 중요한 한 가지가 남았습니다:
+함수는 정의 위치에 관계 없이 아무 곳에서나 호출이 가능하지만,
+매크로는 호출 하기 전에 반드시 해당 파일에 정의하거나 가져와야 합니다.</p>
+<a class="header" href="#일반적인-메타프로그래밍을-위한-macro_rules-를-사용하는-선언적-매크로" id="일반적인-메타프로그래밍을-위한-macro_rules-를-사용하는-선언적-매크로"><h3>일반적인 메타프로그래밍을 위한 <code>macro_rules!</code> 를 사용하는 선언적 매크로</h3></a>
+<p>러스트에서 매크로는 <em>선언적 매크로(declarative macros)</em> 의 형태로
+가장 널리 사용됩니다. 이는 <em>예제 별 매크로(macros by example)</em>,
+<em><code>macro_rules!</code> 매크로</em>, 아니면 그냥 <em>매크로</em> 라고 불리기도 합니다.
+선언적 매크로란 것은, 러스트의 <code>match</code> 표현식과 유사하게 작성할 수 있습니다.
+<code>match</code> 는 표현식을 다루는 제어구조입니다. 6 장에서 다뤘듯 <code>match</code> 는
+패턴과 표현식의 결과값을 비교하고, 해당 패턴과 연관된 코드를 실행합니다.
+매크로 또한 값과, 관련된 코드를 갖는 패턴을 비교합니다;
+이때 값은 매크로에 넘겨진 러스트 소스코드를 말하고,
+패턴에는 소스코드의 구조가 해당되며, 각 패턴에 관련된 코드는
+매크로로 전달되어 대체된 코드를 말합니다.
+그리고, 이 모든 과정은 컴파일 중 일어납니다.</p>
+<p><code>vec!</code> 매크로가 어떻게 정의되어 있는지 살펴보도록 합시다.
+<code>vec!</code> 매크로는 특정 값들을 이용해 새로운 벡터를
+생성하는 매크로로, 8 장에서 다뤘습니다.
+다음은 이 매크로를 사용해 세 정수 값으로
+새로운 벡터를 생성하는 예시입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
 let v: Vec&lt;u32&gt; = vec![1, 2, 3];
 #}</code></pre></pre>
-<p>We could also use the <code>vec!</code> macro to make a vector of two integers or a vector
-of five string slices. We wouldn’t be able to use a function to do the same
-because we wouldn’t know the number or type of values up front.</p>
-<p>Let’s look at a slightly simplified definition of the <code>vec!</code> macro in Listing
-D-1.</p>
+<p>이외에도 <code>vec!</code> 매크로는 두 정수로 이루어진 벡터나
+5 개의 스트링 슬라이스로 이루어진 벡터를 만드는 데도 사용할 수 있습니다.
+함수는 사전에 값의 개수나 타입을 알 수 없으므로 이러한 작업은 불가능합니다.</p>
+<p><code>vec!</code> 매크로의 정의를 간략화한 모습을 Listing D-1 에서
+한번 살펴봅시다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -23961,75 +23961,76 @@ macro_rules! vec {
     };
 }
 #}</code></pre></pre>
-<p><span class="caption">Listing D-1: A simplified version of the <code>vec!</code> macro
-definition</span></p>
+<p><span class="caption">Listing D-1: <code>vec!</code> 매크로 정의를 간략화한
+모습</span></p>
 <blockquote>
-<p>Note: The actual definition of the <code>vec!</code> macro in the standard library
-includes code to preallocate the correct amount of memory up front. That code
-is an optimization that we don’t include here to make the example simpler.</p>
+<p>Note: 표준 라이브러리 내 <code>vec!</code> 매크로의 실제 정의에는
+메모리의 정확한 양을 미리 할당하는 코드가 포함되어 있습니다.
+이 코드에선 예제를 간략화 하기 위해서 해당 부분을 제외했습니다.</p>
 </blockquote>
-<p>The <code>#[macro_export]</code> annotation indicates that this macro should be made
-available whenever the crate in which we’re defining the macro is imported.
-Without this annotation, even if someone depending on this crate uses the
-<code>#[macro_use]</code> annotation, the macro wouldn’t be brought into scope.</p>
-<p>We then start the macro definition with <code>macro_rules!</code> and the name of the
-macro we’re defining <em>without</em> the exclamation mark. The name, in this case
-<code>vec</code>, is followed by curly brackets denoting the body of the macro definition.</p>
-<p>The structure in the <code>vec!</code> body is similar to the structure of a <code>match</code>
-expression. Here we have one arm with the pattern <code>( $( $x:expr ),* )</code>,
-followed by <code>=&gt;</code> and the block of code associated with this pattern. If the
-pattern matches, the associated block of code will be emitted. Given that this
-is the only pattern in this macro, there is only one valid way to match; any
-other will be an error. More complex macros will have more than one arm.</p>
-<p>Valid pattern syntax in macro definitions is different than the pattern syntax
-covered in Chapter 18 because macro patterns are matched against Rust code
-structure rather than values. Let’s walk through what the pieces of the pattern
-in Listing D-1 mean; for the full macro pattern syntax, see <a href="../../reference/macros.html">the reference</a>.</p>
-<p>First, a set of parentheses encompasses the whole pattern. Next comes a dollar
-sign (<code>$</code>) followed by a set of parentheses, which captures values that match
-the pattern within the parentheses for use in the replacement code. Within
-<code>$()</code> is <code>$x:expr</code>, which matches any Rust expression and gives the expression
-the name <code>$x</code>.</p>
-<p>The comma following <code>$()</code> indicates that a literal comma separator character
-could optionally appear after the code that matches the code captured in <code>$()</code>.
-The <code>*</code> following the comma specifies that the pattern matches zero or more of
-whatever precedes the <code>*</code>.</p>
-<p>When we call this macro with <code>vec![1, 2, 3];</code>, the <code>$x</code> pattern matches three
-times with the three expressions <code>1</code>, <code>2</code>, and <code>3</code>.</p>
-<p>Now let’s look at the pattern in the body of the code associated with this arm:
-the <code>temp_vec.push()</code> code within the <code>$()*</code> part is generated for each part
-that matches <code>$()</code> in the pattern, zero or more times depending on how many
-times the pattern matches. The <code>$x</code> is replaced with each expression matched.
-When we call this macro with <code>vec![1, 2, 3];</code>, the code generated that replaces
-this macro call will be the following:</p>
+<p><code>#[macro_export]</code> 어노테이션은 우리가 정의한 매크로가 들어 있는 크레이트를
+누군가 임포트 했을 때, 해당 매크로를 사용할 수 있도록 해줍니다. 이 어노테이션을
+사용하지 않을 경우, 이 크레이트를 디펜던시로 갖는 누군가가 <code>#[macro_use]</code>
+어노테이션을 사용하더라도 해당 매크로는 스코프 내로 가져와지지 않습니다.</p>
+<p>매크로 정의는 <code>macro_rules!</code> 와 느낌표가 붙지 <em>않는</em> 매크로의
+이름 으로 시작됩니다. 예시의 경우, 매크로명은 <code>vec</code> 이며
+뒤따르는 중괄호가 매크로 정의의 본문을 나타냅니다.</p>
+<p><code>vec!</code> 의 본문 구조는 <code>match</code> 표현식 구조와 유사합니다.
+여기선 <code>( $( $x:expr ),* )</code> 패턴과 그 뒤로 따라오는 <code>=&gt;</code>, 그리고 해당 패턴에
+연관된 코드 블록으로 이루어진 갈래 하나를 갖습니다. 패턴이 매치될 경우,
+해당 패턴에 연관된 코드가 반환 됩니다. 이 매크로는 하나뿐인 패턴을 갖기 때문에
+매치되는 경우는 하나 뿐이며, 다른 모든 경우는 에러가 발생할 것입니다.
+물론 이보다 복잡한 매크로는 갈래를 하나 이상 갖겠죠.</p>
+<p>매크로 정의에서 사용하는 패턴 문법은 18 장에서 다룬 패턴 문법과는 다릅니다.
+그 이유는, 매크로는 러스트 코드 구조와 매치되기 위한 것인데 18 장의 패턴에서
+사용하는 값과 러스트 코드 구조는 상당히 다르기 때문입니다.
+이제 Listing D-1 의 패턴을 하나씩 살펴보면서 알아보도록 합시다; 매크로 패턴의 모든 문법에 대한 내용은 <a href="https://doc.rust-lang.org/reference/macros.html#macros">레퍼런스</a> 를 참조하시기 바랍니다.</p>
+<p>먼저 괄호 쌍이 전체 패턴을 둘러쌉니다.
+그 다음 달러 기호(<code>$</code>)뒤에 괄호 쌍이 오며,
+배치할 코드에서 사용하기 위해, 괄호 안 패턴과 일치하는 값을 캡처합니다.
+<code>$()</code> 내에는 <code>$x:expr</code> 가 있는데, 이는 어떤 러스트 표현식과도 매치되며,
+그에 <code>$x</code> 라는 이름을 부여하는 기능을 합니다.</p>
+<p><code>$()</code> 에 따라오는 쉼표는 <code>$()</code> 내에 캡처되어 매치된 코드 뒤에
+나타날 수도 있는 리터럴 쉼표 구분 문자를 나타냅니다.
+쉼표 뒤 <code>*</code> 는 자신 앞에 위치한 0 개 이상
+패턴을 지정합니다.</p>
+<p>이 매크로를 <code>vec![1, 2, 3];</code> 으로 호출할 경우,
+<code>$x</code> 패턴은 <code>1</code>, <code>2</code>, <code>3</code> 세 표현식에 맞춰 세 번 매치됩니다.</p>
+<p>이제 패턴 갈래와 연관된 본문 코드를 살펴봅시다:
+<code>$()*</code> 부분 내의 <code>temp_vec.push()</code> 코드는
+패턴에서 <code>$()</code> 에 매치되는 횟수만큼 반복되어 생성되고,
+코드 내 <code>$x</code> 는 각각의 매치된 표현식으로 대체됩니다.
+따라서<code>vec![1, 2, 3]</code> 으로 이 매크로를 호출할 경우,
+매크로로부터 생성되어 매크로 호출문을 대체할 코드는 다음과 같습니다:</p>
 <pre><code class="language-rust ignore">let mut temp_vec = Vec::new();
 temp_vec.push(1);
 temp_vec.push(2);
 temp_vec.push(3);
 temp_vec
 </code></pre>
-<p>We’ve defined a macro that can take any number of arguments of any type and can
-generate code to create a vector containing the specified elements.</p>
-<p>Given that most Rust programmers will <em>use</em> macros more than <em>write</em> macros, we
-won’t discuss <code>macro_rules!</code> any further. To learn more about how to write
-macros, consult the online documentation or other resources, such as <a href="https://danielkeep.github.io/tlborm/book/index.html">“The
-Little Book of Rust Macros”</a>.</p>
-<a class="header" href="#procedural-macros-for-custom-derive" id="procedural-macros-for-custom-derive"><h3>Procedural Macros for Custom <code>derive</code></h3></a>
-<p>The second form of macros is called <em>procedural macros</em> because they’re more
-like functions (which are a type of procedure). Procedural macros accept some
-Rust code as an input, operate on that code, and produce some Rust code as an
-output rather than matching against patterns and replacing the code with other
-code as declarative macros do. At the time of this writing, you can only define
-procedural macros to allow your traits to be implemented on a type by
-specifying the trait name in a <code>derive</code> annotation.</p>
-<p>We’ll create a crate named <code>hello_macro</code> that defines a trait named
-<code>HelloMacro</code> with one associated function named <code>hello_macro</code>. Rather than
-making our crate users implement the <code>HelloMacro</code> trait for each of their
-types, we’ll provide a procedural macro so users can annotate their type with
-<code>#[derive(HelloMacro)]</code> to get a default implementation of the <code>hello_macro</code>
-function. The default implementation will print <code>Hello, Macro! My name is TypeName!</code> where <code>TypeName</code> is the name of the type on which this trait has
-been defined. In other words, we’ll write a crate that enables another
-programmer to write code like Listing D-2 using our crate.</p>
+<p>우린 인수 개수가 어느만큼이건, 어떤 타입이건 가리지 않고 특정한 요소들을
+포함할 벡터를 만들어내는 코드를 생성할 수 있는 매크로를 선언했습니다.</p>
+<p>대부분의 러스트 프로그래머는 매크로를 <em>작성하기</em> 보다는 <em>사용하는</em> 일이 더
+많을 겁니다. 따라서 여기선 <code>macro_rules!</code> 에 대해서 더 이상 다루지 않습니다.
+매크로를 작성하는 법에 대해 더 많은 것을 배우고 싶으신 분은
+<a href="https://danielkeep.github.io/tlborm/book/index.html">“The Little Book of Rust Macros”</a> 등의 온라인 문서를 찾아보세요.</p>
+<a class="header" href="#커스텀-derive-를-위한-절차적-매크로" id="커스텀-derive-를-위한-절차적-매크로"><h3>커스텀 <code>derive</code> 를 위한 절차적 매크로</h3></a>
+<p>두번째 매크로 형식은 함수(프로시저(procedure) 유형)에
+가깝기 때문에 <em>절차적 매크로(procedural macros)</em> 라고 불립니다.
+선언적 매크로는 코드를 패턴과 매치시키고 다른 코드로 대체하는 반면,
+절차적 매크로는 어떤 러스트 코드를 입력 받고, 코드를 연산하여
+러스트 코드를 생성합니다. 이 내용이 작성된 시점엔 <code>derive</code> 어노테이션에
+특정 트레잇 이름을 지정하여, 타입에 해당 트레잇을 구현하도록 하는 데에만
+절차적 매크로를 정의할 수 있습니다.</p>
+<p>우린 <code>hello_macro</code> 크레이트를 생성할 것이며, 이 크레이트는
+<code>hello_macro</code> 라는 연관 함수 하나를 가진 <code>HelloMacro</code> 트레잇을 정의할 것입니다.
+다만, 이 크레이트를 사용하는 사람이 각 타입마다 <code>HelloMacro</code> 트레잇을
+구현할 필요 없도록 절차적 매크로를 제공하여, 사용자가 자신의 타입에
+<code>#[derive(HelloMacro)]</code> 를 어노테이트 하는 것 만으로도 <code>hello_macro</code> 함수의
+기본 구현체를 이용할 수 있도록 해봅시다. 이 기본 구현체는
+<code>Hello, Macro! My name is TypeName</code> (<code>TypeName</code> 엔 이 트레잇이 정의된 타입의
+이름이 들어갈 겁니다.) 을 출력할 것입니다. 쉽게 말해서, 우리 크레이트를 이용하는
+다른 프로그래머가 Listing D-2 처럼 코드를 작성할 수 있도록 할 것입니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">extern crate hello_macro;
 #[macro_use]
@@ -24044,13 +24045,13 @@ fn main() {
     Pancakes::hello_macro();
 }
 </code></pre>
-<p><span class="caption">Listing D-2: The code a user of our crate will be able to
-write when using our procedural macro</span></p>
-<p>This code will print <code>Hello, Macro! My name is Pancakes!</code> when we’re done. The
-first step is to make a new library crate, like this:</p>
+<p><span class="caption">Listing D-2: 우리가 만든 크레이트의 사용자가
+우리 절차적 매크로를 이용해 작성 가능할 코드</span></p>
+<p>완성됐을 때, 이 코드는 <code>Hello, Macro! My name is Pancakes!</code> 를 출력할 겁니다.
+이제 새 라이브러리 크레이트를 만드는 첫 과정을 진행해보죠:</p>
 <pre><code class="language-text">$ cargo new hello_macro --lib
 </code></pre>
-<p>Next, we’ll define the <code>HelloMacro</code> trait and its associated function:</p>
+<p>다음으로, <code>HelloMacro</code> 트레잇과 연관 함수를 정의합시다.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
@@ -24059,8 +24060,8 @@ pub trait HelloMacro {
     fn hello_macro();
 }
 #}</code></pre></pre>
-<p>We have a trait and its function. At this point, our crate user could implement
-the trait to achieve the desired functionality, like so:</p>
+<p>이제 트레잇과 함수를 만들었습니다. 또한 현재 시점에서도 이 크레이트를
+이용해 다음과 같은 방식으로 우리가 원하던 기능을 구현할 수는 있습니다.</p>
 <pre><code class="language-rust ignore">extern crate hello_macro;
 
 use hello_macro::HelloMacro;
@@ -24077,35 +24078,35 @@ fn main() {
     Pancakes::hello_macro();
 }
 </code></pre>
-<p>However, they would need to write the implementation block for each type they
-wanted to use with <code>hello_macro</code>; we want to spare them from having to do this
-work.</p>
-<p>Additionally, we can’t yet provide a default implementation for the
-<code>hello_macro</code> function that will print the name of the type the trait is
-implemented on: Rust doesn’t have reflection capabilities, so it can’t look up
-the type’s name at runtime. We need a macro to generate code at compile time.</p>
-<p>The next step is to define the procedural macro. At the time of this writing,
-procedural macros need to be in their own crate. Eventually, this restriction
-might be lifted. The convention for structuring crates and macro crates is as
-follows: for a crate named <code>foo</code>, a custom derive procedural macro crate is
-called <code>foo_derive</code>. Let’s start a new crate called <code>hello_macro_derive</code> inside
-our <code>hello_macro</code> project:</p>
+<p>하지만 지금으로서는 <code>hello_macro</code> 와 같이 사용하려는 타입마다
+구현 내용을 직접 작성해줘야 합니다; 이 작업은 생략할 수 있도록
+하는 편이 좋을 것입니다.</p>
+<p>허나, 우린 아직 <code>hello_macro</code> 함수의 기본 구현체를 제공할 수 없습니다.
+우리가 원하는 기능은 자신이 구현된 트레잇 이름을 알아내어 출력하는 것인데,
+러스트엔 리플렉션 기능이 없어서 런타임 중에는 타입명을 알아낼 수 없기
+때문입니다. 따라서 매크로를 이용해 컴파일 타임에 코드를 생성해야 합니다.</p>
+<p>다음 단계는 절차적 매크로를 정의하는 것입니다. 이 내용이 작성된 시점엔
+절차적 매크로가 자신의 크레이트 내부에 위치해야만 하지만, 이 제약은 언젠가
+사라질 겁니다. 크레이트 및 매크로 크레이트의 구조화 규칙은 다음과 같습니다:
+예를 들어 <code>foo</code> 크레이트의 경우, derive 절차적 매크로 크레이트명은
+<code>foo_derive</code> 가 됩니다. 이제 <code>helo_macro</code> 프로젝트 내에
+<code>hello_macro_derive</code> 라는 새 크레이트를 만들어 봅시다:</p>
 <pre><code class="language-text">$ cargo new hello_macro_derive --lib
 </code></pre>
-<p>Our two crates are tightly related, so we create the procedural macro crate
-within the directory of our <code>hello_macro</code> crate. If we change the trait
-definition in <code>hello_macro</code>, we’ll have to change the implementation of the
-procedural macro in <code>hello_macro_derive</code> as well. The two crates will need to
-be published separately, and programmers using these crates will need to add
-both as dependencies and bring them both into scope. We could instead have the
-<code>hello_macro</code> crate use <code>hello_macro_derive</code> as a dependency and reexport the
-procedural macro code. But the way we’ve structured the project makes it
-possible for programmers to use <code>hello_macro</code> even if they don’t want the
-<code>derive</code> functionality.</p>
-<p>We need to declare the <code>hello_macro_derive</code> crate as a procedural macro crate.
-We’ll also need functionality from the <code>syn</code> and <code>quote</code> crates, as you’ll see
-in a moment, so we need to add them as dependencies. Add the following to the
-<em>Cargo.toml</em> file for <code>hello_macro_derive</code>:</p>
+<p>이 두 크레이트는 밀접히 연관되어 있고, 따라서 절차적 매크로 크레이트를
+<code>hello_macro</code> 크레이트 디렉토리 내에 생성하였습니다.
+이는 우리가 만약 <code>hello_macro</code> 내 트레잇 정의를 변경할 경우,
+<code>hello_macro_derive</code> 의 절차적 매크로 구현 또한 변경하도록 강제합니다.
+이 두 크레이트는 각각 따로 배포될 것이고, 이를 사용할 프로그래머는
+이 크레이트들을 각각 디펜던시에 추가하고 스코프 내로 가져와야 할 겁니다.
+물론 우린 <code>hello_macro</code> 크레이트에 <code>hello_macro_derive</code> 를 디펜던시로 추가하고,
+절차적 매크로 코드를 다시 export 할 필요 없도록 만들 수도 있습니다.
+하지만 이 방법대로는 <code>derive</code> 기능을 원치 않던 사용자들도
+강제적으로 <code>hello_macro</code> 를 사용해야만 합니다.</p>
+<p>우린 <code>hello_macro_derive</code> 크레이트가 절차적 매크로 크레이트라는 것을
+나타내야 합니다. 또한 잠시 후에 볼 수 있듯이 <code>syn</code> 크레이트와 <code>quote</code>
+크레이트의 기능이 필요하므로 이 둘을 디펜던시로 추가합니다.
+결과적으로 <code>hello_macro_derive</code> 의 <em>Cargo.toml</em> 파일은 다음과 같습니다:</p>
 <p><span class="filename">Filename: hello_macro_derive/Cargo.toml</span></p>
 <pre><code class="language-toml">[lib]
 proc-macro = true
@@ -24114,9 +24115,9 @@ proc-macro = true
 syn = &quot;0.11.11&quot;
 quote = &quot;0.3.15&quot;
 </code></pre>
-<p>To start defining the procedural macro, place the code in Listing D-3 into your
-<em>src/lib.rs</em> file for the <code>hello_macro_derive</code> crate. Note that this code won’t
-compile until we add a definition for the <code>impl_hello_macro</code> function.</p>
+<p>이제 절차적 매크로를 정의해봅시다. 먼저, 여러분의 <code>hello_macro_crate</code> 크레이트
+<em>src/lib.rs</em> 파일에 Listing D-3 코드를 작성합니다. 다만, 이 코드는 우리가
+<code>impl_hello_macro</code> 함수를 구현하지 않는 이상 컴파일 되진 않을 겁니다.</p>
 <p><span class="filename">Filename: hello_macro_derive/src/lib.rs</span></p>
 <pre><code class="language-rust ignore">extern crate proc_macro;
 extern crate syn;
@@ -24140,41 +24141,41 @@ pub fn hello_macro_derive(input: TokenStream) -&gt; TokenStream {
     gen.parse().unwrap()
 }
 </code></pre>
-<p><span class="caption">Listing D-3: Code that most procedural macro crates will
-need to have for processing Rust code</span></p>
-<p>Notice the way we’ve split the functions in D-3; this will be the same for
-almost every procedural macro crate you see or create, because it makes writing
-a procedural macro more convenient. What you choose to do in the place where
-the <code>impl_hello_macro</code> function is called will be different depending on your
-procedural macro’s purpose.</p>
-<p>We’ve introduced three new crates: <code>proc_macro</code>, <a href="https://crates.io/crates/syn"><code>syn</code></a>, and <a href="https://crates.io/crates/quote"><code>quote</code></a>. The
-<code>proc_macro</code> crate comes with Rust, so we didn’t need to add that to the
-dependencies in <em>Cargo.toml</em>. The <code>proc_macro</code> crate allows us to convert Rust
-code into a string containing that Rust code. The <code>syn</code> crate parses Rust code
-from a string into a data structure that we can perform operations on. The
-<code>quote</code> crate takes <code>syn</code> data structures and turns them back into Rust code.
-These crates make it much simpler to parse any sort of Rust code we might want
-to handle: writing a full parser for Rust code is no simple task.</p>
-<p>The <code>hello_macro_derive</code> function will get called when a user of our library
-specifies <code>#[derive(HelloMacro)]</code> on a type. The reason is that we’ve annotated
-the <code>hello_macro_derive</code> function here with <code>proc_macro_derive</code> and specified
-the name, <code>HelloMacro</code>, which matches our trait name; that’s the convention
-most procedural macros follow.</p>
-<p>This function first converts the <code>input</code> from a <code>TokenStream</code> to a <code>String</code> by
-calling <code>to_string</code>. This <code>String</code> is a string representation of the Rust code
-for which we are deriving <code>HelloMacro</code>. In the example in Listing D-2, <code>s</code> will
-have the <code>String</code> value <code>struct Pancakes;</code> because that is the Rust code we
-added the <code>#[derive(HelloMacro)]</code> annotation to.</p>
+<p><span class="caption">Listing D-3: 대부분의 절차적 매크로 크레이트가
+러스트 코드를 처리하는데 사용할 코드</span></p>
+<p>D-3 에서 함수들이 분리된것을 주목하세요;
+이는 절차적 매크로를 더 편리하게 작성하기 위한 방법이므로,
+여러분이 보게 될, 혹은 만들게 될 많은 크레이트도 거의 대부분 마찬가지일 겁니다.
+이 때, 호출한 <code>impl_hello_macro</code> 함수에서 어떤 작업을 할 지는
+여러분이 어떤 목적으로 절차적 매크로를 만드는 지에 따라 달라질 겁니다.</p>
+<p>우린 <code>proc_macro</code>, <a href="https://crates.io/crates/syn"><code>syn</code></a>, <a href="https://crates.io/crates/quote"><code>quote</code></a> 3 개의 새로운 크레이트를 사용했습니다.
+이 중 <code>proc_macro</code> 는 러스트에 포함되어 있으므로 <em>Cargo.toml</em> 에 디펜던시로
+추가할 필요가 없으며, 러스트 코드를 문자열로 변환하는 기능을 갖습니다.
+또한 <code>syn</code> 크레이트는 문자열로 변환한 러스트 코드를 연산을 수행하기 위한
+자료구조로 파싱합니다. 마지막으로 <code>quote</code> 크레이트는 <code>syn</code> 의 자료구조를
+러스트 코드로 복원하는 역할을 합니다. 이 크레이트들은 어떤 종류의 러스트 코드든
+우리가 다루고 싶은 것을 더 쉽게 다룰 수 있도록 도와줍니다:
+모든 러스트 코드를 파싱하는 파서를 작성하는 건 결코 쉬운 일은 아닙니다.</p>
+<p><code>hello_macro_derive</code> 함수에 <code>proc_macro_derive</code> 와 <code>HelloMacro</code> 라는
+이름을 어노테이트 하였기 때문에, <code>hello_macro_derive</code> 함수는 우리
+라이브러리 사용자가 타입에 <code>#[derive(HelloMacro)]</code> 를 명시했을 때 호출됩니다.
+<code>HelloMacro</code> 는 우리 트레잇 이름과 매치되는데, 이름을 이런식으로 짓는 게
+대부분의 절차적 매크로가 따르는 관습입니다.</p>
+<p>이 함수는 먼저 <code>to_string</code> 을 호출하여 <code>TokenStream</code> 인 <code>input</code> 을 <code>String</code>
+으로 변환합니다. 이 <code>String</code> 은 <code>HelloMacro</code> 를 derive 한 러스트 코드에
+해당합니다. 즉 Listing D-2 같은 경우에 <code>s</code> 는 <code>#[derive(HelloMacro)]</code>
+어노테이션을 추가한 부분의 러스트 코드인 <code>struct Pancakes;</code> 를
+<code>String</code> 값으로 지닐 것입니다.</p>
 <blockquote>
-<p>Note: At the time of this writing, you can only convert a <code>TokenStream</code> to a
-string. A richer API will exist in the future.</p>
+<p>Note: 이 내용이 작성된 시점에 <code>TokenStream</code> 은 문자열로만 변환 가능했습니다.
+이 시점 이후엔 더 많은 API 가 제공될 겁니다.</p>
 </blockquote>
-<p>Now we need to parse the Rust code <code>String</code> into a data structure that we can
-then interpret and perform operations on. This is where <code>syn</code> comes into play.
-The <code>parse_derive_input</code> function in <code>syn</code> takes a <code>String</code> and returns a
-<code>DeriveInput</code> struct representing the parsed Rust code. The following code
-shows the relevant parts of the <code>DeriveInput</code> struct we get from parsing the
-string <code>struct Pancakes;</code>:</p>
+<p>이제 러스트 코드 <code>String</code> 을 우리가 해석하고, 연산을 수행할
+수 있는 자료구조로 파싱해야합니다. <code>syn</code> 이 활약할 시간이 왔네요.
+<code>syn</code> 내 <code>parse_derive_input</code> 함수는 <code>String</code> 을 인자로 받아
+러스트 코드를 파싱하여 <code>DeriveInput</code> 라는 구조체로 반환합니다.
+다음 코드는 <code>struct Pancakes</code> 문자열을 파싱해서 얻은 <code>DeriveInput</code>
+구조체 내용 중 문자열과 관련된 부분을 나타냅니다:</p>
 <pre><code class="language-rust ignore">DeriveInput {
     // --snip--
 
@@ -24186,27 +24187,27 @@ string <code>struct Pancakes;</code>:</p>
     )
 }
 </code></pre>
-<p>The fields of this struct show that the Rust code we’ve parsed is a unit struct
-with the <code>ident</code> (identifier, meaning the name) of <code>Pancakes</code>. There are more
-fields on this struct for describing all sorts of Rust code; check the <a href="https://docs.rs/syn/0.11.11/syn/struct.DeriveInput.html"><code>syn</code>
-documentation for <code>DeriveInput</code></a> for more information.</p>
-<p>At this point, we haven’t defined the <code>impl_hello_macro</code> function, which is
-where we’ll build the new Rust code we want to include. But before we do, note
-that the last part of this <code>hello_macro_derive</code> function uses the <code>parse</code>
-function from the <code>quote</code> crate to turn the output of the <code>impl_hello_macro</code>
-function back into a <code>TokenStream</code>. The returned <code>TokenStream</code> is added to the
-code that our crate users write, so when they compile their crate, they’ll get
-extra functionality that we provide.</p>
-<p>You might have noticed that we’re calling <code>unwrap</code> to panic if the calls to the
-<code>parse_derive_input</code> or <code>parse</code> functions fail here. Panicking on errors is
-necessary in procedural macro code because <code>proc_macro_derive</code> functions must
-return <code>TokenStream</code> rather than <code>Result</code> to conform to the procedural macro
-API. We’ve chosen to simplify this example by using <code>unwrap</code>; in production
-code, you should provide more specific error messages about what went wrong by
-using <code>panic!</code> or <code>expect</code>.</p>
-<p>Now that we have the code to turn the annotated Rust code from a <code>TokenStream</code>
-into a <code>String</code> and a <code>DeriveInput</code> instance, let’s generate the code that
-implements the <code>HelloMacro</code> trait on the annotated type:</p>
+<p>이 구조체 필드는 우리가 파싱한 러스트 코드가 <code>Pancakes</code> 라는 <code>ident</code>
+(식별자, 즉 이름) 를 갖는 유닛 구조체라는 것을 나타냅니다. 물론 여기 나온
+필드 이외에도 많은 필드가 모든 종류의 러스트 코드를 기술하기 위해 존재합니다;
+자세한 내용을 원하시는 분은 <a href="https://docs.rs/syn/0.11.11/syn/struct.DeriveInput.html"><code>syn</code> 의 <code>DeriveInput</code> 문서</a> 를 참고하세요.</p>
+<p>우린 새로운 러스트 코드를 생성할 <code>impl_hello_macro</code> 함수를
+아직 정의하지 않았습니다. 하지만 이 함수를 정의하기에 앞서,
+<code>hello_macro_derive</code> 함수 맨 끝에서 <code>quote</code> 크레이트의 <code>parse</code> 함수를 이용해
+<code>impl_hello_macro</code> 함수 출력을 <code>TokenStream</code> 으로 변환한 것에 주목해주세요.
+반환된 <code>TokenStream</code> 은 크레이트 사용자가 작성한 코드에 추가될 것이고,
+이로써 사용자는 자신의 크레이트를 컴파일 할 때
+우리가 제공한 추가적인 기능을 갖게 됩니다.</p>
+<p>눈치 채셨을진 모르겠지만 여기선 <code>parse_derive_input</code> 이나 <code>parse</code> 함수를
+호출하는 데 실패하면 <code>unwrap</code> 을 호출해 패닉을 일으키도록 되어 있습니다.
+절차적 매크로 API 에 따르면 <code>proc_macro_derive</code> 에선 <code>Result</code> 가 아닌
+<code>TokenStream</code> 을 반환해야 하기 때문에, 절차적 매크로 코드에서 에러가 발생했을
+경우 패닉을 일으키는 것은 필수적입니다. 우린 예제를 간단히 하기 위해 <code>unwrap</code> 을
+사용했지만, 실제 프로덕션 코드에선 <code>panic!</code> 이나 <code>expect</code> 를 사용해
+정확히 무엇이 잘못됐는지 자세히 설명해주는 에러 메시지를 제공해야 합니다.</p>
+<p>어노테이션된 러스트 코드를 <code>TokenStream</code> 에서 <code>String</code> 과 <code>DeriveInput</code>
+인스턴스로 변환하는 코드를 작성했으니, 어노테이션 된 타입에 <code>HelloMacro</code>
+트레잇을 구현하는 코드를 만들 차례입니다.</p>
 <p><span class="filename">Filename: hello_macro_derive/src/lib.rs</span></p>
 <pre><code class="language-rust ignore">fn impl_hello_macro(ast: &amp;syn::DeriveInput) -&gt; quote::Tokens {
     let name = &amp;ast.ident;
@@ -24219,53 +24220,53 @@ implements the <code>HelloMacro</code> trait on the annotated type:</p>
     }
 }
 </code></pre>
-<p>We get an <code>Ident</code> struct instance containing the name (identifier) of the
-annotated type using <code>ast.ident</code>. The code in Listing D-2 specifies that the
-<code>name</code> will be <code>Ident(&quot;Pancakes&quot;)</code>.</p>
-<p>The <code>quote!</code> macro lets us write the Rust code that we want to return and
-convert it into <code>quote::Tokens</code>. This macro also provides some very cool
-templating mechanics; we can write <code>#name</code>, and <code>quote!</code> will replace it with
-the value in the variable named <code>name</code>. You can even do some repetition similar
-to the way regular macros work. Check out <a href="https://docs.rs/quote">the <code>quote</code> crate’s
-docs</a> for a thorough introduction.</p>
-<p>We want our procedural macro to generate an implementation of our <code>HelloMacro</code>
-trait for the type the user annotated, which we can get by using <code>#name</code>. The
-trait implementation has one function, <code>hello_macro</code>, whose body contains the
-functionality we want to provide: printing <code>Hello, Macro! My name is</code> and then
-the name of the annotated type.</p>
-<p>The <code>stringify!</code> macro used here is built into Rust. It takes a Rust
-expression, such as <code>1 + 2</code>, and at compile time turns the expression into a
-string literal, such as <code>&quot;1 + 2&quot;</code>. This is different than <code>format!</code> or
-<code>println!</code>, which evaluate the expression and then turn the result into a
-<code>String</code>. There is a possibility that the <code>#name</code> input might be an expression
-to print literally, so we use <code>stringify!</code>. Using <code>stringify!</code> also saves an
-allocation by converting <code>#name</code> to a string literal at compile time.</p>
-<p>At this point, <code>cargo build</code> should complete successfully in both <code>hello_macro</code>
-and <code>hello_macro_derive</code>. Let’s hook up these crates to the code in Listing D-2
-to see the procedural macro in action! Create a new binary project in your
-<em>projects</em> directory using <code>cargo new --bin pancakes</code>. We need to add
-<code>hello_macro</code> and <code>hello_macro_derive</code> as dependencies in the <code>pancakes</code>
-crate’s <em>Cargo.toml</em>. If you’re publishing your versions of <code>hello_macro</code> and
-<code>hello_macro_derive</code> to <em>https://crates.io/</em>, they would be regular
-dependencies; if not, you can specify them as <code>path</code> dependencies as follows:</p>
+<p><code>asd.ident</code> 를 이용해 어노테이션 된 타입의 타입명(식별자)을 담고 있는
+<code>Ident</code> 구조체 인스턴스를 가져왔습니다. Listing D-2 코드의 경우,
+<code>name</code> 값은 <code>Ident(&quot;Pancakes&quot;)</code> 가 됩니다.</p>
+<p><code>quote!</code> 매크로는 우리가 반환하고 싶은 러스트 코드를 작성하면
+<code>quote::Tokens</code> 로 변환해 줍니다. 또한 이 이외에도 <code>#name</code> 을 작성하면
+<code>quote!</code> 는 해당 부분을 <code>name</code> 변수의 값으로 대체하는 등, 굉장히 멋진
+템플릿 기능을 제공합니다. You can even do some repetition similar
+to the way regular macros work. 자세한 내용은
+<a href="https://docs.rs/quote"><code>quote</code> 크레이트 문서</a> 를 참고하세요.</p>
+<p>우리 목표는 절차적 매크로를 이용해 사용자가 어노테이션을 추가한 타입
+(<code>#name</code> 으로 가져올 수 있는)에 <code>HelloMacro</code> 트레잇 구현체를 생성하도록 하고,
+구현된 트레잇은 <code>hello_macro</code> 라는 함수 하나를 가지며, 그 함수는
+<code>Hello, Macro! My name is</code> 와 그 뒤에 어노테이션 된 타입의 이름을
+출력하는 기능을 갖도록 하는 것입니다.</p>
+<p>여기서 사용한 <code>stringify!</code> 매크로는 러스트 안에 포함되어있습니다.
+이 매크로는 <code>1 + 2</code> 같은 러스트 표현식을 받아서 컴파일 타임에 해당 표현식을
+<code>&quot;1 + 2&quot;</code> 처럼 스트링 리터럴로 변환합니다. <code>format!</code> 이나 <code>println!</code> 처럼
+표현식을 평가하고 결과를 <code>String</code> 으로 변환하는 것과는 다릅니다. <code>stringify!</code> 를
+사용하는 이유는 <code>#name</code> 입력이 그대로 출력돼야 하는 표현식일 수도 있기 때문입니다.
+또한 <code>stringify!</code> 는 컴파일 타임에 <code>#name</code> 을 스트링 리터럴로 변환하여,
+할당을 절약하는 효과를 가져오기도 합니다.</p>
+<p>이 시점에서 <code>cargo build</code> 는 <code>hello_macro</code> 와 <code>hello_macro_derive</code> 양쪽 모두에서
+문제 없이 돌아갑니다. 그럼 이제 이 크레이트들과 Listing D-2 코드를 연결해
+절차적 매크로가 실제 작동하는 모습을 살펴봅시다. 여러분의 <em>projects</em> 디렉토리에
+<code>cargo new --bin pancakes</code> 를 실행해 새 바이너리 프로젝트를 생성한 뒤,
+<code>pancakes</code> 의 <em>Cargo.toml</em> 에 <code>hello_macro</code> 와 <code>hello_macro_derive</code> 를
+디펜던시로 추가하세요. 만약 여러분이 <em>https://crates.io/</em> 에 이 크레이트를
+배포하셨다면 상관 없겠지만, 그렇지 않다면 이때 다음과 같이 디펜던시에
+<code>path</code> 를 명시해야 합니다.</p>
 <pre><code class="language-toml">[dependencies]
 hello_macro = { path = &quot;../hello_macro&quot; }
 hello_macro_derive = { path = &quot;../hello_macro/hello_macro_derive&quot; }
 </code></pre>
-<p>Put the code from Listing D-2 into <em>src/main.rs</em>, and run <code>cargo run</code>: it
-should print <code>Hello, Macro! My name is Pancakes!</code> The implementation of the
-<code>HelloMacro</code> trait from the procedural macro was included without the
-<code>pancakes</code> crate needing to implement it; the <code>#[derive(HelloMacro)]</code> added the
-trait implementation.</p>
-<a class="header" href="#the-future-of-macros" id="the-future-of-macros"><h3>The Future of Macros</h3></a>
-<p>In the future, Rust will expand declarative and procedural macros. Rust will
-use a better declarative macro system with the <code>macro</code> keyword and will add
-more types of procedural macros for more powerful tasks than just <code>derive</code>.
-These systems are still under development at the time of this publication;
-please consult the online Rust documentation for the latest information.</p>
-<a class="header" href="#appendix-e-translations-of-the-book" id="appendix-e-translations-of-the-book"><h2>Appendix E: Translations of the Book</h2></a>
-<p>For resources in languages other than English. Most are still in progress; see
-<a href="https://github.com/rust-lang/book/issues?q=is%3Aopen+is%3Aissue+label%3ATranslations">the Translations label</a> to help or let us know about a new translation!</p>
+<p>Listing D-2 코드를 <em>src/main.rs</em> 에 작성하고, <code>cargo run</code> 을 실행해보세요:
+<code>Hello, Macro! My name is Pancakes!</code> 가 출력될 겁니다.
+<code>pancakes</code> 크레이트에서 따로 구현할 필요 없이,
+절차적 매크로로부터 만들어진 <code>HelloMacro</code> 트레잇 구현체만으로 말이죠;
+트레잇 구현체는 <code>#[derive(HelloMacro)]</code> 로 인해 추가됩니다.</p>
+<a class="header" href="#향후의-매크로" id="향후의-매크로"><h3>향후의 매크로</h3></a>
+<p>러스트는 앞으로 선언적, 절차적 매크로를 발전시킬 겁니다.
+<code>macro</code> 키워드를 이용해 더 나은 선언적 매크로 시스템을 사용하고, <code>derive</code>
+보다 더 강력한 여러 작업을 위해 더 많은 종류의 절차적 매크로를 추가할 겁니다.
+이 기능들은 이 내용이 작성 된 시점에선 아직 개발중이니,
+최근 정보에 대해서는 러스트 온라인 문서를 참조하시기 바랍니다.</p>
+<a class="header" href="#부록-e-본-책의-번역본-목록" id="부록-e-본-책의-번역본-목록"><h2>부록 E: 본 책의 번역본 목록</h2></a>
+<p>영어 원본 이외의 번역본 대다수는 아직 진행중입니다;
+각 번역에 참여할 의사가 있는 분은 <a href="https://github.com/rust-lang/book/issues?q=is%3Aopen+is%3Aissue+label%3ATranslations">번역 라벨 목록</a>을 살펴보시고, 만약 여기에 등록되지 않은 번역본이 있다면 저희에게 알려주세요!</p>
 <ul>
 <li><a href="https://github.com/rust-br/rust-book-pt-br">Português</a> (BR)</li>
 <li><a href="https://github.com/nunojesus/rust-book-pt-pt">Português</a> (PT)</li>

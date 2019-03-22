@@ -140,56 +140,56 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#appendix-a-keywords" id="appendix-a-keywords"><h2>Appendix A: Keywords</h2></a>
-<p>The following list contains keywords that are reserved for current or future
-use by the Rust language. As such, they cannot be used as identifiers, such as
-names of functions, variables, parameters, struct fields, modules, crates,
-constants, macros, static values, attributes, types, traits, or lifetimes.</p>
-<a class="header" href="#keywords-currently-in-use" id="keywords-currently-in-use"><h3>Keywords Currently in Use</h3></a>
-<p>The following keywords currently have the functionality described.</p>
+                        <a class="header" href="#부록-a-키워드" id="부록-a-키워드"><h2>부록 A: 키워드</h2></a>
+<p>다음 목록은 러스트에서 현재 사용중이거나 미래에 사용될 키워드들입니다.
+따라서 이들은 식별자, 함수명, 변수, 매개변수, 구조체 필드, 모듈,
+크레이트, 상수, 매크로, 정적 변수, 속성, 타입, 트레잇, 라이프타임에
+사용할 수 없습니다.</p>
+<a class="header" href="#현재-사용되고-있는-키워드" id="현재-사용되고-있는-키워드"><h3>현재 사용되고 있는 키워드</h3></a>
+<p>다음 키워드들은 현재 각각의 설명에 해당하는 기능으로 사용되고 있습니다.</p>
 <ul>
-<li><code>as</code> - perform primitive casting, disambiguate the specific trait containing
-an item, or rename items in <code>use</code> and <code>extern crate</code> statements</li>
-<li><code>break</code> - exit a loop immediately</li>
-<li><code>const</code> - define constant items or constant raw pointers</li>
-<li><code>continue</code> - continue to the next loop iteration</li>
-<li><code>crate</code> - link an external crate or a macro variable representing the crate in
-which the macro is defined</li>
-<li><code>else</code> - fallback for <code>if</code> and <code>if let</code> control flow constructs</li>
-<li><code>enum</code> - define an enumeration</li>
-<li><code>extern</code> - link an external crate, function, or variable</li>
-<li><code>false</code> - Boolean false literal</li>
-<li><code>fn</code> - define a function or the function pointer type</li>
-<li><code>for</code> - loop over items from an iterator, implement a trait, or specify a
-higher-ranked lifetime</li>
-<li><code>if</code> - branch based on the result of a conditional expression</li>
-<li><code>impl</code> - implement inherent or trait functionality</li>
-<li><code>in</code> - part of <code>for</code> loop syntax</li>
-<li><code>let</code> - bind a variable</li>
-<li><code>loop</code> - loop unconditionally</li>
-<li><code>match</code> - match a value to patterns</li>
-<li><code>mod</code> - define a module</li>
-<li><code>move</code> - make a closure take ownership of all its captures</li>
-<li><code>mut</code> - denote mutability in references, raw pointers, or pattern bindings</li>
-<li><code>pub</code> - denote public visibility in struct fields, <code>impl</code> blocks, or modules</li>
-<li><code>ref</code> - bind by reference</li>
-<li><code>return</code> - return from function</li>
-<li><code>Self</code> - a type alias for the type implementing a trait</li>
-<li><code>self</code> - method subject or current module</li>
-<li><code>static</code> - global variable or lifetime lasting the entire program execution</li>
-<li><code>struct</code> - define a structure</li>
-<li><code>super</code> - parent module of the current module</li>
-<li><code>trait</code> - define a trait</li>
-<li><code>true</code> - Boolean true literal</li>
-<li><code>type</code> - define a type alias or associated type</li>
-<li><code>unsafe</code> - denote unsafe code, functions, traits, or implementations</li>
-<li><code>use</code> - import symbols into scope</li>
-<li><code>where</code> - denote clauses that constrain a type</li>
-<li><code>while</code> - loop conditionally based on the result of an expression</li>
+<li><code>as</code> - 캐스팅하거나, 항목을 포함하는 특정 트레잇을 명확히 하거나,
+<code>use</code> 와 <code>extern crate</code> 구문에서 항목의 이름을 변경</li>
+<li><code>break</code> - 반복문 즉각 탈출</li>
+<li><code>const</code> - 상수 혹은 상수 로우 포인터 정의</li>
+<li><code>continue</code> - 다음 반복 루프로 넘어감</li>
+<li><code>crate</code> - 외부 크레이트를 링크하거나 해당 매크로가 정의되어 있는 크레이트를
+대표하는 매크로 변수를 생성합니다.</li>
+<li><code>else</code> - <code>if</code> 와 <code>if let</code> 제어 흐름 구조에 대한 대비책</li>
+<li><code>enum</code> - 열거형 정의</li>
+<li><code>extern</code> - 외부 크레이트, 함수 혹은 변수를 링크</li>
+<li><code>false</code> - Boolean 의 거짓(false)을 나타내는 상수</li>
+<li><code>fn</code> - 함수 혹은 함수 포인터 타입 정의</li>
+<li><code>for</code> - 반복자의 항목들을 반복하거나, 트레잇을 구현하거나,
+더 높은 수준의 라이프타임을 명시</li>
+<li><code>if</code> - 조건식 결과를 이용한 분기</li>
+<li><code>impl</code> - 내재된 특성 혹은 트레잇 특성 구현</li>
+<li><code>in</code> - <code>for</code> 반복문 문법의 일부</li>
+<li><code>let</code> - 변수 바인딩</li>
+<li><code>loop</code> - 무조건적인 반복</li>
+<li><code>match</code> - 패턴에 값을 매치</li>
+<li><code>mod</code> - 모듈 정의</li>
+<li><code>move</code> - 클로저가 사용하는 모든 값에 대해 소유권을 갖도록 만듬</li>
+<li><code>mut</code> - 레퍼런스, 로우 포인터, 배턴 바인딩에 대한 가변성 표시</li>
+<li><code>pub</code> - 구조체 필드, <code>impl</code> 블록, 모듈의 public 가시성 표시</li>
+<li><code>ref</code> - 레퍼런스로 바인딩</li>
+<li><code>return</code> - 함수의 반환</li>
+<li><code>Self</code> - 트레잇을 구현하고 있는 타입의 별칭</li>
+<li><code>self</code> - 메소드의 주체 혹은 현재 모듈</li>
+<li><code>static</code> - 글로벌 변수 혹은 전체 프로그램 실행에서 지속되는 라이프타임</li>
+<li><code>struct</code> - 구조체 선언</li>
+<li><code>super</code> - 현재 모듈의 부모 모듈</li>
+<li><code>trait</code> - 트레잇 선언</li>
+<li><code>true</code> - Boolean 의 참(true)을 나타내는 상수</li>
+<li><code>type</code> - 타입 별칭 혹은 관련 타입 선언</li>
+<li><code>unsafe</code> - 코드, 함수, 트레잇, 구현이 안전하지 않다는 것을 표시</li>
+<li><code>use</code> - 심볼을 범위 내로 불러옴</li>
+<li><code>where</code> - 특정 타입으로 제한하는 절을 나타냄</li>
+<li><code>while</code> - 표현식의 결과에 따라 반복</li>
 </ul>
-<a class="header" href="#keywords-reserved-for-future-use" id="keywords-reserved-for-future-use"><h3>Keywords Reserved for Future Use</h3></a>
-<p>The following keywords do not have any functionality but are reserved by Rust
-for potential future use.</p>
+<a class="header" href="#추후-이용하도록-예약된-키워드들" id="추후-이용하도록-예약된-키워드들"><h3>추후 이용하도록 예약된 키워드들</h3></a>
+<p>다음 키워드들은 아무 기능도 갖지 않지만,
+러스트가 장래에 이용하도록 예약되어 있습니다.</p>
 <ul>
 <li><code>abstract</code></li>
 <li><code>alignof</code></li>
