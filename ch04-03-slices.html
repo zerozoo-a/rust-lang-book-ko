@@ -170,7 +170,7 @@ fn first_word(s: &amp;String) -&gt; usize {
 #}</code></pre></pre>
 <p><span class="caption">Listing 4-10: <code>String</code> 파라미터의 바이트 인덱스 값을 반환하는
 <code>first_word</code> 함수</span></p>
-<p>이 코드를 쪼개서 봅시다. 입력된 <code>String</code>를 요소 단위 보면서 그 값이 공백인지 확인할 필요가 있기
+<p>이 코드를 쪼개서 봅시다. 입력된 <code>String</code>를 요소별로 보면서 그 값이 공백인지 확인할 필요가 있기
 때문에, <code>String</code>은 <code>as_bytes</code> 메소드를 이용하여 바이트 배열로 변환됩니다:</p>
 <pre><code class="language-rust ignore">let bytes = s.as_bytes();
 </code></pre>
@@ -254,7 +254,7 @@ let world = &amp;s[6..11];
 <p>우리는 대괄호 내에 <code>[starting_index..ending_index]</code>를 특정한 범위를 이용하여 슬라이스를 만들
 수 있는데, 여기서 <code>starting_index</code>는 슬라이스에 포함되는 첫번째 위치이고 <code>ending_index</code>는
 슬라이스에 포함될 마지막 위치보다 1을 더한 값입니다. 내부적으로 슬라이스 데이터 구조는 시작 위치와
-슬라이스의 길이를 저장하는데, 이 길이 갚은 <code>ending_index</code>에서 <code>starting_index</code>를 뺸 값입니다.
+슬라이스의 길이를 저장하는데, 이 길이 갚은 <code>ending_index</code>에서 <code>starting_index</code>를 뺀 값입니다.
 따라서 <code>let world = &amp;[6..11];</code>의 경우, <code>world</code>는 <code>s</code>의 6번째 바이트를 가리키고 있는 포인터와
 길이값 5를 갖고 있는 슬라이스가 될 것입니다.</p>
 <p>Figure 4-12는 이를 다이어그램으로 보여줍니다.</p>
@@ -364,7 +364,7 @@ fn main() {
 let s = &quot;Hello, world!&quot;;
 #}</code></pre></pre>
 <p>여기서 <code>s</code>의 타입은 <code>&amp;str</code>입니다: 이것은 바이너리의 특정 지점을 가리키고 있는 슬라이스입니다.
-이는 왜 스트링 리터럴이 불변인가도 설명해줍니다; <code>&amp;str</code>은 불번 참조자이기 때문입니다.</p>
+이는 왜 스트링 리터럴이 불변인가도 설명해줍니다; <code>&amp;str</code>은 불변 참조자이기 때문입니다.</p>
 <a class="header" href="#파라미터로서의-스트링-슬라이스" id="파라미터로서의-스트링-슬라이스"><h4>파라미터로서의 스트링 슬라이스</h4></a>
 <p>여러분이 리터럴과 <code>String</code>의 슬라이스를 얻을 수 있다는 것을 알게 되었다면 <code>first_word</code> 함수를
 한번 더 개선시킬 수 있는데, 바로 이 함수의 시그니처입니다:</p>

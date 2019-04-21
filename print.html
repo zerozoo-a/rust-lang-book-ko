@@ -1112,7 +1112,7 @@ fn main() {
 <code>cargo doc --open</code>을 실행하고 왼쪽의 사이드바에 <code>rand</code>를 클릭하세요.</p>
 <p>코드에 추가한 두 번째 라인은 비밀번호를 표시합니다. 이 라인은 우리가
 프로그램을 개발 중일 때 테스트를 할 수 있도록 하지만 최종 버전에서는 삭제할
-것입니다. 게임을 시작하자마자 정답을 출력하는 게임을 그다지 많지 않으니까요!</p>
+것입니다. 게임을 시작하자마자 정답을 출력하는 게임은 그다지 많지 않으니까요!</p>
 <p>이제 프로그램을 몇 번 실행해 봅시다.</p>
 <pre><code class="language-text">$ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
@@ -1352,7 +1352,7 @@ fn main() {
 <p>사용자는 <span class="keystroke">ctrl-C</span> 단축키를 이용하여
 프로그램을 멈출 수 있습니다. 하지만 &quot;비밀번호를 추리값과 비교하기&quot;에서 <code>parse</code>
 메소드에 대해 논의할 때 언급한 방법으로 이 만족할 줄 모르는 괴물에게서 빠져나올
-수 있습니다. 만약 사용자가 숫자가 아닌 정답을 적는다면 프로그램이 멈춥니다.
+수 있습니다. 만약 사용자가 숫자가 아닌 답을 적는다면 프로그램이 멈춥니다.
 사용자는 프로그램 종료를 위해 다음처럼 이 장점을 활용할 수 있습니다.</p>
 <pre><code class="language-text">$ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
@@ -1675,7 +1675,7 @@ spaces = spaces.len();
   = note: expected type `&amp;str`
              found type `usize`
 </code></pre>
-<p>변수가 어떻게 동작하는지 탐구했으니, 더 많은 데이터 유형을 사용 살펴보도록 합시다.</p>
+<p>변수가 어떻게 동작하는지 탐구했으니, 더 많은 데이터 유형을 살펴보도록 합시다.</p>
 <a class="header" href="#데이터-타입들" id="데이터-타입들"><h2>데이터 타입들</h2></a>
 <p>Rust에서 사용되는 모든 값들은 어떤 <em>타입</em>을 갖습니다. 그러니 어떤 형태의 데이터인지 명시하여 Rust에게 알려줘서
 이를 통해 데이터를 어떻게 다룰지 알 수 있도록 해야 합니다. 이번 장에서, 우리는 언어에 포함되어 있는 여러 타입들을
@@ -2299,8 +2299,7 @@ Rust가 첫 번째로 조건이 참이 되는 블록만 찾아 실행하고, 한
     println!(&quot;The value of number is: {}&quot;, number);
 }
 </code></pre></pre>
-<p><span class="caption">Listing 3-4: Assigning the result of an <code>if</code> expression
-to a variable</span></p>
+<p><span class="caption">Listing 3-4: <code>if</code> 표현식의 결과값을 변수에 대입하기</span></p>
 <p>변수 <code>number</code>에는 <code>if</code>식에서 산출된 값이 bound되게 됩니다. 어떤 일이 일어날지 코드를 실행해보죠:</p>
 <pre><code class="language-text">$ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
@@ -2344,7 +2343,7 @@ Rust는 정확히 프로그램의 어느 지점에 문제가 있는지 보여줍
 <p><code>if</code> 블록이 정수형을 산출하는 식이고 <code>else</code> 블록은 문자열을 산출하는 식 입니다. 이런 경우가 성립하지 않는
 이유는 변수가 가질 수 있는 타입이 오직 하나이기 때문입니다. Rust는 컴파일 시에 <code>number</code> 변수의 타입이 뭔지
 확실히! 정의해야 합니다. 그래야 <code>number</code>가 사용되는 모든 곳에서 유효한지 검증할 수 있으니까요. Rust는
-<code>number</code>의 타입을 실행 시에 정의되도록 할 수 없습니다. 컴파일러가 모든 변수의 다양한 타입을 추적해서 알아내야<br />
+<code>number</code>의 타입을 실행 시에 정의되도록 할 수 없습니다. 컴파일러가 모든 변수의 다양한 타입을 추적해서 알아내야
 한다면 컴파일러는 보다 복잡해지고 보증할 수 있는 것은 적어지게 됩니다.</p>
 <a class="header" href="#반복문과-반복" id="반복문과-반복"><h3>반복문과 반복</h3></a>
 <p>코드 블록을 한 번 이상 수행하는 것은 자주 유용합니다. 반복 작업을 위해서, Rust는 몇 가지 <em>반복문</em>을 제공합니다.
@@ -2415,8 +2414,7 @@ again!
     }
 }
 </code></pre></pre>
-<p><span class="caption">Listing 3-5: Looping through each element of a collection
-using a <code>while</code> loop</span></p>
+<p><span class="caption">Listing 3-5: <code>while</code> 반복문을 사용해 콜렉션의 각 요소들을 순회하기</span></p>
 <p>여기서, 코드는 배열의 요소에 걸쳐 카운트를 증가시킵니다. 이 색인은 <code>0</code>에서 시작하고, 배열의 마지막 순서까지 반복됩니다
 (즉, <code>index &lt; 5</code>가 참이 아닐 때까지). 이 코드를 수행하면 배열의 모든 요소가 출력되게 됩니다.</p>
 <pre><code class="language-text">$ cargo run
@@ -2434,7 +2432,7 @@ the value is: 50
 <p>그러나 이런 방식은 에러가 발생하기 쉽습니다; 우리가 정확한 길이의 색인을 사용하지 못하면 프로그램은 패닉을 발생합니다.
 또한 느린데, 이유는 컴파일러가 실행 간에 반복문을 통해 반복될 때마다 요소에 대한 조건 검사를 수행하는 런타임 코드를
 추가하기 때문입니다.</p>
-<p>보다 효율적은 대안으로, 우리는 <code>for</code> 반복문을 사용하여 콜렉션의 각 요소에 대한 코드를 수행할 수 있습니다.
+<p>보다 효율적인 대안으로, 우리는 <code>for</code> 반복문을 사용하여 콜렉션의 각 요소에 대한 코드를 수행할 수 있습니다.
 <code>for</code> 반복문은 다음 Listing 3-6과 같습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
@@ -2445,8 +2443,7 @@ the value is: 50
     }
 }
 </code></pre></pre>
-<p><span class="caption">Listing 3-6: Looping through each element of a collection
-using a <code>for</code> loop</span></p>
+<p><span class="caption">Listing 3-6: <code>for</code> 반복문을 사용해 콜렉션의 각 요소를 순회하기</span></p>
 <p>우리가 이 코드를 수행하면, 항목 3-5와 같은 결과를 볼 수 있습니다. 더 중요한 것은, 우리는 이제 코드의 안전성을 높이고
 배열의 끝을 넘어가거나 충분한 길이를 지정하지 못해 일부 아이템이 누락되어 발생할 수있는 버그의 가능성을 제거했습니다.</p>
 <p>예를 들어, 코드 3-5의 코드에서 a 배열 에서 항목을 제거 했지만 조건을 <code>while index &lt; 4</code>로 업데이트하지
@@ -2577,7 +2574,7 @@ let s = &quot;hello&quot;;
 이에 대한 이해를 기초로 하여 <code>String</code> 타입을 소개함으로써 계속 쌓아나갈 것입니다.</p>
 <a class="header" href="#string-타입" id="string-타입"><h3><code>String</code> 타입</h3></a>
 <p>소유권 규칙을 설명하기 위하여, 우리는 3장에서 다룬 바 있는 타입보다 더 복잡한 데이터 타입이
-필요합니다. 우리가 이전에 봐온 모든 데이터 타입들은 스텍에 저장되었다가 스코프를 벗어날 때
+필요합니다. 우리가 이전에 봐온 모든 데이터 타입들은 스택에 저장되었다가 스코프를 벗어날 때
 스택으로부터 팝 됩니다만, 우리는 이제 힙에 저장되는 데이터를 관찰하고 러스트는 과연 어떻게 이
 데이터를 비워내는지 설명할 필요가 있습니다.</p>
 <p>우리는 여기서 <code>String</code>을 예제로 활용하되, 소유권과 관련된 <code>String</code> 내용의 일부분에 집중할
@@ -2596,7 +2593,7 @@ let s = &quot;hello&quot;;
 let s = String::from(&quot;hello&quot;);
 #}</code></pre></pre>
 <p>더블 콜론(<code>::</code>)은 우리가 <code>string_from</code>과 같은 이름을 쓰기 보다는 <code>String</code> 타입 아래의
-<code>from</code> 함수를 특정지을 수 있도록 해주는 네임스페이스 연산자입니다. 우리는 이러한 문접에 대해 5장의
+<code>from</code> 함수를 특정지을 수 있도록 해주는 네임스페이스 연산자입니다. 우리는 이러한 문법에 대해 5장의
 &quot;메소드 문법&quot; 부분에서 더 자세히 다룰 것이고, 모듈에서의 네임스페이스와 관련한 이야기는 7장에서 할
 것입니다.</p>
 <p>이러한 종류의 문자열은 변경 가능합니다:</p>
@@ -2687,7 +2684,7 @@ let s2 = s1;
 모르겠습니다: 즉, 두번째 줄이 <code>s1</code>의 복사본을 만들어서 <code>s2</code>에 묶어놓는 식으로 말이죠.
 그렇지만 이는 실제 동작과 다른 생각입니다.</p>
 <p>좀 더 완전히 설명하기 위해, <code>String</code>이 Figure 4-3에서와 같이 생겼다는 것을 주목합시다.
-<code>String</code>은 그림의 완쪽과 같이 세 개의 부분으로 이루어져 있습니다: 문자열의 내용물을
+<code>String</code>은 그림의 왼쪽과 같이 세 개의 부분으로 이루어져 있습니다: 문자열의 내용물을
 담고 있는 메모리의 포인터, 길이, 그리고 용량입니다. 이 데이터의 그룹은 스택에 저장됩니다.
 내용물을 담은 오른쪽의 것은 힙 메모리에 있습니다.</p>
 <p><img alt="String in memory" src="img/trpl04-01.svg" class="center" style="width: 50%;" /></p>
@@ -3004,7 +3001,7 @@ fn change(some_string: &amp;mut String) {
 let r1 = &amp;mut s;
 let r2 = &amp;mut s;
 </code></pre>
-<p>Here’s the error:</p>
+<p>여기 오류를 보시죠:</p>
 <pre><code class="language-text">error[E0499]: cannot borrow `s` as mutable more than once at a time
  --&gt; borrow_twice.rs:5:19
   |
@@ -3144,7 +3141,7 @@ fn no_dangle() -&gt; String {
 <li>임의 개수의 불변 참조자들</li>
 </ul>
 <ol start="2">
-<li>참조자는 항상 유효하다.</li>
+<li>참조자는 항상 유효해야만 한다.</li>
 </ol>
 <p>다음으로, 우리는 다른 종류의 참조자인 슬라이스(slice)를 볼 것입니다.</p>
 <a class="header" href="#슬라이스slices" id="슬라이스slices"><h2>슬라이스(Slices)</h2></a>
@@ -3177,7 +3174,7 @@ fn first_word(s: &amp;String) -&gt; usize {
 #}</code></pre></pre>
 <p><span class="caption">Listing 4-10: <code>String</code> 파라미터의 바이트 인덱스 값을 반환하는
 <code>first_word</code> 함수</span></p>
-<p>이 코드를 쪼개서 봅시다. 입력된 <code>String</code>를 요소 단위 보면서 그 값이 공백인지 확인할 필요가 있기
+<p>이 코드를 쪼개서 봅시다. 입력된 <code>String</code>를 요소별로 보면서 그 값이 공백인지 확인할 필요가 있기
 때문에, <code>String</code>은 <code>as_bytes</code> 메소드를 이용하여 바이트 배열로 변환됩니다:</p>
 <pre><code class="language-rust ignore">let bytes = s.as_bytes();
 </code></pre>
@@ -3261,7 +3258,7 @@ let world = &amp;s[6..11];
 <p>우리는 대괄호 내에 <code>[starting_index..ending_index]</code>를 특정한 범위를 이용하여 슬라이스를 만들
 수 있는데, 여기서 <code>starting_index</code>는 슬라이스에 포함되는 첫번째 위치이고 <code>ending_index</code>는
 슬라이스에 포함될 마지막 위치보다 1을 더한 값입니다. 내부적으로 슬라이스 데이터 구조는 시작 위치와
-슬라이스의 길이를 저장하는데, 이 길이 갚은 <code>ending_index</code>에서 <code>starting_index</code>를 뺸 값입니다.
+슬라이스의 길이를 저장하는데, 이 길이 갚은 <code>ending_index</code>에서 <code>starting_index</code>를 뺀 값입니다.
 따라서 <code>let world = &amp;[6..11];</code>의 경우, <code>world</code>는 <code>s</code>의 6번째 바이트를 가리키고 있는 포인터와
 길이값 5를 갖고 있는 슬라이스가 될 것입니다.</p>
 <p>Figure 4-12는 이를 다이어그램으로 보여줍니다.</p>
@@ -3371,7 +3368,7 @@ fn main() {
 let s = &quot;Hello, world!&quot;;
 #}</code></pre></pre>
 <p>여기서 <code>s</code>의 타입은 <code>&amp;str</code>입니다: 이것은 바이너리의 특정 지점을 가리키고 있는 슬라이스입니다.
-이는 왜 스트링 리터럴이 불변인가도 설명해줍니다; <code>&amp;str</code>은 불번 참조자이기 때문입니다.</p>
+이는 왜 스트링 리터럴이 불변인가도 설명해줍니다; <code>&amp;str</code>은 불변 참조자이기 때문입니다.</p>
 <a class="header" href="#파라미터로서의-스트링-슬라이스" id="파라미터로서의-스트링-슬라이스"><h4>파라미터로서의 스트링 슬라이스</h4></a>
 <p>여러분이 리터럴과 <code>String</code>의 슬라이스를 얻을 수 있다는 것을 알게 되었다면 <code>first_word</code> 함수를
 한번 더 개선시킬 수 있는데, 바로 이 함수의 시그니처입니다:</p>

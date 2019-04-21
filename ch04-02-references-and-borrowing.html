@@ -243,7 +243,7 @@ fn change(some_string: &amp;mut String) {
 let r1 = &amp;mut s;
 let r2 = &amp;mut s;
 </code></pre>
-<p>Here’s the error:</p>
+<p>여기 오류를 보시죠:</p>
 <pre><code class="language-text">error[E0499]: cannot borrow `s` as mutable more than once at a time
  --&gt; borrow_twice.rs:5:19
   |
@@ -383,7 +383,7 @@ fn no_dangle() -&gt; String {
 <li>임의 개수의 불변 참조자들</li>
 </ul>
 <ol start="2">
-<li>참조자는 항상 유효하다.</li>
+<li>참조자는 항상 유효해야만 한다.</li>
 </ol>
 <p>다음으로, 우리는 다른 종류의 참조자인 슬라이스(slice)를 볼 것입니다.</p>
 
