@@ -23551,175 +23551,175 @@ impl Worker {
 <li><code>virtual</code></li>
 <li><code>yield</code></li>
 </ul>
-<a class="header" href="#appendix-b-operators-and-symbols" id="appendix-b-operators-and-symbols"><h2>Appendix B: Operators and Symbols</h2></a>
-<p>This appendix contains a glossary of Rust’s syntax, including operators and
-other symbols that appear by themselves or in the context of paths, generics,
-trait bounds, macros, attributes, comments, tuples, and brackets.</p>
-<a class="header" href="#operators" id="operators"><h3>Operators</h3></a>
-<p>Table B-1 contains the operators in Rust, an example of how the operator would
-appear in context, a short explanation, and whether that operator is
-overloadable. If an operator is overloadable, the relevant trait to use to
-overload that operator is listed.</p>
-<p><span class="caption">Table B-1: Operators</span></p>
-<table><thead><tr><th> Operator </th><th> Example </th><th> Explanation </th><th> Overloadable? </th></tr></thead><tbody>
-<tr><td> <code>!</code> </td><td> <code>ident!(...)</code>, <code>ident!{...}</code>, <code>ident![...]</code> </td><td> Macro expansion </td><td> </td></tr>
-<tr><td> <code>!</code> </td><td> <code>!expr</code> </td><td> Bitwise or logical complement </td><td> <code>Not</code> </td></tr>
-<tr><td> <code>!=</code> </td><td> <code>var != expr</code> </td><td> Nonequality comparison </td><td> <code>PartialEq</code> </td></tr>
-<tr><td> <code>%</code> </td><td> <code>expr % expr</code> </td><td> Arithmetic remainder </td><td> <code>Rem</code> </td></tr>
-<tr><td> <code>%=</code> </td><td> <code>var %= expr</code> </td><td> Arithmetic remainder and assignment </td><td> <code>RemAssign</code> </td></tr>
-<tr><td> <code>&amp;</code> </td><td> <code>&amp;expr</code>, <code>&amp;mut expr</code> </td><td> Borrow </td><td> </td></tr>
-<tr><td> <code>&amp;</code> </td><td> <code>&amp;type</code>, <code>&amp;mut type</code>, <code>&amp;'a type</code>, <code>&amp;'a mut type</code> </td><td> Borrowed pointer type </td><td> </td></tr>
-<tr><td> <code>&amp;</code> </td><td> <code>expr &amp; expr</code> </td><td> Bitwise AND </td><td> <code>BitAnd</code> </td></tr>
-<tr><td> <code>&amp;=</code> </td><td> <code>var &amp;= expr</code> </td><td> Bitwise AND and assignment </td><td> <code>BitAndAssign</code> </td></tr>
-<tr><td> <code>&amp;&amp;</code> </td><td> <code>expr &amp;&amp; expr</code> </td><td> Logical AND </td><td> </td></tr>
-<tr><td> <code>*</code> </td><td> <code>expr * expr</code> </td><td> Arithmetic multiplication </td><td> <code>Mul</code> </td></tr>
-<tr><td> <code>*=</code> </td><td> <code>var *= expr</code> </td><td> Arithmetic multiplication and assignment </td><td> <code>MulAssign</code> </td></tr>
-<tr><td> <code>*</code> </td><td> <code>*expr</code> </td><td> Dereference </td><td> </td></tr>
-<tr><td> <code>*</code> </td><td> <code>*const type</code>, <code>*mut type</code> </td><td> Raw pointer </td><td> </td></tr>
-<tr><td> <code>+</code> </td><td> <code>trait + trait</code>, <code>'a + trait</code> </td><td> Compound type constraint </td><td> </td></tr>
-<tr><td> <code>+</code> </td><td> <code>expr + expr</code> </td><td> Arithmetic addition </td><td> <code>Add</code> </td></tr>
-<tr><td> <code>+=</code> </td><td> <code>var += expr</code> </td><td> Arithmetic addition and assignment </td><td> <code>AddAssign</code> </td></tr>
-<tr><td> <code>,</code> </td><td> <code>expr, expr</code> </td><td> Argument and element separator </td><td> </td></tr>
-<tr><td> <code>-</code> </td><td> <code>- expr</code> </td><td> Arithmetic negation </td><td> <code>Neg</code> </td></tr>
-<tr><td> <code>-</code> </td><td> <code>expr - expr</code> </td><td> Arithmetic subtraction </td><td> <code>Sub</code> </td></tr>
-<tr><td> <code>-=</code> </td><td> <code>var -= expr</code> </td><td> Arithmetic subtraction and assignment </td><td> <code>SubAssign</code> </td></tr>
-<tr><td> <code>-&gt;</code> </td><td> <code>fn(...) -&gt; type</code>, <code>|...| -&gt; type</code> </td><td> Function and closure return type </td><td> </td></tr>
-<tr><td> <code>.</code> </td><td> <code>expr.ident</code> </td><td> Member access </td><td> </td></tr>
-<tr><td> <code>..</code> </td><td> <code>..</code>, <code>expr..</code>, <code>..expr</code>, <code>expr..expr</code> </td><td> Right-exclusive range literal </td><td> </td></tr>
-<tr><td> <code>..</code> </td><td> <code>..expr</code> </td><td> Struct literal update syntax </td><td> </td></tr>
-<tr><td> <code>..</code> </td><td> <code>variant(x, ..)</code>, <code>struct_type { x, .. }</code> </td><td> “And the rest” pattern binding </td><td> </td></tr>
-<tr><td> <code>...</code> </td><td> <code>expr...expr</code> </td><td> In a pattern: inclusive range pattern </td><td> </td></tr>
-<tr><td> <code>/</code> </td><td> <code>expr / expr</code> </td><td> Arithmetic division </td><td> <code>Div</code> </td></tr>
-<tr><td> <code>/=</code> </td><td> <code>var /= expr</code> </td><td> Arithmetic division and assignment </td><td> <code>DivAssign</code> </td></tr>
-<tr><td> <code>:</code> </td><td> <code>pat: type</code>, <code>ident: type</code> </td><td> Constraints </td><td> </td></tr>
-<tr><td> <code>:</code> </td><td> <code>ident: expr</code> </td><td> Struct field initializer </td><td> </td></tr>
-<tr><td> <code>:</code> </td><td> <code>'a: loop {...}</code> </td><td> Loop label </td><td> </td></tr>
-<tr><td> <code>;</code> </td><td> <code>expr;</code> </td><td> Statement and item terminator </td><td> </td></tr>
-<tr><td> <code>;</code> </td><td> <code>[...; len]</code> </td><td> Part of fixed-size array syntax </td><td> </td></tr>
-<tr><td> <code>&lt;&lt;</code> </td><td> <code>expr &lt;&lt; expr</code> </td><td> Left-shift </td><td> <code>Shl</code> </td></tr>
-<tr><td> <code>&lt;&lt;=</code> </td><td> <code>var &lt;&lt;= expr</code> </td><td> Left-shift and assignment </td><td> <code>ShlAssign</code> </td></tr>
-<tr><td> <code>&lt;</code> </td><td> <code>expr &lt; expr</code> </td><td> Less than comparison </td><td> <code>PartialOrd</code> </td></tr>
-<tr><td> <code>&lt;=</code> </td><td> <code>expr &lt;= expr</code> </td><td> Less than or equal to comparison </td><td> <code>PartialOrd</code> </td></tr>
-<tr><td> <code>=</code> </td><td> <code>var = expr</code>, <code>ident = type</code> </td><td> Assignment/equivalence </td><td> </td></tr>
-<tr><td> <code>==</code> </td><td> <code>expr == expr</code> </td><td> Equality comparison </td><td> <code>PartialEq</code> </td></tr>
-<tr><td> <code>=&gt;</code> </td><td> <code>pat =&gt; expr</code> </td><td> Part of match arm syntax </td><td> </td></tr>
-<tr><td> <code>&gt;</code> </td><td> <code>expr &gt; expr</code> </td><td> Greater than comparison </td><td> <code>PartialOrd</code> </td></tr>
-<tr><td> <code>&gt;=</code> </td><td> <code>expr &gt;= expr</code> </td><td> Greater than or equal to comparison </td><td> <code>PartialOrd</code> </td></tr>
-<tr><td> <code>&gt;&gt;</code> </td><td> <code>expr &gt;&gt; expr</code> </td><td> Right-shift </td><td> <code>Shr</code> </td></tr>
-<tr><td> <code>&gt;&gt;=</code> </td><td> <code>var &gt;&gt;= expr</code> </td><td> Right-shift and assignment </td><td> <code>ShrAssign</code> </td></tr>
-<tr><td> <code>@</code> </td><td> <code>ident @ pat</code> </td><td> Pattern binding </td><td> </td></tr>
-<tr><td> <code>^</code> </td><td> <code>expr ^ expr</code> </td><td> Bitwise exclusive OR </td><td> <code>BitXor</code> </td></tr>
-<tr><td> <code>^=</code> </td><td> <code>var ^= expr</code> </td><td> Bitwise exclusive OR and assignment </td><td> <code>BitXorAssign</code> </td></tr>
-<tr><td> <code>|</code> </td><td> <code>pat | pat</code> </td><td> Pattern alternatives </td><td> </td></tr>
-<tr><td> <code>|</code> </td><td> <code>expr | expr</code> </td><td> Bitwise OR </td><td> <code>BitOr</code> </td></tr>
-<tr><td> <code>|=</code> </td><td> <code>var |= expr</code> </td><td> Bitwise OR and assignment </td><td> <code>BitOrAssign</code> </td></tr>
-<tr><td> <code>||</code> </td><td> <code>expr || expr</code> </td><td> Logical OR </td><td> </td></tr>
-<tr><td> <code>?</code> </td><td> <code>expr?</code> </td><td> Error propagation </td><td> </td></tr>
+<a class="header" href="#부록-b-연산자-및-기호" id="부록-b-연산자-및-기호"><h2>부록 B: 연산자 및 기호</h2></a>
+<p>이번 부록은 러스트 문법 이외에도, 경로, 제네릭, 트레잇 바운드,
+매크로, 속성, 주석, 튜플, 괄호 등에 사용되는 연산자 및 기호가
+수록되어 있습니다.</p>
+<a class="header" href="#연산자" id="연산자"><h3>연산자</h3></a>
+<p>Table B-1 에 러스트 연산자를 나열해 놓았습니다.
+각 연산자가 컨텍스트 상에 나타나는 모습과 간단한 설명,
+연산자 오버로드 가능 여부 및 오버로드 가능할 경우
+사용할 수 있는 트레잇 순서로 이루어져 있습니다.</p>
+<p><span class="caption">Table B-1: 연산자</span></p>
+<table><thead><tr><th> 연산자 </th><th> 예시 </th><th> 설명 </th><th> 오버로드 가능 여부 </th></tr></thead><tbody>
+<tr><td> <code>!</code> </td><td> <code>ident!(...)</code>, <code>ident!{...}</code>, <code>ident![...]</code> </td><td> 매크로 전개 </td><td> </td></tr>
+<tr><td> <code>!</code> </td><td> <code>!expr</code> </td><td> 비트 및 논리 보수 </td><td> <code>Not</code> </td></tr>
+<tr><td> <code>!=</code> </td><td> <code>var != expr</code> </td><td> 불일치 비교 </td><td> <code>PartialEq</code> </td></tr>
+<tr><td> <code>%</code> </td><td> <code>expr % expr</code> </td><td> 나머지 연산 </td><td> <code>Rem</code> </td></tr>
+<tr><td> <code>%=</code> </td><td> <code>var %= expr</code> </td><td> 나머지 연산 후 대입 </td><td> <code>RemAssign</code> </td></tr>
+<tr><td> <code>&amp;</code> </td><td> <code>&amp;expr</code>, <code>&amp;mut expr</code> </td><td> 빌림 </td><td> </td></tr>
+<tr><td> <code>&amp;</code> </td><td> <code>&amp;type</code>, <code>&amp;mut type</code>, <code>&amp;'a type</code>, <code>&amp;'a mut type</code> </td><td> 빌림 포인터 </td><td> </td></tr>
+<tr><td> <code>&amp;</code> </td><td> <code>expr &amp; expr</code> </td><td> 비트 단위 AND 연산 </td><td> <code>BitAnd</code> </td></tr>
+<tr><td> <code>&amp;=</code> </td><td> <code>var &amp;= expr</code> </td><td> 비트 단위 AND 연산 후 대입 </td><td> <code>BitAndAssign</code> </td></tr>
+<tr><td> <code>&amp;&amp;</code> </td><td> <code>expr &amp;&amp; expr</code> </td><td> 논리 AND </td><td> </td></tr>
+<tr><td> <code>*</code> </td><td> <code>expr * expr</code> </td><td> 곱하기 연산 </td><td> <code>Mul</code> </td></tr>
+<tr><td> <code>*=</code> </td><td> <code>var *= expr</code> </td><td> 곱셈 후 대입 </td><td> <code>MulAssign</code> </td></tr>
+<tr><td> <code>*</code> </td><td> <code>*expr</code> </td><td> 역 참조 </td><td> </td></tr>
+<tr><td> <code>*</code> </td><td> <code>*const type</code>, <code>*mut type</code> </td><td> Raw 포인터 </td><td> </td></tr>
+<tr><td> <code>+</code> </td><td> <code>trait + trait</code>, <code>'a + trait</code> </td><td> 타입 제약 조건 조합 </td><td> </td></tr>
+<tr><td> <code>+</code> </td><td> <code>expr + expr</code> </td><td> 더하기 연산 </td><td> <code>Add</code> </td></tr>
+<tr><td> <code>+=</code> </td><td> <code>var += expr</code> </td><td> 더하기 연산 후 대입 </td><td> <code>AddAssign</code> </td></tr>
+<tr><td> <code>,</code> </td><td> <code>expr, expr</code> </td><td> 인수 및 요소 구분자 </td><td> </td></tr>
+<tr><td> <code>-</code> </td><td> <code>- expr</code> </td><td> 부정 연산 </td><td> <code>Neg</code> </td></tr>
+<tr><td> <code>-</code> </td><td> <code>expr - expr</code> </td><td> 빼기 연산 </td><td> <code>Sub</code> </td></tr>
+<tr><td> <code>-=</code> </td><td> <code>var -= expr</code> </td><td> 빼기 연산 후 대입 </td><td> <code>SubAssign</code> </td></tr>
+<tr><td> <code>-&gt;</code> </td><td> <code>fn(...) -&gt; type</code>, <code>|...| -&gt; type</code> </td><td> 함수와 클로저 반환 타입 </td><td> </td></tr>
+<tr><td> <code>.</code> </td><td> <code>expr.ident</code> </td><td> 멤버 접근 </td><td> </td></tr>
+<tr><td> <code>..</code> </td><td> <code>..</code>, <code>expr..</code>, <code>..expr</code>, <code>expr..expr</code> </td><td> 상한을 제외한 범위 리터럴 </td><td> </td></tr>
+<tr><td> <code>..</code> </td><td> <code>..expr</code> </td><td> 구조체 갱신법 </td><td> </td></tr>
+<tr><td> <code>..</code> </td><td> <code>variant(x, ..)</code>, <code>struct_type { x, .. }</code> </td><td> “나머지” 패턴 바인딩 </td><td> </td></tr>
+<tr><td> <code>...</code> </td><td> <code>expr...expr</code> </td><td> 상한을 포함한 범위 패턴 (패턴 내) </td><td> </td></tr>
+<tr><td> <code>/</code> </td><td> <code>expr / expr</code> </td><td> 나누기 연산 </td><td> <code>Div</code> </td></tr>
+<tr><td> <code>/=</code> </td><td> <code>var /= expr</code> </td><td> 나누기 연산 후 대입 </td><td> <code>DivAssign</code> </td></tr>
+<tr><td> <code>:</code> </td><td> <code>pat: type</code>, <code>ident: type</code> </td><td> 제약 조건 </td><td> </td></tr>
+<tr><td> <code>:</code> </td><td> <code>ident: expr</code> </td><td> 구조체 필드 초기화 </td><td> </td></tr>
+<tr><td> <code>:</code> </td><td> <code>'a: loop {...}</code> </td><td> loop 표식 </td><td> </td></tr>
+<tr><td> <code>;</code> </td><td> <code>expr;</code> </td><td> 구문 및 요소 종결자 </td><td> </td></tr>
+<tr><td> <code>;</code> </td><td> <code>[...; len]</code> </td><td> 고정 크기 배열 문법의 일부 </td><td> </td></tr>
+<tr><td> <code>&lt;&lt;</code> </td><td> <code>expr &lt;&lt; expr</code> </td><td> 좌측 쉬프트 연산 </td><td> <code>Shl</code> </td></tr>
+<tr><td> <code>&lt;&lt;=</code> </td><td> <code>var &lt;&lt;= expr</code> </td><td> 좌측 쉬프트 연산 후 대입 </td><td> <code>ShlAssign</code> </td></tr>
+<tr><td> <code>&lt;</code> </td><td> <code>expr &lt; expr</code> </td><td> 대소 비교 (소) </td><td> <code>PartialOrd</code> </td></tr>
+<tr><td> <code>&lt;=</code> </td><td> <code>expr &lt;= expr</code> </td><td> 동등 및 대소 비교 (소) </td><td> <code>PartialOrd</code> </td></tr>
+<tr><td> <code>=</code> </td><td> <code>var = expr</code>, <code>ident = type</code> </td><td> 대입/등가 </td><td> </td></tr>
+<tr><td> <code>==</code> </td><td> <code>expr == expr</code> </td><td> 동등 비교 </td><td> <code>PartialEq</code> </td></tr>
+<tr><td> <code>=&gt;</code> </td><td> <code>pat =&gt; expr</code> </td><td> 갈래 문법의 일부 </td><td> </td></tr>
+<tr><td> <code>&gt;</code> </td><td> <code>expr &gt; expr</code> </td><td> 대소 비교 (대) </td><td> <code>PartialOrd</code> </td></tr>
+<tr><td> <code>&gt;=</code> </td><td> <code>expr &gt;= expr</code> </td><td> 동등 및 대소 비교 (대) </td><td> <code>PartialOrd</code> </td></tr>
+<tr><td> <code>&gt;&gt;</code> </td><td> <code>expr &gt;&gt; expr</code> </td><td> 우측 쉬프트 연산 </td><td> <code>Shr</code> </td></tr>
+<tr><td> <code>&gt;&gt;=</code> </td><td> <code>var &gt;&gt;= expr</code> </td><td> 우측 쉬프트 연산 후 대입 </td><td> <code>ShrAssign</code> </td></tr>
+<tr><td> <code>@</code> </td><td> <code>ident @ pat</code> </td><td> 패턴 바인딩 </td><td> </td></tr>
+<tr><td> <code>^</code> </td><td> <code>expr ^ expr</code> </td><td> 비트 단위 XOR 연산 </td><td> <code>BitXor</code> </td></tr>
+<tr><td> <code>^=</code> </td><td> <code>var ^= expr</code> </td><td> 비트 단윈 XOR 연산 후 대입</td><td> <code>BitXorAssign</code> </td></tr>
+<tr><td> <code>|</code> </td><td> <code>pat | pat</code> </td><td> 다중 패턴 </td><td> </td></tr>
+<tr><td> <code>|</code> </td><td> <code>expr | expr</code> </td><td> 비트 단위 OR 연산 </td><td> <code>BitOr</code> </td></tr>
+<tr><td> <code>|=</code> </td><td> <code>var |= expr</code> </td><td> 비트 단위 OR 연산 후 대입 </td><td> <code>BitOrAssign</code> </td></tr>
+<tr><td> <code>||</code> </td><td> <code>expr || expr</code> </td><td> 논리 OR 연산 </td><td> </td></tr>
+<tr><td> <code>?</code> </td><td> <code>expr?</code> </td><td> 에러 전파 </td><td> </td></tr>
 </tbody></table>
-<a class="header" href="#non-operator-symbols" id="non-operator-symbols"><h3>Non-operator Symbols</h3></a>
-<p>The following list contains all non-letters that don’t function as operators;
-that is, they don’t behave like a function or method call.</p>
-<p>Table B-2 shows symbols that appear on their own and are valid in a variety of
-locations.</p>
-<p><span class="caption">Table B-2: Stand-Alone Syntax</span></p>
-<table><thead><tr><th> Symbol </th><th> Explanation </th></tr></thead><tbody>
-<tr><td> <code>'ident</code> </td><td> Named lifetime or loop label </td></tr>
-<tr><td> <code>...u8</code>, <code>...i32</code>, <code>...f64</code>, <code>...usize</code>, etc. </td><td> Numeric literal of specific type </td></tr>
-<tr><td> <code>&quot;...&quot;</code> </td><td> String literal </td></tr>
-<tr><td> <code>r&quot;...&quot;</code>, <code>r#&quot;...&quot;#</code>, <code>r##&quot;...&quot;##</code>, etc. </td><td> Raw string literal, escape characters not processed </td></tr>
-<tr><td> <code>b&quot;...&quot;</code> </td><td> Byte string literal; constructs a <code>[u8]</code> instead of a string </td></tr>
-<tr><td> <code>br&quot;...&quot;</code>, <code>br#&quot;...&quot;#</code>, <code>br##&quot;...&quot;##</code>, etc. </td><td> Raw byte string literal, combination of raw and byte string literal </td></tr>
-<tr><td> <code>'...'</code> </td><td> Character literal </td></tr>
-<tr><td> <code>b'...'</code> </td><td> ASCII byte literal </td></tr>
-<tr><td> <code>|...| expr</code> </td><td> Closure </td></tr>
-<tr><td> <code>!</code> </td><td> Always empty bottom type for diverging functions </td></tr>
-<tr><td> <code>_</code> </td><td> “Ignored” pattern binding; also used to make integer literals readable </td></tr>
+<a class="header" href="#연산자-이외의-기호" id="연산자-이외의-기호"><h3>연산자 이외의 기호</h3></a>
+<p>다음은 연산자와는 다르게 동작하는 (함수나 메소드를 호출했을 때
+일어나는 현상과 유사하지 않다는 의미입니다) 문자 목록입니다.</p>
+<p>Table B-2 에 다양한 곳에서 사용할 수 있는 기호를
+나열해 놓았습니다.</p>
+<p><span class="caption">Table B-2: 독립 문법</span></p>
+<table><thead><tr><th> 기호 </th><th> 설명 </th></tr></thead><tbody>
+<tr><td> <code>'ident</code> </td><td> 라이프라임 지정 및 loop 표식 </td></tr>
+<tr><td> <code>...u8</code>, <code>...i32</code>, <code>...f64</code>, <code>...usize</code>, 기타 등등 </td><td> 특정 타입 정수 리터럴 </td></tr>
+<tr><td> <code>&quot;...&quot;</code> </td><td> 스트링 리터럴 </td></tr>
+<tr><td> <code>r&quot;...&quot;</code>, <code>r#&quot;...&quot;#</code>, <code>r##&quot;...&quot;##</code>, 기타 등등 </td><td> Raw 스트링 리터럴, 이스케이프 문자를 처리하지 않음 </td></tr>
+<tr><td> <code>b&quot;...&quot;</code> </td><td> 바이트 스트링 리터럴; 문자열 대신 <code>[u8]</code> 이용 </td></tr>
+<tr><td> <code>br&quot;...&quot;</code>, <code>br#&quot;...&quot;#</code>, <code>br##&quot;...&quot;##</code>, 기타 등등 </td><td> Raw 바이트 스트링 리터럴, Raw 스트링과 바이트 스트링을 합친 것</td></tr>
+<tr><td> <code>'...'</code> </td><td> 문자 리터럴 </td></tr>
+<tr><td> <code>b'...'</code> </td><td> ASCII 바이트 리터럴 </td></tr>
+<tr><td> <code>|...| expr</code> </td><td> 클로저 </td></tr>
+<tr><td> <code>!</code> </td><td> 함수 분기를 위해 존재하는 의미를 갖지 않는 빈 타입  </td></tr>
+<tr><td> <code>_</code> </td><td> &quot;무시된&quot; 패턴 바인딩; 정수 링터럴의 가독성을 높이는 데에도 사용됨 </td></tr>
 </tbody></table>
-<p>Table B-3 shows symbols that appear in the context of a path through the module
-hierarchy to an item.</p>
-<p><span class="caption">Table B-3: Path-Related Syntax</span></p>
-<table><thead><tr><th> Symbol </th><th> Explanation </th></tr></thead><tbody>
-<tr><td> <code>ident::ident</code> </td><td> Namespace path </td></tr>
-<tr><td> <code>::path</code> </td><td> Path relative to the crate root (i.e., an explicitly absolute path) </td></tr>
-<tr><td> <code>self::path</code> </td><td> Path relative to the current module (i.e., an explicitly relative path).</td></tr>
-<tr><td> <code>super::path</code> </td><td> Path relative to the parent of the current module </td></tr>
-<tr><td> <code>type::ident</code>, <code>&lt;type as trait&gt;::ident</code> </td><td> Associated constants, functions, and types </td></tr>
-<tr><td> <code>&lt;type&gt;::...</code> </td><td> Associated item for a type that cannot be directly named (e.g., <code>&lt;&amp;T&gt;::...</code>, <code>&lt;[T]&gt;::...</code>, etc.) </td></tr>
-<tr><td> <code>trait::method(...)</code> </td><td> Disambiguating a method call by naming the trait that defines it </td></tr>
-<tr><td> <code>type::method(...)</code> </td><td> Disambiguating a method call by naming the type for which it’s defined </td></tr>
-<tr><td> <code>&lt;type as trait&gt;::method(...)</code> </td><td> Disambiguating a method call by naming the trait and type </td></tr>
+<p>Table B-3 은 모듈 계층 구조의 경로를 나타내는 데
+사용되는 기호를 나타냅니다.</p>
+<p><span class="caption">Table B-3: 경로 관련 문법</span></p>
+<table><thead><tr><th> 기호 </th><th> 설명 </th></tr></thead><tbody>
+<tr><td> <code>ident::ident</code> </td><td> 네임스페이스 경로 </td></tr>
+<tr><td> <code>::path</code> </td><td> 크레이트의 루트 디렉토리를 기준으로 한 상대 경로 (즉, 명시적인 절대 경로) </td></tr>
+<tr><td> <code>self::path</code> </td><td> 현재 모듈을 기준으로 한 상대 경로 (즉, 명시적인 상대 경로).</td></tr>
+<tr><td> <code>super::path</code> </td><td> 현재 모듈의 부모 모듈을 기준으로 한 상대 경로 </td></tr>
+<tr><td> <code>type::ident</code>, <code>&lt;type as trait&gt;::ident</code> </td><td> 연관 상수, 함수 및 유형 </td></tr>
+<tr><td> <code>&lt;type&gt;::...</code> </td><td> 직접 명명할 수 없는 타입에 연관된 항목 (예시 <code>&lt;&amp;T&gt;::...</code>, <code>&lt;[T]&gt;::...</code>, 기타 등등) </td></tr>
+<tr><td> <code>trait::method(...)</code> </td><td> 해당 메소드를 정의한 트레잇 이름으로 메소드 호출을 명확화 </td></tr>
+<tr><td> <code>type::method(...)</code> </td><td> 정의된 타입명을 이용해 메소드 호출을 명확화 </td></tr>
+<tr><td> <code>&lt;type as trait&gt;::method(...)</code> </td><td> 타입과 트레잇 이름을 이용해 메소드 호출을 명확화 </td></tr>
 </tbody></table>
-<p>Table B-4 shows symbols that appear in the context of using generic type
-parameters.</p>
-<p><span class="caption">Table B-4: Generics</span></p>
-<table><thead><tr><th> Symbol </th><th> Explanation </th></tr></thead><tbody>
-<tr><td> <code>path&lt;...&gt;</code> </td><td> Specifies parameters to generic type in a type (e.g., <code>Vec&lt;u8&gt;</code>) </td></tr>
-<tr><td> <code>path::&lt;...&gt;</code>, <code>method::&lt;...&gt;</code> </td><td> Specifies parameters to generic type, function, or method in an expression; often referred to as turbofish (e.g., <code>&quot;42&quot;.parse::&lt;i32&gt;()</code>) </td></tr>
-<tr><td> <code>fn ident&lt;...&gt; ...</code> </td><td> Define generic function </td></tr>
-<tr><td> <code>struct ident&lt;...&gt; ...</code> </td><td> Define generic structure </td></tr>
-<tr><td> <code>enum ident&lt;...&gt; ...</code> </td><td> Define generic enumeration </td></tr>
-<tr><td> <code>impl&lt;...&gt; ...</code> </td><td> Define generic implementation </td></tr>
-<tr><td> <code>for&lt;...&gt; type</code> </td><td> Higher-ranked lifetime bounds </td></tr>
-<tr><td> <code>type&lt;ident=type&gt;</code> </td><td> A generic type where one or more associated types have specific assignments (e.g., <code>Iterator&lt;Item=T&gt;</code>) </td></tr>
+<p>Table B-4 는 제네릭 타입 매개변수로 사용되는 기호를
+나타냅니다.</p>
+<p><span class="caption">Table B-4: 제네릭</span></p>
+<table><thead><tr><th> 기호 </th><th> 설명 </th></tr></thead><tbody>
+<tr><td> <code>path&lt;...&gt;</code> </td><td> 타입의 제네릭 매개변수 명시 (예시 <code>Vec&lt;u8&gt;</code>) </td></tr>
+<tr><td> <code>path::&lt;...&gt;</code>, <code>method::&lt;...&gt;</code> </td><td> 제네릭 타입, 함수, 메소드 등의 표현식에 매개변수 명시; turbofish 로도 불림 (예시 <code>&quot;42&quot;.parse::&lt;i32&gt;()</code>)</td></tr>
+<tr><td> <code>fn ident&lt;...&gt; ...</code> </td><td> 제네릭 함수 정의 </td></tr>
+<tr><td> <code>struct ident&lt;...&gt; ...</code> </td><td> 제네릭 구조체 정의 </td></tr>
+<tr><td> <code>enum ident&lt;...&gt; ...</code> </td><td> 제네릭 열거체 정의 </td></tr>
+<tr><td> <code>impl&lt;...&gt; ...</code> </td><td> 제네릭 구현 정의 </td></tr>
+<tr><td> <code>for&lt;...&gt; type</code> </td><td> 고 랭크 라이프타임 제약 </td></tr>
+<tr><td> <code>type&lt;ident=type&gt;</code> </td><td> 하나 이상의 관련 타입에 특정 할당을 갖는 제네릭 타입 (예시 <code>Iterator&lt;Item=T&gt;</code>) </td></tr>
 </tbody></table>
-<p>Table B-5 shows symbols that appear in the context of constraining generic type
-parameters with trait bounds.</p>
-<p><span class="caption">Table B-5: Trait Bound Constraints</span></p>
-<table><thead><tr><th> Symbol </th><th> Explanation </th></tr></thead><tbody>
-<tr><td> <code>T: U</code> </td><td> Generic parameter <code>T</code> constrained to types that implement <code>U</code> </td></tr>
-<tr><td> <code>T: 'a</code> </td><td> Generic type <code>T</code> must outlive lifetime <code>'a</code> (meaning the type cannot transitively contain any references with lifetimes shorter than <code>'a</code>) </td></tr>
-<tr><td> <code>T : 'static</code> </td><td> Generic type <code>T</code> contains no borrowed references other than <code>'static</code> ones </td></tr>
-<tr><td> <code>'b: 'a</code> </td><td> Generic lifetime <code>'b</code> must outlive lifetime <code>'a</code> </td></tr>
-<tr><td> <code>T: ?Sized</code> </td><td> Allow generic type parameter to be a dynamically sized type </td></tr>
-<tr><td> <code>'a + trait</code>, <code>trait + trait</code> </td><td> Compound type constraint </td></tr>
+<p>Table B-5 은 트레잇을 이용해 제네릭 매개변수의 제약 조건을
+설정하는 데 사용되는 기호를 나타냅니다.</p>
+<p><span class="caption">Table B-5: 트레잇 제약 조건</span></p>
+<table><thead><tr><th> 기호 </th><th> 설명 </th></tr></thead><tbody>
+<tr><td> <code>T: U</code> </td><td> 제네릭 매개변수 <code>T</code> 는 <code>U</code> 를 구현한 타입일 것 </td></tr>
+<tr><td> <code>T: 'a</code> </td><td> 제네릭 타입 <code>T</code> 는 <code>a</code> 보다 긴 라이프타임을 가질 것 (해당 타입은 일시적으로 <code>'a</code> 보다 짧은 라이프타임을 갖는 레퍼런스를 포함할 수 없다는 의미입니다) </td></tr>
+<tr><td> <code>T : 'static</code> </td><td> 제네릭 타입 <code>T</code> 는 <code>'static</code> 이외의 빌림 참조자를 포함하지 않을 것 </td></tr>
+<tr><td> <code>'b: 'a</code> </td><td> 제네릭 라이프타임 <code>'b</code> 는 <code>'a</code> 보다 긴 라이프타임을 가질 것 </td></tr>
+<tr><td> <code>T: ?Sized</code> </td><td> 제네릭 매개변수가 동적 사이즈 타입이 되는 것을 허용 </td></tr>
+<tr><td> <code>'a + trait</code>, <code>trait + trait</code> </td><td> 타입 제약 조건 조합 </td></tr>
 </tbody></table>
-<p>Table B-6 shows symbols that appear in the context of calling or defining
-macros and specifying attributes on an item.</p>
-<p><span class="caption">Table B-6: Macros and Attributes</span></p>
-<table><thead><tr><th> Symbol </th><th> Explanation </th></tr></thead><tbody>
-<tr><td> <code>#[meta]</code> </td><td> Outer attribute </td></tr>
-<tr><td> <code>#![meta]</code> </td><td> Inner attribute </td></tr>
-<tr><td> <code>$ident</code> </td><td> Macro substitution </td></tr>
-<tr><td> <code>$ident:kind</code> </td><td> Macro capture </td></tr>
-<tr><td> <code>$(…)…</code> </td><td> Macro repetition </td></tr>
+<p>Table B-6 은 매크로를 호출 및 정의하거나
+임의의 아이템에 대한 속성을 명시하는 데 사용되는 기호를 나타냅니다.</p>
+<p><span class="caption">Table B-6: 매크로 및 속성</span></p>
+<table><thead><tr><th> 기호 </th><th> 설명 </th></tr></thead><tbody>
+<tr><td> <code>#[meta]</code> </td><td> 외부 속성 </td></tr>
+<tr><td> <code>#![meta]</code> </td><td> 내부 속성 </td></tr>
+<tr><td> <code>$ident</code> </td><td> 매크로 치환 </td></tr>
+<tr><td> <code>$ident:kind</code> </td><td> 매크로 캡처 </td></tr>
+<tr><td> <code>$(…)…</code> </td><td> 매크로 반복 </td></tr>
 </tbody></table>
-<p>Table B-7 shows symbols that create comments.</p>
-<p><span class="caption">Table B-7: Comments</span></p>
-<table><thead><tr><th> Symbol </th><th> Explanation </th></tr></thead><tbody>
-<tr><td> <code>//</code> </td><td> Line comment </td></tr>
-<tr><td> <code>//!</code> </td><td> Inner line doc comment </td></tr>
-<tr><td> <code>///</code> </td><td> Outer line doc comment </td></tr>
-<tr><td> <code>/*...*/</code> </td><td> Block comment </td></tr>
-<tr><td> <code>/*!...*/</code> </td><td> Inner block doc comment </td></tr>
-<tr><td> <code>/**...*/</code> </td><td> Outer block doc comment </td></tr>
+<p>Table B-7 은 주석 기호를 나타냅니다. (소속 및 외부 항목이 무엇을 의미하는지는 14-2 에 나와있습니다)</p>
+<p><span class="caption">Table B-7: 주석</span></p>
+<table><thead><tr><th> 기호 </th><th> 설명 </th></tr></thead><tbody>
+<tr><td> <code>//</code> </td><td> 한 줄 주석 </td></tr>
+<tr><td> <code>//!</code> </td><td> 소속 항목 대상 한 줄 문서화 주석 </td></tr>
+<tr><td> <code>///</code> </td><td> 외부 항목 대상 한 줄 문서화 주석 </td></tr>
+<tr><td> <code>/*...*/</code> </td><td> 블록 주석 </td></tr>
+<tr><td> <code>/*!...*/</code> </td><td> 소속 항목 대상 블록 문서화 주석 </td></tr>
+<tr><td> <code>/**...*/</code> </td><td> 외부 항목 대상 블록 문서화 주석 </td></tr>
 </tbody></table>
-<p>Table B-8 shows symbols that appear in the context of using tuples.</p>
-<p><span class="caption">Table B-8: Tuples</span></p>
-<table><thead><tr><th> Symbol </th><th> Explanation </th></tr></thead><tbody>
-<tr><td> <code>()</code> </td><td> Empty tuple (aka unit), both literal and type </td></tr>
-<tr><td> <code>(expr)</code> </td><td> Parenthesized expression </td></tr>
-<tr><td> <code>(expr,)</code> </td><td> Single-element tuple expression </td></tr>
-<tr><td> <code>(type,)</code> </td><td> Single-element tuple type </td></tr>
-<tr><td> <code>(expr, ...)</code> </td><td> Tuple expression </td></tr>
-<tr><td> <code>(type, ...)</code> </td><td> Tuple type </td></tr>
-<tr><td> <code>expr(expr, ...)</code> </td><td> Function call expression; also used to initialize tuple <code>struct</code>s and tuple <code>enum</code> variants </td></tr>
-<tr><td> <code>ident!(...)</code>, <code>ident!{...}</code>, <code>ident![...]</code> </td><td> Macro invocation </td></tr>
-<tr><td> <code>expr.0</code>, <code>expr.1</code>, etc. </td><td> Tuple indexing </td></tr>
+<p>Table B-8 은 튜플 문법에서 사용되는 기호를 나타냅니다.</p>
+<p><span class="caption">Table B-8: 튜플</span></p>
+<table><thead><tr><th> 기호 </th><th> 설명 </th></tr></thead><tbody>
+<tr><td> <code>()</code> </td><td> 빈 튜플 (일명 '유닛'), 리터럴이자 타입임 </td></tr>
+<tr><td> <code>(expr)</code> </td><td> 괄호 내 표현식 </td></tr>
+<tr><td> <code>(expr,)</code> </td><td> 단일 개체 튜플 표현식 </td></tr>
+<tr><td> <code>(type,)</code> </td><td> 단일 개체 튜플 타입 </td></tr>
+<tr><td> <code>(expr, ...)</code> </td><td> 튜플 표현식 </td></tr>
+<tr><td> <code>(type, ...)</code> </td><td> 튜플 타입 </td></tr>
+<tr><td> <code>expr(expr, ...)</code> </td><td> 함수 호출 표현식; 튜플 <code>struct</code> 와 튜플 <code>enum</code> variants 를 초기화하는 데도 사용 </td></tr>
+<tr><td> <code>ident!(...)</code>, <code>ident!{...}</code>, <code>ident![...]</code> </td><td> 매크로 호출 </td></tr>
+<tr><td> <code>expr.0</code>, <code>expr.1</code>, 기타 등등 </td><td> 튜플 인덱싱 </td></tr>
 </tbody></table>
-<p>Table B-9 shows the contexts in which curly braces are used.</p>
-<p><span class="caption">Table B-9: Curly Brackets</span></p>
-<table><thead><tr><th> Context </th><th> Explanation </th></tr></thead><tbody>
-<tr><td> <code>{...}</code> </td><td> Block expression </td></tr>
-<tr><td> <code>Type {...}</code> </td><td> <code>struct</code> literal </td></tr>
+<p>Table B-9 은 중괄호의 사용처를 나타냅니다.</p>
+<p><span class="caption">Table B-9: 중괄호</span></p>
+<table><thead><tr><th> 사용처 </th><th> 설명 </th></tr></thead><tbody>
+<tr><td> <code>{...}</code> </td><td> 블록 표현식 </td></tr>
+<tr><td> <code>Type {...}</code> </td><td> <code>struct</code> 리터럴 </td></tr>
 </tbody></table>
-<p>Table B-10 shows the contexts in which square brackets are used.</p>
-<p><span class="caption">Table B-10: Square Brackets</span></p>
-<table><thead><tr><th> Context </th><th> Explanation </th></tr></thead><tbody>
-<tr><td> <code>[...]</code> </td><td> Array literal </td></tr>
-<tr><td> <code>[expr; len]</code> </td><td> Array literal containing <code>len</code> copies of <code>expr</code> </td></tr>
-<tr><td> <code>[type; len]</code> </td><td> Array type containing <code>len</code> instances of <code>type</code> </td></tr>
-<tr><td> <code>expr[expr]</code> </td><td> Collection indexing. Overloadable (<code>Index</code>, <code>IndexMut</code>) </td></tr>
-<tr><td> <code>expr[..]</code>, <code>expr[a..]</code>, <code>expr[..b]</code>, <code>expr[a..b]</code> </td><td> Collection indexing pretending to be collection slicing, using <code>Range</code>, <code>RangeFrom</code>, <code>RangeTo</code>, or <code>RangeFull</code> as the “index” </td></tr>
+<p>Table B-10 은 대괄호의 사용처를 나타냅니다.</p>
+<p><span class="caption">Table B-10: 대괄호</span></p>
+<table><thead><tr><th> 사용처 </th><th> 설명 </th></tr></thead><tbody>
+<tr><td> <code>[...]</code> </td><td> 배열 리터럴 </td></tr>
+<tr><td> <code>[expr; len]</code> </td><td> <code>expr</code> 을 <code>len</code> 만큼 복제한 배열 리터럴</td></tr>
+<tr><td> <code>[type; len]</code> </td><td> <code>type</code> 인스턴스를 <code>len</code> 만큼 갖는 배열 타입 </td></tr>
+<tr><td> <code>expr[expr]</code> </td><td> 배열 인덱싱. <code>Index</code>, <code>IndexMut</code> 을 이용해 오버로드 가능 </td></tr>
+<tr><td> <code>expr[..]</code>, <code>expr[a..]</code>, <code>expr[..b]</code>, <code>expr[a..b]</code> </td><td> 컬렉션 슬라이싱 모양의 컬렉션 인덱싱. 인덱스로 <code>Range</code>, <code>RangeFrom</code>, <code>RangeTo</code>, <code>RangeFull</code> 을 사용 </td></tr>
 </tbody></table>
 <a class="header" href="#부록-c-derive-가능한-트레잇" id="부록-c-derive-가능한-트레잇"><h2>부록 C: derive 가능한 트레잇</h2></a>
 <p>책의 여러 곳에서 구조체나 열거형 정의 시
@@ -23830,8 +23830,8 @@ variant 가 나중에 선언한 variant 보다 더 적게(less) 평가됩니다.
 이는 <code>Copy</code> 를 구현하는 타입은 <code>Copy</code> 와 같은 작업을 하는
 <code>Clone</code> 의 간단한 구현을 지니기 때문입니다.</p>
 <p><code>Copy</code> 트레잇을 요구하는 경우는 매우 드뭅니다;
-<code>Copy</code> 를 구현한 타입은 최적화가 가능하기에, <code>clone</code> 을
-호출할 필요가 사라짐으로써 코드를 간결하게 만들 수 있기 때문입니다.</p>
+<code>Copy</code> 를 구현한 타입은 최적화가 가능한데, 즉 여러분이 <code>clone</code> 을
+호출하지 않아도 된다는 의미이며, 이는 코드를 더 간결하게 만들어 줍니다.</p>
 <p><code>Copy</code> 로 할 수 있는 것은 <code>Clone</code> 으로도 할 수 있습니다만,
 이 경우 코드가 좀 느려지거나 코드에서 <code>clone</code> 을 사용해야 할 수도 있습니다.</p>
 <a class="header" href="#값을-고정된-크기의-값으로-매핑하기-위한-hash" id="값을-고정된-크기의-값으로-매핑하기-위한-hash"><h3>값을 고정된 크기의 값으로 매핑하기 위한 <code>Hash</code></h3></a>
@@ -24278,13 +24278,13 @@ hello_macro_derive = { path = &quot;../hello_macro/hello_macro_derive&quot; }
 <li><a href="https://github.com/agentzero1/book">Cebuano</a></li>
 <li><a href="https://github.com/josephace135/book">Tagalog</a></li>
 </ul>
-<a class="header" href="#appendix-f---newest-features" id="appendix-f---newest-features"><h1>Appendix F - Newest Features</h1></a>
-<p>This appendix documents features that have been added to stable Rust since the
-main part of the book was completed.</p>
-<a class="header" href="#field-init-shorthand" id="field-init-shorthand"><h2>Field init shorthand</h2></a>
-<p>We can initialize a data structure (struct, enum, union) with named
-fields, by writing <code>fieldname</code> as a shorthand for <code>fieldname: fieldname</code>.
-This allows a compact syntax for initialization, with less duplication:</p>
+<a class="header" href="#부록-f-새로운-기능" id="부록-f-새로운-기능"><h1>부록 F: 새로운 기능</h1></a>
+<p>이번 부록에선 본 책의 주요 내용이 작성되고 난 이후에
+러스트 stable 에 추가된 몇 가지 기능을 다룹니다.</p>
+<a class="header" href="#더-짧은-필드-초기화" id="더-짧은-필드-초기화"><h2>더 짧은 필드 초기화</h2></a>
+<p>자료 구조(구조체, 열거형, union)에서 필드명을 갖는 필드를 초기화할 때
+<code>fieldname: fieldname</code> 을 <code>fieldname</code> 으로 줄여서 쓸 수 있습니다.
+이 기능은 초기화 구문을 간결하게 만들어 코드 중복을 줄여줍니다.</p>
 <pre><pre class="playpen"><code class="language-rust">#[derive(Debug)]
 struct Person {
     name: String,
@@ -24295,23 +24295,23 @@ fn main() {
     let name = String::from(&quot;Peter&quot;);
     let age = 27;
 
-    // Using full syntax:
+    // 전체 구문
     let peter = Person { name: name, age: age };
 
     let name = String::from(&quot;Portia&quot;);
     let age = 27;
 
-    // Using field init shorthand:
+    // 단축된 필드 초기화 구문
     let portia = Person { name, age };
 
     println!(&quot;{:?}&quot;, portia);
 }
 </code></pre></pre>
-<a class="header" href="#returning-from-loops" id="returning-from-loops"><h2>Returning from loops</h2></a>
-<p>One of the uses of a <code>loop</code> is to retry an operation you know can fail, such as
-checking if a thread completed its job. However, you might need to pass the
-result of that operation to the rest of your code. If you add it to the <code>break</code>
-expression you use to stop the loop, it will be returned by the broken loop:</p>
+<a class="header" href="#loop-에서-반환하기" id="loop-에서-반환하기"><h2>loop 에서 반환하기</h2></a>
+<p><code>loop</code> 는 특정 스레드가 작업을 완료했는지 알아보는 등, 어떤 연산이
+실패할 수도 있다는 것을 알고 있을 때, 해당 연산을 재시도 하는 데
+사용 가능합니다. 이 연산 결과를 다른 코드로 넘겨 주어야 한다면,
+<code>break</code> 를 이용해 반복을 멈추고 결과를 반환할 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     let mut counter = 0;
 
@@ -24326,14 +24326,14 @@ expression you use to stop the loop, it will be returned by the broken loop:</p>
     assert_eq!(result, 20);
 }
 </code></pre></pre>
-<a class="header" href="#nested-groups-in-use-declarations" id="nested-groups-in-use-declarations"><h2>Nested groups in <code>use</code> declarations</h2></a>
-<p>If you have a complex module tree with many different submodules and you need
-to import a few items from each one, it might be useful to group all the
-imports in the same declaration to keep your code clean and avoid repeating the
-base modules’ name.</p>
-<p>The <code>use</code> declaration supports nesting to help you in those cases, both with
-simple imports and glob ones. For example this snippets imports <code>bar</code>, <code>Foo</code>,
-all the items in <code>baz</code> and <code>Bar</code>:</p>
+<a class="header" href="#중복된-use-선언-합치기" id="중복된-use-선언-합치기"><h2>중복된 <code>use</code> 선언 합치기</h2></a>
+<p>모듈을 여러 하위 모듈이 이루고 있어
+구조가 복잡한 모듈에서 몇 개의 모듈만 가져와야 할 때,
+선언 속 중복되는 부분을 합칠 수 있다면
+코드를 깔끔하게 만들 수 있을겁니다.</p>
+<p><code>use</code> 선언은 간결한 임포트 및 글롭에서 합칠 수 있습니다.
+다음은 <code>bar</code> 과 <code>Foo</code>, 그리고 <code>baz</code>와 <code>Bar</code> 내
+모든 항목을 가져오는 예시입니다:</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_imports, dead_code)]
 #
 # mod foo {
@@ -24354,11 +24354,11 @@ use foo::{
 #
 # fn main() {}
 </code></pre></pre>
-<a class="header" href="#inclusive-ranges" id="inclusive-ranges"><h2>Inclusive ranges</h2></a>
-<p>Previously, when a range (<code>..</code> or <code>...</code>) was used as an expression, it had to be
-<code>..</code>, which is exclusive of the upper bound, while patterns had to use <code>...</code>,
-which is inclusive of the upper bound. Now, <code>..=</code> is accepted as syntax for
-inclusive ranges in both expression and range context:</p>
+<a class="header" href="#포괄적인-범위-표현" id="포괄적인-범위-표현"><h2>포괄적인 범위 표현</h2></a>
+<p>앞서 범위 문법(<code>..</code> 와 <code>...</code> 를 말합니다)를 사용할 때,
+표현식에선 상한을 포함하지 않는 <code>..</code> 를 사용하고, 패턴에선
+상한을 포함하는 <code>...</code> 를 사용했습니다. 하지만 이제 <code>..=</code>
+하나로 표현식과 패턴 모두에서 사용할 수 있습니다.</p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     for i in 0 ..= 10 {
         match i {
@@ -24369,176 +24369,176 @@ inclusive ranges in both expression and range context:</p>
     }
 }
 </code></pre></pre>
-<p>The <code>...</code> syntax is still accepted in matches, but it is not accepted in
-expressions. <code>..=</code> should be preferred.</p>
-<a class="header" href="#128-bit-integers" id="128-bit-integers"><h2>128-bit integers</h2></a>
-<p>Rust 1.26.0 added 128-bit integer primitives:</p>
+<p>match 내에선 <code>...</code> 를 사용해도 문제는 없지만 표현식에선
+사용할 수 없으니 <code>..=</code> 를 권장합니다.</p>
+<a class="header" href="#128-비트-정수" id="128-비트-정수"><h2>128 비트 정수</h2></a>
+<p>128 비트 정수가 러스트 1.26.0 에 추가됐습니다:</p>
 <ul>
-<li><code>u128</code>: A 128-bit unsigned integer with range [0, 2^128 - 1]</li>
-<li><code>i128</code>: A 128-bit signed integer with range [-(2^127), 2^127 - 1]</li>
+<li><code>u128</code>: 부호가 없으며 [0, 2^128 - 1] 범위를 갖는 128 비트 정수</li>
+<li><code>i128</code>: 부호가 있으며 [-(2^127), 2^127 - 1] 범위를 갖는 128 비트 정수</li>
 </ul>
-<p>These primitives are implemented efficiently via LLVM support. They are
-available even on platforms that don’t natively support 128-bit integers and
-can be used like the other integer types.</p>
-<p>These primitives can be very useful for algorithms that need to use very large
-integers efficiently, such as certain cryptographic algorithms.</p>
-<a class="header" href="#appendix-g---how-rust-is-made-and-nightly-rust" id="appendix-g---how-rust-is-made-and-nightly-rust"><h1>Appendix G - How Rust is Made and “Nightly Rust”</h1></a>
-<p>This appendix is about how Rust is made and how that affects you as a Rust
-developer. We mentioned that the output in this book was generated by stable
-Rust 1.21.0, but any examples that compile should continue to compile in any
-stable version of Rust greater than that. This section is to explain how we
-ensure this is true!</p>
-<a class="header" href="#stability-without-stagnation" id="stability-without-stagnation"><h3>Stability Without Stagnation</h3></a>
-<p>As a language, Rust cares a <em>lot</em> about the stability of your code. We want
-Rust to be a rock-solid foundation you can build on, and if things were
-constantly changing, that would be impossible. At the same time, if we can’t
-experiment with new features, we may not find out important flaws until after
-their release, when we can no longer change things.</p>
-<p>Our solution to this problem is what we call “stability without stagnation”,
-and our guiding principle is this: you should never have to fear upgrading to a
-new version of stable Rust. Each upgrade should be painless, but should also
-bring you new features, fewer bugs, and faster compile times.</p>
-<a class="header" href="#choo-choo-release-channels-and-riding-the-trains" id="choo-choo-release-channels-and-riding-the-trains"><h3>Choo, Choo! Release Channels and Riding the Trains</h3></a>
-<p>Rust development operates on a <em>train schedule</em>. That is, all development is
-done on the <code>master</code> branch of the Rust repository. Releases follow a software
-release train model, which has been used by Cisco IOS and other software
-projects. There are three <em>release channels</em> for Rust:</p>
+<p>이들은 LLVM 을 통해 효율적으로 구현됐기 때문에,
+128 비트 정수를 지원하지 않는 플랫폼에서도
+다른 정수 타입들과 마찬가지 방식으로 사용 가능합니다.</p>
+<p>이 기능은 암호화 알고리즘 등, 아주 큰 정수를 효율적으로
+다뤄야 하는 알고리즘에서 유용할 겁니다.</p>
+<a class="header" href="#부록-g-러스트가-만들어지는-과정과-rust-nightly" id="부록-g-러스트가-만들어지는-과정과-rust-nightly"><h1>부록 G: 러스트가 만들어지는 과정과 &quot;Rust Nightly&quot;</h1></a>
+<p>다음 내용은 러스트가 만들어지는 과정과 해당 과정이
+러스트 개발자인 여러분에게 어떤 영향이 미치는지를 다룹니다.
+앞서 이 책의 예제들은 러스트 stable 1.21.0 버전을 기준으로
+만들었다고 했지만 모든 예제는 더 높은 버전에서도 작동할 겁니다.
+어떻게 이런 일이 가능한지 알아보도록 합시다.</p>
+<a class="header" href="#막힘-없이-안정된-발전-stability-without-stagnation" id="막힘-없이-안정된-발전-stability-without-stagnation"><h3>막힘 없이 안정된 발전 (Stability Without Stagnation)</h3></a>
+<p>러스트는 하나의 언어로서 여러분 코드를 여러 방면으로 관리하는 동시에
+여러분이 안심하고 위에 무언가 지을 수 있는 단단한 기반을 마련해야 합니다.
+언어가 자주 변경된다면 이 목표는 달성하기 힘들어지겠죠. 하지만 새로운
+기능을 시험해보지 못한다면 심각한 문제가 있더라도 릴리즈 이전에 알아채지
+못할 겁니다. 물론, 릴리즈 이후엔 고칠 방법이 없습니다.</p>
+<p>이러한 문제의 해결법이 바로 러스트의 유도 원칙이기도 한
+&quot;막힘 없이 안정된 발전(Stability Without Stagnation)&quot; 입니다:
+모든 업데이트에서 발생하는 문제를 최소화하고, 새로운 기능은 착실히 추가하되,
+버그를 줄이고 컴파일 속도를 높여서 사용자들이 마음 편히 업데이트할 수 있게 하는 것이 목표입니다.</p>
+<a class="header" href="#릴리즈-채널-열차가-달려갑니다" id="릴리즈-채널-열차가-달려갑니다"><h3>릴리즈 채널 열차가 달려갑니다</h3></a>
+<p>러스트 개발은 <em>열차 스케줄 (train schedule)</em> 로 운영됩니다. 모든 개발은
+러스트 저장소의 <code>master</code> 브랜치에서 완료됩니다. 릴리즈 방식은 Cisco IOS 를
+비롯한 여러 소프트웨어 프로젝트에서 사용하는 &quot;train model&quot; 을 사용합니다.
+다음은 러스트의 3 가지 <em>릴리즈 채널</em> 입니다:</p>
 <ul>
 <li>Nightly</li>
 <li>Beta</li>
 <li>Stable</li>
 </ul>
-<p>Most Rust developers primarily use the stable channel, but those who want to
-try out experimental new features may use nightly or beta.</p>
-<p>Here’s an example of how the development and release process works: let’s
-assume that the Rust team is working on the release of Rust 1.5. That release
-happened in December of 2015, but it will provide us with realistic version
-numbers. A new feature is added to Rust: a new commit lands on the <code>master</code>
-branch. Each night, a new nightly version of Rust is produced. Every day is a
-release day, and these releases are created by our release infrastructure
-automatically. So as time passes, our releases look like this, once a night:</p>
+<p>러스트 개발자는 대부분 stable 채널을 주로 사용하며,
+새 기능을 사용해보려는 사람들은 nightly 나 beta 채널을 사용하기도 합니다.</p>
+<p>개발 및 릴리즈 과정은 다음 예시처럼 돌아갑니다: 러스트 개발 팀이 러스트
+1.5 버전 릴리즈 작업을 하고 있다고 가정해봅시다. (1.5 버전은 2015년
+12월에 릴리즈되었지만, 현실적인 버전 가정을 위해 이와 같이 설정했습니다)
+러스트에 새 기능이 추가됐습니다. 다시 말해, <code>master</code> 브랜치에 새 커밋이
+올라갔습니다. 매일 밤, 러스트 nightly 버전이 릴리즈됩니다. 매일 밤
+생성되는 이 릴리즈는 러스트 릴리즈 인프라가 자동으로 생성합니다.
+시간이 지남에 따라 러스트 릴리즈는 다음과 같은 모습이 됩니다:</p>
 <pre><code class="language-text">nightly: * - - * - - *
 </code></pre>
-<p>Every six weeks, it’s time to prepare a new release! The <code>beta</code> branch of the
-Rust repository branches off from the <code>master</code> branch used by nightly. Now,
-there are two releases:</p>
+<p><code>beta</code> 브랜치는 6 주마다 nightly 에 사용되는
+<code>master</code> 브랜치로부터 떨어져 나와 생성됩니다.
+이제 릴리즈는 두 종류가 됐네요:</p>
 <pre><code class="language-text">nightly: * - - * - - *
                      |
 beta:                *
 </code></pre>
-<p>Most Rust users do not use beta releases actively, but test against beta in
-their CI system to help Rust discover possible regressions. In the meantime,
-there’s still a nightly release every night:</p>
+<p>beta 릴리즈는 사용하는 사람이 그다지 많지 않지만, 러스트는
+CI 시스템을 이용해 가능한 한 문제점을 찾으려고 노력합니다.
+이 동안에도 nightly 는 매일 밤 릴리즈됩니다.</p>
 <pre><code class="language-text">nightly: * - - * - - * - - * - - *
                      |
 beta:                *
 </code></pre>
-<p>Let’s say a regression is found. Good thing we had some time to test the beta
-release before the regression snuck into a stable release! The fix is applied
-to <code>master</code>, so that nightly is fixed, and then the fix is backported to the
-<code>beta</code> branch, and a new release of beta is produced:</p>
+<p>문제점이 발견됐다고 가정해봅시다.
+오류가 stable 릴리즈로 넘어가기 전에 beta 릴리즈 테스트에서 잡아냈다는 게 불행 중 다행이네요.
+오류 수정 내용을 <code>master</code> 브랜치에 반영하면 자연스레 nightly 버전이 고쳐집니다.
+이후 해당 내용이 <code>beta</code> 브랜치에 백포트되고(backport, 상위 버전의 기능을 하위 버전에 반영하는 것을 말함) 나면 새로운 beta 릴리즈가 제공됩니다:</p>
 <pre><code class="language-text">nightly: * - - * - - * - - * - - * - - *
                      |
 beta:                * - - - - - - - - *
 </code></pre>
-<p>Six weeks after the first beta was created, it’s time for a stable release! The
-<code>stable</code> branch is produced from the <code>beta</code> branch:</p>
+<p>첫 베타 버전이 만들어지고 6 주가 지나면, <code>stable</code> 브랜치가
+<code>beta</code> 브랜치로부터 만들어져 stable 릴리즈가 생성됩니다.</p>
 <pre><code class="language-text">nightly: * - - * - - * - - * - - * - - * - * - *
                      |
 beta:                * - - - - - - - - *
                                        |
 stable:                                *
 </code></pre>
-<p>Hooray! Rust 1.5 is done! However, we’ve forgotten one thing: because the six
-weeks have gone by, we also need a new beta of the <em>next</em> version of Rust, 1.6.
-So after <code>stable</code> branches off of <code>beta</code>, the next version of <code>beta</code> branches
-off of <code>nightly</code> again:</p>
+<p>마침내 러스트 1.5 버전을 완성했습니다! 하지만, 그동안 6주가
+지나버렸기 때문에 다음 버전이 될 1.6 버전에 대응할 새로운 beta 가 필요합니다.
+따라서 <code>beta</code> 브랜치는 <code>stable</code> 버전이 만들어진 후에도
+계속 <code>nightly</code> 브랜치로부터 떨어져 나옵니다:</p>
 <pre><code class="language-text">nightly: * - - * - - * - - * - - * - - * - * - *
                      |                         |
 beta:                * - - - - - - - - *       *
                                        |
 stable:                                *
 </code></pre>
-<p>This is called the “train model” because every six weeks, a release “leaves the
-station”, but still has to take a journey through the beta channel before it
-arrives as a stable release.</p>
-<p>Rust releases every six weeks, like clockwork. If you know the date of one Rust
-release, you can know the date of the next one: it’s six weeks later. A nice
-aspect of having releases scheduled every six weeks is that the next train is
-coming soon. If a feature happens to miss a particular release, there’s no need
-to worry: another one is happening in a short time! This helps reduce pressure
-to sneak possibly unpolished features in close to the release deadline.</p>
-<p>Thanks to this process, you can always check out the next build of Rust and
-verify for yourself that it’s easy to upgrade to: if a beta release doesn’t
-work as expected, you can report it to the team and get it fixed before the
-next stable release happens! Breakage in a beta release is relatively rare, but
-<code>rustc</code> is still a piece of software, and bugs do exist.</p>
-<a class="header" href="#unstable-features" id="unstable-features"><h3>Unstable Features</h3></a>
-<p>There’s one more catch with this release model: unstable features. Rust uses a
-technique called “feature flags” to determine what features are enabled in a
-given release. If a new feature is under active development, it lands on
-<code>master</code>, and therefore, in nightly, but behind a <em>feature flag</em>. If you, as a
-user, wish to try out the work-in-progress feature, you can, but you must be
-using a nightly release of Rust and annotate your source code with the
-appropriate flag to opt in.</p>
-<p>If you’re using a beta or stable release of Rust, you can’t use any feature
-flags. This is the key that allows us to get practical use with new features
-before we declare them stable forever. Those who wish to opt into the bleeding
-edge can do so, and those who want a rock-solid experience can stick with
-stable and know that their code won’t break. Stability without stagnation.</p>
-<p>This book only contains information about stable features, as in-progress
-features are still changing, and surely they’ll be different between when this
-book was written and when they get enabled in stable builds. You can find
-documentation for nightly-only features online.</p>
-<a class="header" href="#rustup-and-the-role-of-rust-nightly" id="rustup-and-the-role-of-rust-nightly"><h3>Rustup and the Role of Rust Nightly</h3></a>
-<p>Rustup makes it easy to change between different release channels of Rust, on a
-global or per-project basis. By default, you’ll have stable Rust installed. To
-install nightly, for example:</p>
+<p>이 과정을 &quot;train model&quot; 이라고 부르는 이유는 6주마다
+이루어지는 릴리즈가 &quot;열차가 역을 지나는&quot; 것과 유사하기 때문입니다.
+그리고 열차는 다음 stable 릴리즈 역에 도착할 때까지 beta 채널 위를 달리겠죠.</p>
+<p>러스트는 6주마다 일정하게 릴리즈됩니다. 릴리즈 날짜를 하나 알고 있다면
+6주를 더해 다음 릴리즈 일을 알아낼 수도 있죠. 일정한 주기로 릴리즈 하여
+얻는 장점은 언제가 될지 모를 릴리즈일을 하염없이 기다릴 필요가 없단 점입니다.
+어떤 기능이 특정 릴리즈에 누락되더라도 곧 있으면 다음 릴리즈가 생성될 테니
+걱정할 필요 없죠. 이 방식은 아직 다듬을 필요가 있는 기능을 개발 중인
+개발자들의 릴리즈 기한을 맞춰야 한다는 압박감을 줄여주기도 합니다.</p>
+<p>덕분에 여러분들은 언제나 다음 러스트 빌드를 확인할 수 있고 버전을
+업그레이드 하는 데에도 부담이 없습니다: 다만 가끔씩 beta 릴리즈에서
+문제가 발생하기도 합니다. 모든 소프트웨어에는 버그가 존재할 수 있는
+법이고, <code>rustc</code> 도 소프트웨어니까요. 하지만 beta 릴리즈에 문제가 있더라도
+개발팀에 제보하면 stable 릴리즈 이전에 해당 오류를 수정받을 수 있습니다.</p>
+<a class="header" href="#불안정한-기능" id="불안정한-기능"><h3>불안정한 기능</h3></a>
+<p>릴리즈 모델에서 하나 더 짚고 넘어갈 게 있습니다:
+바로 '불안정한 기능' 입니다. 러스트에는 &quot;Feature flags&quot; 라는 기술이
+적용됐기 때문에 릴리즈에서 어떤 기능을 활성화 하거나, 비활성화 할 수 있습니다.
+예를 들어, 아직 개발중인 기능이 <code>master</code> 에 추가되면 자연스레 nightly 에도
+추가되지만 <em>feature flag</em> 에 가려진 상태로 추가됩니다.
+따라서, 아직 개발중인 기능을 사용하고 싶은 분은 nightly 릴리즈에서
+적절한 flag 를 소스코드에 명시하셔야 합니다.</p>
+<p>알아두실 것은 feature flag 는 어디까지나 새로운 기능이
+stable 에 정착되기 전에 연습해볼 수 있도록 하는 용도이기 때문에
+beta 나 stable 릴리즈에선 feature flag 를 사용할 수 없습니다.
+따라서 안정적인 환경을 원하는 사용자는 이 기능을
+이용하지 않는 것을 추천드립니다.</p>
+<p>본 책의 내용은 stable 릴리즈의 기능만 담고 있습니다. 개발 중인 기능에 관한
+내용은 언제든 변경될 수 있으므로 책에 작성된 내용과 실제 stable 빌드에
+추가된 내용이 전혀 다를 가능성이 있기 때문입니다. 따라서 nightly 에만
+존재하는 기능은 온라인에서 관련 문서를 찾아보시기 바랍니다.</p>
+<a class="header" href="#rustup-과-rust-nightly-의-역할" id="rustup-과-rust-nightly-의-역할"><h3>Rustup 과 Rust Nightly 의 역할</h3></a>
+<p>여러분은 stable 러스트를 설치하셨을 겁니다.
+하지만 특정 프로젝트에선 특정 릴리즈 채널을 사용하도록 설정하거나, 혹은 글로벌 설정을 변경하고 싶다면 어떻게 해야 할까요? 답은 Rustup 입니다.
+rustup 으로 nightly 를 설치하는 방법은 다음과 같습니다:</p>
 <pre><code class="language-text">$ rustup install nightly
 </code></pre>
-<p>You can see all of the <em>toolchains</em> (releases of Rust and associated
-components) you have installed with <code>rustup</code> as well. Here’s an example on one
-of your authors’ Windows computer:</p>
+<p>rustup 으로 여러분이 설치한 모든 <em>툴체인(toolchains)</em>
+(여러 러스트 릴리즈와 관련 컴포넌트를 포함한 것을 말합니다)를 확인할
+수도 있습니다. 필자의 윈도우 컴퓨터에서 실행한 결과를 예로 가져왔습니다:</p>
 <pre><code class="language-powershell">&gt; rustup toolchain list
 stable-x86_64-pc-windows-msvc (default)
 beta-x86_64-pc-windows-msvc
 nightly-x86_64-pc-windows-msvc
 </code></pre>
-<p>As you can see, the stable toolchain is the default. Most Rust users use stable
-most of the time. You might want to use stable most of the time, but use
-nightly on a specific project, because you care about a cutting-edge feature.
-To do so, you can use <code>rustup override</code> in that project’s directory to set the
-nightly toolchain as the one <code>rustup</code> should use when you’re in that directory:</p>
+<p>보시다시피 기본 설정된 툴체인은 stable 입니다. 러스트 사용자들은
+대부분 stable 을 사용하긴 하지만 최첨단 기능을 고려해야 하는 특정
+프로젝트에선 nigthly 가 필요할 수도 있습니다. 이처럼 어떤 프로젝트만
+다른 툴체인을 사용하고 싶을 땐 해당 프로젝트 디렉토리에서
+<code>rustup override</code> 를 이용해 원하는 툴체인을 사용할 수 있습니다:</p>
 <pre><code class="language-text">$ cd ~/projects/needs-nightly
 $ rustup override add nightly
 </code></pre>
-<p>Now, every time you call <code>rustc</code> or <code>cargo</code> inside of
-<em>~/projects/needs-nightly</em>, <code>rustup</code> will make sure that you are using nightly
-Rust, rather than your default of stable Rust. This comes in handy when you
-have a lot of Rust projects!</p>
-<a class="header" href="#the-rfc-process-and-teams" id="the-rfc-process-and-teams"><h3>The RFC Process and Teams</h3></a>
-<p>So how do you learn about these new features? Rust’s development model follows
-a <em>Request For Comments (RFC) process</em>. If you’d like an improvement in Rust,
-you can write up a proposal, called an RFC.</p>
-<p>Anyone can write RFCs to improve Rust, and the proposals are reviewed and
-discussed by the Rust team, which is comprised of many topic subteams. There’s
-a full list of the teams <a href="https://www.rust-lang.org/en-US/team.html">on Rust’s
-website</a>, which includes teams for
-each area of the project: language design, compiler implementation,
-infrastructure, documentation, and more. The appropriate team reads the
-proposal and the comments, writes some comments of their own, and eventually,
-there’s consensus to accept or reject the feature.</p>
-<p>If the feature is accepted, an issue is opened on the Rust repository, and
-someone can implement it. The person who implements it very well may not be the
-person who proposed the feature in the first place! When the implementation is
-ready, it lands on the <code>master</code> branch behind a feature gate, as we discussed
-in the “Unstable Features” section.</p>
-<p>After some time, once Rust developers who use nightly releases have been able
-to try out the new feature, team members will discuss the feature, how it’s
-worked out on nightly, and decide if it should make it into stable Rust or not.
-If the decision is to move forward, the feature gate is removed, and the
-feature is now considered stable! It rides the trains into a new stable release
-of Rust.</p>
+<p>이제 <code>rustup</code> 은 <em>~/projects/needs-nightly</em> 에서
+<code>rustc</code> 나 <code>cargo</code> 가 호출될 때마다 기본값인 stable 대신
+nigthly 를 사용하고 있는지 확인합니다. 덕분에 앞으로 여러분이
+관리할 러스트 프로젝트가 많아지더라도 관리가 편해질 겁니다.</p>
+<a class="header" href="#rfc-과정과-러스트-rfc-팀" id="rfc-과정과-러스트-rfc-팀"><h3>RFC 과정과 러스트 RFC 팀</h3></a>
+<p>이런 새로운 기능에 관한 정보는 어디서 볼 수 있을까요?
+러스트 개발 모델은 <em>RFC (Request For Comments) 과정</em> 을 따릅니다.
+따라서 러스트를 더 발전시키고 싶다면, 제안서, 즉 RFC 를 작성하면 됩니다.</p>
+<p>RFC는 러스트를 발전시키고 싶은 사람이라면 누구든 작성할 수 있습니다.
+여러분이 작성한 RFC는 해당 주제에 연관된 러스트 팀에서 제안 내용을 읽고,
+토론과 리뷰를 진행한 뒤 직접 의견을 남기며,
+최종적으로는 해당 기능을 받아들일지 말지 합의합니다.
+(러스트에는 언어 디자인, 컴파일러 구현, 인프라, 문서화 등
+다양한 세부 분야에 대응하는 팀이 존재하며, 전체 팀 목록은
+<a href="https://www.rust-lang.org/en-US/team.html">러스트 웹사이트</a>
+에서 확인하실 수 있습니다.)</p>
+<p>제안이 받아들여지면 누군가 구현할 수 있도록
+러스트 저장소에 이슈가 등록됩니다.
+이때, 기능을 구현한 사람과 기능을 제안한 사람이 다를 수도 있습니다.
+어찌 됐건 구현되고 나면 &quot;불안정한 기능&quot; 절에서 다룬 대로
+feature flag 에 가려진 채 <code>master</code> 브랜치에 올라갑니다.</p>
+<p>시간이 지나 nightly 릴리즈 사용자가 해당 기능을 사용할 수 있게 되면
+러스트 팀은 해당 기능이 nightly 에서 유용하게 쓰였는지 의논하고,
+stable 에 포함할 것인지 결정합니다.
+의논 결과가 긍정적이라면 feature flag 의
+그림자로부터 나와 예비 stable 로 취급됩니다.
+다음 stable 릴리즈 역에서 러스트 릴리즈 열차에 탑승하는 거죠.</p>
 <a class="header" href="#appendix-h---번역-용어-정리" id="appendix-h---번역-용어-정리"><h1>Appendix H - 번역 용어 정리</h1></a>
 <p>이 절은 한국어 번역본에만 포함되어 있는 절로서, 원문에 대한 번역 용어를 정리한 곳입니다.</p>
 <ul>
