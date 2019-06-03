@@ -449,7 +449,7 @@ fn main() {
 <code>Weak&lt;Node&gt;</code> 참조자를 가지도록 수정할 수 있습니다. 우리는 <code>leaf</code>의 <code>parent</code>
 필드 내의 <code>RefCell&lt;Weak&lt;Node&gt;&gt;</code> 상의 <code>borrow_mut</code> 메소드를 사용하고,
 그런 다음 <code>Rc::downgrade</code> 함수를 이용하여 <code>branch</code>의 <code>Rc&lt;Node&gt;</code>로부터
-<code>branch</code>에 대한 <code>Weoak&lt;Node&gt;</code> 참조자를 생성하였습니다.</p>
+<code>branch</code>에 대한 <code>Weak&lt;Node&gt;</code> 참조자를 생성하였습니다.</p>
 <p><code>leaf</code>의 부모를 다시한번 출력할 때, 이번에는 <code>branch</code>를 가지고 있는 <code>Some</code> variant를
 얻게될 것입니다: 이제 <code>leaf</code>는 그의 부모에 접근할 수 있습니다! <code>leaf</code>를 출력할 때, 우리는
 또한 Listing 15-26에서 발생했던 것과 같이 궁극적으로 스택 오버플로우로 끝나버리는 순환을
