@@ -908,7 +908,7 @@ let mut bar = 5; // mutable
 <p>이러한 <code>Result</code>는 에러 처리를 위한 정보를 표현하기 위해 사용됩니다. <code>Result</code> 타입의
 값들은 다른 타입들처럼 메소드들을 가지고 있습니다. <code>io::Result</code> 인스턴스는
 <a href="../../std/result/enum.Result.html#method.expect"><code>expect</code> 메소드</a><!-- ignore -->를 가지고 있습니다. 만약 <code>io::Result</code> 인스턴스가 <code>Err</code>일
-경우 <code>expect</code> 메소드는 프로그램이 작동을 멈추게 하고  <code>expect</code>에 인자로 넘겼던 메세지를
+경우 <code>expect</code> 메소드는 프로그램이 작동을 멈추게 하고 <code>expect</code>에 인자로 넘겼던 메세지를
 출력하도록 합니다. 만약 <code>read_line</code> 메소드가 <code>Err</code>를 돌려줬다면 그 에러는 운영체제로부터
 생긴 에러일 경우가 많습니다. 만약 <code>io::Result</code>가 <code>Ok</code> 값이라면 <code>expect</code>는 <code>Ok</code>가 가지고 있는
 결과값을 돌려주어 사용할 수 있도록 합니다. 이 경우 결과값은 사용자가 표준 입력으로 입력했던
@@ -1000,14 +1000,14 @@ rand = &quot;0.3.14&quot;
 <p>여러분은 다른 버전명이나 라인의 순서가 다르게 보일 수 있습니다. 버전명이
 다르더라도 SemVer 덕분에 현재 코드와 호환될 것입니다.</p>
 <p>이제 우리는 외부 의존성을 가지게 되었고, Cargo는 <a href="https://crates.io">Crates.io</a> 데이터의
-복사본인 <em>레지스트리(registry)</em> 에서 모든 것들을 가져옵니다. Cartes.io는 러스트의
+복사본인 <em>레지스트리(registry)</em> 에서 모든 것들을 가져옵니다. Crates.io는 러스트의
 생태계의 개발자들이 다른 사람들도 이용할 수 있도록 러스트 오픈소스를 공개하는 곳입니다.</p>
 <p>레지스트리를 업데이트하면 Cargo는 <code>[dependencies]</code> 절을 확인하고 아직 여러분이 가지고
 있지 않은 것들을 다운 받습니다. 이 경우 우리는 <code>rand</code>만 의존한다고 명시했지만 <code>rand</code>는
 <code>libc</code>에 의존하기 때문에 <code>libc</code>도 다운 받습니다. 러스트는 이것들을 다운받은 후 컴파일
-하여 의존성을 해결된 프로젝트를 컴파일합니다.</p>
+하여 의존성이 해결된 프로젝트를 컴파일합니다.</p>
 <p>만약 아무것도 변경하지 않고 <code>cargo build</code>를 실행한다면 어떠한 결과도 얻지 못합니다.
-Cargo는 이미 의존 패키지들을 다운받고 컴파일했음을 알고 있고 여러분이  <em>Cargo.toml</em>
+Cargo는 이미 의존 패키지들을 다운받고 컴파일했음을 알고 있고 여러분이 <em>Cargo.toml</em>
 를 변경하지 않은 것을 알고 있습니다. 또한 Cargo는 코드가 변경되지 않은 것도 알고 있기에
 코드도 다시 컴파일하지 않습니다. 아무것도 할 일이 없기에 그냥 종료될 뿐입니다. 만약
 여러분이 <em>src/main.rs</em> 파일을 열어 사소한 변경을 하고 저장한 후 다시 빌드를 한다면 한
@@ -1020,7 +1020,7 @@ Cargo는 이미 의존 패키지들을 다운받고 컴파일했음을 알고 �
 재사용할 수 있음을 알고 있습니다. 따라서 Cargo는 여러분의 코드에 해당하는 부분만을
 다시 빌드합니다.</p>
 <a class="header" href="#재현-가능한-빌드를-보장하는-cargolock" id="재현-가능한-빌드를-보장하는-cargolock"><h4>재현 가능한 빌드를 보장하는 <em>Cargo.lock</em></h4></a>
-<p>Cargo는 여러분만 아니라 다른 누구라도 여러분의 코드를 빌드할 경우 같은 산출물이
+<p>Cargo는 여러분뿐만이 아니라 다른 누구라도 여러분의 코드를 빌드할 경우 같은 산출물이
 나오도록 보장하는 방법을 가지고 있습니다. Cargo는 여러분이 다른 의존성을 추가하지
 전까지는 여러분이 명시한 의존 패키지만을 사용합니다. 예로 <code>rand</code> 크레이트의 다음
 버전인 <code>v0.3.15</code>에서 중요한 결함이 고쳐졌지만 당신의 코드를 망치는 변경점(regression)
@@ -1035,12 +1035,8 @@ Cargo는 이미 의존 패키지들을 다운받고 컴파일했음을 알고 �
 이용합니다.</p>
 <a class="header" href="#크레이트를-새로운-버전으로-업그레이드하기" id="크레이트를-새로운-버전으로-업그레이드하기"><h4>크레이트를 새로운 버전으로 업그레이드하기</h4></a>
 <p>만약 당신이 <em>정말</em> 크레이트를 업데이트하고 싶은 경우를 위해 Cargo는 <code>update</code> 명령어를
-제공합니다. 이것은</p>
-<ol>
-<li><em>Cargo.lock</em> 파일을 무시하고 <em>Cargo.toml</em> 에 여러분이 명시한 요구사항에 맞는 최신
-버전을 확인합니다.</li>
-<li>만약 이 버전들로 문제가 없다면 Cargo는 해당 버전을 <em>Cargo.lock</em> 에 기록합니다.</li>
-</ol>
+제공합니다. 이것은 <em>Cargo.lock</em> 파일을 무시하고 <em>Cargo.toml</em> 에 여러분이 명시한 요구사항에 맞는 최신
+버전을 확인합니다. 만약 이 버전들로 문제가 없다면 Cargo는 해당 버전을 <em>Cargo.lock</em> 에 기록합니다.</p>
 <p>하지만 Cargo는 기본적으로 <code>0.3.0</code>보다 크고 <code>0.4.0</code>보다 작은 버전을 찾을 것입니다.
 만약 <code>rand</code> 크레이트가 새로운 두 개의 버전인 <code>0.3.15</code>와 <code>0.4.0</code>을 릴리즈했다면
 여러분이 <code>cargo update</code>를 실행했을 때 다음의 메세지를 볼 것입니다.</p>
@@ -1057,7 +1053,7 @@ Cargo는 이미 의존 패키지들을 다운받고 컴파일했음을 알고 �
 rand = &quot;0.4.0&quot;
 </code></pre>
 <p>다음번에 여러분이 <code>cargo build</code>를 실행하면 Cargo는 가용 가능한 크레이트들의
-레지스트리를 업데이트할 것이고 여러분의 <code>rand</code>요구사항을 새롭게 명시한 버전에
+레지스트리를 업데이트할 것이고 여러분의 <code>rand</code> 요구사항을 새롭게 명시한 버전에
 따라 재계산할 것입니다.</p>
 <p><a href="http://doc.crates.io">Cargo</a><!-- ignore -->와 <a href="http://doc.crates.io/crates-io.html">그의 생태계</a><!-- ignore -->에 대해
 더 많은 것들은 14장에서 다뤄지지만 지금 당장은 이 정도만 알면 됩니다. Cargo는 라이브러리의
@@ -1168,7 +1164,7 @@ fn main() {
 <p><span class="caption">Listing 2-4: 두 숫자를 비교한 결과 처리하기</span></p>
 <p>처음으로 나타난 새로운 요소는 표준 라이브러리로부터 <code>std::cmp::Ordering</code>을
 스코프로 가져오는 또다른 <code>use</code>입니다. <code>Ordering</code>은 <code>Result</code>와 같은
-열거형이지만  <code>Ordering</code>의 값은 <code>Less</code>, <code>Greater</code>, <code>Equal</code>입니다. 이것들은
+열거형이지만 <code>Ordering</code>의 값은 <code>Less</code>, <code>Greater</code>, <code>Equal</code>입니다. 이것들은
 여러분이 두 개의 값을 비교할 때 나올 수 있는 결과들입니다.</p>
 <p>그리고 나서 우리는 <code>Ordering</code> 타입을 이용하는 다섯 줄을 마지막에 추가 했습니다.</p>
 <pre><code class="language-rust ignore">match guess.cmp(&amp;secret_number) {
@@ -1180,7 +1176,7 @@ fn main() {
 <p><code>cmp</code> 메소드는 두 값을 비교하며 비교 가능한 모든 것들에 대해 호출할 수 있습니다.
 이 메소드는 비교하고 싶은 것들의 참조자를 받습니다. 여기서는 <code>guess</code>와
 <code>secret_number</code>를 비교하고 있습니다. <code>cmp</code>는 <code>Ordering</code> 열거형을 돌려줍니다.
-우리는 <a href="ch06-02-match.html"><code>match</code></a><!-- ignore --> 표현문을 이용하여  <code>cmp</code>가 <code>guess</code>와
+우리는 <a href="ch06-02-match.html"><code>match</code></a><!-- ignore --> 표현문을 이용하여 <code>cmp</code>가 <code>guess</code>와
 <code>secret_number</code>를 비교한 결과인 <code>Ordering</code>의 값에 따라 무엇을 할 것인지 결정할 수 있습니다.</p>
 <p><code>match</code> 표현식은 <em>arm</em> 으로 이루어져 있습니다. 하나의 arm은 하나의 <em>패턴</em> 과 <code>match</code>
 표현식에서 주어진 값이 패턴과 맞는다면 실행할 코드로 이루어져 있습니다.
@@ -1210,13 +1206,13 @@ error[E0308]: mismatched types
 error: aborting due to previous error
 Could not compile `guessing_game`.
 </code></pre>
-<p>에러의 핵심은 <em>일치하지 않는 타입</em> 이라고 있다고 알려 줍니다. 러스트는 강한 정적 타입 시스템을
+<p>에러의 핵심은 <em>일치하지 않는 타입</em> 이 있다고 알려 주는 것입니다. 러스트는 강한 정적 타입 시스템을
 가지고 있습니다. 하지만 타입 추론도 수행합니다. 만약 <code>let guess = String::new()</code>를
 작성한다면 러스트는 <code>guess</code>가 <code>String</code>타입이어야 함을 추론할 수 있으므로 타입을 적으라고
 하지 않습니다. 반대로 <code>secret_number</code>는 정수형입니다. 몇몇 숫자 타입들이 1과 100 사이의
 값을 가질 수 있습니다. <code>i32</code>는 32비트 정수, <code>u32</code>는 32비트의 부호없는 정수, <code>i64</code>는 64비트의
 정수이며 그 외에도 비슷합니다. 러스트는 기본적으로 우리가 다른 정수형임을 추론할 수 있는
-다른 타입 정보를 제공하지 않는다면 숫자들은 <code>i32</code>으로 생각합니다. 이 에러의 원인은 러스트가
+다른 타입 정보를 제공하지 않는다면 숫자들을 <code>i32</code>으로 생각합니다. 이 에러의 원인은 러스트가
 문자열과 정수형을 비교하지 않기 때문입니다.</p>
 <p>최종적으로 우리는 추리값을 정수형으로 비교하기 위해 입력으로 받은 <code>String</code>을 정수로 바꾸고
 싶을 것입니다. 이것은 <code>main</code> 함수 내에 다음 두 라인을 넣어서 할 수 있습니다.</p>
@@ -1378,7 +1374,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 error: Process didn't exit successfully: `target/debug/guess` (exit code: 101)
 </code></pre>
 <p><code>quit</code>를 입력하면 게임은 확실히 끝나지만 다른 입력값들 또한 마찬가지
-입니다. 하지만 이것은 최소한 차선책입니다. 우리는 정답을 입력할 경우 자동으로
+입니다. 하지만 이것은 최소한의 차선책입니다. 우리는 정답을 입력할 경우 자동으로
 게임이 끝나도록 하고 싶습니다.</p>
 <a class="header" href="#정답-이후에-종료하기" id="정답-이후에-종료하기"><h3>정답 이후에 종료하기</h3></a>
 <p>사용자가 정답을 맞췄을 때 게임이 종료되도록 <code>break</code>문을 추가합니다.</p>
@@ -1441,7 +1437,7 @@ fn main() {
 가 생성한 <code>num</code>값을 돌려줍니다. 그 값은 우리가 생성하고 있던 새로운 <code>guess</code>
 과 묶이게 됩니다.</p>
 <p>만약 <code>parse</code>가 문자열을 정수로 바꾸지 못했다면 에러 정보를 가진 <code>Err</code>를 돌려줍니다.
-<code>Err</code>는 첫번째 arm의 패턴인  <code>Ok(num)</code>과 매칭하지 않지만 두 번째 arm의 <code>Err(_)</code>
+<code>Err</code>는 첫번째 arm의 패턴인 <code>Ok(num)</code>과 매칭하지 않지만 두 번째 arm의 <code>Err(_)</code>
 와 매칭합니다. <code>_</code>은 모든 값과 매칭될 수 있습니다. 이 예시에서는 <code>Err</code>내에 무슨
 값이 있던지에 관계없이 모든 <code>Err</code>를 매칭하도록 했습니다. 따라서 프로그램은
 두 번째 arm의 코드인 <code>continue</code>를 실행하며, 이는 <code>loop</code>의 다음 반복으로 가서
