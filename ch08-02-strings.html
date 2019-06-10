@@ -297,7 +297,7 @@ let s3 = s1 + &amp;s2; // s1은 여기서 이동되어 더이상 쓸 수 없음�
 파라미터에 명시한것처럼 <code>&amp;str</code>은 아니죠. 왜 Listing 8-18의 예제가 컴파일될까요? <code>&amp;s2</code>를
 <code>add</code> 호출에 사용할 수 있는 이유는 <code>&amp;String</code> 인자가 <code>&amp;str</code>로 <em>강제</em>될 수 있기 때문입니다 -
 <code>add</code> 함수가 호출되면, 러스트는 <em>역참조 강제(deref coercion)</em> 라 불리는 무언가를 사용하는데,
-이는 <code>add</code> 함수내에서 사용되는 <code>&amp;s2</code>가 <code>&amp;s2[..]</code>로 비뀌는 것으로 생각할 수 있도록 해줍니다.
+이는 <code>add</code> 함수내에서 사용되는 <code>&amp;s2</code>가 <code>&amp;s2[..]</code>로 바뀌는 것으로 생각할 수 있도록 해줍니다.
 역참조 강제에 대한 것은 15장에서 다룰 것입니다. <code>add</code>가 파라미터의 소유권을 가져가지는 않으므로,
 <code>s2</code>는 이 연산 이후에도 여전히 유효한 <code>String</code>일 것입니다.</p>
 <p>두번째로, 시그니처에서 <code>add</code>가 <code>self</code>의 소유권을 가져가는 것을 볼 수 있는데, 이는 <code>self</code>가

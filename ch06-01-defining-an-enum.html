@@ -180,7 +180,7 @@ let six = IpAddrKind::V6;
 #}</code></pre></pre>
 <p>열거형의 variants 는 열거형을 정의한 식별자에 의해 이름 공간이 생기며, 두 개의
 콜론을 사용하여 둘을 구분할 수 있습니다. <code>IpAddrKind::V4</code> 와 <code>IpAddrKind::V6</code> 의
-값은 동일한 타입이기 때문에, 이 방식이 유용합니다: <code>IpAddrKind</code>
+값은 동일한 타입이기 때문에, 이 방식이 유용합니다: <code>IpAddrKind</code>.
 이제 <code>IpAddrKind</code> 타입을 인자로 받는 함수를 정의할 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
@@ -369,7 +369,7 @@ impl Message {
 let m = Message::Write(String::from(&quot;hello&quot;));
 m.call();
 #}</code></pre></pre>
-<p>열거형의 값을 가져오기 위해 메소드 안에서 <code>self</code> 를 사용할 것입니다. 이 에제에서 생성한
+<p>열거형의 값을 가져오기 위해 메소드 안에서 <code>self</code> 를 사용할 것입니다. 이 예제에서 생성한
 변수 <code>m</code> 은 <code>Message::Write(String::from(&quot;hello&quot;))</code> 값을 갖게 되고, 이 값은
 <code>m.call()</code>이 실행될 때, <code>call</code> 메소드 안에서 <code>self</code>가 될 것입니다.</p>
 <p>표준 라이브러리에 있는 매우 흔하게 사용하고 유용한 열거형을 살펴봅시다:
