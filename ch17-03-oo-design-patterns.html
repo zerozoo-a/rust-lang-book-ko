@@ -4,6 +4,8 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>객체 지향 디자인 패턴 구현하기 - The Rust Programming Language</title>
+        
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,7 +58,7 @@
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             document.body.className = theme;
             document.querySelector('html').className = theme + ' js';
@@ -75,7 +77,10 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="foreword.html">들어가기 앞서</a></li><li class="affix"><a href="ch00-00-introduction.html">소개</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 시작하기</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 설치하기</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 추리 게임 튜토리얼</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 보편적인 프로그래밍 개념</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 변수와 가변성</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 데이터 타입들</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 함수 동작 원리</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 주석</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 제어문</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 소유권 이해하기</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 소유권이 뭔가요?</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 참조자와 빌림</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> 슬라이스</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 연관된 데이터들을 구조체로 다루기</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 구조체를 정의하고 생성하기</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 구조체를 이용한 예제 프로그램</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 메소드 문법</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 열거형과 패턴 매칭</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 열거형 정의하기</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 흐름 제어 연산자</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let을 사용한 간결한 흐름 제어</a></li></ol></li><li><a href="ch07-00-modules.html"><strong aria-hidden="true">7.</strong> 모듈</a></li><li><ol class="section"><li><a href="ch07-01-mod-and-the-filesystem.html"><strong aria-hidden="true">7.1.</strong> mod와 파일 시스템</a></li><li><a href="ch07-02-controlling-visibility-with-pub.html"><strong aria-hidden="true">7.2.</strong> pub으로 가시성 제어하기</a></li><li><a href="ch07-03-importing-names-with-use.html"><strong aria-hidden="true">7.3.</strong> use로 이름 가져오기</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 일반적인 컬렉션</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> 벡터</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 스트링</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 해쉬맵</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 에러 처리</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!과 함께하는 복구 불가능한 에러</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result와 함께하는 복구 가능한 에러</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!이냐, panic!이 아니냐, 그것이 문제로다</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 제네릭 타입, 트레잇, 그리고 라이프타임</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 제네릭 데이터 타입</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> 트레잇: 공유 동작을 정의하기</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 라이프타임을 이용한 참조자 유효화</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 테스팅</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 테스트 작성하기</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 테스트 실행하기</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 테스트 조직화</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> I/O 프로젝트: 커맨드 라인 프로그램 만들기</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 커맨드 라인 인자 허용하기</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 파일 읽기</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 모듈성과 에러처리의 향상을 위한 리팩토링</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 테스트 주도 개발로 라이브러리의 기능 개발하기</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 환경 변수들을 활용하기</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 표준출력 대신 표준에러로 에러메시지 출력하기</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> 함수형 언어의 특성들: 반복자들과 클로저들</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 클로저: 환경을 캡쳐할 수 있는 익명 함수</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 반복자로 일련의 항목들 처리하기</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> I/O 프로젝트 개선하기</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 성능 비교하기: 루프 vs. 반복자</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> Cargo와 Crates.io 더 알아보기</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 릴리즈 프로필을 이용해 빌드 커스터마이징하기</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.io에 크레이트 배포하기</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 작업공간</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo install을 이용해 Crates.io에서 바이너리 설치하기</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 커스텀 명령어로 Cargo 확장하기</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 스마트 포인터</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T>는 힙에 있는 데이터를 가리키고 알려진 크기를 갖습니다</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Deref 트레잇은 참조자를 통하여 데이터로의 접근을 허용합니다</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop 트레잇은 메모리 정리 코드를 실행시킵니다</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, 참조 카운팅 스마트 포인터</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T>와 내부 가변성 패턴</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 순환 참조를 만드는 것과 메모리 누수는 안전한 것에 해당됩니다</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 겁없는 동시성</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 스레드</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 메세지 패싱</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 공유 상태</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 확장 가능한 동시성: Sync와 Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> 러스트의 객체 지향 프로그래밍 기능들</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 객체 지향 언어의 특성</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 트레잇 객체를 사용하여 다른 타입 간의 값 허용하기</a></li><li><a href="ch17-03-oo-design-patterns.html" class="active"><strong aria-hidden="true">17.3.</strong> 객체 지향 디자인 패턴 구현하기</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 값의 구조와 매칭되는 패턴</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 패턴이 사용될 수 있는 모든 곳</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> 반증 가능성: 패턴의 매칭이 실패할 수도 있는 경우</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 패턴 문법의 모든 것</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 고급 기능들</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 안전하지 않은 러스트</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> 고급 라이프타임</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> 고급 트레잇</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> 고급 타입</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> 고급 함수와 클로저</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 마지막 프로젝트: 멀티스레드 웹서버 만들기</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 싱글 스레드 웹서버</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 싱글 스레드 서버를 멀티스레드 서버로 바꾸기</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 우아한 종료와 정리</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 키워드</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 연산자 및 기호</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - derive 가능한 트레잇</a></li><li><a href="appendix-04-macros.html"><strong aria-hidden="true">21.4.</strong> D - 매크로</a></li><li><a href="appendix-05-translation.html"><strong aria-hidden="true">21.5.</strong> E - 본 책의 번역본 목록</a></li><li><a href="appendix-06-newest-features.html"><strong aria-hidden="true">21.6.</strong> F - 새로운 기능</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - 러스트가 만들어지는 과정과 “Nightly Rust”</a></li><li><a href="appendix-08-glossary.html"><strong aria-hidden="true">21.8.</strong> F - 번역 용어 정리</a></li></ol></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="foreword.html">들어가기 앞서</a></li><li class="affix"><a href="ch00-00-introduction.html">소개</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 시작하기</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 설치하기</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 추리 게임 튜토리얼</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 보편적인 프로그래밍 개념</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 변수와 가변성</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 데이터 타입들</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 함수 동작 원리</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 주석</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 제어문</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 소유권 이해하기</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 소유권이 뭔가요?</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 참조자와 빌림</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> 슬라이스</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 연관된 데이터들을 구조체로 다루기</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 구조체를 정의하고 생성하기</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 구조체를 이용한 예제 프로그램</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 메소드 문법</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 열거형과 패턴 매칭</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 열거형 정의하기</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 흐름 제어 연산자</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let을 사용한 간결한 흐름 제어</a></li></ol></li><li><a href="ch07-00-modules.html"><strong aria-hidden="true">7.</strong> 모듈</a></li><li><ol class="section"><li><a href="ch07-01-mod-and-the-filesystem.html"><strong aria-hidden="true">7.1.</strong> mod와 파일 시스템</a></li><li><a href="ch07-02-controlling-visibility-with-pub.html"><strong aria-hidden="true">7.2.</strong> pub으로 가시성 제어하기</a></li><li><a href="ch07-03-importing-names-with-use.html"><strong aria-hidden="true">7.3.</strong> use로 이름 가져오기</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 일반적인 컬렉션</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> 벡터</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 스트링</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 해쉬맵</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 에러 처리</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!과 함께하는 복구 불가능한 에러</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result와 함께하는 복구 가능한 에러</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!이냐, panic!이 아니냐, 그것이 문제로다</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 제네릭 타입, 트레잇, 그리고 라이프타임</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 제네릭 데이터 타입</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> 트레잇: 공유 동작을 정의하기</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 라이프타임을 이용한 참조자 유효화</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 테스팅</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 테스트 작성하기</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 테스트 실행하기</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 테스트 조직화</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> I/O 프로젝트: 커맨드 라인 프로그램 만들기</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 커맨드 라인 인자 허용하기</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 파일 읽기</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 모듈성과 에러처리의 향상을 위한 리팩토링</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 테스트 주도 개발로 라이브러리의 기능 개발하기</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 환경 변수들을 활용하기</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 표준출력 대신 표준에러로 에러메시지 출력하기</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> 함수형 언어의 특성들: 반복자들과 클로저들</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 클로저: 환경을 캡쳐할 수 있는 익명 함수</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 반복자로 일련의 항목들 처리하기</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> I/O 프로젝트 개선하기</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 성능 비교하기: 루프 vs. 반복자</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> Cargo와 Crates.io 더 알아보기</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 릴리즈 프로필을 이용해 빌드 커스터마이징하기</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.io에 크레이트 배포하기</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 작업공간</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo install을 이용해 Crates.io에서 바이너리 설치하기</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 커스텀 명령어로 Cargo 확장하기</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 스마트 포인터</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T>는 힙에 있는 데이터를 가리키고 알려진 크기를 갖습니다</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Deref 트레잇은 참조자를 통하여 데이터로의 접근을 허용합니다</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop 트레잇은 메모리 정리 코드를 실행시킵니다</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, 참조 카운팅 스마트 포인터</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T>와 내부 가변성 패턴</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 순환 참조를 만드는 것과 메모리 누수는 안전한 것에 해당됩니다</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 겁없는 동시성</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 스레드</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 메세지 패싱</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 공유 상태</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 확장 가능한 동시성: Sync와 Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> 러스트의 객체 지향 프로그래밍 기능들</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 객체 지향 언어의 특성</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 트레잇 객체를 사용하여 다른 타입 간의 값 허용하기</a></li><li><a href="ch17-03-oo-design-patterns.html" class="active"><strong aria-hidden="true">17.3.</strong> 객체 지향 디자인 패턴 구현하기</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 값의 구조와 매칭되는 패턴</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 패턴이 사용될 수 있는 모든 곳</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> 반증 가능성: 패턴의 매칭이 실패할 수도 있는 경우</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 패턴 문법의 모든 것</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 고급 기능들</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 안전하지 않은 러스트</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> 고급 라이프타임</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> 고급 트레잇</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> 고급 타입</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> 고급 함수와 클로저</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 마지막 프로젝트: 멀티스레드 웹서버 만들기</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 싱글 스레드 웹서버</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 싱글 스레드 서버를 멀티스레드 서버로 바꾸기</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 우아한 종료와 정리</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 키워드</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 연산자 및 기호</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - derive 가능한 트레잇</a></li><li><a href="appendix-04-macros.html"><strong aria-hidden="true">21.4.</strong> D - 매크로</a></li><li><a href="appendix-05-translation.html"><strong aria-hidden="true">21.5.</strong> E - 본 책의 번역본 목록</a></li><li><a href="appendix-06-newest-features.html"><strong aria-hidden="true">21.6.</strong> F - 새로운 기능</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - 러스트가 만들어지는 과정과 “Nightly Rust”</a></li><li><a href="appendix-08-glossary.html"><strong aria-hidden="true">21.8.</strong> F - 번역 용어 정리</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -105,7 +110,7 @@
                             
                         </div>
 
-                        <h1 class="menu-title">The Rust Programming Language</h1> 
+                        <h1 class="menu-title">The Rust Programming Language</h1>
 
                         <div class="right-buttons">
                             <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -140,7 +145,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#객체-지향-디자인-패턴-구현하기" id="객체-지향-디자인-패턴-구현하기"><h2>객체 지향 디자인 패턴 구현하기</h2></a>
+                        <h2><a class="header" href="#객체-지향-디자인-패턴-구현하기" id="객체-지향-디자인-패턴-구현하기">객체 지향 디자인 패턴 구현하기</a></h2>
 <p>*상태 패턴 (state pattern)*은 객체 지향 디자인 패턴입니다. 이
 패턴의 핵심은 어떤 값이 <em>상태 객체들</em>의 집합으로 표현되는 일종의
 내부 상태를 가지며, 이 값의 동작은 내부 상태에 기반한여 바뀐다는
@@ -207,14 +212,14 @@ fn main() {
 인스턴스 상에서 호출하는 메소드에 응답하여 변경되나, 상태 변화를 직접
 관리할 필요는 없습니다. 또한, 사용자는 리뷰 전에 게시물이 게시되는 것
 같은 상태와 관련된 실수를 할 수 없습니다.</p>
-<a class="header" href="#post를-정의하고-초안-상태의-새-인스턴스-생성하기" id="post를-정의하고-초안-상태의-새-인스턴스-생성하기"><h3><code>Post</code>를 정의하고 초안 상태의 새 인스턴스 생성하기</h3></a>
+<h3><a class="header" href="#post를-정의하고-초안-상태의-새-인스턴스-생성하기" id="post를-정의하고-초안-상태의-새-인스턴스-생성하기"><code>Post</code>를 정의하고 초안 상태의 새 인스턴스 생성하기</a></h3>
 <p>라이브러리의 구현을 시작해보죠! 우리는 어떤 내용물을 담고 있는
 공개된 <code>Post</code> 구조체가 필요하다는 것을 아니까, Listing 17-12에서
 보시는 바와 같이 <code>Post</code>의 인스턴스를 만들기 위해서 구조체 및 관련된
 공개 <code>new</code> 함수 대한 정의로 시작할 것입니다. 비공개 <code>State</code> 트레잇
 또한 만들겁니다. 그 다음 <code>Post</code>는 비공개 필드 <code>state</code>에 <code>Option</code>으로
 감싸진 <code>Box&lt;State&gt;</code> 형태의 트레잇 객체를 보유할 겁니다. 곧 <code>Option</code>이
-왜 필요한지 보게 될 겁니다.</p>
+왜 필요한지 보게 될 겁니다. </p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
@@ -252,7 +257,7 @@ impl State for Draft {}
 보장합니다. <code>Post</code>의 <code>state</code> 필드가 비공개이기 때문에, 다른 상태로 <code>Post</code>를
 생성할 방법은 없습니다! <code>Post::new</code> 함수에서는 <code>content</code> 필드를 새로운, 빈
 <code>String</code>로 설정합니다.</p>
-<a class="header" href="#게시물-콘텐츠의-글을-저장하기" id="게시물-콘텐츠의-글을-저장하기"><h3>게시물 콘텐츠의 글을 저장하기</h3></a>
+<h3><a class="header" href="#게시물-콘텐츠의-글을-저장하기" id="게시물-콘텐츠의-글을-저장하기">게시물 콘텐츠의 글을 저장하기</a></h3>
 <p>Listing 17-11은 우리가 <code>add_text</code>로 명명된 메소드를 호출하고 여기에
 <code>&amp;str</code>을 넘겨 블로그 게시물의 콘텐츠 글에 추가할 수 있도록 하길 원한다는
 것을 보여줍니다. 우리는 <code>content</code> 필드를 <code>pub</code>으로 노출시키는 것보다는
@@ -284,9 +289,9 @@ impl Post {
 상태와 무관하게 이뤄지므로, 상태 패턴의 일부가 아닙니다. <code>add_text</code> 메소드는
 <code>state</code> 필드와 전혀 상호작용을 하지 않지만, 우리가 지원하고자 하는 동작
 요소입니다.</p>
-<a class="header" href="#초안-게시물의-내용이-비어있음을-보장하기" id="초안-게시물의-내용이-비어있음을-보장하기"><h3>초안 게시물의 내용이 비어있음을 보장하기</h3></a>
+<h3><a class="header" href="#초안-게시물의-내용이-비어있음을-보장하기" id="초안-게시물의-내용이-비어있음을-보장하기">초안 게시물의 내용이 비어있음을 보장하기</a></h3>
 <p>우리가 <code>add_text</code>를 호출하고 우리의 게시물에 어떤 콘텐츠를 추가한 이후일지라도,
-여전히 <code>content</code> 메소드가 빈 스트링 슬라이스을 반환하길 원하는데, 그 이유는
+여전히 <code>content</code> 메소드가 빈 스트링 슬라이스을 반환하길 원하는데, 그 이유는 
 Listing 17-11의 8번째 줄처럼 게시물이 여전히 초안 상태이기 때문입니다. 당장은
 이 요건을 만족할 가장 단순한 것으로 <code>content</code> 메소드를 구현해놓으려고 합니다:
 언제나 빈 스트링 슬라이스를 반환하는 것으로요. 우리가 게시물의 상태를 변경하여
@@ -312,7 +317,7 @@ impl Post {
 반환하는 <code>Post</code>의 <code>content</code> 메소드에 대한 껍데기 구현 </span></p>
 <p><code>content</code> 메소드를 추가함으로서, Listing 17-11의 8번째 줄까지는
 의도한대로 작동됩니다.</p>
-<a class="header" href="#게시물에-대한-리뷰-요청이-그의-상태를-변경합니다" id="게시물에-대한-리뷰-요청이-그의-상태를-변경합니다"><h3>게시물에 대한 리뷰 요청이 그의 상태를 변경합니다</h3></a>
+<h3><a class="header" href="#게시물에-대한-리뷰-요청이-그의-상태를-변경합니다" id="게시물에-대한-리뷰-요청이-그의-상태를-변경합니다">게시물에 대한 리뷰 요청이 그의 상태를 변경합니다</a></h3>
 <p>다음으로, 우리는 게시물의 리뷰를 요청하는 기능을 만들어야 하는데, 이는 게시물의 상태를 <code>Draft</code>에서
 <code>PendingReview</code>로 변경해야 합니다. Listing 17-15는 이에 관련된 코드 입니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
@@ -390,7 +395,7 @@ impl State for PendingReview {
 놔두려고 합니다. 현재 우리는 <code>Draft</code> 상태에 있는 <code>Post</code> 뿐만 아니라 <code>PendingReview</code>
 상태에 있는 <code>Post</code>를 소유할 수 있습니다만, <code>PendingReview</code> 상태에서도 동일한 동작을
 원합니다. Listing 17-11은 이제 11번째 줄까지 동작합니다!</p>
-<a class="header" href="#content의-동작을-변경하는-approve-메소드-추가하기" id="content의-동작을-변경하는-approve-메소드-추가하기"><h3><code>content</code>의 동작을 변경하는 <code>approve</code> 메소드 추가하기</h3></a>
+<h3><a class="header" href="#content의-동작을-변경하는-approve-메소드-추가하기" id="content의-동작을-변경하는-approve-메소드-추가하기"><code>content</code>의 동작을 변경하는 <code>approve</code> 메소드 추가하기</a></h3>
 <p><code>approve</code> 메소드는 <code>request_review</code> 메소드와 유사할겁니다: 이것은
 Listing 17-16과 같이 해당 상태가 허가되었을때 가져야 하는 값으로 <code>state</code>를
 설정할 것입니다:</p>
@@ -547,7 +552,7 @@ impl State for Published {
 <p>그리고 이제 끝났습니다—Listing 17-11의 모든 코드가 이제 작동합니다! 우리는
 블로그 게시물의 작업 흐름을 상태 패턴을 통해 구현해냈습니다. 규칙과 관련있는 로직들은
 <code>Post</code>에 흩어져있지 않고 상태 객체에 존재합니다.</p>
-<a class="header" href="#상태-패턴의-기회비용" id="상태-패턴의-기회비용"><h3>상태 패턴의 기회비용</h3></a>
+<h3><a class="header" href="#상태-패턴의-기회비용" id="상태-패턴의-기회비용">상태 패턴의 기회비용</a></h3>
 <p>우리는 게시물이 각 상태에 대해 가져야 하는 서로 다른 종류의 동작을
 캡슐화하기 위해서 러스트로 객체 지향 상태 패턴을 충분히 구현할 수 있음을
 보여줬습니다. <code>Post</code>의 메소드는 이런 다양한 동작에 대해서 알지 못합니다.
@@ -587,7 +592,7 @@ impl State for Published {
 <code>self</code>를 반환하도록 기본 구현을 만드는 시도를 할 수도 있습니다; 하지만,
 이는 객체 안전성을 위배할 수 있는데, 그 이유는 해당 트레잇이 어떤 구체적인
 <code>self</code>가 될 것인지 알지 못하기 때문입니다. 우리는 <code>State</code>를 트레잇 객체로서
-사용하길 원하기에, 이것의 메소드들은 객체 안전성을 지킬 필요가 있습니다.</p>
+사용하길 원하기에, 이것의 메소드들은 객체 안전성을 지킬 필요가 있습니다. </p>
 <p><code>Post</code>에 메소드 <code>request_review</code>와 <code>approve</code>처럼 유사한 구현들도
 그 밖의 중복에 포함됩니다. 두 메소드 모두 <code>Option</code>의 <code>state</code> 필드 값에
 대해 동일한 메소드의 구현을 대행하며, 그 결과값을 <code>state</code> 필드의 새 값으로
@@ -598,7 +603,7 @@ impl State for Published {
 우리가 사용할 수 있는 러스트의 강점을 모두 이용하지 못하고 있습니다.
 유효하지 않은 상태 및 전환이 컴파일 타임 에러가 될 수 있도록 하기 위해
 우리가 할 수 있는 <code>blog</code> crate에 대한 변경 몇가지를 살펴봅시다.</p>
-<a class="header" href="#상태와-동작을-타입처럼-인코딩하기" id="상태와-동작을-타입처럼-인코딩하기"><h4>상태와 동작을 타입처럼 인코딩하기</h4></a>
+<h4><a class="header" href="#상태와-동작을-타입처럼-인코딩하기" id="상태와-동작을-타입처럼-인코딩하기">상태와 동작을 타입처럼 인코딩하기</a></h4>
 <p>우리는 다른 기회 비용을 얻기 위해 상태 패턴을 재고하는 방법을 보여줄 것입니다.
 오히려 상태와 전환을 완전히 캡슐화하여 외부의 코드들이 이를 알지 못하는
 것보다는, 상태를 다른 타입들로 인코딩하려고 합니다. 결론적으로, 러스트의 타입
@@ -662,13 +667,13 @@ impl DraftPost {
 <p>우리는 여전히 <code>Post::new</code> 함수를 유지하지만, <code>Post</code>의 인스턴스를 반환하는
 대신 <code>DraftPost</code>를 반환합니다. <code>content</code>는 비공개이고 <code>Post</code>를 반환할
 어떤 함수도 존재하지 않기 때문에, 당장 <code>Post</code>의 인스턴스를 생성하는 것은
-불가능합니다.</p>
+불가능합니다. </p>
 <p><code>DraftPost</code> 구조체는 <code>add_text</code> 메소드를 가지고 있으므로, 우리는
 전처럼 <code>content</code>에 글을 추가할 수 있지만, <code>DraftPost</code>는 정의된 <code>content</code>
 메소드가 없음을 주의하세요! 따라서 이제 프로그램은 모든 게시물이 초안 게시물로
 시작되고, 초안 게시물들은 그들의 내용을 출력할 능력이 없음을 보장합니다. 이 제약사항을
 벗어나는 어떤 시도라도 컴파일러 에러로 끝나게 될 것입니다.</p>
-<a class="header" href="#다른-타입으로-변환하는-것처럼-전환-구현하기" id="다른-타입으로-변환하는-것처럼-전환-구현하기"><h4>다른 타입으로 변환하는 것처럼 전환 구현하기</h4></a>
+<h4><a class="header" href="#다른-타입으로-변환하는-것처럼-전환-구현하기" id="다른-타입으로-변환하는-것처럼-전환-구현하기">다른 타입으로 변환하는 것처럼 전환 구현하기</a></h4>
 <p>그러면 어떻게 게시된 게시물을 얻는 걸가요? 우리는 초안 게시물이
 공개되기 전에 리뷰와 승인을 받도록 강제하고 싶습니다. 리뷰를 기다리는
 상태인 게시물은 여전히 어떤 내용도 보여줘서는 안되구요. Listing
@@ -759,7 +764,7 @@ fn main() {
 <p>여러분이 이 버전의 코드 디자인에 대해 어떻게 생각하는지 알아보려면
 이번 절의 시작점에서 우리가 언급했던 추가적인 요구사항으로서 제안된
 작업을 Listing 17-20 이후의 <code>blog</code> 크레이트 상에서 시도해보세요.
-몇가지 작업은 이번 디자인에서 이미 완료됐음을 알려드립니다.</p>
+몇가지 작업은 이번 디자인에서 이미 완료됐음을 알려드립니다. </p>
 <p>우리는 러스트가 객체 지향 디자인 패턴을 사용할 수 있을지라도,
 상태를 타입 시스템으로 인코딩하는 다른 패턴 또한 러스트 내에서
 가능함을 봤습니다. 이 패턴들은 서로 다른 기회비용을 갖고 있습니다.
@@ -768,7 +773,7 @@ fn main() {
 이용하기 위해서는 문제를 다시 생각해보세요. 객체 지향 패턴은
 러스트 내에서 제공하는 소유권 같이 객체 지향 언어에서는 갖지 못한
 기능들 때문에 늘 최고의 해결책이 되지는 못합니다.</p>
-<a class="header" href="#정리" id="정리"><h2>정리</h2></a>
+<h2><a class="header" href="#정리" id="정리">정리</a></h2>
 <p>이 장을 읽은 후 러스트가 객체 지향 언어라고 생각하든 아니든,
 이제 여러분은 트레잇 객체를 사용하여 몇가지 객체 지향 기능을 러스트
 내에서 사용할 수 있다는 것을 알게 되었습니다. 동적 디스패치는
