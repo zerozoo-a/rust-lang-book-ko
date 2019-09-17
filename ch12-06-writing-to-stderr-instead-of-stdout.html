@@ -171,8 +171,7 @@
 방법으로 표준출력을 변경했을때 오직 성공적 실행에 관련된 데이터만 저장할 수 있게 될 겁니다. 지금 바꿔봅시다.</p>
 <h3><a class="header" href="#에러를-표준에러로-출력하기" id="에러를-표준에러로-출력하기">에러를 표준에러로 출력하기</a></h3>
 <p>우리는 항목 12-24의 코드를 출력되는 에러메시지들을 변경하는데 사용하고자 합니다. 이번 장 진입부에서 리팩토링한 결과
-모든 에러메시지는 하나의 함수 <code>main에서 출력되고 있습니다. 표준라이브러리에 존재하는 표준에러에 출력해주는 매크로 
-</code>eprintln!<code>를 사용하여 </code>println!<code>을 사용하여 에러를 출력하던 두 부분을 </code>eprintln!`을 사용하도록 변경
+모든 에러메시지는 하나의 함수 <code>main에서 출력되고 있습니다. 표준라이브러리에 존재하는 표준에러에 출력해주는 매크로  </code>eprintln!<code>를 사용하여 </code>println!<code>을 사용하여 에러를 출력하던 두 부분을 </code>eprintln!`을 사용하도록 변경
 해봅시다. </p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {

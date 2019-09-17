@@ -823,7 +823,7 @@ fn main() {
 라이브러리는 <code>std</code>라고 불리는 표준 라이브러리에 있습니다.</p>
 <pre><code class="language-rust ignore">use std::io;
 </code></pre>
-<p>러스트는 모든 프로그램의 스코프에 <a href="../../std/prelude/index.html"><em>prelude</em></a><!-- ignore --> 내의 타입들을
+<p>러스트는 모든 프로그램의 스코프에 <a href="https://doc.rust-lang.org/std/prelude/index.html"><em>prelude</em></a><!-- ignore --> 내의 타입들을
 가져옵니다. 만약 여러분이 원하는 타입이 prelude에 없다면 <code>use</code>문을 활용하여
 명시적으로 그 타입을 가져와야 합니다. <code>std::io</code>는 사용자의 입력을 받는 것을
 포함하여 <code>io</code>와 관련된 기능들을 제공합니다.</p>
@@ -862,7 +862,7 @@ let mut bar = 5; // mutable
 </blockquote>
 <p>이제 <code>let mut guess</code>가 <code>guess</code>라는 이름의 가변변수임을 알 수 있습니다. <code>=</code>의
 반대편의 값은 <code>guess</code>와 묶이게 되는데 이번 예시에서는 함수 <code>String::new</code>의 결과값인
-새로운 <code>String</code> 인스턴스가 묶이는 대상이 됩니다. <a href="../../std/string/struct.String.html"><code>String</code></a><!-- ignore -->은
+새로운 <code>String</code> 인스턴스가 묶이는 대상이 됩니다. <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a><!-- ignore -->은
 표준 라이브러리에서 제공하는 확장 가능한(growable) UTF-8 인코딩의 문자열 타입입니다.</p>
 <p><code>::new</code>에 있는 <code>::</code>는 <code>new</code>가 <code>String</code> 타입의 <em>연관함수</em> 임을 나타냅니다. 연관함수는
 하나의 타입을 위한 함수이며, 이 경우에는 하나의 <code>String</code> 인스턴스가 아니라 <code>String</code>
@@ -877,7 +877,7 @@ let mut bar = 5; // mutable
     .expect(&quot;Failed to read line&quot;);
 </code></pre>
 <p>만약 프로그램 시작점에 <code>use std::io</code>가 없다면 함수 호출 시 <code>std::io::stdin</code>처럼 작성해야
-합니다. <code>stdin</code> 함수는 터미널의 표준 입력의 핸들(handle)의 타입인 <a href="../../std/io/struct.Stdin.html"><code>std::io::Stdin</code></a><!-- ignore -->의
+합니다. <code>stdin</code> 함수는 터미널의 표준 입력의 핸들(handle)의 타입인 <a href="https://doc.rust-lang.org/std/io/struct.Stdin.html"><code>std::io::Stdin</code></a><!-- ignore -->의
 인스턴스를 돌려줍니다.</p>
 <p>코드의 다음 부분인 <code>.read_line(&amp;mut guess)</code>는 사용자로부터 입력을 받기 위해 표준
 입력 핸들에서 <code>.read_line(&amp;mut guess)</code> 메소드를 호출합니다. 또한 <code>read_line</code>에 <code>&amp;mut guess</code>
@@ -903,9 +903,9 @@ let mut bar = 5; // mutable
 것이 좋습니다. 이제 이 라인이 무엇인지에 대해 이야기해 봅시다.</p>
 <h3><a class="header" href="#result-타입으로-잠재된-실패-다루기" id="result-타입으로-잠재된-실패-다루기"><code>Result</code> 타입으로 잠재된 실패 다루기</a></h3>
 <p>이전에 언급한 것처럼 <code>read_line</code>은 우리가 인자로 넘긴 문자열에 사용자가 입력을 저장할
-뿐 아니라 하나의 값을 돌려 줍니다. 여기서 돌려준 값은 <a href="../../std/io/type.Result.html"><code>io::Result</code></a><!-- ignore -->
+뿐 아니라 하나의 값을 돌려 줍니다. 여기서 돌려준 값은 <a href="https://doc.rust-lang.org/std/io/type.Result.html"><code>io::Result</code></a><!-- ignore -->
 입니다. 러스트는 표준 라이브러리에 여러 종류의 <code>Result</code> 타입을 가지고 있습니다.
-제네릭 <a href="../../std/result/enum.Result.html"><code>Result</code></a><!-- ignore -->이나 <code>io:Result</code>가 그 예시입니다.</p>
+제네릭 <a href="https://doc.rust-lang.org/std/result/enum.Result.html"><code>Result</code></a><!-- ignore -->이나 <code>io:Result</code>가 그 예시입니다.</p>
 <p><code>Result</code> 타입은 <a href="ch06-00-enums.html"><em>열거형(enumerations)</em></a><!-- ignore -->로써 <em>enums</em> 라고 부르기도
 합니다. 열거형은 정해진 값들만을 가질 수 있으며 이러한 값들은 열거형의 <em>variants</em>
 라고 부릅니다. 6장에서 열거형에 대해 더 자세히 다룹니다.</p>
@@ -914,7 +914,7 @@ let mut bar = 5; // mutable
 이유에 대한 정보를 가지고 있습니다.</p>
 <p>이러한 <code>Result</code>는 에러 처리를 위한 정보를 표현하기 위해 사용됩니다. <code>Result</code> 타입의
 값들은 다른 타입들처럼 메소드들을 가지고 있습니다. <code>io::Result</code> 인스턴스는
-<a href="../../std/result/enum.Result.html#method.expect"><code>expect</code> 메소드</a><!-- ignore -->를 가지고 있습니다. 만약 <code>io::Result</code> 인스턴스가 <code>Err</code>일
+<a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.expect"><code>expect</code> 메소드</a><!-- ignore -->를 가지고 있습니다. 만약 <code>io::Result</code> 인스턴스가 <code>Err</code>일
 경우 <code>expect</code> 메소드는 프로그램이 작동을 멈추게 하고 <code>expect</code>에 인자로 넘겼던 메세지를
 출력하도록 합니다. 만약 <code>read_line</code> 메소드가 <code>Err</code>를 돌려줬다면 그 에러는 운영체제로부터
 생긴 에러일 경우가 많습니다. 만약 <code>io::Result</code>가 <code>Ok</code> 값이라면 <code>expect</code>는 <code>Ok</code>가 가지고 있는
@@ -1277,7 +1277,7 @@ Shadowing은 우리들이 <code>guess_str</code>과 <code>guess</code>처럼 고
 <span class="keystroke">enter</span>키를 누르면 <code>guess</code>는 <code>5\n</code>처럼 됩니다.
 <code>\n</code>은 enter키, 즉 개행문자를 의미합니다. <code>trim</code> 메소드는 <code>\n</code>을 제거하고 <code>5</code>만
 남도록 처리합니다.</p>
-<p><a href="../../std/primitive.str.html#method.parse">문자열의 <code>parse</code> 메소드</a><!-- ignore -->는 문자열을 숫자형으로 파싱합니다.
+<p><a href="https://doc.rust-lang.org/std/primitive.str.html#method.parse">문자열의 <code>parse</code> 메소드</a><!-- ignore -->는 문자열을 숫자형으로 파싱합니다.
 이 메소드는 다양한 종류의 정수형을 변환하므로 우리는 <code>let guess: u32</code>처럼
 정확한 타입을 명시해야 합니다. <code>guess</code> 뒤의 콜론(<code>:</code>)은 변수의 타입을 명시했음을
 의미합니다. 러스트는 몇몇 내장된 정수형을 가지고 있습니다. <code>u32</code>은 부호가 없는
@@ -4193,7 +4193,7 @@ let loopback = IpAddr::V6(String::from(&quot;::1&quot;));
 #}</code></pre></pre>
 <p>두 가지 다른 종류의 IP 주소를 저장하기 위해 코드상에서 열거형을 정의하는 몇 가지
 방법을 살펴봤습니다. 그러나, 누구나 알듯이 IP 주소와 그 종류를 저장하는 것은
-흔하기 때문에, <a href="../../std/net/enum.IpAddr.html">표준 라이브러리에 사용할 수 있는 정의가 있습니다!</a></p>
+흔하기 때문에, <a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html">표준 라이브러리에 사용할 수 있는 정의가 있습니다!</a></p>
 <!-- ignore --> 표준 라이브러리에서 `IpAddr` 를 어떻게 정의하고 있는지 살펴봅시다.
 <p>위에서 정의하고 사용했던 것과 동일한 열거형과 variant 를 갖고 있지만,
 variant 에 포함된 주소 데이터는 두 가지 다른 구조체로 되어 있으며, 각 variant 
@@ -4320,7 +4320,7 @@ null 혹은 null 이 아님.</p>
 존재하지 않는 하나의 값입니다.</p>
 <p>문제는 실제 개념에 있기보다, 특정 구현에 있습니다. 이와 같이 러스트에는 null 이 없지만, 값의 존재
 혹은 부재의 개념을 표현할 수 있는 열거형이 있습니다. 이 열거형은 <code>Option&lt;T&gt;</code> 이며, 다음과 같이
-<a href="../../std/option/enum.Option.html">표준 라이브러리에 정의되어</a><!-- ignore --> 있습니다:</p>
+<a href="https://doc.rust-lang.org/std/option/enum.Option.html">표준 라이브러리에 정의되어</a><!-- ignore --> 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 # #![allow(unused_variables)]
 #fn main() {
@@ -4388,7 +4388,7 @@ not satisfied
 디자인 결정사항입니다.</p>
 <p>그럼 <code>Option&lt;T&gt;</code> 타입인 값을 사용할 때, <code>Some</code> variant 에서 <code>T</code> 값을 어떻게
 가져와서 사용할 수 있을까요? <code>Option&lt;T&gt;</code> 열거형에서 다양한 상황에서 유용하게
-사용할 수 있는 많은 메소드들이 있습니다; <a href="../../std/option/enum.Option.html">문서에서</a><!-- ignore --> 확인할
+사용할 수 있는 많은 메소드들이 있습니다; <a href="https://doc.rust-lang.org/std/option/enum.Option.html">문서에서</a><!-- ignore --> 확인할
 수 있습니다. <code>Option&lt;T&gt;</code> 의 메소드들에 익숙해지는 것은 러스트를 사용하는데
 매우 유용할 것입니다.</p>
 <p>일반적으로, <code>Option&lt;T&gt;</code> 값을 사용하기 위해서는 각 variant 를 처리할 코드가 필요할 것입니다.
@@ -5684,9 +5684,8 @@ let does_not_exist = v.get(100);
 <p><span class="caption">Listing 8-6: 5개의 요소를 가진 벡터에 100 인덱스에 있는 요소에 접근하기</span></p>
 <p>이 프로그램을 실행하면, 첫번째의 <code>[]</code> 메소드는 <code>panic!</code>을 일으키는데, 이는 존재하지 않는 요소를
 참조하기 때문입니다. 이 방법은 여러분의 프로그램이 벡터의 끝을 넘어서는 요소에 접근하는 시도를 하면
-프로그램이 죽게끔 하는 치명적 에러를 발생하도록 하기를 고려하는 경우 가장 좋습니다.
-<br />
-<code>get</code> 함수에 벡터 범위를 벗어난 인덱스가 주어졌을 때는 패닉 없이 <code>None</code>이 반환됩니다. 보통의
+프로그램이 죽게끔 하는 치명적 에러를 발생하도록 하기를 고려하는 경우 가장 좋습니다.</p>
+<p><code>get</code> 함수에 벡터 범위를 벗어난 인덱스가 주어졌을 때는 패닉 없이 <code>None</code>이 반환됩니다. 보통의
 환경에서 벡터의 범위 밖에 있는 요소에 접근하는 것이 종종 발생한다면 이 방법을 사용할만 합니다.
 여러분의 코드는 우리가 6장에서 본 것과 같이 <code>Some(&amp;element)</code> 혹은 <code>None</code>에 대해 다루는
 로직을 갖추어야 합니다. 예를 들어 인덱스는 사람이 직접 번호를 입력하는 것으로 들어올 수도 있습니다.
@@ -5794,8 +5793,7 @@ let row = vec![
 이용할 수 있는데, 이건 17장에서 다루게 될 것입니다.</p>
 <p>지금까지 벡터를 이용하는 가장 일반적인 방식 중 몇가지에 대해 논의했는데, 표준 라이브러리의 <code>Vec</code>에 정의된
 수많은 유용한 메소드들이 있으니 API 문서를 꼭 살펴봐 주시기 바랍니다. 예를 들면, <code>push</code>에 더해서,
-<code>pop</code> 메소드는 제일 마지막 요소를 반환하고 지워줍니다. 다음 콜렉션 타입인 <code>String</code>으로 넘어갑시다!
-</p>
+<code>pop</code> 메소드는 제일 마지막 요소를 반환하고 지워줍니다. 다음 콜렉션 타입인 <code>String</code>으로 넘어갑시다!</p>
 <h2><a class="header" href="#스트링" id="스트링">스트링</a></h2>
 <p>4장에서 스트링에 관한 이야기를 했습니다만, 지금은 좀 더 깊이 살펴보겠습니다. 새로운 러스트인들은
 흔히들 스트링 부분에서 막히는데 이는 세 가지 개념의 조합으로 인한 것입니다: 가능한 에러를 꼭 노출하도록
@@ -12463,8 +12461,7 @@ environment variables: check out its documentation to see what is available.
 방법으로 표준출력을 변경했을때 오직 성공적 실행에 관련된 데이터만 저장할 수 있게 될 겁니다. 지금 바꿔봅시다.</p>
 <h3><a class="header" href="#에러를-표준에러로-출력하기" id="에러를-표준에러로-출력하기">에러를 표준에러로 출력하기</a></h3>
 <p>우리는 항목 12-24의 코드를 출력되는 에러메시지들을 변경하는데 사용하고자 합니다. 이번 장 진입부에서 리팩토링한 결과
-모든 에러메시지는 하나의 함수 <code>main에서 출력되고 있습니다. 표준라이브러리에 존재하는 표준에러에 출력해주는 매크로 
-</code>eprintln!<code>를 사용하여 </code>println!<code>을 사용하여 에러를 출력하던 두 부분을 </code>eprintln!`을 사용하도록 변경
+모든 에러메시지는 하나의 함수 <code>main에서 출력되고 있습니다. 표준라이브러리에 존재하는 표준에러에 출력해주는 매크로  </code>eprintln!<code>를 사용하여 </code>println!<code>을 사용하여 에러를 출력하던 두 부분을 </code>eprintln!`을 사용하도록 변경
 해봅시다. </p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {

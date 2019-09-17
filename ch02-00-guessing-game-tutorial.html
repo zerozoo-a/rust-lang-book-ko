@@ -219,7 +219,7 @@ fn main() {
 라이브러리는 <code>std</code>라고 불리는 표준 라이브러리에 있습니다.</p>
 <pre><code class="language-rust ignore">use std::io;
 </code></pre>
-<p>러스트는 모든 프로그램의 스코프에 <a href="../../std/prelude/index.html"><em>prelude</em></a><!-- ignore --> 내의 타입들을
+<p>러스트는 모든 프로그램의 스코프에 <a href="https://doc.rust-lang.org/std/prelude/index.html"><em>prelude</em></a><!-- ignore --> 내의 타입들을
 가져옵니다. 만약 여러분이 원하는 타입이 prelude에 없다면 <code>use</code>문을 활용하여
 명시적으로 그 타입을 가져와야 합니다. <code>std::io</code>는 사용자의 입력을 받는 것을
 포함하여 <code>io</code>와 관련된 기능들을 제공합니다.</p>
@@ -258,7 +258,7 @@ let mut bar = 5; // mutable
 </blockquote>
 <p>이제 <code>let mut guess</code>가 <code>guess</code>라는 이름의 가변변수임을 알 수 있습니다. <code>=</code>의
 반대편의 값은 <code>guess</code>와 묶이게 되는데 이번 예시에서는 함수 <code>String::new</code>의 결과값인
-새로운 <code>String</code> 인스턴스가 묶이는 대상이 됩니다. <a href="../../std/string/struct.String.html"><code>String</code></a><!-- ignore -->은
+새로운 <code>String</code> 인스턴스가 묶이는 대상이 됩니다. <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a><!-- ignore -->은
 표준 라이브러리에서 제공하는 확장 가능한(growable) UTF-8 인코딩의 문자열 타입입니다.</p>
 <p><code>::new</code>에 있는 <code>::</code>는 <code>new</code>가 <code>String</code> 타입의 <em>연관함수</em> 임을 나타냅니다. 연관함수는
 하나의 타입을 위한 함수이며, 이 경우에는 하나의 <code>String</code> 인스턴스가 아니라 <code>String</code>
@@ -273,7 +273,7 @@ let mut bar = 5; // mutable
     .expect(&quot;Failed to read line&quot;);
 </code></pre>
 <p>만약 프로그램 시작점에 <code>use std::io</code>가 없다면 함수 호출 시 <code>std::io::stdin</code>처럼 작성해야
-합니다. <code>stdin</code> 함수는 터미널의 표준 입력의 핸들(handle)의 타입인 <a href="../../std/io/struct.Stdin.html"><code>std::io::Stdin</code></a><!-- ignore -->의
+합니다. <code>stdin</code> 함수는 터미널의 표준 입력의 핸들(handle)의 타입인 <a href="https://doc.rust-lang.org/std/io/struct.Stdin.html"><code>std::io::Stdin</code></a><!-- ignore -->의
 인스턴스를 돌려줍니다.</p>
 <p>코드의 다음 부분인 <code>.read_line(&amp;mut guess)</code>는 사용자로부터 입력을 받기 위해 표준
 입력 핸들에서 <code>.read_line(&amp;mut guess)</code> 메소드를 호출합니다. 또한 <code>read_line</code>에 <code>&amp;mut guess</code>
@@ -299,9 +299,9 @@ let mut bar = 5; // mutable
 것이 좋습니다. 이제 이 라인이 무엇인지에 대해 이야기해 봅시다.</p>
 <h3><a class="header" href="#result-타입으로-잠재된-실패-다루기" id="result-타입으로-잠재된-실패-다루기"><code>Result</code> 타입으로 잠재된 실패 다루기</a></h3>
 <p>이전에 언급한 것처럼 <code>read_line</code>은 우리가 인자로 넘긴 문자열에 사용자가 입력을 저장할
-뿐 아니라 하나의 값을 돌려 줍니다. 여기서 돌려준 값은 <a href="../../std/io/type.Result.html"><code>io::Result</code></a><!-- ignore -->
+뿐 아니라 하나의 값을 돌려 줍니다. 여기서 돌려준 값은 <a href="https://doc.rust-lang.org/std/io/type.Result.html"><code>io::Result</code></a><!-- ignore -->
 입니다. 러스트는 표준 라이브러리에 여러 종류의 <code>Result</code> 타입을 가지고 있습니다.
-제네릭 <a href="../../std/result/enum.Result.html"><code>Result</code></a><!-- ignore -->이나 <code>io:Result</code>가 그 예시입니다.</p>
+제네릭 <a href="https://doc.rust-lang.org/std/result/enum.Result.html"><code>Result</code></a><!-- ignore -->이나 <code>io:Result</code>가 그 예시입니다.</p>
 <p><code>Result</code> 타입은 <a href="ch06-00-enums.html"><em>열거형(enumerations)</em></a><!-- ignore -->로써 <em>enums</em> 라고 부르기도
 합니다. 열거형은 정해진 값들만을 가질 수 있으며 이러한 값들은 열거형의 <em>variants</em>
 라고 부릅니다. 6장에서 열거형에 대해 더 자세히 다룹니다.</p>
@@ -310,7 +310,7 @@ let mut bar = 5; // mutable
 이유에 대한 정보를 가지고 있습니다.</p>
 <p>이러한 <code>Result</code>는 에러 처리를 위한 정보를 표현하기 위해 사용됩니다. <code>Result</code> 타입의
 값들은 다른 타입들처럼 메소드들을 가지고 있습니다. <code>io::Result</code> 인스턴스는
-<a href="../../std/result/enum.Result.html#method.expect"><code>expect</code> 메소드</a><!-- ignore -->를 가지고 있습니다. 만약 <code>io::Result</code> 인스턴스가 <code>Err</code>일
+<a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.expect"><code>expect</code> 메소드</a><!-- ignore -->를 가지고 있습니다. 만약 <code>io::Result</code> 인스턴스가 <code>Err</code>일
 경우 <code>expect</code> 메소드는 프로그램이 작동을 멈추게 하고 <code>expect</code>에 인자로 넘겼던 메세지를
 출력하도록 합니다. 만약 <code>read_line</code> 메소드가 <code>Err</code>를 돌려줬다면 그 에러는 운영체제로부터
 생긴 에러일 경우가 많습니다. 만약 <code>io::Result</code>가 <code>Ok</code> 값이라면 <code>expect</code>는 <code>Ok</code>가 가지고 있는
@@ -673,7 +673,7 @@ Shadowing은 우리들이 <code>guess_str</code>과 <code>guess</code>처럼 고
 <span class="keystroke">enter</span>키를 누르면 <code>guess</code>는 <code>5\n</code>처럼 됩니다.
 <code>\n</code>은 enter키, 즉 개행문자를 의미합니다. <code>trim</code> 메소드는 <code>\n</code>을 제거하고 <code>5</code>만
 남도록 처리합니다.</p>
-<p><a href="../../std/primitive.str.html#method.parse">문자열의 <code>parse</code> 메소드</a><!-- ignore -->는 문자열을 숫자형으로 파싱합니다.
+<p><a href="https://doc.rust-lang.org/std/primitive.str.html#method.parse">문자열의 <code>parse</code> 메소드</a><!-- ignore -->는 문자열을 숫자형으로 파싱합니다.
 이 메소드는 다양한 종류의 정수형을 변환하므로 우리는 <code>let guess: u32</code>처럼
 정확한 타입을 명시해야 합니다. <code>guess</code> 뒤의 콜론(<code>:</code>)은 변수의 타입을 명시했음을
 의미합니다. 러스트는 몇몇 내장된 정수형을 가지고 있습니다. <code>u32</code>은 부호가 없는
