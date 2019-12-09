@@ -166,65 +166,65 @@ IP 주소에 적용되는 상황을 다룰 때 동일한 타입으로 처리되�
 이것들은 열거형의 <em>variants</em> 라고 합니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>enum IpAddrKind {
     V4,
     V6,
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이제 <code>IpAddrKind</code> 은 우리의 코드 어디에서나 쓸 수 있는 데이터 타입이 되었습니다.</p>
 <h3><a class="header" href="#열거형-값" id="열거형-값">열거형 값</a></h3>
 <p>아래처럼 <code>IpAddrKind</code> 의 두 개의 variants 에 대한 인스턴스를 만들 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-enum IpAddrKind {
-    V4,
-    V6,
-}
-</span>#
-let four = IpAddrKind::V4;
+</span><span class="boring">fn main() {
+</span><span class="boring">enum IpAddrKind {
+</span><span class="boring">    V4,
+</span><span class="boring">    V6,
+</span><span class="boring">}
+</span><span class="boring">
+</span>let four = IpAddrKind::V4;
 let six = IpAddrKind::V6;
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>열거형의 variants 는 열거형을 정의한 식별자에 의해 이름 공간이 생기며, 두 개의 
 콜론을 사용하여 둘을 구분할 수 있습니다. <code>IpAddrKind::V4</code> 와 <code>IpAddrKind::V6</code> 의
 값은 동일한 타입이기 때문에, 이 방식이 유용합니다: <code>IpAddrKind</code>.
 이제 <code>IpAddrKind</code> 타입을 인자로 받는 함수를 정의할 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-enum IpAddrKind {
-    V4,
-    V6,
-}
-</span>#
-fn route(ip_type: IpAddrKind) { }
+</span><span class="boring">fn main() {
+</span><span class="boring">enum IpAddrKind {
+</span><span class="boring">    V4,
+</span><span class="boring">    V6,
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn route(ip_type: IpAddrKind) { }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>그리고, variant 중 하나를 사용해서 함수를 호출할 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-enum IpAddrKind {
-    V4,
-    V6,
-}
-</span>#
-<span class="boring">fn route(ip_type: IpAddrKind) { }
-</span>#
-route(IpAddrKind::V4);
+</span><span class="boring">fn main() {
+</span><span class="boring">enum IpAddrKind {
+</span><span class="boring">    V4,
+</span><span class="boring">    V6,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn route(ip_type: IpAddrKind) { }
+</span><span class="boring">
+</span>route(IpAddrKind::V4);
 route(IpAddrKind::V6);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>열거형을 사용하면 이점이 더 있습니다. IP 주소 타입에 대해 더 생각해 볼 때, 
 지금으로써는 실제 IP 주소 <em>데이터</em>를 저장할 방법이 없습니다. 단지 어떤 <em>종류</em> 
 인지만 알 뿐입니다. 5장에서 구조체에 대해 방금 공부했다고 한다면, 이 문제를 
 Listing 6-1에서 보이는 것처럼 풀려고 할 것입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>enum IpAddrKind {
     V4,
     V6,
@@ -245,7 +245,7 @@ let loopback = IpAddr {
     address: String::from(&quot;::1&quot;),
 };
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 6-1: <code>struct</code> 를 사용해서 IP 주소의 데이터와 
 <code>IpAddrKind</code> variant 저장하기</span></p>
 <p>여기서 두 개의 필드를 갖는 <code>IpAddr</code> 를 정의했습니다: <code>IpAddrKind</code> 타입(이전에 
@@ -262,7 +262,7 @@ let loopback = IpAddr {
 <code>String</code> 타입의 값을 갖게 됩니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>enum IpAddr {
     V4(String),
     V6(String),
@@ -272,7 +272,7 @@ let home = IpAddr::V4(String::from(&quot;127.0.0.1&quot;));
 
 let loopback = IpAddr::V6(String::from(&quot;::1&quot;));
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>열거형의 각 variant 에 직접 데이터를 붙임으로써, 구조체를 사용할 필요가 없어졌습니다.</p>
 <p>구조체 보다 열거형을 사용할 때 다른 장점이 있습니다. 각 variant 는 다른 타입과 
 다른 양의 연관된 데이터를 가질 수 있습니다. 버전 4 타입의 IP 주소는 항상 0 ~ 255
@@ -281,7 +281,7 @@ let loopback = IpAddr::V6(String::from(&quot;::1&quot;));
 이렇게 할 수 없습니다. 열거형은 이런 경우를 쉽게 처리합니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>enum IpAddr {
     V4(u8, u8, u8, u8),
     V6(String),
@@ -291,7 +291,7 @@ let home = IpAddr::V4(127, 0, 0, 1);
 
 let loopback = IpAddr::V6(String::from(&quot;::1&quot;));
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>두 가지 다른 종류의 IP 주소를 저장하기 위해 코드상에서 열거형을 정의하는 몇 가지
 방법을 살펴봤습니다. 그러나, 누구나 알듯이 IP 주소와 그 종류를 저장하는 것은
 흔하기 때문에, <a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html">표준 라이브러리에 사용할 수 있는 정의가 있습니다!</a></p>
@@ -301,7 +301,7 @@ variant 에 포함된 주소 데이터는 두 가지 다른 구조체로 되어 
 마다 다르게 정의하고 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>struct Ipv4Addr {
     // details elided
 }
@@ -315,7 +315,7 @@ enum IpAddr {
     V6(Ipv6Addr),
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 코드에서 보듯이 열거형 variant 에 어떤 종류의 데이터라도 넣을 수 있습니다:
 예를 들면 문자열, 숫자 타입, 혹은 구조체. 다른 열거형 조차도 포함할 수 있습니다!
 또한 표준 라이브러리 타입들은 어떤 경우에는 해결책으로 생각한 것보다 훨씬 더
@@ -327,7 +327,7 @@ enum IpAddr {
 에 다양한 유형의 타입들이 포함되어 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>enum Message {
     Quit,
     Move { x: i32, y: i32 },
@@ -335,7 +335,7 @@ fn main() {
     ChangeColor(i32, i32, i32),
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 6-2: <code>Message</code> 열거형은 각 variants 가 다른 타입과
 다른 양의 값을 저장함.</span></p>
 <p>이 열거형에는 다른 데이터 타입을 갖는 네 개의 variants 가 있습니다:</p>
@@ -352,7 +352,7 @@ fn main() {
 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>struct QuitMessage; // 유닛 구조체
 struct MoveMessage {
     x: i32,
@@ -361,7 +361,7 @@ struct MoveMessage {
 struct WriteMessage(String); // 튜플 구조체
 struct ChangeColorMessage(i32, i32, i32); // 튜플 구조체
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>각기 다른 타입을 갖는 여러 개의 구조체를 사용한다면, 이 메시지 중 어떤 한 가지를
 인자로 받는 함수를 정의하기 힘들 것입니다. Listing 6-2 에 정의한 <code>Message</code>
 열거형은 하나의 타입으로 이것이 가능합니다.</p>
@@ -370,15 +370,15 @@ struct ChangeColorMessage(i32, i32, i32); // 튜플 구조체
 에 정의한 <code>call</code> 이라는 메소드가 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-enum Message {
-    Quit,
-    Move { x: i32, y: i32 },
-    Write(String),
-    ChangeColor(i32, i32, i32),
-}
-</span>#
-impl Message {
+</span><span class="boring">fn main() {
+</span><span class="boring">enum Message {
+</span><span class="boring">    Quit,
+</span><span class="boring">    Move { x: i32, y: i32 },
+</span><span class="boring">    Write(String),
+</span><span class="boring">    ChangeColor(i32, i32, i32),
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Message {
     fn call(&amp;self) {
         // 메소드 내용은 여기 정의할 수 있습니다.
     }
@@ -387,7 +387,7 @@ impl Message {
 let m = Message::Write(String::from(&quot;hello&quot;));
 m.call();
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>열거형의 값을 가져오기 위해 메소드 안에서 <code>self</code> 를 사용할 것입니다. 이 예제에서 생성한
 변수 <code>m</code> 은 <code>Message::Write(String::from(&quot;hello&quot;))</code> 값을 갖게 되고, 이 값은
 <code>m.call()</code>이 실행될 때, <code>call</code> 메소드 안에서 <code>self</code>가 될 것입니다.</p>
@@ -428,13 +428,13 @@ null 혹은 null 이 아님.</p>
 <a href="https://doc.rust-lang.org/std/option/enum.Option.html">표준 라이브러리에 정의되어</a><!-- ignore --> 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>enum Option&lt;T&gt; {
     Some(T),
     None,
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>Option&lt;T&gt;</code> 열거형은 매우 유용하며 기본적으로 포함되어 있기 때문에, 명시적으로 가져오지 않아도
 사용할 수 있습니다. 또한 variants 도 마찬가지입니다: <code>Option::</code> 를 앞에 붙이지 않고,
 <code>Some</code> 과 <code>None</code> 을 바로 사용할 수 있습니다.
@@ -447,13 +447,13 @@ variants 입니다.</p>
 예들이 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let some_number = Some(5);
 let some_string = Some(&quot;a string&quot;);
 
 let absent_number: Option&lt;i32&gt; = None;
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>Some</code> 이 아닌 <code>None</code> 을 사용한다면, <code>Option&lt;T&gt;</code> 이 어떤 타입을 가질지 러스트에게 알려줄 필요가
 있습니다. 컴파일러는 <code>None</code> 만 보고는 <code>Some</code> variant 가 어떤 타입인지 추론할 수 없습니다.</p>
 <p><code>Some</code> 값을 얻게 되면, 값이 있다는 것과 <code>Some</code> 이 갖고 있는 값에 대해 알 수 있습니다.

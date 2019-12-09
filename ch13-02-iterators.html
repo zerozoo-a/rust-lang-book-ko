@@ -159,12 +159,12 @@
 유용한 동작을 하진 않습니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let v1 = vec![1, 2, 3];
 
 let v1_iter = v1.iter();
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-13: 반복자 생성하기</span></p>
 <p>일단 반복자를 만들면, 다양한 방법으로 사용할 수 있습니다. 3장의 리스트 3-5 에서,
 각 항목에 대해 어떤 코드를 수행하기 위해 <code>for</code> 루프에서 반복자를 사용
@@ -175,7 +175,7 @@ let v1_iter = v1.iter();
 루프 순회 마다 반복자의 각 요소가 사용되는데, 각각의 값을 출력 합니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let v1 = vec![1, 2, 3];
 
 let v1_iter = v1.iter();
@@ -184,7 +184,7 @@ for val in v1_iter {
     println!(&quot;Got: {}&quot;, val);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-14: <code>for</code> 루프에서 반복자 사용하기</span></p>
 <p>표준 라이브러리에서 반복자를 제공하지 않는 언어에서는, 변수를 인덱스 0으로
 시작해서, 그 변수로 벡터를 색인해서 값을 가져오는데 사용하며, 루프안에서
@@ -199,7 +199,7 @@ for val in v1_iter {
 다. 트레잇의 정의는 아래와 같습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>trait Iterator {
     type Item;
 
@@ -208,7 +208,7 @@ fn main() {
     // methods with default implementations elided
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 정의는 몇 개의 새로운 문법을 사용하는 것에 유의하세요: <code>type Item</code> 과
 <code>Self::Item</code> 은 이 트레잇과 <em>연관 타입</em> 을 정의 합니다. 우리는 19장에서
 연관 타입에 대해 자세히 이야기 할 것 입니다. 지금 당장 알아야 할 것은 이 코드가
@@ -223,9 +223,9 @@ fn main() {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[test]
-</span>fn iterator_demonstration() {
+</span><span class="boring">fn main() {
+</span>#[test]
+fn iterator_demonstration() {
     let v1 = vec![1, 2, 3];
 
     let mut v1_iter = v1.iter();
@@ -236,7 +236,7 @@ fn main() {
     assert_eq!(v1_iter.next(), None);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-15: 반복자의 <code>next</code> 메서드 호출하기</span></p>
 <p><code>v1_iter</code> 가 변경 가능하도록 만들 필요가 있다는 것에 유의 하세요: 반복자에 대해
 <code>next</code> 메서드를 호출하면 시퀀스의 어디에 있는지 추적하기 위해 반복자가 사용하는
@@ -263,9 +263,9 @@ fn main() {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[test]
-</span>fn iterator_sum() {
+</span><span class="boring">fn main() {
+</span>#[test]
+fn iterator_sum() {
     let v1 = vec![1, 2, 3];
 
     let v1_iter = v1.iter();
@@ -275,7 +275,7 @@ fn main() {
     assert_eq!(total, 6);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-16: 반복자의 모든 항목에 대한 합계를 얻기 위해
 <code>sum</code> 메서드 호출 하기</span></p>
 <p><code>sum</code> 은 호출한 반복자의 소유권을 갖기 때문에, <code>sum</code> 을 호출한 후 <code>v1_iter</code> 은
@@ -293,12 +293,12 @@ fn main() {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let v1: Vec&lt;i32&gt; = vec![1, 2, 3];
 
 v1.iter().map(|x| x + 1);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-17: 새로운 반복자를 만들기 위해 반복자 어댑터
 <code>map</code> 호출 하기</span></p>
 <p>경고 메세지는 이것 입니다:</p>
@@ -323,14 +323,14 @@ and do nothing unless consumed
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let v1: Vec&lt;i32&gt; = vec![1, 2, 3];
 
 let v2: Vec&lt;_&gt; = v1.iter().map(|x| x + 1).collect();
 
 assert_eq!(v2, vec![2, 3, 4]);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-18: 새로운 반복자를 만들기 위해 <code>map</code> 메서드를
 호출하고, 새로운 반복자를 소비하고 벡터를 생성하기 위해 <code>collect</code> 메서드 호출
 하기</span></p>
@@ -350,9 +350,9 @@ assert_eq!(v2, vec![2, 3, 4]);
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[derive(PartialEq, Debug)]
-</span>struct Shoe {
+</span><span class="boring">fn main() {
+</span>#[derive(PartialEq, Debug)]
+struct Shoe {
     size: u32,
     style: String,
 }
@@ -363,8 +363,8 @@ fn shoes_in_my_size(shoes: Vec&lt;Shoe&gt;, shoe_size: u32) -&gt; Vec&lt;Shoe&gt
         .collect()
 }
 
-<span class="boring">[test]
-</span>fn filters_by_size() {
+#[test]
+fn filters_by_size() {
     let shoes = vec![
         Shoe { size: 10, style: String::from(&quot;sneaker&quot;) },
         Shoe { size: 13, style: String::from(&quot;sandal&quot;) },
@@ -382,7 +382,7 @@ fn shoes_in_my_size(shoes: Vec&lt;Shoe&gt;, shoe_size: u32) -&gt; Vec&lt;Shoe&gt
     );
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스팅 13-19: <code>shoe_size</code> 를 캡쳐하는 클로저와 <code>filter</code>
 메서드 사용하기</span></p>
 <p><code>shoes_in_my_size</code> 함수는 파라미터로 신발들의 벡터에 대한 소유권과 신발 크기를
@@ -411,7 +411,7 @@ fn shoes_in_my_size(shoes: Vec&lt;Shoe&gt;, shoe_size: u32) -&gt; Vec&lt;Shoe&gt
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>struct Counter {
     count: u32,
 }
@@ -422,7 +422,7 @@ impl Counter {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-20: <code>Counter</code> 구조체와 <code>count</code> 의 초기값 0 으로
 <code>Counter</code> 의 인스턴스를 생성하는 <code>new</code> 함수 정의하기</span></p>
 <p><code>Counter</code> 구조체는 <code>count</code> 라는 이름의 하나의 필드를 갖습니다. 이 필드는 <code>u32</code>
@@ -436,12 +436,12 @@ impl Counter {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-struct Counter {
-    count: u32,
-}
-</span>#
-impl Iterator for Counter {
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Counter {
+</span><span class="boring">    count: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Iterator for Counter {
     type Item = u32;
 
     fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
@@ -455,7 +455,7 @@ impl Iterator for Counter {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-21: <code>Counter</code> 구조체에 대해 <code>Iterator</code> 트레잇
 구현하기</span></p>
 <p>우리의 반복자를 위해 연관된 <code>Item</code> 타입을 <code>u32</code> 로 지정했는데, 이는 반복자가
@@ -473,27 +473,27 @@ impl Iterator for Counter {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-struct Counter {
-    count: u32,
-}
-</span>#
-<span class="boring">impl Iterator for Counter {
-    type Item = u32;
-</span>#
-<span class="boring">    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
-        self.count += 1;
-</span>#
-<span class="boring">        if self.count &lt; 6 {
-            Some(self.count)
-        } else {
-            None
-        }
-    }
-}
-</span>#
-<span class="boring">[test]
-</span>fn calling_next_directly() {
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Counter {
+</span><span class="boring">    count: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Iterator for Counter {
+</span><span class="boring">    type Item = u32;
+</span><span class="boring">
+</span><span class="boring">    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+</span><span class="boring">        self.count += 1;
+</span><span class="boring">
+</span><span class="boring">        if self.count &lt; 6 {
+</span><span class="boring">            Some(self.count)
+</span><span class="boring">        } else {
+</span><span class="boring">            None
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>#[test]
+fn calling_next_directly() {
     let mut counter = Counter::new();
 
     assert_eq!(counter.next(), Some(1));
@@ -504,7 +504,7 @@ struct Counter {
     assert_eq!(counter.next(), None);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-22: <code>next</code> 메서드 구현의 기능 테스트</span></p>
 <p>이 테스트는 <code>counter</code> 변수에 새로운 <code>Counter</code> 인스턴스를 생성하고 <code>next</code> 를
 반복적으로 호출하면서, 이 반복자가 우리가 원하는 행위를 구현했다는 것을 검증
@@ -520,36 +520,36 @@ struct Counter {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-struct Counter {
-    count: u32,
-}
-</span>#
-<span class="boring">impl Counter {
-    fn new() -&gt; Counter {
-        Counter { count: 0 }
-    }
-}
-</span>#
-<span class="boring">impl Iterator for Counter {
-    // Our iterator will produce u32s
-    type Item = u32;
-</span>#
-<span class="boring">    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
-        // increment our count. This is why we started at zero.
-        self.count += 1;
-</span>#
-<span class="boring">        // check to see if we've finished counting or not.
-        if self.count &lt; 6 {
-            Some(self.count)
-        } else {
-            None
-        }
-    }
-}
-</span>#
-<span class="boring">[test]
-</span>fn using_other_iterator_trait_methods() {
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Counter {
+</span><span class="boring">    count: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Counter {
+</span><span class="boring">    fn new() -&gt; Counter {
+</span><span class="boring">        Counter { count: 0 }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Iterator for Counter {
+</span><span class="boring">    // Our iterator will produce u32s
+</span><span class="boring">    type Item = u32;
+</span><span class="boring">
+</span><span class="boring">    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+</span><span class="boring">        // increment our count. This is why we started at zero.
+</span><span class="boring">        self.count += 1;
+</span><span class="boring">
+</span><span class="boring">        // check to see if we've finished counting or not.
+</span><span class="boring">        if self.count &lt; 6 {
+</span><span class="boring">            Some(self.count)
+</span><span class="boring">        } else {
+</span><span class="boring">            None
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>#[test]
+fn using_other_iterator_trait_methods() {
     let sum: u32 = Counter::new().zip(Counter::new().skip(1))
                                  .map(|(a, b)| a * b)
                                  .filter(|x| x % 3 == 0)
@@ -557,7 +557,7 @@ struct Counter {
     assert_eq!(18, sum);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-23: <code>Counter</code> 반복자에 대해 <code>Iterator</code> 트레잇의
 다양햔 메서드 사용하기</span></p>
 <p><code>zip</code> 은 단지 네 개의 쌍을 생성한다는데 유의 하세요; 이론적으로 다섯번째 쌍인

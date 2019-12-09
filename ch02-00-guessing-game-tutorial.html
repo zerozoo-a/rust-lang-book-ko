@@ -251,11 +251,11 @@ println!(&quot;Please input your guess.&quot;);
 만드는 법을 보여줍니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let foo = 5; // immutable
 let mut bar = 5; // mutable
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <blockquote>
 <p>Note: <code>//</code> 문법은 현재 위치부터 라인의 끝까지 주석임을 나타냅니다.
 러스트는 주석의 모든 내용을 무시합니다.</p>
@@ -347,13 +347,13 @@ warning: unused `std::result::Result` which must be used
 보여줍니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let x = 5;
 let y = 10;
 
 println!(&quot;x = {} and y = {}&quot;, x, y);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 코드는 <code>x = 5 and y = 10</code>을 출력합니다.</p>
 <h3><a class="header" href="#첫번째-부분을-테스트하기" id="첫번째-부분을-테스트하기">첫번째 부분을 테스트하기</a></h3>
 <p>추리 게임의 처음 부분을 테스트 해 봅시다. <code>cargo run</code>을 통해 실행할 수 있습니다.</p>

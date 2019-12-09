@@ -279,14 +279,14 @@ fn main() {
 무엇을 위해 사용되는지는 “참조 순환 (reference cycles) 방지하기”절에서 볼 것입니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">enum List {
-    Cons(i32, Rc&lt;List&gt;),
-    Nil,
-}
-</span>#
-<span class="boring">use List::{Cons, Nil};
-use std::rc::Rc;
-</span>#
-fn main() {
+</span><span class="boring">    Cons(i32, Rc&lt;List&gt;),
+</span><span class="boring">    Nil,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">use List::{Cons, Nil};
+</span><span class="boring">use std::rc::Rc;
+</span><span class="boring">
+</span>fn main() {
     let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
     println!(&quot;count after creating a = {}&quot;, Rc::strong_count(&amp;a));
     let b = Cons(3, Rc::clone(&amp;a));

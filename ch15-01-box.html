@@ -286,7 +286,7 @@ variant를 이용하여 <code>List</code>를 정의했기 때문입니다: 즉 �
 열거형을 상기해봅시다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>enum Message {
     Quit,
     Move { x: i32, y: i32 },
@@ -294,7 +294,7 @@ fn main() {
     ChangeColor(i32, i32, i32),
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>Message</code> 값을 할당하기 위해 얼마나 많은 공간이 필요한지를 결정하기 위해서, 러스트는
 어떤 variant가 가장 많은 공간을 필요로 하는지를 알기 위해 각각의 variant들 내부를
 봅니다. 러스트는 <code>Message::Quit</code>가 어떠한 공간도 필요 없음을 알게 되고,

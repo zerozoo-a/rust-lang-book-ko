@@ -180,7 +180,7 @@
 <tr><td><code>-</code></td><td><code>- expr</code></td><td>부정 연산</td><td><code>Neg</code></td></tr>
 <tr><td><code>-</code></td><td><code>expr - expr</code></td><td>빼기 연산</td><td><code>Sub</code></td></tr>
 <tr><td><code>-=</code></td><td><code>var -= expr</code></td><td>빼기 연산 후 대입</td><td><code>SubAssign</code></td></tr>
-<tr><td><code>-&gt;</code></td><td><code>fn(...) -&gt; type</code>, <code>\|...| -&gt; type</code></td><td>함수와 클로저 반환 타입</td><td></td></tr>
+<tr><td><code>-&gt;</code></td><td><code>fn(...) -&gt; type</code>, <code>|...| -&gt; type</code></td><td>함수와 클로저 반환 타입</td><td></td></tr>
 <tr><td><code>.</code></td><td><code>expr.ident</code></td><td>멤버 접근</td><td></td></tr>
 <tr><td><code>..</code></td><td><code>..</code>, <code>expr..</code>, <code>..expr</code>, <code>expr..expr</code></td><td>상한을 제외한 범위 리터럴</td><td></td></tr>
 <tr><td><code>..</code></td><td><code>..expr</code></td><td>구조체 갱신법</td><td></td></tr>
@@ -207,10 +207,10 @@
 <tr><td><code>@</code></td><td><code>ident @ pat</code></td><td>패턴 바인딩</td><td></td></tr>
 <tr><td><code>^</code></td><td><code>expr ^ expr</code></td><td>비트 단위 XOR 연산</td><td><code>BitXor</code></td></tr>
 <tr><td><code>^=</code></td><td><code>var ^= expr</code></td><td>비트 단윈 XOR 연산 후 대입</td><td><code>BitXorAssign</code></td></tr>
-<tr><td><code>\|</code></td><td><code>pat | pat</code></td><td>다중 패턴</td><td></td></tr>
-<tr><td><code>\|</code></td><td><code>expr | expr</code></td><td>비트 단위 OR 연산</td><td><code>BitOr</code></td></tr>
-<tr><td><code>\|=</code></td><td><code>var |= expr</code></td><td>비트 단위 OR 연산 후 대입</td><td><code>BitOrAssign</code></td></tr>
-<tr><td><code>\||</code></td><td><code>expr || expr</code></td><td>논리 OR 연산</td><td></td></tr>
+<tr><td><code>|</code></td><td><code>pat | pat</code></td><td>다중 패턴</td><td></td></tr>
+<tr><td><code>|</code></td><td><code>expr | expr</code></td><td>비트 단위 OR 연산</td><td><code>BitOr</code></td></tr>
+<tr><td><code>|=</code></td><td><code>var |= expr</code></td><td>비트 단위 OR 연산 후 대입</td><td><code>BitOrAssign</code></td></tr>
+<tr><td><code>||</code></td><td><code>expr || expr</code></td><td>논리 OR 연산</td><td></td></tr>
 <tr><td><code>?</code></td><td><code>expr?</code></td><td>에러 전파</td><td></td></tr>
 </tbody></table>
 <h3><a class="header" href="#연산자-이외의-기호" id="연산자-이외의-기호">연산자 이외의 기호</a></h3>
@@ -228,7 +228,7 @@
 <tr><td><code>br&quot;...&quot;</code>, <code>br#&quot;...&quot;#</code>, <code>br##&quot;...&quot;##</code>, 기타 등등</td><td>Raw 바이트 스트링 리터럴, Raw 스트링과 바이트 스트링을 합친 것</td></tr>
 <tr><td><code>'...'</code></td><td>문자 리터럴</td></tr>
 <tr><td><code>b'...'</code></td><td>ASCII 바이트 리터럴</td></tr>
-<tr><td><code>\|...| expr</code></td><td>클로저</td></tr>
+<tr><td><code>|...| expr</code></td><td>클로저</td></tr>
 <tr><td><code>!</code></td><td>함수 분기를 위해 존재하는 의미를 갖지 않는 빈 타입</td></tr>
 <tr><td><code>_</code></td><td>&quot;무시된&quot; 패턴 바인딩; 정수 링터럴의 가독성을 높이는 데에도 사용됨</td></tr>
 </tbody></table>

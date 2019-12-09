@@ -226,7 +226,7 @@ fn main() {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub struct Post {
     state: Option&lt;Box&lt;State&gt;&gt;,
     content: String,
@@ -247,7 +247,7 @@ struct Draft {}
 
 impl State for Draft {}
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-12: <code>Post</code> 구조체, <code>Post</code>
 인스턴스를 만드는 <code>new</code> 함수, <code>State</code> 트레잇과 <code>Draft</code> 구조체의
 정의</span></p>
@@ -272,19 +272,19 @@ impl State for Draft {}
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub struct Post {
-    content: String,
-}
-</span>#
-impl Post {
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct Post {
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Post {
     // --snip--
     pub fn add_text(&amp;mut self, text: &amp;str) {
         self.content.push_str(text);
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-13: <code>content</code>에 글을 추가하기
 위한 <code>add_text</code> 메소드 구현하기 </span></p>
 <p><code>add_text</code> 메소드는 가변 참조자 <code>self</code>를 취하는데, 그 이유는 우리가
@@ -306,19 +306,19 @@ Listing 17-11의 8번째 줄처럼 게시물이 여전히 초안 상태이기 �
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub struct Post {
-    content: String,
-}
-</span>#
-impl Post {
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct Post {
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Post {
     // --snip--
     pub fn content(&amp;self) -&gt; &amp;str {
         &quot;&quot;
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-14: 항상 비어있는 스트링 슬라이스를
 반환하는 <code>Post</code>의 <code>content</code> 메소드에 대한 껍데기 구현 </span></p>
 <p><code>content</code> 메소드를 추가함으로서, Listing 17-11의 8번째 줄까지는
@@ -329,13 +329,13 @@ impl Post {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub struct Post {
-    state: Option&lt;Box&lt;State&gt;&gt;,
-    content: String,
-}
-</span>#
-impl Post {
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct Post {
+</span><span class="boring">    state: Option&lt;Box&lt;State&gt;&gt;,
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Post {
     // --snip--
     pub fn request_review(&amp;mut self) {
         if let Some(s) = self.state.take() {
@@ -364,7 +364,7 @@ impl State for PendingReview {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-15: <code>Post</code>와 <code>State</code> 트레잇에
 <code>request_review</code> 메소드를 구현하기</span></p>
 <p>우리는 <code>Post</code>에게 <code>self</code>에 대한 가변 참조자를 취하려는 <code>request_review</code>란
@@ -409,13 +409,13 @@ Listing 17-16과 같이 해당 상태가 허가되었을때 가져야 하는 값
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub struct Post {
-    state: Option&lt;Box&lt;State&gt;&gt;,
-    content: String,
-}
-</span>#
-impl Post {
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct Post {
+</span><span class="boring">    state: Option&lt;Box&lt;State&gt;&gt;,
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Post {
     // --snip--
     pub fn approve(&amp;mut self) {
         if let Some(s) = self.state.take() {
@@ -433,10 +433,10 @@ struct Draft {}
 
 impl State for Draft {
 <span class="boring">    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;State&gt; {
-        Box::new(PendingReview {})
-    }
-</span>#
-    // --snip--
+</span><span class="boring">        Box::new(PendingReview {})
+</span><span class="boring">    }
+</span><span class="boring">
+</span>    // --snip--
     fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;State&gt; {
         self
     }
@@ -446,10 +446,10 @@ struct PendingReview {}
 
 impl State for PendingReview {
 <span class="boring">    fn request_review(self: Box&lt;Self&gt;) -&gt; Box&lt;State&gt; {
-        self
-    }
-</span>#
-    // --snip--
+</span><span class="boring">        self
+</span><span class="boring">    }
+</span><span class="boring">
+</span>    // --snip--
     fn approve(self: Box&lt;Self&gt;) -&gt; Box&lt;State&gt; {
         Box::new(Published {})
     }
@@ -467,7 +467,7 @@ impl State for Published {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-16: <code>Post</code> 및 <code>State</code> 트레잇에
 대한 <code>approve</code> 메소드 구현하기</span></p>
 <p>우리는 <code>approve</code> 메소드를 <code>State</code> 트레잇에 추가했고 <code>State</code>를 구현하는
@@ -484,16 +484,16 @@ impl State for Published {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-trait State {
-    fn content&lt;'a&gt;(&amp;self, post: &amp;'a Post) -&gt; &amp;'a str;
-}
-pub struct Post {
-    state: Option&lt;Box&lt;State&gt;&gt;,
-    content: String,
-}
-</span>#
-impl Post {
+</span><span class="boring">fn main() {
+</span><span class="boring">trait State {
+</span><span class="boring">    fn content&lt;'a&gt;(&amp;self, post: &amp;'a Post) -&gt; &amp;'a str;
+</span><span class="boring">}
+</span><span class="boring">pub struct Post {
+</span><span class="boring">    state: Option&lt;Box&lt;State&gt;&gt;,
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Post {
     // --snip--
     pub fn content(&amp;self) -&gt; &amp;str {
         self.state.as_ref().unwrap().content(&amp;self)
@@ -501,7 +501,7 @@ impl Post {
     // --snip--
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-17: <code>State</code>의 <code>content</code> 메소드를
 위임하기 위한 <code>Post</code>의 메소드 갱신하기</span></p>
 <p>목표하는 바가 <code>State</code>를 구현하는 구조체들 내에서 이 모든 규칙을 유지하는 것이기
@@ -527,10 +527,10 @@ impl Post {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub struct Post {
-    content: String
-}
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct Post {
+</span><span class="boring">    content: String
+</span><span class="boring">}
 </span>trait State {
     // --snip--
     fn content&lt;'a&gt;(&amp;self, post: &amp;'a Post) -&gt; &amp;'a str {
@@ -548,7 +548,7 @@ impl State for Published {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-18: <code>State</code> 트레잇에 <code>content</code> 메소드
 추가하기</span></p>
 <p>우리는 빈 스트링 슬라이스를 반환하는 <code>content</code> 메소드의 기본 구현을 추가합니다.
@@ -640,7 +640,7 @@ impl State for Published {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub struct Post {
     content: String,
 }
@@ -667,7 +667,7 @@ impl DraftPost {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-19: <code>content</code> 메소드가 있는
 <code>Post</code>와 <code>content</code> 메소드가 없는 <code>DraftPost</code></span></p>
 <p><code>Post</code>와 <code>DraftPost</code> 구조체 모두 비공개인 <code>content</code> 필드를 가지고
@@ -695,16 +695,16 @@ impl DraftPost {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub struct Post {
-    content: String,
-}
-</span>#
-<span class="boring">pub struct DraftPost {
-    content: String,
-}
-</span>#
-impl DraftPost {
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct Post {
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct DraftPost {
+</span><span class="boring">    content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl DraftPost {
     // --snip--
 
     pub fn request_review(self) -&gt; PendingReviewPost {
@@ -726,7 +726,7 @@ impl PendingReviewPost {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-20: <code>DraftPost</code>의 <code>request_review</code>를
 호출하여 생성되는 <code>PendingReviewPost</code> 및 <code>PendingReviewPost</code>를 게시된
 <code>Post</code>로 전환하는 <code>approve</code> 메소드</span></p>

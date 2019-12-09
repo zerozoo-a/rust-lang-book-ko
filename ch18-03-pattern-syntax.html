@@ -157,7 +157,7 @@
 다음 코드가 예시입니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let x = 1;
 
 match x {
@@ -167,7 +167,7 @@ match x {
     _ =&gt; println!(&quot;anything&quot;),
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>x</code> 의 값이 1 이기 때문에 이 코드는 <code>one</code> 을 출력합니다.
 이 구문은 특정한 구체적인 값을 가질때 행동하도록
 여러분의 코드를 작성하는데 도움이 됩니다.</p>
@@ -228,7 +228,7 @@ Listing 18-11 에서 <code>Some(5)</code> 값으로 <code>x</code> 변수를 선
 실행됩니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let x = 1;
 
 match x {
@@ -237,7 +237,7 @@ match x {
     _ =&gt; println!(&quot;anything&quot;),
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>따라서 코드는 <code>one or two</code> 를 출력합니다.</p>
 <h3><a class="header" href="#-를-이용한-값의-범위-매칭" id="-를-이용한-값의-범위-매칭"><code>...</code> 를 이용한 값의 범위 매칭</a></h3>
 <p>우린 <code>...</code> 구문을 이용해 값의 범위 내에 매치시킬 수 있습니다.
@@ -245,7 +245,7 @@ match x {
 해당 갈래가 실행됩니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let x = 5;
 
 match x {
@@ -253,7 +253,7 @@ match x {
     _ =&gt; println!(&quot;something else&quot;),
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>만약 <code>x</code> 가 1, 2, 3, 4, 5 중 하나라면 첫번째 갈래와 매치됩니다.
 우리가 같은 코드를 앞서 설명한 <code>|</code> 이용해 작성했다면
 <code>1 | 2 | 3 | 4 | 5</code> 라고 써야 했겠지만, 이 구문을 이용하면
@@ -265,7 +265,7 @@ match x {
 <p><code>char</code> 값의 범위를 이용하는 예시는 여기 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let x = 'c';
 
 match x {
@@ -274,7 +274,7 @@ match x {
     _ =&gt; println!(&quot;something else&quot;),
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>러스트는 <code>c</code> 가 첫번째 패턴(앞쪽 순서의 알파벳들)의 범위 안에 속한다는 것을
 알아낼 수 있고, <code>early ASCII letter</code> 을 출력합니다.</p>
 <h3><a class="header" href="#값을-해체하여-분리하기" id="값을-해체하여-분리하기">값을 해체하여 분리하기</a></h3>
@@ -339,11 +339,11 @@ fn main() {
 혹은 그 외일 경우:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">struct Point {
-    x: i32,
-    y: i32,
-}
-</span>#
-fn main() {
+</span><span class="boring">    x: i32,
+</span><span class="boring">    y: i32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     let p = Point { x: 0, y: 7 };
 
     match p {
@@ -435,13 +435,13 @@ variant 명 뒤에 중괄호를 작성하고, 해당 갈래에서
 간단하게 <code>x</code> 와 <code>y</code> 값을 계산할 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-struct Point {
-    x: i32,
-    y: i32,
-}
-</span>#
-let points = vec![
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Point {
+</span><span class="boring">    x: i32,
+</span><span class="boring">    y: i32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>let points = vec![
     Point { x: 0, y: 0 },
     Point { x: 1, y: 5 },
     Point { x: 10, y: -3 },
@@ -452,7 +452,7 @@ let sum_of_squares: i32 = points
     .map(|&amp;Point { x, y }| x * x + y * y)
     .sum();
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 18-16: 구조체 참조자를
 구조체 필드 값들로 해체하기</span></p>
 <p>이 코드의 <code>sum_of_squares</code> 변수는 135 의 값을 갖습니다.
@@ -479,15 +479,15 @@ let sum_of_squares: i32 = points
 얻는 복잡한 해체를 보여줍니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-struct Point {
-    x: i32,
-    y: i32,
-}
-</span>#
-let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Point {
+</span><span class="boring">    x: i32,
+</span><span class="boring">    y: i32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 코드는 우리가 복잡한 타입의 컴포넌트를 분리하고
 각각의 값을 사용할 수 있게 합니다.</p>
 <p>패턴을 이용한 해체는 구조체의 각 필드값과 같은 일부의 값을 서로 별도로
@@ -534,7 +534,7 @@ Listing 18-18 은 설정 값을 관리하는 코드를 보여줍니다.
 가능해야 한다는 것입니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut setting_value = Some(5);
 let new_setting_value = Some(10);
 
@@ -549,7 +549,7 @@ match (setting_value, new_setting_value) {
 
 println!(&quot;setting is {:?}&quot;, setting_value);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 18-18: <code>Some</code> 내부 값이 필요하지 않은
 상황에서 패턴 내에 언더스코어를 사용해 <code>Some</code> varaint 와
 매치시키기</span></p>
@@ -567,7 +567,7 @@ println!(&quot;setting is {:?}&quot;, setting_value);
 두 번째와 네 번째 요소만 무시하는 예제입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let numbers = (2, 4, 8, 16, 32);
 
 match numbers {
@@ -576,7 +576,7 @@ match numbers {
     },
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 18-19: 튜플의 여러 부분 무시하기</span></p>
 <p>이 코드는 <code>Some numbers: 2, 8, 32</code> 를 출력하고,
 4 와 16 은 무시됩니다.</p>
@@ -618,7 +618,7 @@ println!(&quot;{:?}&quot;, s);
 컴파일 시 어떤 에러도 발생하지 않습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let s = Some(String::from(&quot;Hello!&quot;));
 
 if let Some(_) = s {
@@ -627,7 +627,7 @@ if let Some(_) = s {
 
 println!(&quot;{:?}&quot;, s);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 18-22: 언더스코어를 사용하면
 값이 바인드되지 않습니다</span></p>
 <p>우린 <code>s</code> 를 어느 것에도 바인드하지 않았습니다; 따라서 <code>s</code> 는 이동하지 않고, 이 코드는 잘 작동합니다.</p>
@@ -641,7 +641,7 @@ println!(&quot;{:?}&quot;, s);
 무시합니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>struct Point {
     x: i32,
     y: i32,
@@ -654,7 +654,7 @@ match origin {
     Point { x, .. } =&gt; println!(&quot;x is {}&quot;, x),
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 18-23: <code>..</code> 를 사용해
 <code>Point</code> 의 <code>x</code> 필드 외 모든 필드 무시하기</span></p>
 <p><code>x</code> 를 나열하고, <code>..</code> 패턴을 포함했습니다.
@@ -744,7 +744,7 @@ println!(&quot;robot_name is: {:?}&quot;, robot_name);
 패턴 내에서 참조자를 생성할 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let robot_name = Some(String::from(&quot;Bors&quot;));
 
 match robot_name {
@@ -754,7 +754,7 @@ match robot_name {
 
 println!(&quot;robot_name is: {:?}&quot;, robot_name);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 18-27: 패턴 변수가 값의 소유권을 갖지 않도록
 참조자 생성하기</span></p>
 <p><code>robot_name</code> 의 <code>Some</code> 내 variant 값이 <code>match</code> 로 이동하지 않기 때문에
@@ -767,7 +767,7 @@ println!(&quot;robot_name is: {:?}&quot;, robot_name);
 생성하는 패턴의 에시를 보여줍니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut robot_name = Some(String::from(&quot;Bors&quot;));
 
 match robot_name {
@@ -777,7 +777,7 @@ match robot_name {
 
 println!(&quot;robot_name is: {:?}&quot;, robot_name);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 18-28: <code>ref mut</code> 를 이용해 패턴 내에서
 가변 참조자 생성하기</span></p>
 <p>이 예제는 문제 없이 컴파일되고 <code>robot_name is: Some(&quot;Another name&quot;)</code> 를
@@ -793,7 +793,7 @@ Listing 18-29 에서 <code>match</code> 의 첫 번째 갈래가 <code>Some(x)</
 <code>if x &lt; 5</code> 매치 가드를 갖는 것을 볼 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let num = Some(4);
 
 match num {
@@ -802,7 +802,7 @@ match num {
     None =&gt; (),
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 18-29: 패턴에 매치 가드 추가</span></p>
 <p>이 예제는 <code>less than five: 4</code> 를 출력합니다. <code>num</code> 이 첫 번째 갈래에서
 비교될 때, <code>Some(4)</code> 는 <code>Some(x)</code> 에 매치되기 때문에 매치됩니다.
@@ -854,7 +854,7 @@ Listing 18-31 은 매치 가드 앞에 <code>|</code> 를 이용한 다중 패�
 것입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let x = 4;
 let y = false;
 
@@ -863,7 +863,7 @@ match x {
     _ =&gt; println!(&quot;no&quot;),
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 18-31: 다중 패턴과
 매치 가드의 결합</span></p>
 <p>갈래의 매치 조건 상태는 <code>x</code> 가 <code>4</code>, <code>5</code>, <code>6</code> 중 하나이고
@@ -893,7 +893,7 @@ match x {
 이번 예제에선 다른 이름을 사용하겠습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>enum Message {
     Hello { id: i32 },
 }
@@ -912,7 +912,7 @@ match msg {
     },
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 18-32: 패턴 내에서 값을 테스트하는 동시에
 <code>@</code> 를 이용해 값 바인드하기</span></p>
 <p>이 예제는 <code>Found an id in range: 5</code> 를 출력할 겁니다.

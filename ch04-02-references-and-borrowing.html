@@ -177,15 +177,15 @@ fn calculate_length(s: &amp;String) -&gt; usize {
 <p>함수 호출 부분을 좀더 자세히 봅시다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-fn calculate_length(s: &amp;String) -&gt; usize {
-    s.len()
-}
+</span><span class="boring">fn main() {
+</span><span class="boring">fn calculate_length(s: &amp;String) -&gt; usize {
+</span><span class="boring">    s.len()
+</span><span class="boring">}
 </span>let s1 = String::from(&quot;hello&quot;);
 
 let len = calculate_length(&amp;s1);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>&amp;s1</code> 문법은 우리가 <code>s1</code>의 값을 <em>참조</em>하지만 소유하지는 않는 참조자를 생성하도록
 해줍니다. 소유권을 갖고 있지는 않기 때문에, 이 참조자가 가리키는 값은 참조자가 스코프
 밖으로 벗어났을 때도 메모리가 반납되지 않을 것입니다.</p>
@@ -193,13 +193,13 @@ let len = calculate_length(&amp;s1);
 있습니다. 설명을 위한 주석을 달아봅시다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>fn calculate_length(s: &amp;String) -&gt; usize { // s는 String의 참조자입니다
     s.len()
 } // 여기서 s는 스코프 밖으로 벗어났습니다. 하지만 가리키고 있는 값에 대한 소유권이 없기
   // 때문에, 아무런 일도 발생하지 않습니다.
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>변수 <code>s</code>가 유효한 스코프는 여느 함수의 파라미터의 스코프와 동일하지만, 소유권을 갖고
 있지 않으므로 이 참조자가 스코프 밖으로 벗어났을 때 참조자가 가리키고 있는 값은 버리지
 않습니다. 또한 실제 값 대신 참조자를 파라미터로 갖고 있는 함수는 소유권을 갖고 있지
@@ -282,7 +282,7 @@ let r2 = &amp;mut s;
 만드는 것이 아니게 해줌으로써, 여러 개의 가변 참조자를 만들 수 있도록 해줍니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut s = String::from(&quot;hello&quot;);
 
 {
@@ -292,7 +292,7 @@ fn main() {
 
 let r2 = &amp;mut s;
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>가변 참조자와 불변 참조자를 혼용할 경우에 대한 비슷한 규칙이 있습니다. 아래 코드는
 컴파일 오류가 발생합니다:</p>
 <pre><code class="language-rust ignore">let mut s = String::from(&quot;hello&quot;);
@@ -376,14 +376,14 @@ for it to be borrowed from.
 <p>여기서의 해법은 <code>String</code>을 직접 반환하는 것입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>fn no_dangle() -&gt; String {
     let s = String::from(&quot;hello&quot;);
 
     s
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 코드는 아무런 문제없이 동작합니다. 소유권이 밖으로 이동되었고, 아무것도 할당 해제되지 않습니다.</p>
 <h3><a class="header" href="#참조자의-규칙" id="참조자의-규칙">참조자의 규칙</a></h3>
 <p>우리가 참조자에 대해 논의한 것들을 정리해 봅시다:</p>

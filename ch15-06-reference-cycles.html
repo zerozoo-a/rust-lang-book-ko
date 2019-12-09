@@ -169,8 +169,8 @@ doc tests do; the `use List` fails if this listing is put within a main -->
 use std::cell::RefCell;
 use List::{Cons, Nil};
 
-<span class="boring">[derive(Debug)]
-</span>enum List {
+#[derive(Debug)]
+enum List {
     Cons(i32, RefCell&lt;Rc&lt;List&gt;&gt;),
     Nil,
 }
@@ -199,24 +199,24 @@ impl List {
 보기 위해 곳곳에 <code>println!</code> 구문들이 있습니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">use List::{Cons, Nil};
-use std::rc::Rc;
-use std::cell::RefCell;
-#[derive(Debug)]
-enum List {
-    Cons(i32, RefCell&lt;Rc&lt;List&gt;&gt;),
-    Nil,
-}
-</span>#
-<span class="boring">impl List {
-    fn tail(&amp;self) -&gt; Option&lt;&amp;RefCell&lt;Rc&lt;List&gt;&gt;&gt; {
-        match *self {
-            Cons(_, ref item) =&gt; Some(item),
-            Nil =&gt; None,
-        }
-    }
-}
-</span>#
-fn main() {
+</span><span class="boring">use std::rc::Rc;
+</span><span class="boring">use std::cell::RefCell;
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">enum List {
+</span><span class="boring">    Cons(i32, RefCell&lt;Rc&lt;List&gt;&gt;),
+</span><span class="boring">    Nil,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl List {
+</span><span class="boring">    fn tail(&amp;self) -&gt; Option&lt;&amp;RefCell&lt;Rc&lt;List&gt;&gt;&gt; {
+</span><span class="boring">        match *self {
+</span><span class="boring">            Cons(_, ref item) =&gt; Some(item),
+</span><span class="boring">            Nil =&gt; None,
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     let a = Rc::new(Cons(5, RefCell::new(Rc::new(Nil))));
 
     println!(&quot;a initial rc count = {}&quot;, Rc::strong_count(&amp;a));
@@ -330,17 +330,17 @@ a rc count after changing a = 2
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::rc::Rc;
 use std::cell::RefCell;
 
-<span class="boring">[derive(Debug)]
-</span>struct Node {
+#[derive(Debug)]
+struct Node {
     value: i32,
     children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>우리는 <code>Node</code>가 자신의 자식들을 소유하기를 원하고, 이 소유권을 공유하여 트리의 각
 <code>Node</code>에 직접 접근할 수 있도록 하기를 원합니다. 이를 하기 위해서 <code>Vec&lt;T&gt;</code> 아이템이
 <code>Rc&lt;Node&gt;</code> 타입의 값이 되도록 정의하였습니다. 또한 우리는 어떤 노드가 다른 노드의
@@ -351,15 +351,15 @@ use std::cell::RefCell;
 자식으로 갖는 <code>branch</code>라는 이름의 인스턴스를 만들도록 하겠습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::rc::Rc;
-use std::cell::RefCell;
-</span>#
-<span class="boring">#[derive(Debug)]
-struct Node {
-    value: i32,
-   children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
-}
-</span>#
-fn main() {
+</span><span class="boring">use std::cell::RefCell;
+</span><span class="boring">
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Node {
+</span><span class="boring">    value: i32,
+</span><span class="boring">   children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     let leaf = Rc::new(Node {
         value: 3,
         children: RefCell::new(vec![]),
@@ -396,33 +396,33 @@ fn main() {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::rc::{Rc, Weak};
 use std::cell::RefCell;
 
-<span class="boring">[derive(Debug)]
-</span>struct Node {
-    value: i32,
-    parent: RefCell&lt;Weak&lt;Node&gt;&gt;,
-    children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
-}
-<span class="boring">}
-</code></pre></pre>
-<p>노드는 그의 부모 노드를 참조할 수 있게 되겠지만 그 부모를 소유하지는 않습니다.
-Listing 15-28에서, 우리는 이 새로운 정의를 사용하도록 <code>main</code>을 업데이트하여
-<code>leaf</code> 노드가 그의 부모인 <code>branch</code>를 참조할 수 있는 방법을 갖도록 할 것입니다:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::rc::{Rc, Weak};
-use std::cell::RefCell;
-</span>#
-<span class="boring">#[derive(Debug)]
+#[derive(Debug)]
 struct Node {
     value: i32,
     parent: RefCell&lt;Weak&lt;Node&gt;&gt;,
     children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
 }
-</span>#
-fn main() {
+<span class="boring">}
+</span></code></pre></pre>
+<p>노드는 그의 부모 노드를 참조할 수 있게 되겠지만 그 부모를 소유하지는 않습니다.
+Listing 15-28에서, 우리는 이 새로운 정의를 사용하도록 <code>main</code>을 업데이트하여
+<code>leaf</code> 노드가 그의 부모인 <code>branch</code>를 참조할 수 있는 방법을 갖도록 할 것입니다:</p>
+<p><span class="filename">Filename: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::rc::{Rc, Weak};
+</span><span class="boring">use std::cell::RefCell;
+</span><span class="boring">
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Node {
+</span><span class="boring">    value: i32,
+</span><span class="boring">    parent: RefCell&lt;Weak&lt;Node&gt;&gt;,
+</span><span class="boring">    children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     let leaf = Rc::new(Node {
         value: 3,
         parent: RefCell::new(Weak::new()),
@@ -479,16 +479,16 @@ children: RefCell { value: [] } }] } })
 Listing 15-29와 같습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::rc::{Rc, Weak};
-use std::cell::RefCell;
-</span>#
-<span class="boring">#[derive(Debug)]
-struct Node {
-    value: i32,
-    parent: RefCell&lt;Weak&lt;Node&gt;&gt;,
-    children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
-}
-</span>#
-fn main() {
+</span><span class="boring">use std::cell::RefCell;
+</span><span class="boring">
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Node {
+</span><span class="boring">    value: i32,
+</span><span class="boring">    parent: RefCell&lt;Weak&lt;Node&gt;&gt;,
+</span><span class="boring">    children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     let leaf = Rc::new(Node {
         value: 3,
         parent: RefCell::new(Weak::new()),

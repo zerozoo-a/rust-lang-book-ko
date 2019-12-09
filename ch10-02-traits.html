@@ -175,12 +175,12 @@
 <p><span class="filename">Filename: lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub trait Summarizable {
     fn summary(&amp;self) -&gt; String;
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 10-11: <code>summary</code> 메소드에 의해 제공되는 동작으로 구성된
 <code>Summarizable</code> 트레잇의 정의</span></p>
 <p><code>trait</code> 키워드 다음 트레잇의 이름, 위의 경우 <code>Summarizable</code>을 써서 트레잇을 선언했습니다.
@@ -201,12 +201,12 @@ fn main() {
 <p><span class="filename">Filename: lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub trait Summarizable {
-    fn summary(&amp;self) -&gt; String;
-}
-</span>#
-pub struct NewsArticle {
+</span><span class="boring">fn main() {
+</span><span class="boring">pub trait Summarizable {
+</span><span class="boring">    fn summary(&amp;self) -&gt; String;
+</span><span class="boring">}
+</span><span class="boring">
+</span>pub struct NewsArticle {
     pub headline: String,
     pub location: String,
     pub author: String,
@@ -232,7 +232,7 @@ impl Summarizable for Tweet {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 10-12: <code>NewsArticle</code>과 <code>Tweet</code> 타입 상에서의
 <code>Summarizable</code> 트레잇 구현</span></p>
 <p>어떤 타입 상에서의 트레잇 구현은 트레잇과 관련이 없는 메소드를 구현하는 것과 유사합니다. 다른 점은
@@ -304,14 +304,14 @@ impl Summarizable for WeatherForecast {
 <p><span class="filename">Filename: lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub trait Summarizable {
     fn summary(&amp;self) -&gt; String {
         String::from(&quot;(Read more...)&quot;)
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 10-14: <code>summary</code> 메소드의 기본 구현을 포함한
 <code>Summarizable</code> 트레잇의 정의</span></p>
 <p>만일 우리가 Listing 10-12에서 한 것과 같은 커스텀 구현을 정의하는 대신 <code>NewsArticle</code>의
@@ -344,7 +344,7 @@ println!(&quot;New article available! {}&quot;, article.summary());
 메소드를 호출하는 기본 구현을 갖는 형태를 선택할 수도 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub trait Summarizable {
     fn author_summary(&amp;self) -&gt; String;
 
@@ -353,7 +353,7 @@ fn main() {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 버전의 <code>Summarizable</code>을 사용하기 위해서는, 어떤 타입에 대한 이 트레잇을 구현할 때
 <code>author_summary</code>만 정의하면 됩니다:</p>
 <pre><code class="language-rust ignore">impl Summarizable for Tweet {

@@ -210,7 +210,7 @@ impl Parser {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>struct Context&lt;'a&gt;(&amp;'a str);
 
 struct Parser&lt;'a&gt; {
@@ -223,7 +223,7 @@ impl&lt;'a&gt; Parser&lt;'a&gt; {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-13: <code>Context</code>와 <code>Parser</code>의 모든 참조자에 라이프타임
 파라미터 명시하기</span></p>
 <p>이 코드는 잘 컴파일됩니다. 이 코드는 러스트에게 <code>Parser</code>가 라이프타임이 <code>'a</code>인
@@ -389,14 +389,14 @@ note: but the referenced data is only valid for the lifetime 's as defined on th
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-struct Context&lt;'a&gt;(&amp;'a str);
-</span>#
-struct Parser&lt;'c, 's: 'c&gt; {
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Context&lt;'a&gt;(&amp;'a str);
+</span><span class="boring">
+</span>struct Parser&lt;'c, 's: 'c&gt; {
     context: &amp;'c Context&lt;'s&gt;,
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이제 <code>Parser</code> 내에 있는 <code>Context</code>에 대한 참조자와 <code>Context</code> 내의 스트링 슬라이스를
 가리키는 참조자는 다른 라이프타임을 갖습니다; 우리는 스트링 슬라이스의 라이프타임이
 <code>Context</code>를 가리키는 참조자보다 더 오래 살 것이란 보장을 했습니다.</p>
@@ -448,10 +448,10 @@ note: ...so that the reference type `&amp;'a T` does not outlive the data it poi
 이 조언을 어떻게 적용하는지를 보여줍니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>struct Ref&lt;'a, T: 'a&gt;(&amp;'a T);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-17: <code>T</code> 상의 라이프타임 바운드를 추가하여
 <code>T</code> 내의 어떠한 참조자들도 최소한 <code>'a</code>만큼 오래 살 것임을 명시하기</span></p>
 <p>이 코드는 이제 컴파일되는데, <code>T: 'a</code> 문법을 사용하면 <code>T</code>가 어떤 타입이든 될 수 있지만,
@@ -463,10 +463,10 @@ fn main() {
 라이프타임을 가져야 함을 의미합니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>struct StaticRef&lt;T: 'static&gt;(&amp;'static T);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-18: <code>'static</code> 라이프타임 바운드를
 <code>T</code>에 추가하여 <code>T</code>가 오직 <code>'static</code> 참조자만을 갖거나 아무런 참조자도 없도록
 제한하기</span></p>

@@ -168,15 +168,15 @@ $ cd communicator
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[cfg(test)]
-</span>mod tests {
-<span class="boring">    [test]
-</span>    fn it_works() {
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>카고는 우리가 만든 라이브러리의 작성 시작을 돕기 위해 빈 테스트를 만드는데,
 이는 <code>--bin</code> 옵션을 사용했을때 “Hello, world!” 바이너리를 만들어준 것과 사뭇
 다릅니다. <code>#[]</code>와 <code>mod tests</code> 문법은 이 장의 “<code>super</code>를 이용하여 부모 모듈에
@@ -195,13 +195,13 @@ fn main() {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>mod network {
     fn connect() {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>mod</code> 키워드 뒤에, 모듈의 이름 <code>network</code>가 쓰여지고 중괄호 안에 코드 블록이 옵니다.
 이 블록 안의 모든 것은 이름공간 <code>network</code> 안에 있습니다. 위의 경우 <code>connect</code>라는
 이름의 함수 하나가 있습니다. 이 함수를 <code>network</code> 모듈 바깥의 스크립트에서 호출하고자
@@ -213,7 +213,7 @@ Listing 7-1에 보시는 바와 같이 이를 추가할 수 있습니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>mod network {
     fn connect() {
     }
@@ -224,7 +224,7 @@ mod client {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 7-1: <em>src/lib.rs</em> 내에 나란히 정의된 <code>network</code>
 모듈과 <code>client</code> 모듈</span></p>
 <p>이제 우리는 <code>network::connect</code> 함수와 <code>client::connect</code> 함수를 갖게 되었습니다.
@@ -243,7 +243,7 @@ mod client {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>mod network {
     fn connect() {
     }
@@ -254,7 +254,7 @@ fn main() {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 7-2: <code>client</code> 모듈을 <code>network</code> 모듈 안으로 이동</span></p>
 <p><em>src/lib.rs</em> 파일에서 Listing 7-2와 같이 <code>client</code> 모듈이 <code>network</code> 모듈의
 내부 모듈이 되도록 <code>mod network</code>와 <code>mod client</code>의 위치를 바꿔 봅시다. 이제
@@ -288,7 +288,7 @@ fn main() {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>mod client {
     fn connect() {
     }
@@ -304,7 +304,7 @@ mod network {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 7-3: 세 개의 모듈 <code>client</code>, <code>network</code>, <code>network::server</code>가
 모두 <em>src/lib.rs</em>에 정의되어 있음</span></p>
 <p>파일 <em>src/lib.rs</em>는 아래와 같은 모듈 계층을 갖고 있습니다:</p>
@@ -346,11 +346,11 @@ mod network {
 <p><span class="filename">Filename: src/client.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>fn connect() {
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이미 <em>src/lib.rs</em> 안에다 <code>client</code> 모듈을 <code>mod</code>를 이용하여 선언을 했기 때문에,
 이 파일 안에는 <code>mod</code> 선언이 필요없다는 점을 기억하세요. 이 파일은 단지 <code>client</code> 모듈의 <em>내용물</em>만
 제공할 뿐입니다. 만일 <code>mod client</code>를 여기에 또 집어넣는다면, 이는 <code>client</code> 모듈 내에 서브모듈
@@ -397,7 +397,7 @@ mod network;
 <p><span class="filename">Filename: src/network.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>fn connect() {
 }
 
@@ -406,7 +406,7 @@ mod server {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 모듈 파일 내에는 <code>mod</code> 선언이 여전히 있음을 주목하세요; 이는 <code>server</code>가 <code>network</code>의 서브모듈로서
 여전히 필요하기 때문입니다.</p>
 <p><code>cargo build</code>를 다시 실행시키세요. 성공! 여기 또 추출할만한 모듈이 하나 더 있습니다: <code>server</code> 말이죠.
@@ -423,11 +423,11 @@ mod server;
 <p><span class="filename">Filename: src/server.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>fn connect() {
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>cargo build</code>를 실행해보면, Listing 7-4와 같은 에러를 얻게 됩니다:</p>
 <pre><code class="language-text">$ cargo build
    Compiling communicator v0.1.0 (file:///projects/communicator)

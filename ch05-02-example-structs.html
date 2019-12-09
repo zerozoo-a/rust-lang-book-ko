@@ -296,8 +296,8 @@ crate, add `#[derive(Debug)]` or manually implement it
 활성화하도록 명시적인 사전동의를 해주어야 합니다. 그러기 위해서, Listing 5-11에서 보는 바와 같이
 구조체 정의부분 바로 전에 <code>#[derive(Debug)]</code> 어노테이션을 추가합니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">[derive(Debug)]
-</span>struct Rectangle {
+<pre><pre class="playpen"><code class="language-rust">#[derive(Debug)]
+struct Rectangle {
     length: u32,
     width: u32,
 }

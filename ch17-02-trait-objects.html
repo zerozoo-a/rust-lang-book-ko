@@ -208,12 +208,12 @@ GUI 도구들에게 있어서는 흔한 방식이죠. 우리가 만들 라이브
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub trait Draw {
     fn draw(&amp;self);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-3: <code>Draw</code> 트레잇의 정의</span></p>
 <p>이 문법은 10장에 있는 트레잇을 정의하는 방법에서 다뤘으니 익숙하실 겁니다.
 다음에 새로운 문법이 등장합니다: Listing 17-4는 <code>components</code> 라는
@@ -223,16 +223,16 @@ fn main() {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub trait Draw {
-    fn draw(&amp;self);
-}
-</span>#
-pub struct Screen {
+</span><span class="boring">fn main() {
+</span><span class="boring">pub trait Draw {
+</span><span class="boring">    fn draw(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span>pub struct Screen {
     pub components: Vec&lt;Box&lt;Draw&gt;&gt;,
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-4: <code>Draw</code> 트레잇을
 구현하는 트레잇 객체들의 벡터 항목 <code>components</code>를 소유한 구조체
 <code>Screen</code></span></p>
@@ -241,16 +241,16 @@ pub struct Screen {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub trait Draw {
-    fn draw(&amp;self);
-}
-</span>#
-<span class="boring">pub struct Screen {
-    pub components: Vec&lt;Box&lt;Draw&gt;&gt;,
-}
-</span>#
-impl Screen {
+</span><span class="boring">fn main() {
+</span><span class="boring">pub trait Draw {
+</span><span class="boring">    fn draw(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct Screen {
+</span><span class="boring">    pub components: Vec&lt;Box&lt;Draw&gt;&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Screen {
     pub fn run(&amp;self) {
         for component in self.components.iter() {
             component.draw();
@@ -258,7 +258,7 @@ impl Screen {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-5: 각 컴포넌트에 대해 <code>draw</code> 메소드를
 호출하는 <code>Screen</code>의 <code>run</code> 메소드</span></p>
 <p>이것은 트레잇 바운드와 함께 제네릭 타입 파라미터를 사용하는 구조체를
@@ -270,12 +270,12 @@ impl Screen {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub trait Draw {
-    fn draw(&amp;self);
-}
-</span>#
-pub struct Screen&lt;T: Draw&gt; {
+</span><span class="boring">fn main() {
+</span><span class="boring">pub trait Draw {
+</span><span class="boring">    fn draw(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span>pub struct Screen&lt;T: Draw&gt; {
     pub components: Vec&lt;T&gt;,
 }
 
@@ -288,7 +288,7 @@ impl&lt;T&gt; Screen&lt;T&gt;
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-6: 제네릭과 트레잇 바운드를 사용한
 <code>Screen</code> 구조체와 <code>run</code> 메소드의 대체 구현</span></p>
 <p>이렇게하면 전부 <code>Button</code> 타입 혹은 전부 <code>TextField</code> 타입인 컴포넌트
@@ -308,12 +308,12 @@ impl&lt;T&gt; Screen&lt;T&gt;
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub trait Draw {
-    fn draw(&amp;self);
-}
-</span>#
-pub struct Button {
+</span><span class="boring">fn main() {
+</span><span class="boring">pub trait Draw {
+</span><span class="boring">    fn draw(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span>pub struct Button {
     pub width: u32,
     pub height: u32,
     pub label: String,
@@ -325,7 +325,7 @@ impl Draw for Button {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-7: <code>Draw</code> 트레잇을 구현하는
 <code>Button</code> 구조체</span></p>
 <p><code>Button</code>의 <code>width</code>, <code>height</code> 및 <code>label</code> 필드는 다른 컴포넌트와는
@@ -485,12 +485,12 @@ Listing 17-9과 같은 지원이 가능해졌으니, 여기에는 고려할 기�
 다음과 같습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub trait Clone {
     fn clone(&amp;self) -&gt; Self;
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>String</code> 타입은 <code>Clone</code> 트레잇을 구현하고, <code>String</code> 인스턴스에 대하여
 <code>clone</code> 메소드를 호출하면 우리는 <code>String</code>의 인스턴스를 반환받을 수 있습니다.
 비슷하게, 우리가 <code>Vec&lt;T&gt;</code>의 인스턴스 상의 <code>clone</code>을 호출하면, 우리는 <code>Vec&lt;T&gt;</code>

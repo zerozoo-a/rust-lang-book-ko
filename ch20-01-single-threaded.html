@@ -384,9 +384,9 @@ CRLF 시퀀스 이후는 헤더, 또 다른 CRLF의 뒤는 응답의 body가 들
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::io::prelude::*;
-use std::net::TcpStream;
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpStream;
 </span>fn handle_connection(mut stream: TcpStream) {
     let mut buffer = [0; 512];
 
@@ -398,7 +398,7 @@ use std::net::TcpStream;
     stream.flush().unwrap();
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">예제 20-3: 스트림에 간단한 HTTP 응답 성공 메시지
 작성하기</span></p>
 <p>첫번째 새 줄에선 응답 메시지를 저장할 <code>response</code> 변수를 선언했습니다.
@@ -442,9 +442,9 @@ use std::net::TcpStream;
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::io::prelude::*;
-use std::net::TcpStream;
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpStream;
 </span>use std::fs::File;
 // --생략--
 
@@ -463,7 +463,7 @@ fn handle_connection(mut stream: TcpStream) {
     stream.flush().unwrap();
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">예제 20-5: <em>hello.html</em> 의 내용을 응답의
 body에 넣고 전송하기</span></p>
 <p>맨 윗줄에서 <code>File</code> 표준 라이브러리를 가져왔습니다.
@@ -491,10 +491,10 @@ body에 넣고 전송하기</span></p>
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::io::prelude::*;
-use std::net::TcpStream;
-use std::fs::File;
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpStream;
+</span><span class="boring">use std::fs::File;
 </span>// --생략--
 
 fn handle_connection(mut stream: TcpStream) {
@@ -518,7 +518,7 @@ fn handle_connection(mut stream: TcpStream) {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">예제 20-6: 요청을 비교하고 <code>/</code> 로의 요청을
 다른 요청들과 다르게 처리하기</span></p>
 <p>먼저, 우리는 <code>/</code> 로의 요청에 해당하는 데이터를 <code>get</code> 변수에 하드코딩했습니다.
@@ -542,12 +542,12 @@ fn handle_connection(mut stream: TcpStream) {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::io::prelude::*;
-use std::net::TcpStream;
-use std::fs::File;
-fn handle_connection(mut stream: TcpStream) {
-if true {
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpStream;
+</span><span class="boring">use std::fs::File;
+</span><span class="boring">fn handle_connection(mut stream: TcpStream) {
+</span><span class="boring">if true {
 </span>// --생략--
 
 } else {
@@ -563,8 +563,8 @@ if true {
     stream.flush().unwrap();
 }
 <span class="boring">}
-}
-</code></pre></pre>
+</span><span class="boring">}
+</span></code></pre></pre>
 <p><span class="caption">예제 20-7: <code>/</code> 로의 요청이 아닐 경우
 <code>404</code> 상태 코드와 에러 페이지를 응답</span></p>
 <p>여기서, 우린 <code>404</code> 상태 코드와 <code>NOT FOUND</code> 상태 메시지를 가진
@@ -602,17 +602,17 @@ status line과 파일명을 변수로 맡기도록 합시다.
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::io::prelude::*;
-use std::net::TcpStream;
-use std::fs::File;
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpStream;
+</span><span class="boring">use std::fs::File;
 </span>// --생략--
 
 fn handle_connection(mut stream: TcpStream) {
 <span class="boring">    let mut buffer = [0; 512];
-    stream.read(&amp;mut buffer).unwrap();
-</span>#
-<span class="boring">    let get = b&quot;GET / HTTP/1.1\r\n&quot;;
+</span><span class="boring">    stream.read(&amp;mut buffer).unwrap();
+</span><span class="boring">
+</span><span class="boring">    let get = b&quot;GET / HTTP/1.1\r\n&quot;;
 </span>    // --생략--
 
     let (status_line, filename) = if buffer.starts_with(get) {
@@ -632,7 +632,7 @@ fn handle_connection(mut stream: TcpStream) {
     stream.flush().unwrap();
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">예제 20-9: <code>if</code> 와 <code>else</code> 블록을 각각이 처리하는 내용 중
 다른부분만 포함하도록 리팩토링</span></p>
 <p>이제 <code>if</code>와 <code>else</code> 블록은 오직 각각의 적절한 status line과

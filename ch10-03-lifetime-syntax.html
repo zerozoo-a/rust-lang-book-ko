@@ -239,7 +239,7 @@ looking arrows and labels? /Carol -->
 <p>댕글링 참조자를 만드는 시도가 없고 에러 없이 컴파일되는 Listing 10-18의 예제를 살펴봅시다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>{
     let x = 5;            // -----+-- 'b
                           //      |
@@ -249,7 +249,7 @@ fn main() {
                           // --+  |
 }                         // -----+
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 10-18: 데이터가 참조자에 비해 더 긴 라이프타임을 갖고
 있기 때문에 유효한 참조자</span></p>
 <p>여기서 <code>x</code>는 라이프타임 <code>'b</code>를 갖고 있는데, 위의 경우 <code>'a</code>에 비해 더 큽니다. 이는 <code>r</code>이 <code>x</code>를
@@ -362,7 +362,7 @@ Listing 10-17과 10-18에서 했던 것과 같이 스코프를 살펴볼 수도 
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
     if x.len() &gt; y.len() {
         x
@@ -371,7 +371,7 @@ fn main() {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 10-21: 시그니처 내의 모든 참조자들이 동일한
 라이프타임 <code>'a</code>를 가지고 있어야 함을 특정한 <code>longest</code> 함수 정의</span></p>
 <p>이는 컴파일될 것이고 Listing 10-19에 있는 <code>main</code> 함수에서 사용되었을 때 우리가 원하는 결과를
@@ -403,14 +403,14 @@ fn main() {
 이는 컴파일되며 실행했을 때 <code>The longest string is long string is long</code>를 출력합니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
-    if x.len() &gt; y.len() {
-        x
-    } else {
-        y
-    }
-}
-</span>#
-fn main() {
+</span><span class="boring">    if x.len() &gt; y.len() {
+</span><span class="boring">        x
+</span><span class="boring">    } else {
+</span><span class="boring">        y
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     let string1 = String::from(&quot;long string is long&quot;);
 
     {
@@ -471,12 +471,12 @@ Listing 10-23의 코드는 컴파일되지 않을 것입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;str) -&gt; &amp;'a str {
     x
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 예제에서, 파라미터 <code>x</code>와 반환 값에 대한 라이프타임 파라미터 <code>'a</code>는 특정하였지만, 파라미터 <code>y</code>는
 특정하지 않았는데, 그 이유는 <code>y</code>의 라이프타임이 <code>x</code> 혹은 반환 값의 라이프타임과 어떠한 관련도 없기
 때문입니다.</p>
@@ -547,7 +547,7 @@ fn main() {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>fn first_word(s: &amp;str) -&gt; &amp;str {
     let bytes = s.as_bytes();
 
@@ -560,7 +560,7 @@ fn main() {
     &amp;s[..]
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 10-25: 파라미터와 반환 값의 타입이 참조자임에도 불구하고
 라이프타임 명시 없이 컴파일되었던, 4장에서 정의한 바 있는 함수</span></p>
 <p>이 함수가 라이프타임 없이 컴파일되는 이유는 역사가 있습니다: 1.0 이전 시절의 러스트에서는 이 코드가
@@ -661,36 +661,36 @@ methods. /Carol -->
 반환 값은 무언가에 대한 참조자가 아닌, 그냥 <code>i32</code>입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-struct ImportantExcerpt&lt;'a&gt; {
-    part: &amp;'a str,
-}
-</span>#
-impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
+</span><span class="boring">fn main() {
+</span><span class="boring">struct ImportantExcerpt&lt;'a&gt; {
+</span><span class="boring">    part: &amp;'a str,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
     fn level(&amp;self) -&gt; i32 {
         3
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>impl</code>뒤의 라이프타임 파라미터 선언부와 타입 이름 뒤에서 이를 사용하는 것이 필요하지만, 첫 번째 생략
 규칙때문에 <code>self</code>로의 참조자의 라이프타임을 명시할 필요는 없습니다.</p>
 <p>아래는 세번째 라이프타임 생략 규칙이 적용되는 예제입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-struct ImportantExcerpt&lt;'a&gt; {
-    part: &amp;'a str,
-}
-</span>#
-impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
+</span><span class="boring">fn main() {
+</span><span class="boring">struct ImportantExcerpt&lt;'a&gt; {
+</span><span class="boring">    part: &amp;'a str,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
     fn announce_and_return_part(&amp;self, announcement: &amp;str) -&gt; &amp;str {
         println!(&quot;Attention please: {}&quot;, announcement);
         self.part
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>두 개의 입력 라이프타임이 있으므로, 러스트는 첫 번째 라이프타임 생략 규칙을 적용하여 <code>&amp;self</code>와
 <code>announcement</code>에게 각각 라이프타임을 부여합니다. 그다음, 파라미터 중 하나가 <code>&amp;self</code>이므로,
 반환 타입은 <code>&amp;self</code>의 라이프타임을 얻고, 모든 라이프타임들이 추론되었습니다.</p>
@@ -700,10 +700,10 @@ impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
 라이프타임을 가지고 있는데, 아래와 같이 명시하는 쪽을 선택할 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let s: &amp;'static str = &quot;I have a static lifetime.&quot;;
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 스트링의 텍스트는 여러분의 프로그램의 바이너리 내에 직접 저장되며 여러분 프로그램의 바이너리는
 항상 이용이 가능하지요. 따라서, 모든 스트링 리터럴의 라이프타임은 <code>'static</code>입니다.</p>
 <!-- How would you add a static lifetime (below)? -->
@@ -719,7 +719,7 @@ fn main() {
 간단하게 살펴봅시다!</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::fmt::Display;
 
 fn longest_with_an_announcement&lt;'a, T&gt;(x: &amp;'a str, y: &amp;'a str, ann: T) -&gt; &amp;'a str
@@ -733,7 +733,7 @@ fn longest_with_an_announcement&lt;'a, T&gt;(x: &amp;'a str, y: &amp;'a str, ann
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이것은 Listing 10-21에 나온 바 있는 두 스트링 슬라이스 중 긴 쪽을 반환하는 <code>longest</code> 함수지만,
 <code>ann</code>이라는 이름의 추가 인자를 가지고 있습니다. <code>ann</code>의 타입은 제네릭 타입 <code>T</code>인데, <code>where</code> 절을
 가지고 특정한 바와 같이 <code>Display</code> 트레잇을 구현한 어떤 타입으로도 채워질 수 있습니다. 이 추가 인자는

@@ -195,13 +195,13 @@
 예제 18-9는 18-8을 고친 코드입니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-let some_option_value: Option&lt;i32&gt; = None;
+</span><span class="boring">fn main() {
+</span><span class="boring">let some_option_value: Option&lt;i32&gt; = None;
 </span>if let Some(x) = some_option_value {
     println!(&quot;{}&quot;, x);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">예제 18-9: <code>let</code> 대신 <code>if let</code>과 반증 가능 패턴의 사용
 </span></p>
 <p>코드에게 탈출구를 만들어줬습니다!

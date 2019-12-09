@@ -229,7 +229,7 @@ Listing 15-8은 <code>MyBox&lt;T&gt;</code> 타입을 동일한 방식으로 정
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>struct MyBox&lt;T&gt;(T);
 
 impl&lt;T&gt; MyBox&lt;T&gt; {
@@ -238,7 +238,7 @@ impl&lt;T&gt; MyBox&lt;T&gt; {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 15-8: <code>MyBox&lt;T&gt;</code> 타입 정의하기</span></p>
 <p>우리는 <code>MyBox</code>라는 이름의 구조체를 정의하고 제네릭 파라미터 <code>T</code>를 선언했는데, 이는
 우리의 타입이 어떠한 종류의 타입 값이든 가질 수 있길 원하기 때문입니다. <code>MyBox</code>
@@ -278,7 +278,7 @@ impl&lt;T&gt; MyBox&lt;T&gt; {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::ops::Deref;
 
 <span class="boring">struct MyBox&lt;T&gt;(T);
@@ -290,7 +290,7 @@ fn main() {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 15-10: <code>MyBox&lt;T&gt;</code> 상의 <code>Deref</code> 구현</span></p>
 <p><code>type Target = T;</code> 문법은 <code>Deref</code> 트레잇이 사용할 연관 타입 (associated type)
 을 정의합니다. 연관 타입은 제네릭 파라미터를 정의하는 것과 약간 다른 방식이지만,
@@ -343,12 +343,12 @@ fn main() {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>fn hello(name: &amp;str) {
     println!(&quot;Hello, {}!&quot;, name);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 15-11: 타입 <code>&amp;str</code>의 <code>name</code>이라는 파라미터를
 갖는 <code>hello</code> 함수</span></p>
 <p>우리는 예를 들면 <code>hello(&quot;Rust&quot;);</code>와 같이 스트링 슬라이스를 인자로 하여 <code>hello</code> 함수를
@@ -356,28 +356,28 @@ fn main() {
 타입의 값에 대한 참조자를 이용하여 <code>hello</code>를 호출하는 것을 가능하게 해 줍니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::ops::Deref;
-</span>#
-<span class="boring">struct MyBox&lt;T&gt;(T);
-</span>#
-<span class="boring">impl&lt;T&gt; MyBox&lt;T&gt; {
-    fn new(x: T) -&gt; MyBox&lt;T&gt; {
-        MyBox(x)
-    }
-}
-</span>#
-<span class="boring">impl&lt;T&gt; Deref for MyBox&lt;T&gt; {
-    type Target = T;
-</span>#
-<span class="boring">    fn deref(&amp;self) -&gt; &amp;T {
-        &amp;self.0
-    }
-}
-</span>#
-<span class="boring">fn hello(name: &amp;str) {
-    println!(&quot;Hello, {}!&quot;, name);
-}
-</span>#
-fn main() {
+</span><span class="boring">
+</span><span class="boring">struct MyBox&lt;T&gt;(T);
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; MyBox&lt;T&gt; {
+</span><span class="boring">    fn new(x: T) -&gt; MyBox&lt;T&gt; {
+</span><span class="boring">        MyBox(x)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; Deref for MyBox&lt;T&gt; {
+</span><span class="boring">    type Target = T;
+</span><span class="boring">
+</span><span class="boring">    fn deref(&amp;self) -&gt; &amp;T {
+</span><span class="boring">        &amp;self.0
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn hello(name: &amp;str) {
+</span><span class="boring">    println!(&quot;Hello, {}!&quot;, name);
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     let m = MyBox::new(String::from(&quot;Rust&quot;));
     hello(&amp;m);
 }
@@ -396,28 +396,28 @@ fn main() {
 Listing 15-13의 코드를 작성해야 했을 것입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::ops::Deref;
-</span>#
-<span class="boring">struct MyBox&lt;T&gt;(T);
-</span>#
-<span class="boring">impl&lt;T&gt; MyBox&lt;T&gt; {
-    fn new(x: T) -&gt; MyBox&lt;T&gt; {
-        MyBox(x)
-    }
-}
-</span>#
-<span class="boring">impl&lt;T&gt; Deref for MyBox&lt;T&gt; {
-    type Target = T;
-</span>#
-<span class="boring">    fn deref(&amp;self) -&gt; &amp;T {
-        &amp;self.0
-    }
-}
-</span>#
-<span class="boring">fn hello(name: &amp;str) {
-    println!(&quot;Hello, {}!&quot;, name);
-}
-</span>#
-fn main() {
+</span><span class="boring">
+</span><span class="boring">struct MyBox&lt;T&gt;(T);
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; MyBox&lt;T&gt; {
+</span><span class="boring">    fn new(x: T) -&gt; MyBox&lt;T&gt; {
+</span><span class="boring">        MyBox(x)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; Deref for MyBox&lt;T&gt; {
+</span><span class="boring">    type Target = T;
+</span><span class="boring">
+</span><span class="boring">    fn deref(&amp;self) -&gt; &amp;T {
+</span><span class="boring">        &amp;self.0
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn hello(name: &amp;str) {
+</span><span class="boring">    println!(&quot;Hello, {}!&quot;, name);
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     let m = MyBox::new(String::from(&quot;Rust&quot;));
     hello(&amp;(*m)[..]);
 }

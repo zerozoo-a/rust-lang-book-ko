@@ -382,10 +382,10 @@ Got: thread
 보시는 것처럼 채널의 송신자를 복제하는 것으로 그렇게 할 수 있습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::thread;
-use std::sync::mpsc;
-use std::time::Duration;
-</span>#
-<span class="boring">fn main() {
+</span><span class="boring">use std::sync::mpsc;
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span><span class="boring">fn main() {
 </span>// --snip--
 
 let (tx, rx) = mpsc::channel();
@@ -425,7 +425,7 @@ for received in rx {
 
 // --snip--
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 16-11: 여러 개의 생성자로부터 여러 메세지
 보내기</span></p>
 <p>이번에는 우리가 첫번째 스레드를 생성하기 전에, 채널의 송신 단말에

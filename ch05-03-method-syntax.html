@@ -158,8 +158,8 @@
 <p>Listing 5-12에서 보는 바와 같이 <code>Rectangle</code> 인스턴스를 파라미터로 가지고 있는 <code>area</code> 함수를
 바꿔서 그 대신 <code>Rectangle</code> 구조체 위에서 정의된 <code>area</code> 메소드를 만들어 봅시다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">[derive(Debug)]
-</span>struct Rectangle {
+<pre><pre class="playpen"><code class="language-rust">#[derive(Debug)]
+struct Rectangle {
     length: u32,
     width: u32,
 }
@@ -218,27 +218,27 @@ fn main() {
 달리 말하면, 다음은 동일한 표현입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-#[derive(Debug,Copy,Clone)]
-struct Point {
-    x: f64,
-    y: f64,
-}
-</span>#
-<span class="boring">impl Point {
-   fn distance(&amp;self, other: &amp;Point) -&gt; f64 {
-       let x_squared = f64::powi(other.x - self.x, 2);
-       let y_squared = f64::powi(other.y - self.y, 2);
-</span>#
-<span class="boring">       f64::sqrt(x_squared + y_squared)
-   }
-}
-let p1 = Point { x: 0.0, y: 0.0 };
-let p2 = Point { x: 5.0, y: 6.5 };
+</span><span class="boring">fn main() {
+</span><span class="boring">#[derive(Debug,Copy,Clone)]
+</span><span class="boring">struct Point {
+</span><span class="boring">    x: f64,
+</span><span class="boring">    y: f64,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Point {
+</span><span class="boring">   fn distance(&amp;self, other: &amp;Point) -&gt; f64 {
+</span><span class="boring">       let x_squared = f64::powi(other.x - self.x, 2);
+</span><span class="boring">       let y_squared = f64::powi(other.y - self.y, 2);
+</span><span class="boring">
+</span><span class="boring">       f64::sqrt(x_squared + y_squared)
+</span><span class="boring">   }
+</span><span class="boring">}
+</span><span class="boring">let p1 = Point { x: 0.0, y: 0.0 };
+</span><span class="boring">let p2 = Point { x: 5.0, y: 6.5 };
 </span>p1.distance(&amp;p2);
 (&amp;p1).distance(&amp;p2);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>첫번째 표현이 훨씬 깔끔해 보입니다.  이러한 자동 참조 동작은 메소드가 명확한 수신자-즉 <code>self</code>의
 타입을 가지고 있기 떄문에 동작합니다. 수신자와 메소드의 이름이 주어질 때, 러스트는 해당 메소드가
 읽는지 (<code>&amp;self</code>) 혹은 변형시키는지 (<code>&amp;mut self</code>), 아니면 소비하는지 (<code>self</code>)를 결정론적으로
@@ -280,14 +280,14 @@ Can rect1 hold rect3? false
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-#[derive(Debug)]
-struct Rectangle {
-    length: u32,
-    width: u32,
-}
-</span>#
-impl Rectangle {
+</span><span class="boring">fn main() {
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Rectangle {
+</span><span class="boring">    length: u32,
+</span><span class="boring">    width: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Rectangle {
     fn area(&amp;self) -&gt; u32 {
         self.length * self.width
     }
@@ -297,7 +297,7 @@ impl Rectangle {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 5-14: 또다른 <code>Rectangle</code> 인스턴스를 파라미터로
 갖는 <code>can_hold</code> 메소드를 <code>Rectangle</code> 상에 구현하기</span></p>
 <p>Listing 5-13에 있는 <code>main</code> 함수와 함께 이 코드를 실행하면, 원하는 출력을 얻을 수 있을 것입니다.
@@ -315,20 +315,20 @@ impl Rectangle {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-#[derive(Debug)]
-struct Rectangle {
-    length: u32,
-    width: u32,
-}
-</span>#
-impl Rectangle {
+</span><span class="boring">fn main() {
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Rectangle {
+</span><span class="boring">    length: u32,
+</span><span class="boring">    width: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Rectangle {
     fn square(size: u32) -&gt; Rectangle {
         Rectangle { length: size, width: size }
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 연관 함수를 호출하기 위해서는 <code>let sq = Rectangle::square(3);</code> 처럼, 구조체 이름과 함께
 <code>::</code> 문법을 이용합니다. 이 함수는 구조체의 이름공간 내에 있습니다: <code>::</code> 문법은 연관 함수와 모듈에
 의해 생성된 이름공간 두 곳 모두에서 사용되는데, 모듈에 대해서는 7장에서 다룰 것입니다.</p>

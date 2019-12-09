@@ -158,13 +158,13 @@
 상기하세요:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>enum Result&lt;T, E&gt; {
     Ok(T),
     Err(E),
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>T</code>와 <code>E</code>는 제네릭 타입 파라미터입니다; 10장에서 제네릭에 대해 더 자세히 다룰 것입니다. 지금으로서
 여러분이 알아둘 필요가 있는 것은, <code>T</code>는 성공한 경우에 <code>Ok</code> variant 내에 반환될 값의 타입을 나타내고
 <code>E</code>는 실패한 경우에 <code>Err</code> variant 내에 반환될 에러의 타입을 나타내는 것이라는 점입니다. <code>Result</code>가
@@ -351,7 +351,7 @@ fn main() {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::io;
 use std::io::Read;
 use std::fs::File;
@@ -372,7 +372,7 @@ fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 9-6: <code>match</code>를 이용하여 호출 코드 쪽으로 에러를 반환하는 함수
 </span></p>
 <p>함수의 반환 타입부터 먼저 살펴봅시다: <code>Result&lt;String, io::Error&gt;</code>. 이는 함수가 <code>Result&lt;T, E&gt;</code>
@@ -409,7 +409,7 @@ fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::io;
 use std::io::Read;
 use std::fs::File;
@@ -421,7 +421,7 @@ fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
     Ok(s)
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 9-7: <code>?</code>를 이용하여 에러를 호출 코드쪽으로 반환하는 함수</span></p>
 <p><code>Result</code> 값 뒤의 <code>?</code>는 Listing 9-6에서 <code>Result</code> 값을 다루기 위해 정의했던 <code>match</code> 표현식과
 거의 같은 방식으로 동작하게끔 정의되어 있습니다. 만일 <code>Result</code>의 값이 <code>Ok</code>라면, <code>Ok</code> 내의 값이
@@ -447,7 +447,7 @@ fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::io;
 use std::io::Read;
 use std::fs::File;
@@ -460,7 +460,7 @@ fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
     Ok(s)
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 9-8: 물음표 연산자 뒤에 메소드 호출을 연결하기</span></p>
 <p>새로운 <code>String</code>을 만들어 <code>s</code>에 넣는 부분을 함수의 시작 부분으로 옮겼습니다; 이 부분은 달라진 것이
 없습니다. <code>f</code> 변수를 만드는 대신, <code>File::open(&quot;hello.txt&quot;)?</code>의 결과 바로 뒤에

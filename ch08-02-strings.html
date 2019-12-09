@@ -182,10 +182,10 @@ UTF-8로 인코딩되어 있습니다.</p>
 이용하여 스트링을 생성하는 것으로 아래의 Listing 8-11과 같이 시작해봅시다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut s = String::new();
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-11: 비어있는 새로운 <code>String</code> 생성하기</span></p>
 <p>이 라인은 우리가 어떤 데이터를 담아둘 수 있는 <code>s</code>라는 빈 스트링을 만들어 줍니다.
 종종 우리는 스트링에 담아두고 시작할 초기값을 가지고 있을 것입니다. 그런 경우, <code>to_string</code> 메소드를
@@ -193,7 +193,7 @@ fn main() {
 구현하고 있습니다. Listing 8-12에서 두 가지 예제를 보여주고 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let data = &quot;initial contents&quot;;
 
 let s = data.to_string();
@@ -201,7 +201,7 @@ let s = data.to_string();
 // the method also works on a literal directly:
 let s = &quot;initial contents&quot;.to_string();
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-12: <code>to_string</code> 메소드를 사용하여 스트링 리터럴로부터
 <code>String</code> 생성하기</span></p>
 <p>이 코드는 <code>initial contents</code>를 담고 있는 스트링을 생성합니다.</p>
@@ -209,10 +209,10 @@ let s = &quot;initial contents&quot;.to_string();
 Listing 8-13의 코드는 <code>to_string</code>을 사용하는 Listing 8-12의 코드와 동일합니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let s = String::from(&quot;initial contents&quot;);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-13: <code>String::from</code> 함수를 사용하여 스트링 리터럴로부터
 <code>String</code> 생성하기</span></p>
 <p>스트링이 너무나 많은 것들에 사용되기 때문에, 스트링을 위해 다양한 제네릭 API들을 사용할 수 있으며,
@@ -223,7 +223,7 @@ fn main() {
 어떤 데이터라도 포함시킬 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let hello = String::from(&quot;السلام عليكم&quot;);
 let hello = String::from(&quot;Dobrý den&quot;);
 let hello = String::from(&quot;Hello&quot;);
@@ -236,7 +236,7 @@ let hello = String::from(&quot;Olá&quot;);
 let hello = String::from(&quot;Здравствуйте&quot;);
 let hello = String::from(&quot;Hola&quot;);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-14: 스트링에 다양한 언어로 인삿말 저장하기</span></p>
 <p>위의 모두가 유효한 <code>String</code> 값입니다.</p>
 <h3><a class="header" href="#스트링-갱신하기" id="스트링-갱신하기">스트링 갱신하기</a></h3>
@@ -248,11 +248,11 @@ let hello = String::from(&quot;Hola&quot;);
 키울 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut s = String::from(&quot;foo&quot;);
 s.push_str(&quot;bar&quot;);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-15: <code>push_str</code> 메소드를 사용하여 <code>String</code>에 스트링
 슬라이스 추가하기</span></p>
 <p><code>s</code>는 위의 두 라인 뒤에 “foobar”를 담게 될 것입니다. <code>push_str</code> 메소드는 스트링 슬라이스를 파라미터로
@@ -261,13 +261,13 @@ s.push_str(&quot;bar&quot;);
 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut s1 = String::from(&quot;foo&quot;);
 let s2 = &quot;bar&quot;;
 s1.push_str(&amp;s2);
 println!(&quot;s2 is {}&quot;, s2);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-16: 스트링 슬라이스를 <code>String</code>에 붙인 이후에
 스트링 슬라이스를 사용하기</span></p>
 <p>만일 <code>push_str</code> 함수가 <code>s2</code>의 소유권을 가져갔다면, 마지막 줄에서 그 값을 출력할 수 없었을 것입니다.
@@ -276,11 +276,11 @@ println!(&quot;s2 is {}&quot;, s2);
 <code>push</code> 메소드를 사용하여 <code>String</code>에 l을 추가하는 코드를 보여주고 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut s = String::from(&quot;lo&quot;);
 s.push('l');
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-17: <code>push</code>를 사용하여 <code>String</code> 값에 한 글자
 추가하기</span></p>
 <p>위의 코드를 실행한 결과로 <code>s</code>는 <code>lol</code>을 담고 있을 것입니다.</p>
@@ -289,12 +289,12 @@ s.push('l');
 같이 <code>+</code> 연산자를 사용하는 것입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let s1 = String::from(&quot;Hello, &quot;);
 let s2 = String::from(&quot;world!&quot;);
 let s3 = s1 + &amp;s2; // s1은 여기서 이동되어 더이상 쓸 수 없음을 유의하세요
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-18: <code>+</code> 연산자를 사용하여 두 <code>String</code> 값을
 하나의 새로운 <code>String</code> 값으로 조합하기</span></p>
 <p>위의 코드 실행 결과로서, 스트링 <code>s3</code>는 <code>Hello, world!</code>를 담게 될 것입니다. <code>s1</code>이 더하기 연산
@@ -325,26 +325,26 @@ let s3 = s1 + &amp;s2; // s1은 여기서 이동되어 더이상 쓸 수 없음�
 <p>만일 여러 스트링을 접하고자 한다면, <code>+</code>의 동작은 다루기 불편해 집니다.:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let s1 = String::from(&quot;tic&quot;);
 let s2 = String::from(&quot;tac&quot;);
 let s3 = String::from(&quot;toe&quot;);
 
 let s = s1 + &quot;-&quot; + &amp;s2 + &quot;-&quot; + &amp;s3;
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 지점에서 <code>s</code>는 <code>tic-tac-toe</code>가 될 것입니다. 모든 <code>+</code>와 <code>&quot;</code> 문자들과 함께 보면 어떤 결과가
 나올지 알기 어렵습니다. 더 복잡한 스트링 조합을 위해서는 <code>format!</code> 매크로를 사용할 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let s1 = String::from(&quot;tic&quot;);
 let s2 = String::from(&quot;tac&quot;);
 let s3 = String::from(&quot;toe&quot;);
 
 let s = format!(&quot;{}-{}-{}&quot;, s1, s2, s3);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 코드 또한 <code>s</code>에 <code>tic-tac-toe</code>을 설정합니다. <code>format!</code> 매크로는 <code>println!</code>과 똑같은 방식으로
 작동하지만, 스크린에 결과를 출력하는 대신 결과를 담은 <code>String</code>을 반환해줍니다. <code>format!</code>을 이용한
 버전이 훨씬 읽기 쉽고, 또한 어떠한 파라미터들의 소유권도 가져가지 않습니다.</p>
@@ -372,18 +372,18 @@ note: the type `std::string::String` cannot be indexed by `_`
 인코딩된 UTF-8 예제 스트링을 살펴봅시다. 첫번째로, 이것입니다: </p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let len = String::from(&quot;Hola&quot;).len();
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 경우, <code>len</code>은 4가 되는데, 이는 스트링 “Hola”를 저장하고 있는 <code>Vec</code>이 4바이트 길이라는 뜻입니다.
 UTF-8로 인코딩되면 각각의 글자들이 1바이트씩 차지한다는 것이죠. 그런데 아래 예제는 어떨까요?</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let len = String::from(&quot;Здравствуйте&quot;).len();
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 스트링의 길이가 얼마인지 묻는다면, 여러분은 12라고 답할런지도 모릅니다. 그러나 러스트의 대답은
 24입니다. 이는 “Здравствуйте”를 UTF-8로 인코딩된 바이트들의 크기인데, 각각의 유니코드 스칼라
 값이 저장소의 2바이트를 차지하기 때문입니다. 따라서, 스트링의 바이트들 안의 인덱스는 유효한 유니코드
@@ -433,12 +433,12 @@ let answer = &amp;hello[0];
 담고 있는 스트링 슬라이스를 만들 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let hello = &quot;Здравствуйте&quot;;
 
 let s = &amp;hello[0..4];
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>여기서 <code>s</code>는 스트링의 첫 4바이트를 담고 있는 <code>&amp;str</code>가 될 것입니다. 앞서 우리는 이 글자들이 각각
 2바이트를 차지한다고 언급했으므로, 이는 <code>s</code>가 “Зд”이 될 것이란 뜻입니다. </p>
 <p>만약에 <code>&amp;hello[0..1]</code>라고 했다면 어떻게 될까요? 답은 다음과 같습니다: 러스트는 벡터 내에 유효하지
@@ -455,12 +455,12 @@ character boundary', ../src/libcore/str/mod.rs:1694
 여러분은 각각의 요소에 접근하기 위해 이 결과값에 대해 반복(iterate)할 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>for c in &quot;नमस्ते&quot;.chars() {
     println!(&quot;{}&quot;, c);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 코드는 다음을 출력할 것입니다:</p>
 <pre><code class="language-text">न
 म
@@ -473,12 +473,12 @@ fn main() {
 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>for b in &quot;नमस्ते&quot;.bytes() {
     println!(&quot;{}&quot;, b);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 코드는 이 <code>String</code>을 구성하는 아래처럼 시작되는 18 바이트를 출력합니다:</p>
 <pre><code class="language-text">224
 164

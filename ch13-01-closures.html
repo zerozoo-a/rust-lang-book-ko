@@ -170,7 +170,7 @@
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::thread;
 use std::time::Duration;
 
@@ -180,7 +180,7 @@ fn simulated_expensive_calculation(intensity: u32) -&gt; u32 {
     intensity
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-1: 실행시간이 2초 걸리는 가상의 계산을 대신하는
 함수</span></p>
 <p>다음은 이 예제에서 중요한 운동 앱의 일부를 담고 있는 <code>main</code> 함수 입니다.
@@ -207,7 +207,7 @@ fn simulated_expensive_calculation(intensity: u32) -&gt; u32 {
     );
 }
 <span class="boring">fn generate_workout(intensity: u32, random_number: u32) {}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-2:사용자 입력과 임의의 숫자 생성을 시뮬레이션
 하기 위한  <code>main</code> 함수와 하드코딩된 값</span></p>
 <p>단순함을 위해서 <code>simulated_user_specified_value</code> 변수의 값을 10 으로하고
@@ -221,17 +221,17 @@ fn simulated_expensive_calculation(intensity: u32) -&gt; u32 {
 <p><span class="filename">파일이름: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::thread;
-use std::time::Duration;
-</span>#
-<span class="boring">fn simulated_expensive_calculation(num: u32) -&gt; u32 {
-    println!(&quot;calculating slowly...&quot;);
-    thread::sleep(Duration::from_secs(2));
-    num
-}
-</span>#
-fn generate_workout(intensity: u32, random_number: u32) {
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::thread;
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span><span class="boring">fn simulated_expensive_calculation(num: u32) -&gt; u32 {
+</span><span class="boring">    println!(&quot;calculating slowly...&quot;);
+</span><span class="boring">    thread::sleep(Duration::from_secs(2));
+</span><span class="boring">    num
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn generate_workout(intensity: u32, random_number: u32) {
     if intensity &lt; 25 {
         println!(
             &quot;Today, do {} pushups!&quot;,
@@ -253,7 +253,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-3: 입력값과 <code>simulated_expensive_calculation</code> 함
 수 호출에 근거해서 운동 계획을 출력하는 비즈니스 로직</span></p>
 <p>리스트 13-3 의 코드는 느린 계산 함수에 대해 여려번 호출을 합니다.
@@ -281,17 +281,17 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <p><span class="filename">파일이름: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::thread;
-use std::time::Duration;
-</span>#
-<span class="boring">fn simulated_expensive_calculation(num: u32) -&gt; u32 {
-    println!(&quot;calculating slowly...&quot;);
-    thread::sleep(Duration::from_secs(2));
-    num
-}
-</span>#
-fn generate_workout(intensity: u32, random_number: u32) {
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::thread;
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span><span class="boring">fn simulated_expensive_calculation(num: u32) -&gt; u32 {
+</span><span class="boring">    println!(&quot;calculating slowly...&quot;);
+</span><span class="boring">    thread::sleep(Duration::from_secs(2));
+</span><span class="boring">    num
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn generate_workout(intensity: u32, random_number: u32) {
     let expensive_result =
         simulated_expensive_calculation(intensity);
 
@@ -316,7 +316,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-4: <code>simulated_expensive_calculation</code> 에 대한
 호출들을 한 곳으로 추출하고 결과를 <code>expensive_result</code> 변수에 저장하기.</span></p>
 <p>이 변경은 <code>simulated_expensive_calculation</code> 에 대한 모든 호출들을 하나로 합치고
@@ -333,18 +333,18 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::thread;
-use std::time::Duration;
-</span>#
-let expensive_closure = |num| {
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::thread;
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span>let expensive_closure = |num| {
     println!(&quot;calculating slowly...&quot;);
     thread::sleep(Duration::from_secs(2));
     num
 };
 <span class="boring">expensive_closure(5);
-}
-</code></pre></pre>
+</span><span class="boring">}
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-5: 클로저를 정의하고 <code>expensive_closure</code> 변수에
 저장하기</span></p>
 <p>클로저 정의는 변수 <code>expensive_closure</code> 에 그것을 할당하기 위해 <code>=</code> 다음에
@@ -370,11 +370,11 @@ let expensive_closure = |num| {
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::thread;
-use std::time::Duration;
-</span>#
-fn generate_workout(intensity: u32, random_number: u32) {
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::thread;
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span>fn generate_workout(intensity: u32, random_number: u32) {
     let expensive_closure = |num| {
         println!(&quot;calculating slowly...&quot;);
         thread::sleep(Duration::from_secs(2));
@@ -402,7 +402,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-6: 우리가 정의한 <code>expensive_closure</code> 호출하기
 </span></p>
 <p>이제 비용이 큰 계산은 단 한곳에서만 호출 되고, 우리가 결과가 필요한 곳에서만
@@ -434,17 +434,17 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::thread;
-use std::time::Duration;
-</span>#
-let expensive_closure = |num: u32| -&gt; u32 {
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::thread;
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span>let expensive_closure = |num: u32| -&gt; u32 {
     println!(&quot;calculating slowly...&quot;);
     thread::sleep(Duration::from_secs(2));
     num
 };
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-7: 클로저에 파라미터와 반환값 타입에 대한 선택적
 인 타입 어노테이션 추가하기</span></p>
 <p>타입 어노테이션이 있으면 클로저와 함수의 문법은 더 비슷해 보입니다.
@@ -520,7 +520,7 @@ let n = example_closure(5);
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>struct Cacher&lt;T&gt;
     where T: Fn(u32) -&gt; u32
 {
@@ -528,7 +528,7 @@ fn main() {
     value: Option&lt;u32&gt;,
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-9: <code>calculation</code> 에 클로저를 담고, 선택적인 결과
 를 <code>value</code> 에 담는 <code>Cacher</code> 구조체 정의하기</span></p>
 <p><code>Cacher</code> 구조체는 제너릭 타입 <code>T</code> 의 <code>calculation</code> 필드를 갖습니다.
@@ -551,15 +551,15 @@ fn main() {
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-struct Cacher&lt;T&gt;
-    where T: Fn(u32) -&gt; u32
-{
-    calculation: T,
-    value: Option&lt;u32&gt;,
-}
-</span>#
-impl&lt;T&gt; Cacher&lt;T&gt;
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Cacher&lt;T&gt;
+</span><span class="boring">    where T: Fn(u32) -&gt; u32
+</span><span class="boring">{
+</span><span class="boring">    calculation: T,
+</span><span class="boring">    value: Option&lt;u32&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl&lt;T&gt; Cacher&lt;T&gt;
     where T: Fn(u32) -&gt; u32
 {
     fn new(calculation: T) -&gt; Cacher&lt;T&gt; {
@@ -581,7 +581,7 @@ impl&lt;T&gt; Cacher&lt;T&gt;
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-10: <code>Cacher</code> 의 캐싱 로직</span></p>
 <p>우리는 이 필드에 있는 값을 호출하는 코드에서 잠재적으로 변경하도록 두기 보다
 <code>Cacher</code> 가 구조체 필드의 값을 관리하도록 하고 싶기 때문에, 이 필드는 비공개
@@ -602,40 +602,40 @@ impl&lt;T&gt; Cacher&lt;T&gt;
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::thread;
-use std::time::Duration;
-</span>#
-<span class="boring">struct Cacher&lt;T&gt;
-    where T: Fn(u32) -&gt; u32
-{
-    calculation: T,
-    value: Option&lt;u32&gt;,
-}
-</span>#
-<span class="boring">impl&lt;T&gt; Cacher&lt;T&gt;
-    where T: Fn(u32) -&gt; u32
-{
-    fn new(calculation: T) -&gt; Cacher&lt;T&gt; {
-        Cacher {
-            calculation,
-            value: None,
-        }
-    }
-</span>#
-<span class="boring">    fn value(&amp;mut self, arg: u32) -&gt; u32 {
-        match self.value {
-            Some(v) =&gt; v,
-            None =&gt; {
-                let v = (self.calculation)(arg);
-                self.value = Some(v);
-                v
-            },
-        }
-    }
-}
-</span>#
-fn generate_workout(intensity: u32, random_number: u32) {
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::thread;
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span><span class="boring">struct Cacher&lt;T&gt;
+</span><span class="boring">    where T: Fn(u32) -&gt; u32
+</span><span class="boring">{
+</span><span class="boring">    calculation: T,
+</span><span class="boring">    value: Option&lt;u32&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; Cacher&lt;T&gt;
+</span><span class="boring">    where T: Fn(u32) -&gt; u32
+</span><span class="boring">{
+</span><span class="boring">    fn new(calculation: T) -&gt; Cacher&lt;T&gt; {
+</span><span class="boring">        Cacher {
+</span><span class="boring">            calculation,
+</span><span class="boring">            value: None,
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn value(&amp;mut self, arg: u32) -&gt; u32 {
+</span><span class="boring">        match self.value {
+</span><span class="boring">            Some(v) =&gt; v,
+</span><span class="boring">            None =&gt; {
+</span><span class="boring">                let v = (self.calculation)(arg);
+</span><span class="boring">                self.value = Some(v);
+</span><span class="boring">                v
+</span><span class="boring">            },
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn generate_workout(intensity: u32, random_number: u32) {
     let mut expensive_result = Cacher::new(|num| {
         println!(&quot;calculating slowly...&quot;);
         thread::sleep(Duration::from_secs(2));
@@ -663,7 +663,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">리스트 13-11: 캐싱 로직을 추상화 하기 위해
 <code>generate_workout</code> 함수 안에서 <code>Cacher</code> 사용하기</span></p>
 <p>클로저를 변수에 직접 저장하는 대신, 클로저를 갖는 <code>Cacher</code> 의 새 인스턴스를

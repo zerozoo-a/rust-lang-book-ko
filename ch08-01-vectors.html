@@ -157,10 +157,10 @@
 <p>비어있는 새 벡터를 만들기 위해서는, 아래의 Listing 8-1과 같이 <code>Vec::new</code> 함수를 호출해 줍니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let v: Vec&lt;i32&gt; = Vec::new();
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-1: <code>i32</code> 타입의 값을 가질 수 있는 비어있는 새 벡터 생성
 </span></p>
 <p>여기에 타입 명시(type annotation)를 추가한 것을 주목하세요. 이 벡터에 어떠한 값도 집어넣지 않았기
@@ -177,10 +177,10 @@ fn main() {
 <code>Vec&lt;i32&gt;</code>을 생성할 것입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let v = vec![1, 2, 3];
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-2: 값을 저장하고 있는 새로운 벡터 생성하기</span></p>
 <p>초기 <code>i32</code> 값들을 제공했기 때문에, 러스트는 <code>v</code>가 `Vec<i32> 타입이라는 것을 유추할 수 있으며,
 그래서 타입 명시는 필요치 않습니다. 다음은, 벡터를 어떻게 수정하는지를 살펴보겠습니다.</p>
@@ -189,7 +189,7 @@ fn main() {
 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut v = Vec::new();
 
 v.push(5);
@@ -197,7 +197,7 @@ v.push(6);
 v.push(7);
 v.push(8);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-3: <code>push</code> 메소드를 사용하여 벡터에 값을 추가하기</span></p>
 <p>3장에서 설명한 바와 같이, 어떤 변수에 대해 그 변수가 담고 있는 값이 변경될 수 있도록 하려면,
 <code>mut</code> 키워드를 사용하여 해당 변수를 가변으로 만들어 줄 필요가 있습니다. 우리가 집어넣는 숫자는
@@ -207,7 +207,7 @@ v.push(8);
 <p><code>struct</code>와 마찬가지로, Listing 8-4에 달려있는 주석처럼 벡터도 스코프 밖으로 벗어났을 때 해제됩니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>{
     let v = vec![1, 2, 3, 4];
 
@@ -215,7 +215,7 @@ fn main() {
 
 } // &lt;- v가 스코프 밖으로 벗어났고, 여기서 해제됩니다
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-4: 벡터와 벡터의 요소들이 드롭되는 곳을 보여주기</span></p>
 <p>벡터가 드롭될 때 벡터의 내용물 또한 전부 드롭되는데, 이는 벡터가 가지고 있는 정수들이 모두 제거된다는
 의미입니다. 이는 직관적인 것처럼 보일 수도 있겠지만 벡터의 요소들에 대한 참조자를 만들때는 좀 더
@@ -228,13 +228,13 @@ fn main() {
 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let v = vec![1, 2, 3, 4, 5];
 
 let third: &amp;i32 = &amp;v[2];
 let third: Option&lt;&amp;i32&gt; = v.get(2);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-5: 인덱스 문법 혹은 <code>get</code> 메소드를 사용하여 벡터 내의
 아이템에 접근하기</span></p>
 <p>두가지 세부사항을 주목하세요. 첫번째로, 인덱스값 <code>2</code>를 사용하면 세번째 값이 얻어집니다:
@@ -247,13 +247,13 @@ let third: Option&lt;&amp;i32&gt; = v.get(2);
 접근하려고 시도한 경우 프로그램은 어떻게 동작해야 할까요:</p>
 <pre><pre class="playpen"><code class="language-rust should_panic">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let v = vec![1, 2, 3, 4, 5];
 
 let does_not_exist = &amp;v[100];
 let does_not_exist = v.get(100);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-6: 5개의 요소를 가진 벡터에 100 인덱스에 있는 요소에 접근하기</span></p>
 <p>이 프로그램을 실행하면, 첫번째의 <code>[]</code> 메소드는 <code>panic!</code>을 일으키는데, 이는 존재하지 않는 요소를
 참조하기 때문입니다. 이 방법은 여러분의 프로그램이 벡터의 끝을 넘어서는 요소에 접근하는 시도를 하면
@@ -307,26 +307,26 @@ https://doc.rust-lang.org/stable/nomicon/vec.html 에 있는 노미콘(The Nomic
 내에 있는 각 요소들에 대한 불변 참조자를 얻어서 이를 출력하는 방법을 보여줍니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let v = vec![100, 32, 57];
 for i in &amp;v {
     println!(&quot;{}&quot;, i);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-8: <code>for</code> 루프를 이용한 요소들에 대한 반복작업을 통해
 각 요소들을 출력하기</span></p>
 <p>만일 모든 요소들을 변형시키길 원한다면 가변 벡터 내의 각 요소에 대한 가변 참조자로 반복작업을
 할 수도 있습니다. Listing 8-9의 <code>for</code> 루프는 각 요소에 <code>50</code>을 더할 것입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut v = vec![100, 32, 57];
 for i in &amp;mut v {
     *i += 50;
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-9: 벡터 내의 요소에 대한 가변 참조자로 반복하기</span></p>
 <p>가변 참조자가 참고하고 있는 값을 바꾸기 위해서, <code>i</code>에 <code>+=</code> 연산자를 이용하기 전에 역참조 연산자
 (<code>*</code>)를 사용하여 값을 얻어야 합니다.</p>
@@ -342,7 +342,7 @@ for i in &amp;mut v {
 이를 보여주고 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>enum SpreadsheetCell {
     Int(i32),
     Float(f64),
@@ -355,7 +355,7 @@ let row = vec![
     SpreadsheetCell::Float(10.12),
 ];
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 8-10: 열거형을 정의하여 벡터 내에 다른 타입의 데이터를 담을 수
 있도록 하기</span></p>
 <p>러스트가 컴파일 타임에 벡터 내에 저장될 타입이 어떤 것인지 알아야할 필요가 있는 이유는 각 요소를

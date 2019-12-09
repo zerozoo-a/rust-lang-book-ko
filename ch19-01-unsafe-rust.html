@@ -226,13 +226,13 @@ pointer)</em> 라고 불리는 참조자와 유사한 두가지 새로운 타입
 보여줍니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut num = 5;
 
 let r1 = &amp;num as *const i32;
 let r2 = &amp;mut num as *mut i32;
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-1: 참조자로부터 로우 포인터 생성하기</span></p>
 <p>이 코드에서 <code>unsafe</code> 키워드를 포함하지 않았음을 주목하세요. 우리는 로우 포인터를
 안전한 코드 내에서 생성할 수 있습니다; 여러분이 잠시 후에 보게될 것처럼, 우리는
@@ -250,11 +250,11 @@ let r2 = &amp;mut num as *mut i32;
 보통은 이러한 코드를 작성할 어떠한 좋은 이유도 없지만, 가능은 합니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let address = 0x012345usize;
 let r = address as *const i32;
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-2: 임의의 메모리 주소를 가리키는 로우
 포인터 생성하기</span></p>
 <p>우리가 안전한 코드 내에서 로우 포인터를 생성할 수는 있지만, 로우 포인터를 <em>역참조</em>하여
@@ -262,7 +262,7 @@ let r = address as *const i32;
 블록을 필요로 하는 로우 포인터에 상에서의 역참조 연산자 <code>*</code>를 사용합니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut num = 5;
 
 let r1 = &amp;num as *const i32;
@@ -273,7 +273,7 @@ unsafe {
     println!(&quot;r2 is: {}&quot;, *r2);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-3: <code>unsafe</code> 블록 내에서 로우 포인터
 역참조하기</span></p>
 <p>포인터를 생성하는 것은 어떠한 해도 끼지지 않습니다; 문제는 우리가 이 포인터가 가리키는
@@ -305,14 +305,14 @@ unsafe {
 함수입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>unsafe fn dangerous() {}
 
 unsafe {
     dangerous();
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>우리는 반드시 분리된 <code>unsafe</code> 블록 내에서 <code>dangerous</code>를 호출해야 합니다. 만일
 <code>unsafe</code> 블록 없이 <code>danugerous</code>의 호출을 시도하면, 다음과 같은 에러를 얻게 됩니다:</p>
 <pre><code class="language-text">error[E0133]: call to unsafe function requires unsafe function or block
@@ -337,7 +337,7 @@ unsafe {
 만들어줍니다. Listing 19-4는 <code>split_at_mut</code>를 사용하는 방법을 보여줍니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut v = vec![1, 2, 3, 4, 5, 6];
 
 let r = &amp;mut v[..];
@@ -347,7 +347,7 @@ let (a, b) = r.split_at_mut(3);
 assert_eq!(a, &amp;mut [1, 2, 3]);
 assert_eq!(b, &amp;mut [4, 5, 6]);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-4: 안전한 <code>split_at_mut</code> 함수의
 사용</span></p>
 <p>안전한 러스트만 사용해서는 이 함수를  구현할 수 없습니다. 그 시도는 Listing 19-5와
@@ -393,7 +393,7 @@ assert_eq!(b, &amp;mut [4, 5, 6]);
 블록, 로우 포인터, 그리고 몇몇 안전하지 않은 함수의 호출을 사용하는 방법을 보여줍니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::slice;
 
 fn split_at_mut(slice: &amp;mut [i32], mid: usize) -&gt; (&amp;mut [i32], &amp;mut [i32]) {
@@ -408,7 +408,7 @@ fn split_at_mut(slice: &amp;mut [i32], mid: usize) -&gt; (&amp;mut [i32], &amp;m
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-6: <code>split_at_mut</code> 함수의 구현체 내에서
 안전하지 않은 코드 사용하기</span></p>
 <p>4장의 “슬라이스 타입”절에서 슬라이스는 어떤 데이터를 가리키는 포인터와 슬라이스의
@@ -443,7 +443,7 @@ fn split_at_mut(slice: &amp;mut [i32], mid: usize) -&gt; (&amp;mut [i32], &amp;m
 만개의 아이템 길이를 갖는 슬라이스를 생성합니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::slice;
 
 let address = 0x012345usize;
@@ -453,7 +453,7 @@ let slice = unsafe {
     slice::from_raw_parts_mut(r, 10000)
 };
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-7: 임의의 메모리 위치로부터 슬라이스
 생성하기</span></p>
 <p>우리는 이 임의의 위치에서 메모리를 소유하지 않았으며, 이 코드가 만들어낸 슬라이스가
@@ -504,13 +504,13 @@ API는 어셈플리 수준에서 함수를 어떻게 호출하는지를 정의�
 이 함수를 C 코드에서 접근 가능하게 만들었습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[no_mangle]
-</span>pub extern &quot;C&quot; fn call_from_c() {
+</span><span class="boring">fn main() {
+</span>#[no_mangle]
+pub extern &quot;C&quot; fn call_from_c() {
     println!(&quot;Just called a Rust function from C!&quot;);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이러한 <code>extern</code>의 사용에는 <code>unsafe</code>가 필요 없습니다.</p>
 </blockquote>
 <h3><a class="header" href="#가변-정적-변수의-접근-혹은-수정하기" id="가변-정적-변수의-접근-혹은-수정하기">가변 정적 변수의 접근 혹은 수정하기</a></h3>
@@ -581,7 +581,7 @@ fn main() {
 보는 바와 같이 <code>unsafe</code>로 표시되어야 합니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>unsafe trait Foo {
     // methods go here
 }
@@ -590,7 +590,7 @@ unsafe impl Foo for i32 {
     // method implementations go here
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-11: 안전하지 않은 트레잇의 정의 및
 구현</span></p>
 <p><code>unsafe impl</code>을 이용함으로써 우리는 컴파일러가 검증할 수 없는 불변성을 우리가 유지할

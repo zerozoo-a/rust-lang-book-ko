@@ -185,17 +185,17 @@ ID와 그의 이름을 저장하는 <code>HashMap&lt;i32, String&gt;</code>을 �
 예를 들어, 우리는 아래와 같이 <code>i32</code>에 대한 별칭 <code>Kilometers</code>를 생성할 수 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>type Kilometers = i32;
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이제 별칭인 <code>Kilometers</code>는 <code>i32</code>와 <em>동의어</em>입니다; 우리가 Listing 19-23에서
 만들었던 <code>Millimeters</code> 및 <code>Meters</code>와는 달리, <code>Kilometers</code>는 분리된, 새로운
 타입이 아닙니다. <code>Kilometers</code> 타입의 값은 <code>i32</code> 타입의 갑과 동일한 것으로
 취급될 것입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>type Kilometers = i32;
 
 let x: i32 = 5;
@@ -203,7 +203,7 @@ let y: Kilometers = 5;
 
 println!(&quot;x + y = {}&quot;, x + y);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>Kilometers</code>와 <code>i32</code>가 동일한 타입이기 때문에, 우리는 두 타입의 값을
 더할 수 있고 <code>i32</code> 파라미터를 갖는 함수에게 <code>Kilometers</code> 값을 넘길 수
 있습니다. 그러나, 이 방법을 사용하면 우리는 앞서 논의했던 뉴타입 패턴이
@@ -217,7 +217,7 @@ println!(&quot;x + y = {}&quot;, x + y);
 코드로 가득한 프로젝트가 있다고 상상해보세요.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let f: Box&lt;Fn() + Send + 'static&gt; = Box::new(|| println!(&quot;hi&quot;));
 
 fn takes_long_type(f: Box&lt;Fn() + Send + 'static&gt;) {
@@ -229,14 +229,14 @@ fn returns_long_type() -&gt; Box&lt;Fn() + Send + 'static&gt; {
 <span class="boring">    Box::new(|| ())
 </span>}
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-32: 수많은 곳에 긴 타입을 사용하기</span></p>
 <p>타입 별칭은 반복을 줄임으로서 이 코드의 관리를 더 잘되게끔 만들어줍니다.
 Listing 19-33에서 우리는 이 장황한 타입에 대해 <code>Thunk</code>라는 이름의 별칭을
 도입해서 이 타입이 사용되는 모든 부분을 짧은 별칭인 <code>Thunk</code>로 대체할 수 있습니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>type Thunk = Box&lt;Fn() + Send + 'static&gt;;
 
 let f: Thunk = Box::new(|| println!(&quot;hi&quot;));
@@ -250,7 +250,7 @@ fn returns_long_type() -&gt; Thunk {
 <span class="boring">    Box::new(|| ())
 </span>}
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-33: 반복을 줄이기 위해 타입 별칭 <code>Thunk</code>을
 도입하기</span></p>
 <p>이 코드가 훨씬 읽고 쓰기 쉽습니다! 타입 별칭을 위한 의미잆는 이름을 고르는
@@ -266,7 +266,7 @@ fn returns_long_type() -&gt; Thunk {
 아래 함수들 같이 말이죠:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::io::Error;
 use std::fmt;
 
@@ -278,7 +278,7 @@ pub trait Write {
     fn write_fmt(&amp;mut self, fmt: fmt::Arguments) -&gt; Result&lt;(), Error&gt;;
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>Result&lt;..., Error&gt;</code>이 너무 많이 반복됩니다. 그렇기 때문에, <code>std::io</code>는
 이 타입의 별칭 선언을 갖고 있습니다:</p>
 <pre><code class="language-rust ignore">type Result&lt;T&gt; = Result&lt;T, std::io::Error&gt;;
@@ -315,17 +315,17 @@ pub trait Write {
 코드를 상기해보세요; 여기 Listing 19-34에 재현해두었습니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-let guess = &quot;3&quot;;
-loop {
+</span><span class="boring">fn main() {
+</span><span class="boring">let guess = &quot;3&quot;;
+</span><span class="boring">loop {
 </span>let guess: u32 = match guess.trim().parse() {
     Ok(num) =&gt; num,
     Err(_) =&gt; continue,
 };
 <span class="boring">break;
-}
-}
-</code></pre></pre>
+</span><span class="boring">}
+</span><span class="boring">}
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-34: continue로 끝나는 갈래를
 가진 <code>match</code></span></p>
 <p>이 시점에서, 이 코드의 몇가지 세부 사항은 생략하겠습니다. 6장의 “<code>match</code> 흐름

@@ -185,16 +185,16 @@ $ cd adder
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[cfg(test)]
-</span>mod tests {
-<span class="boring">    [test]
-</span>    fn it_works() {
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
         assert_eq!(2 + 2, 4);
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 11-1: <code>cargo new</code>를 이용하여 자동으로 생성된
 테스트 모듈과 함수</span></p>
 <p>지금은 제일 위의 두 줄은 무시하고 함수가 어떻게 작동하는지 알아보는데 집중합시다.
@@ -246,16 +246,16 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[cfg(test)]
-</span>mod tests {
-<span class="boring">    [test]
-</span>    fn exploration() {
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod tests {
+    #[test]
+    fn exploration() {
         assert_eq!(2 + 2, 4);
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>그러고 나서 <code>cargo test</code>를 다시 실행시킵니다. 이제 출력 부분에서 <code>it_works</code> 대신
 <code>exploration</code>을 볼 수 있을 것입니다:</p>
 <pre><code class="language-text">running 1 test
@@ -272,21 +272,21 @@ Listing 11-3과 같은 모양이 되게 해 보세요:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[cfg(test)]
-</span>mod tests {
-<span class="boring">    [test]
-</span>    fn exploration() {
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod tests {
+    #[test]
+    fn exploration() {
         assert_eq!(2 + 2, 4);
     }
 
-<span class="boring">    [test]
-</span>    fn another() {
+    #[test]
+    fn another() {
         panic!(&quot;Make this test fail&quot;);
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 11-3: <code>panic!</code> 매크로를 호출하기 떄문에 실패하게
 될 두번째 테스트 추가 </span></p>
 <p><code>cargo test</code>를 이용하여 다시 한번 테스트를 실행시키세요. 결과 출력은 Listing 11-4와
@@ -336,9 +336,9 @@ error: test failed
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[derive(Debug)]
-</span>pub struct Rectangle {
+</span><span class="boring">fn main() {
+</span>#[derive(Debug)]
+pub struct Rectangle {
     length: u32,
     width: u32,
 }
@@ -349,7 +349,7 @@ impl Rectangle {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 11-5: 5장의 <code>Rectangle</code> 구조체와 <code>can_hold</code> 메소드
 이용하기</span></p>
 <p><code>can_hold</code> 메소드는 부울린 값을 반환하는데, 이는 <code>assert!</code> 매크로를 위한 완벽한 사용 사례라는
@@ -359,13 +359,13 @@ impl Rectangle {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[cfg(test)]
-</span>mod tests {
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod tests {
     use super::*;
 
-<span class="boring">    [test]
-</span>    fn larger_can_hold_smaller() {
+    #[test]
+    fn larger_can_hold_smaller() {
         let larger = Rectangle { length: 8, width: 7 };
         let smaller = Rectangle { length: 5, width: 1 };
 
@@ -373,7 +373,7 @@ fn main() {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 11-6: 큰 사각형이 작은 사각형을 정말로 담을 수 있는지 검사하는
 <code>can_hold</code>를 위한 테스트 </span></p>
 <p><code>tests</code> 모듈 내에 새로운 라인이 추가된 것을 주목하세요: <code>use super::*;</code>. <code>tests</code> 모듈은
@@ -394,18 +394,18 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[cfg(test)]
-</span>mod tests {
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod tests {
     use super::*;
 
-<span class="boring">    [test]
-</span>    fn larger_can_hold_smaller() {
+    #[test]
+    fn larger_can_hold_smaller() {
         // --snip--
     }
 
-<span class="boring">    [test]
-</span>    fn smaller_cannot_hold_larger() {
+    #[test]
+    fn smaller_cannot_hold_larger() {
         let larger = Rectangle { length: 8, width: 7 };
         let smaller = Rectangle { length: 5, width: 1 };
 
@@ -413,7 +413,7 @@ fn main() {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 경우 <code>can_hold</code> 함수의 올바른 결과값은 <code>false</code>이므로, <code>assert!</code> 매크로에게 넘기기 전에
 이 결과를 반대로 만들 필요가 있습니다. 결과적으로, 우리의 테스트는 <code>can_hold</code>가 <code>false</code>를
 반환할 경우에만 통과할 것입니다:</p>
@@ -428,12 +428,12 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 작은(&lt;) 부등호로 바꿔봅시다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-#[derive(Debug)]
-pub struct Rectangle {
-    length: u32,
-    width: u32,
-}
+</span><span class="boring">fn main() {
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">pub struct Rectangle {
+</span><span class="boring">    length: u32,
+</span><span class="boring">    width: u32,
+</span><span class="boring">}
 </span>// --snip--
 
 impl Rectangle {
@@ -442,7 +442,7 @@ impl Rectangle {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>테스트를 실행시키면 이제 아래와 같이 출력됩니다:</p>
 <pre><code class="language-text">running 2 tests
 test tests::smaller_cannot_hold_larger ... ok
@@ -475,22 +475,22 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub fn add_two(a: i32) -&gt; i32 {
     a + 2
 }
 
-<span class="boring">[cfg(test)]
-</span>mod tests {
+#[cfg(test)]
+mod tests {
     use super::*;
 
-<span class="boring">    [test]
-</span>    fn it_adds_two() {
+    #[test]
+    fn it_adds_two() {
         assert_eq!(4, add_two(2));
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 11-7: <code>assert_eq!</code> 매크로를 이용하는 <code>add_two</code> 함수
 테스트</span></p>
 <p>이게 통과하는지 확인해 봅시다!</p>
@@ -506,12 +506,12 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 집어넣어 봅시다. <code>add_two</code> 함수에 <code>3</code>을 대신 더하는 형태로 구현을 변경해 보세요:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub fn add_two(a: i32) -&gt; i32 {
     a + 3
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>테스트를 다시 실행해 보세요:</p>
 <pre><code class="language-text">running 1 test
 test tests::it_adds_two ... FAILED
@@ -565,23 +565,23 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub fn greeting(name: &amp;str) -&gt; String {
     format!(&quot;Hello {}!&quot;, name)
 }
 
-<span class="boring">[cfg(test)]
-</span>mod tests {
+#[cfg(test)]
+mod tests {
     use super::*;
 
-<span class="boring">    [test]
-</span>    fn greeting_contains_name() {
+    #[test]
+    fn greeting_contains_name() {
         let result = greeting(&quot;Carol&quot;);
         assert!(result.contains(&quot;Carol&quot;));
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>여기서 이 프로그램의 요구사항은 아직 합의되지 않았고, 인사말의 시작 지점에 있는 <code>Hello</code> 텍스트가
 변경될 것이라는 점이 꽤나 확실한 상태라고 칩시다. 우리는 그런 변경사항이 생기더라도 이름에 대한 테스트를
 갱신할 필요는 없다고 결정했고, 따라서 <code>greeting</code> 함수로부터 반환된 값과 정확히 일치하는 체크 대신,
@@ -590,12 +590,12 @@ fn main() {
 살펴봅시다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub fn greeting(name: &amp;str) -&gt; String {
     String::from(&quot;Hello!&quot;)
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 테스트를 수행하면 다음을 출력합니다:</p>
 <pre><code class="language-text">running 1 test
 test tests::greeting_contains_name ... FAILED
@@ -646,7 +646,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub struct Guess {
     value: u32,
 }
@@ -663,18 +663,18 @@ impl Guess {
     }
 }
 
-<span class="boring">[cfg(test)]
-</span>mod tests {
+#[cfg(test)]
+mod tests {
     use super::*;
 
-<span class="boring">    [test]
-    [should_panic]
-</span>    fn greater_than_100() {
+    #[test]
+    #[should_panic]
+    fn greater_than_100() {
         Guess::new(200);
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 11-8: 어떤 조건이 <code>panic!</code>을 일으키는지에 대한
 테스트</span></p>
 <p><code>#[should_panic]</code> 속성이 <code>#[test]</code> 속성 뒤, 그리고 적용될 테스트 함수 앞에 붙었습니다.
@@ -688,12 +688,12 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 버그를 넣어봅시다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub struct Guess {
-    value: u32,
-}
-</span>#
-impl Guess {
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct Guess {
+</span><span class="boring">    value: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Guess {
     pub fn new(value: u32) -&gt; Guess {
         if value &lt; 1  {
             panic!(&quot;Guess value must be between 1 and 100, got {}.&quot;, value);
@@ -705,7 +705,7 @@ impl Guess {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>Listing 11-8의 테스트를 실행시키면, 아래와 같이 실패할 것입니다:</p>
 <pre><code class="language-text">running 1 test
 test tests::greater_than_100 ... FAILED
@@ -730,11 +730,11 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub struct Guess {
-    value: u32,
-}
-
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct Guess {
+</span><span class="boring">    value: u32,
+</span><span class="boring">}
+</span><span class="boring">
 </span>// --snip
 
 impl Guess {
@@ -753,18 +753,18 @@ impl Guess {
     }
 }
 
-<span class="boring">[cfg(test)]
-</span>mod tests {
+#[cfg(test)]
+mod tests {
     use super::*;
 
-<span class="boring">    [test]
-    [should_panic(expected = &quot;Guess value must be less than or equal to 100&quot;)]
-</span>    fn greater_than_100() {
+    #[test]
+    #[should_panic(expected = &quot;Guess value must be less than or equal to 100&quot;)]
+    fn greater_than_100() {
         Guess::new(200);
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 11-9: 어떤 조건이 특정 패닉 메세지를 가진 <code>panic!</code>을
 일으키는 테스트 </span></p>
 <p>이 테스트는 통과할 것인데, 그 이유는 <code>should_panic</code> 속성에 추가한 <code>expected</code> 파라미터 값이

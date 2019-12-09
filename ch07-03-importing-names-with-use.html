@@ -283,16 +283,16 @@ mod tests {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[cfg(test)]
-</span>mod tests {
-<span class="boring">    [test]
-</span>    fn it_works() {
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
         client::connect();
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>cargo test</code> 명령을 써서 테스트를 실행하면:</p>
 <pre><code class="language-text">$ cargo test
    Compiling communicator v0.1.0 (file:///projects/communicator)
@@ -333,18 +333,18 @@ error[E0433]: failed to resolve. Use of undeclared type or module `client`
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[cfg(test)]
-</span>mod tests {
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod tests {
     use super::client;
 
-<span class="boring">    [test]
-</span>    fn it_works() {
+    #[test]
+    fn it_works() {
         client::connect();
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><code>cargo test</code>를 다시 실행시키면, 테스트가 통과되고 테스트 결과 출력의 첫번째 부분이
 아래와 같이 나타날 것입니다:</p>
 <pre><code class="language-text">$ cargo test

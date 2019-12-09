@@ -164,17 +164,17 @@ Listing 20-10은 <code>/sleep</code> 요청을 처리할때 응답하기 전에
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::thread;
 use std::time::Duration;
 <span class="boring">use std::io::prelude::*;
-use std::net::TcpStream;
-use std::fs::File;
+</span><span class="boring">use std::net::TcpStream;
+</span><span class="boring">use std::fs::File;
 </span>// --생략--
 
 fn handle_connection(mut stream: TcpStream) {
 <span class="boring">    let mut buffer = [0; 512];
-    stream.read(&amp;mut buffer).unwrap();
+</span><span class="boring">    stream.read(&amp;mut buffer).unwrap();
 </span>    // --생략--
 
     let get = b&quot;GET / HTTP/1.1\r\n&quot;;
@@ -192,7 +192,7 @@ fn handle_connection(mut stream: TcpStream) {
     // --생략--
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 20-10: <code>/sleep</code> 요청을 인식할시 5초간
 멈춤으로써 느린 요청을 시뮬레이션 하기</span></p>
 <p>이 코드는 좀 지저분하지만 시뮬레이션 용도로는 충분합니다.
@@ -256,11 +256,11 @@ Rust같은 저레벨 언어로는 이와 같은 방법들이 전부 가능합니
 Listing 20-11는 <code>main</code> 함수의 <code>for</code> 반복문을 모든 요청에 대해 새 스레드를 생성하도록 변경한 모습을 보여줍니다.</p>
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust no_run"><span class="boring">use std::thread;
-use std::io::prelude::*;
-use std::net::TcpListener;
-use std::net::TcpStream;
-</span>#
-fn main() {
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpListener;
+</span><span class="boring">use std::net::TcpStream;
+</span><span class="boring">
+</span>fn main() {
     let listener = TcpListener::bind(&quot;127.0.0.1:7878&quot;).unwrap();
 
     for stream in listener.incoming() {
@@ -272,7 +272,7 @@ fn main() {
     }
 }
 <span class="boring">fn handle_connection(mut stream: TcpStream) {}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 20-11: 매 요청마다
 새 스레드 생성</span></p>
 <p>여러분이 16장에서 배우신대로, <code>thread::spawn</code> 은 새 스레드를 생성하고,
@@ -288,17 +288,17 @@ fn main() {
 Listing 20-12는 <code>thread::spawn</code> 대신 이용하고자 하는 <code>ThreadPool</code> 이라는 가상의 인터페이스를 보여줍니다.</p>
 <p><span class="filename">파일명: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust no_run"><span class="boring">use std::thread;
-use std::io::prelude::*;
-use std::net::TcpListener;
-use std::net::TcpStream;
-struct ThreadPool;
-impl ThreadPool {
-   fn new(size: u32) -&gt; ThreadPool { ThreadPool }
-   fn execute&lt;F&gt;(&amp;self, f: F)
-       where F: FnOnce() + Send + 'static {}
-}
-</span>#
-fn main() {
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpListener;
+</span><span class="boring">use std::net::TcpStream;
+</span><span class="boring">struct ThreadPool;
+</span><span class="boring">impl ThreadPool {
+</span><span class="boring">   fn new(size: u32) -&gt; ThreadPool { ThreadPool }
+</span><span class="boring">   fn execute&lt;F&gt;(&amp;self, f: F)
+</span><span class="boring">       where F: FnOnce() + Send + 'static {}
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     let listener = TcpListener::bind(&quot;127.0.0.1:7878&quot;).unwrap();
     let pool = ThreadPool::new(4);
 
@@ -311,7 +311,7 @@ fn main() {
     }
 }
 <span class="boring">fn handle_connection(mut stream: TcpStream) {}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 20-12: 우리의 이상적인 <code>ThreadPool</code> 인터페이스</span></p>
 <p>우린 새로운 스레드 풀을 만들때 <code>ThreadPool::new</code> 를
 설정할 스레드의 개수를 나타내는 수(이 경우는 4)와 함께 사용했습니다.
@@ -346,10 +346,10 @@ error: aborting due to previous error
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub struct ThreadPool;
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>그 후 <em>src/bin</em> 이라는 새 디렉토리를 생성하고
 <em>src/main.rs</em> 바이너리 크레이트를 <em>src/bin/main.rs</em> 의 위치로 이동시킵니다.
 이로써 <em>hello</em> 디렉토리 안의 라이브러리 크레이트가 주요 크레이트가 될 것입니다;
@@ -380,7 +380,7 @@ error[E0599]: no function or associated item named `new` found for type
 <p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub struct ThreadPool;
 
 impl ThreadPool {
@@ -389,7 +389,7 @@ impl ThreadPool {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>스레드의 개수가 음수라는 것은 말이 안되기 때문에
 <code>size</code> 인자의 타입을 <code>usize</code> 로 정했습니다.
 3장의 &quot;정수 타입&quot; 절에서 설명했듯이 이 4 라는 숫자를
@@ -446,8 +446,8 @@ error[E0599]: no method named `execute` found for type `hello::ThreadPool` in th
 <p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub struct ThreadPool;
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct ThreadPool;
 </span>impl ThreadPool {
     // --snip--
 
@@ -459,7 +459,7 @@ pub struct ThreadPool;
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>우린 클로저가 인자를 받지 않고 반환값도 없기 때문에
 <code>FnOnce</code> 뒤에 <code>()</code> 를 사용합니다.
 이처럼 함수의 반환값은 생략될 수 있습니다.
@@ -510,8 +510,8 @@ warning: unused variable: `f`
 <p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub struct ThreadPool;
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct ThreadPool;
 </span>impl ThreadPool {
     /// 새 스레드풀 생성
     ///
@@ -529,7 +529,7 @@ pub struct ThreadPool;
     // --생략--
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 20-13: <code>ThreadPool::new</code> 를 <code>size</code> 가 0일 경우 패닉을
 일으키도록 구현</span></p>
 <p><code>ThreadPool</code> 에 문서 주석(doc comments)을 좀 추가해 봤습니다.
@@ -643,7 +643,7 @@ impl ThreadPool {
 <p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::thread;
 
 pub struct ThreadPool {
@@ -684,7 +684,7 @@ impl Worker {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 20-15: <code>ThreadPool</code> 을 스레드들을 직접 내장하는 대신
 <code>Worker</code> 인스턴스들을 내장하게 변경</span></p>
 <p>이제 <code>JoinHandle&lt;()&gt;</code> 인스턴스들이 아닌 <code>Worker</code> 인스턴스들을 내장하기 때문에
@@ -729,8 +729,8 @@ Listing 20-16에 보이는 것처럼 <code>Job</code> 구조체는 아직은 아
 <p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::thread;
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::thread;
 </span>// --생략--
 use std::sync::mpsc;
 
@@ -761,24 +761,24 @@ impl ThreadPool {
     }
     // --생략--
 }
-#
-<span class="boring">struct Worker {
-    id: usize,
-    thread: thread::JoinHandle&lt;()&gt;,
-}
-</span>#
-<span class="boring">impl Worker {
-    fn new(id: usize) -&gt; Worker {
-        let thread = thread::spawn(|| {});
-</span>#
-<span class="boring">        Worker {
-            id,
-            thread,
-        }
-    }
-}
-}
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">struct Worker {
+</span><span class="boring">    id: usize,
+</span><span class="boring">    thread: thread::JoinHandle&lt;()&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Worker {
+</span><span class="boring">    fn new(id: usize) -&gt; Worker {
+</span><span class="boring">        let thread = thread::spawn(|| {});
+</span><span class="boring">
+</span><span class="boring">        Worker {
+</span><span class="boring">            id,
+</span><span class="boring">            thread,
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">}
+</span></code></pre></pre>
 <p><span class="caption">Listing 20-16: <code>ThreadPool</code> 이 <code>Job</code> 객제를 전송하는
 채널의 송신 측을 저장하도록 변경</span></p>
 <p><code>ThreadPool::new</code> 에서 우린 새 채널을 만들고 풀에 송신단을 저장합니다.
@@ -859,20 +859,20 @@ Listing 20-18 은 위 내용대로 수정한 모습입니다.</p>
 <p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::thread;
-use std::sync::mpsc;
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::thread;
+</span><span class="boring">use std::sync::mpsc;
 </span>use std::sync::Arc;
 use std::sync::Mutex;
 // --생략--
 
 <span class="boring">pub struct ThreadPool {
-    workers: Vec&lt;Worker&gt;,
-    sender: mpsc::Sender&lt;Job&gt;,
-}
-struct Job;
-</span>#
-impl ThreadPool {
+</span><span class="boring">    workers: Vec&lt;Worker&gt;,
+</span><span class="boring">    sender: mpsc::Sender&lt;Job&gt;,
+</span><span class="boring">}
+</span><span class="boring">struct Job;
+</span><span class="boring">
+</span>impl ThreadPool {
     // --생략--
     pub fn new(size: usize) -&gt; ThreadPool {
         assert!(size &gt; 0);
@@ -897,25 +897,25 @@ impl ThreadPool {
 }
 
 <span class="boring">struct Worker {
-    id: usize,
-    thread: thread::JoinHandle&lt;()&gt;,
-}
-</span>#
-impl Worker {
+</span><span class="boring">    id: usize,
+</span><span class="boring">    thread: thread::JoinHandle&lt;()&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Worker {
     fn new(id: usize, receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Job&gt;&gt;&gt;) -&gt; Worker {
         // --생략--
 <span class="boring">        let thread = thread::spawn(|| {
-           receiver;
-        });
-</span>#
-<span class="boring">        Worker {
-            id,
-            thread,
-        }
+</span><span class="boring">           receiver;
+</span><span class="boring">        });
+</span><span class="boring">
+</span><span class="boring">        Worker {
+</span><span class="boring">            id,
+</span><span class="boring">            thread,
+</span><span class="boring">        }
 </span>    }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 20-18: <code>Arc</code> 와 <code>Mutex</code> 를 이용해 채널의
 를 <em>worker</em> 들이 공유하도록 변경</span></p>
 <p><code>ThreadPool::new</code> 에서, <code>Arc</code> 와 <code>Mutex</code> 를 이용해 채널의 수신단을 감싸고,
@@ -931,14 +931,14 @@ Listing 20-19에서 확인해 보세요.</p>
 <p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>// --생략--
 <span class="boring">pub struct ThreadPool {
-    workers: Vec&lt;Worker&gt;,
-    sender: mpsc::Sender&lt;Job&gt;,
-}
-use std::sync::mpsc;
-struct Worker {}
+</span><span class="boring">    workers: Vec&lt;Worker&gt;,
+</span><span class="boring">    sender: mpsc::Sender&lt;Job&gt;,
+</span><span class="boring">}
+</span><span class="boring">use std::sync::mpsc;
+</span><span class="boring">struct Worker {}
 </span>
 type Job = Box&lt;FnOnce() + Send + 'static&gt;;
 
@@ -957,7 +957,7 @@ impl ThreadPool {
 
 // --생략--
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">예제 20-19: 각 클로저를 내장한 <code>Box</code> 에 대한 타입 별칭인
 <code>Job</code> 을 만들고 채널에 작업 전송하기</span></p>
 <p><code>execute</code> 로 얻은 클로저를 사용하여 새 <code>Job</code> 객체를 생성하고 나면,

@@ -193,30 +193,30 @@
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>fn prints_and_returns_10(a: i32) -&gt; i32 {
     println!(&quot;I got the value {}&quot;, a);
     10
 }
 
-<span class="boring">[cfg(test)]
-</span>mod tests {
+#[cfg(test)]
+mod tests {
     use super::*;
 
-<span class="boring">    [test]
-</span>    fn this_test_will_pass() {
+    #[test]
+    fn this_test_will_pass() {
         let value = prints_and_returns_10(4);
         assert_eq!(10, value);
     }
 
-<span class="boring">    [test]
-</span>    fn this_test_will_fail() {
+    #[test]
+    fn this_test_will_fail() {
         let value = prints_and_returns_10(8);
         assert_eq!(5, value);
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 11-10: <code>println!</code>을 호출하는 함수를 위한 테스트
 </span></p>
 <p><code>cargo test</code>를 이용하여 이 테스트를 실행했을 때 보게 될 출력은 다음과 같습니다:</p>
@@ -276,32 +276,32 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub fn add_two(a: i32) -&gt; i32 {
     a + 2
 }
 
-<span class="boring">[cfg(test)]
-</span>mod tests {
+#[cfg(test)]
+mod tests {
     use super::*;
 
-<span class="boring">    [test]
-</span>    fn add_two_and_two() {
+    #[test]
+    fn add_two_and_two() {
         assert_eq!(4, add_two(2));
     }
 
-<span class="boring">    [test]
-</span>    fn add_three_and_two() {
+    #[test]
+    fn add_three_and_two() {
         assert_eq!(5, add_two(3));
     }
 
-<span class="boring">    [test]
-</span>    fn one_hundred() {
+    #[test]
+    fn one_hundred() {
         assert_eq!(102, add_two(100));
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 11-11: 여러 이름으로 된 세 가지 테스트</span></p>
 <p>만일 테스트를 어떠한 인자 없이 실행시키면, 전에 본 것과 같이 모든 테스트가 병렬적으로 수행될 것입니다:</p>
 <pre><code class="language-text">running 3 tests
@@ -352,19 +352,19 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[test]
-</span>fn it_works() {
+</span><span class="boring">fn main() {
+</span>#[test]
+fn it_works() {
     assert_eq!(2 + 2, 4);
 }
 
-<span class="boring">[test]
-[ignore]
-</span>fn expensive_test() {
+#[test]
+#[ignore]
+fn expensive_test() {
     // code that takes an hour to run
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>배제시키고 싶은 테스트에 대하여 <code>#[test]</code> 다음 줄에 <code>#[ignore]</code>를 추가하였습니다. 이제
 우리의 테스트들을 실행시키면, <code>it_works</code>가 실행되는 것은 보이지만, <code>expensive-test</code>는
 실행되지 않는 것을 볼 수 있습니다:</p>

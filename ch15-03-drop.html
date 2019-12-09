@@ -260,16 +260,16 @@ Dropping CustomSmartPointer with data `my stuff`!
 Listing 15-16에서 보는 것처럼 수정할 수 있습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">struct CustomSmartPointer {
-    data: String,
-}
-</span>#
-<span class="boring">impl Drop for CustomSmartPointer {
-    fn drop(&amp;mut self) {
-        println!(&quot;Dropping CustomSmartPointer!&quot;);
-    }
-}
-</span>#
-fn main() {
+</span><span class="boring">    data: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Drop for CustomSmartPointer {
+</span><span class="boring">    fn drop(&amp;mut self) {
+</span><span class="boring">        println!(&quot;Dropping CustomSmartPointer!&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     let c = CustomSmartPointer { data: String::from(&quot;some data&quot;) };
     println!(&quot;CustomSmartPointer created.&quot;);
     drop(c);

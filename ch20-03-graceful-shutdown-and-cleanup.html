@@ -205,14 +205,14 @@ Listing 20-23 은 <code>Drop</code> 을 구현한 첫 시도의 모습입니다;
 <p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-use std::thread;
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::thread;
 </span>struct Worker {
     id: usize,
     thread: Option&lt;thread::JoinHandle&lt;()&gt;&gt;,
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>변경해야 하는 나머지 부분은 컴파일러에 의지해서 찾아보도록 합시다.
 코드를 <code>check</code> 해보니 두 에러가 나오네요:</p>
 <pre><code class="language-text">error[E0599]: no method named `join` found for type
@@ -286,14 +286,14 @@ drop 한다면, 메인스레드는 첫번째 스레드가 끝나기만을 기다
 <p><span class="filename">파일명: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-struct Job;
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Job;
 </span>enum Message {
     NewJob(Job),
     Terminate,
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 <code>Message</code> 열거형은 스레드가 실행해야할
 <code>Job</code> 을 담고있는 <code>NewJob</code> variant 가 되거나,
 혹은 스레드를 중지시킬 <code>Terminate</code> variant 가 될 겁니다.</p>
@@ -528,7 +528,7 @@ fn handle_connection(mut stream: TcpStream) {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::thread;
 use std::sync::mpsc;
 use std::sync::Arc;
@@ -648,7 +648,7 @@ impl Worker {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>여기서 더 많은걸 할 수도 있습니다! 만약 여러분이 이 프로젝트를 개선하고
 싶으시다면, 여기 몇가지 아이디어를 참고하세요:</p>
 <ul>

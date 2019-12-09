@@ -249,9 +249,9 @@ complex type would be more appropriate <em>primitive obsession</em>.</p>
 사용하도록 변경했습니다. </p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust should_panic"><span class="boring">use std::env;
-use std::fs::File;
-</span>#
-fn main() {
+</span><span class="boring">use std::fs::File;
+</span><span class="boring">
+</span>fn main() {
     let args: Vec&lt;String&gt; = env::args().collect();
 
     let config = parse_config(&amp;args);
@@ -314,8 +314,8 @@ fn parse_config(args: &amp;[String]) -&gt; Config {
 우리가 해야할 변동사항 보여줍니다. </p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust should_panic"><span class="boring">use std::env;
-</span>#
-fn main() {
+</span><span class="boring">
+</span>fn main() {
     let args: Vec&lt;String&gt; = env::args().collect();
 
     let config = Config::new(&amp;args);
@@ -324,11 +324,11 @@ fn main() {
 }
 
 <span class="boring">struct Config {
-    query: String,
-    filename: String,
-}
-</span>#
-// ...snip...
+</span><span class="boring">    query: String,
+</span><span class="boring">    filename: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>// ...snip...
 
 impl Config {
     fn new(args: &amp;[String]) -&gt; Config {

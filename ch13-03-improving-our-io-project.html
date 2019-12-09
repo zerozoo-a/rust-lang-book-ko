@@ -243,15 +243,15 @@
 리스트 12-23 의 코드에서 <code>next</code> 메서드를 사용하도록 변경 합니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-use std::env;
-</span>#
-<span class="boring">struct Config {
-    query: String,
-    filename: String,
-    case_sensitive: bool,
-}
-</span>#
-impl Config {
+</span><span class="boring">use std::env;
+</span><span class="boring">
+</span><span class="boring">struct Config {
+</span><span class="boring">    query: String,
+</span><span class="boring">    filename: String,
+</span><span class="boring">    case_sensitive: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Config {
     pub fn new(mut args: std::env::Args) -&gt; Result&lt;Config, &amp;'static str&gt; {
         args.next();
 

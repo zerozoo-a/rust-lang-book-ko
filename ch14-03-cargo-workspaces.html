@@ -238,12 +238,12 @@ members = [
 <p><span class="filename">Filename: add-one/src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub fn add_one(x: i32) -&gt; i32 {
     x + 1
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이제 우린 작업공간 내에 라이브러리 크레이트를 가졌으니, <code>adder</code> 바이너리
 크레이트를 <code>add-one</code> 라이브러리 크레이트에 의존하도록 만들 수 있습니다.
 먼저, <em>adder/Cargo.toml</em> 에 <code>add-one</code> 에 대한 의존성 경로를 추가합시다.</p>
@@ -340,22 +340,22 @@ Cargo 는 <code>rand</code> 를 사용하는 작업공간 내의 크레이트는
 <p><span class="filename">Filename: add-one/src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub fn add_one(x: i32) -&gt; i32 {
     x + 1
 }
 
-<span class="boring">[cfg(test)]
-</span>mod tests {
+#[cfg(test)]
+mod tests {
     use super::*;
 
-<span class="boring">    [test]
-</span>    fn it_works() {
+    #[test]
+    fn it_works() {
         assert_eq!(3, add_one(2));
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이제 최상위 <em>add</em> 디렉토리에서 <code>cargo test</code> 를 실행해 봅시다:</p>
 <pre><code class="language-text">$ cargo test
    Compiling add-one v0.1.0 (file:///projects/add/add-one)

@@ -183,12 +183,12 @@
 호출하는 것이 완벽히 허용됩니다. 여기 예제가 있습니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::net::IpAddr;
 
 let home = &quot;127.0.0.1&quot;.parse::&lt;IpAddr&gt;().unwrap();
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>여기서는 하드코딩된 스트링을 파싱하여 <code>IpAddr</code> 인스턴스를 만드는 중입니다. 우리는 <code>127.0.0.1</code>이
 유효한 IP 주소임을 볼 수 있으므로, 여기서 <code>unwrap</code>을 사용하는 것은 허용됩니다. 그러나, 하드코딩된
 유효한 스트링을 갖고 있다는 것이 <code>parse</code> 메소드의 반환 타입을 변경해주지는 않습니다: 우리는 여전히
@@ -277,7 +277,7 @@ let home = &quot;127.0.0.1&quot;.parse::&lt;IpAddr&gt;().unwrap();
 보여줍니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub struct Guess {
     value: u32,
 }
@@ -298,7 +298,7 @@ impl Guess {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 9-9: 1과 100 사이의 값일 때만 계속되는 <code>Guess</code> 타입
 </span></p>
 <p>먼저 <code>u32</code>를 갖는 <code>value</code>라는 이름의 항목을 가진 <code>Guess</code>라는 이름의 구조체를 선언하였습니다.

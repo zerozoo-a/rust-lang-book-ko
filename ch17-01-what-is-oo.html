@@ -190,13 +190,13 @@ Elements of Reusable Object-Oriented Software</em>은 객체 지향 디자인 �
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub struct AveragedCollection {
     list: Vec&lt;i32&gt;,
     average: f64,
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-1: 콜렉션 내의 정수
 항목들과 그의 평균을 관리하는 <code>AveragedCollection</code>
 구조체</span></p>
@@ -208,11 +208,11 @@ fn main() {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-pub struct AveragedCollection {
-    list: Vec&lt;i32&gt;,
-    average: f64,
-}
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct AveragedCollection {
+</span><span class="boring">    list: Vec&lt;i32&gt;,
+</span><span class="boring">    average: f64,
+</span><span class="boring">}
 </span>impl AveragedCollection {
     pub fn add(&amp;mut self, value: i32) {
         self.list.push(value);
@@ -240,7 +240,7 @@ pub struct AveragedCollection {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 17-2: <code>AveragedCollection</code>의 공개 메소드 <code>add</code>,
 <code>remove</code>, 그리고 <code>average</code></span></p>
 <p>공개 메소드들 <code>add</code>, <code>remove</code>, 그리고 <code>average</code>는 <code>AveragedCollection</code>의

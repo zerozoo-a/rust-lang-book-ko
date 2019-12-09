@@ -155,8 +155,8 @@
 <p>자료 구조(구조체, 열거형, union)에서 필드명을 갖는 필드를 초기화할 때
 <code>fieldname: fieldname</code> 을 <code>fieldname</code> 으로 줄여서 쓸 수 있습니다.
 이 기능은 초기화 구문을 간결하게 만들어 코드 중복을 줄여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">[derive(Debug)]
-</span>struct Person {
+<pre><pre class="playpen"><code class="language-rust">#[derive(Debug)]
+struct Person {
     name: String,
     age: u8,
 }
@@ -205,25 +205,25 @@ fn main() {
 다음은 <code>bar</code> 과 <code>Foo</code>, 그리고 <code>baz</code>와 <code>Bar</code> 내
 모든 항목을 가져오는 예시입니다:</p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">#![allow(unused_imports, dead_code)]
-</span>#
-<span class="boring">mod foo {
-    pub mod bar {
-        pub type Foo = ();
-    }
-    pub mod baz {
-        pub mod quux {
-            pub type Bar = ();
-        }
-    }
-}
-</span>#
-use foo::{
+</span><span class="boring">
+</span><span class="boring">mod foo {
+</span><span class="boring">    pub mod bar {
+</span><span class="boring">        pub type Foo = ();
+</span><span class="boring">    }
+</span><span class="boring">    pub mod baz {
+</span><span class="boring">        pub mod quux {
+</span><span class="boring">            pub type Bar = ();
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>use foo::{
     bar::{self, Foo},
     baz::{*, quux::Bar},
 };
-#
-<span class="boring">fn main() {}
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <h2><a class="header" href="#포괄적인-범위-표현" id="포괄적인-범위-표현">포괄적인 범위 표현</a></h2>
 <p>앞서 범위 문법(<code>..</code> 와 <code>...</code> 를 말합니다)를 사용할 때,
 표현식에선 상한을 포함하지 않는 <code>..</code> 를 사용하고, 패턴에선

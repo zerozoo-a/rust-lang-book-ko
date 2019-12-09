@@ -236,7 +236,7 @@
 <code>while let</code> 조건 루프입니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let mut stack = Vec::new();
 
 stack.push(1);
@@ -247,7 +247,7 @@ while let Some(top) = stack.pop() {
     println!(&quot;{}&quot;, top);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">예제 18-2: <code>while let</code>을 이용해 <code>stack.pop()</code>이
 <code>Some</code>을 반환하는 한 값을 출력</span></p>
 <p>이 예제는 3, 2, 1을 출력할 것입니다. <code>pop</code>메소드는 vector의 마지막 값을 꺼내서
@@ -264,14 +264,14 @@ while let Some(top) = stack.pop() {
 사용하는 것을 보여줍니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let v = vec!['a', 'b', 'c'];
 
 for (index, value) in v.iter().enumerate() {
     println!(&quot;{} is at index {}&quot;, value, index);
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">예제 18-3: 튜플을 분해해기 위해 <code>for</code> 루프에서 패턴 사용
 </span></p>
 <p>예제의 출력결과는 다음과 같습니다.</p>
@@ -291,10 +291,10 @@ c is at index 2
 <code>let</code>을 이용한 변수 대입을 예로 들어 봅시다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let x = 5;
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이미 수백번은 봤을 <code>let</code>입니다. 하지만 아셨을지 모르겠지만 사실 이 구문에는
 패턴이 쓰이고 있습니다!
 <code>let</code> 구문을 더 형식에 맞춰 나타내면 다음과 같습니다:</p>
@@ -310,10 +310,10 @@ fn main() {
 튜플을 분해하는 패턴을 사용하고 있습니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let (x, y, z) = (1, 2, 3);
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">예제 18-4: 패턴을 이용해 튜플을 분해하며 세개의 변수를
 생성</span></p>
 <p>이 코드는 튜플을 하나의 패턴에 대응시키고 있습니다. 러스트는 튜플 <code>(1, 2, 3)</code>을
@@ -349,12 +349,12 @@ fn main() {
 이제는 익숙한 코드라 생각합니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>fn foo(x: i32) {
     // code goes here
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">예제 18-6: 함수 선언의 매개변수는 패턴을 사용
 </span></p>
 <p>예상대로 <code>x</code> 부분은 패턴입니다! <code>let</code>에서도 그랬듯, 함수에 인자를 넘기는 과정에서

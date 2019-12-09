@@ -171,13 +171,13 @@
 언급했었습니다.</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub trait Iterator {
     type Item;
     fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt;;
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-20: 연관 타입 <code>Item</code>을 가진
 <code>Iterator</code> 트레잇의 정의</span></p>
 <p>타입 <code>Item</code>은 플레이스홀더 타입이고, <code>next</code> 메소드의 정의는
@@ -202,12 +202,12 @@ fn main() {
 제네릭을 사용하여 <code>Iterator</code> 트레잇을 정의하지 않을까요?</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub trait Iterator&lt;T&gt; {
     fn next(&amp;mut self) -&gt; Option&lt;T&gt;;
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-21: 제네릭을 사용한 <code>Iterator</code> 트레잇의
 가상 정의</span></p>
 <p>그 차이점은 Listing 19-21에서처럼 제네릭을 이용할 경우, 우리는 각 구현마다
@@ -242,8 +242,8 @@ Listing 19-22에서는 두 개의 <code>Point</code> 인스턴스를 함께 더�
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">use std::ops::Add;
 
-<span class="boring">[derive(Debug, PartialEq)]
-</span>struct Point {
+#[derive(Debug, PartialEq)]
+struct Point {
     x: i32,
     y: i32,
 }
@@ -274,14 +274,14 @@ fn main() {
 이 트레잇의 정의입니다:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>trait Add&lt;RHS=Self&gt; {
     type Output;
 
     fn add(self, rhs: RHS) -&gt; Self::Output;
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 코드가 일반적으로 친숙하게 보여야 합니다: 하나의 메소드와 연관 타입을 가진
 트레잇 입니다. 새로운 부분은 꺽쇠 괄호 내에 있는 <code>RHS=Self</code> 부분입니다:
 이 문법을 <em>기본 타입 파라미터</em> 라고 부릅니다. <code>RHS</code> 제네릭 타입 파라미터 (
@@ -300,7 +300,7 @@ fn main() {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::ops::Add;
 
 struct Millimeters(u32);
@@ -314,7 +314,7 @@ impl Add&lt;Meters&gt; for Millimeters {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-23: <code>Millimeters</code>와 <code>Meters</code>를
 더하기 위해 <code>Millimeters</code> 상에 <code>Add</code> 트레잇 구현하기</span></p>
 <p><code>Millimeters</code>와 <code>Meters</code>를 더하기 위해, <code>impl Add&lt;Meters&gt;</code>라고 명시하여
@@ -347,7 +347,7 @@ impl Add&lt;Meters&gt; for Millimeters {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>trait Pilot {
     fn fly(&amp;self);
 }
@@ -376,7 +376,7 @@ impl Human {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-24: <code>fly</code> 메소드를 갖도록 정의된 두
 트레잇과 <code>fly</code> 메소드를 직접 가지고 있는 <code>Human</code> 타입 상에서의 해당 트레잇들의
 구현</span></p>
@@ -384,34 +384,34 @@ impl Human {
 것처럼 컴파일러는 기본적으로 그 타입에 직접 구현된 메소드를 호출합니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">trait Pilot {
-    fn fly(&amp;self);
-}
-</span>#
-<span class="boring">trait Wizard {
-    fn fly(&amp;self);
-}
-</span>#
-<span class="boring">struct Human;
-</span>#
-<span class="boring">impl Pilot for Human {
-    fn fly(&amp;self) {
-        println!(&quot;This is your captain speaking.&quot;);
-    }
-}
-</span>#
-<span class="boring">impl Wizard for Human {
-    fn fly(&amp;self) {
-        println!(&quot;Up!&quot;);
-    }
-}
-</span>#
-<span class="boring">impl Human {
-    fn fly(&amp;self) {
-        println!(&quot;*waving arms furiously*&quot;);
-    }
-}
-</span>#
-fn main() {
+</span><span class="boring">    fn fly(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">trait Wizard {
+</span><span class="boring">    fn fly(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Human;
+</span><span class="boring">
+</span><span class="boring">impl Pilot for Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!(&quot;This is your captain speaking.&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Wizard for Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!(&quot;Up!&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!(&quot;*waving arms furiously*&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     let person = Human;
     person.fly();
 }
@@ -425,34 +425,34 @@ fn main() {
 필요가 있습니다. Listing 19-26은 이 문법의 예시를 보여줍니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">trait Pilot {
-    fn fly(&amp;self);
-}
-</span>#
-<span class="boring">trait Wizard {
-    fn fly(&amp;self);
-}
-</span>#
-<span class="boring">struct Human;
-</span>#
-<span class="boring">impl Pilot for Human {
-    fn fly(&amp;self) {
-        println!(&quot;This is your captain speaking.&quot;);
-    }
-}
-</span>#
-<span class="boring">impl Wizard for Human {
-    fn fly(&amp;self) {
-        println!(&quot;Up!&quot;);
-    }
-}
-</span>#
-<span class="boring">impl Human {
-    fn fly(&amp;self) {
-        println!(&quot;*waving arms furiously*&quot;);
-    }
-}
-</span>#
-fn main() {
+</span><span class="boring">    fn fly(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">trait Wizard {
+</span><span class="boring">    fn fly(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Human;
+</span><span class="boring">
+</span><span class="boring">impl Pilot for Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!(&quot;This is your captain speaking.&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Wizard for Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!(&quot;Up!&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!(&quot;*waving arms furiously*&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     let person = Human;
     Pilot::fly(&amp;person);
     Wizard::fly(&amp;person);
@@ -544,24 +544,24 @@ fn main() {
 어떻게 사용하는지를 보여줍니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust"><span class="boring">trait Animal {
-    fn baby_name() -&gt; String;
-}
-</span>#
-<span class="boring">struct Dog;
-</span>#
-<span class="boring">impl Dog {
-    fn baby_name() -&gt; String {
-        String::from(&quot;Spot&quot;)
-    }
-}
-</span>#
-<span class="boring">impl Animal for Dog {
-    fn baby_name() -&gt; String {
-        String::from(&quot;puppy&quot;)
-    }
-}
-</span>#
-fn main() {
+</span><span class="boring">    fn baby_name() -&gt; String;
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Dog;
+</span><span class="boring">
+</span><span class="boring">impl Dog {
+</span><span class="boring">    fn baby_name() -&gt; String {
+</span><span class="boring">        String::from(&quot;Spot&quot;)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Animal for Dog {
+</span><span class="boring">    fn baby_name() -&gt; String {
+</span><span class="boring">        String::from(&quot;puppy&quot;)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
     println!(&quot;A baby dog is called a {}&quot;, &lt;Dog as Animal&gt;::baby_name());
 }
 </code></pre></pre>
@@ -608,7 +608,7 @@ fn main() {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>use std::fmt;
 
 trait OutlinePrint: fmt::Display {
@@ -623,7 +623,7 @@ trait OutlinePrint: fmt::Display {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 19-30: <code>Display</code>의 기능을 요구하는
 <code>OutlinePrint</code> 트레잇 구현하기</span></p>
 <p><code>OutlinePrint</code>가 <code>Display</code> 트레잇을 요구한다고 명시했으므로, 우리는
@@ -636,8 +636,8 @@ trait OutlinePrint: fmt::Display {
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-trait OutlinePrint {}
+</span><span class="boring">fn main() {
+</span><span class="boring">trait OutlinePrint {}
 </span>struct Point {
     x: i32,
     y: i32,
@@ -645,7 +645,7 @@ trait OutlinePrint {}
 
 impl OutlinePrint for Point {}
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>우리는 <code>Display</code>가 요구되었으나 구현되지 않았다고 말하는 에러를 얻습니다:</p>
 <pre><code class="language-text">error[E0277]: the trait bound `Point: std::fmt::Display` is not satisfied
   --&gt; src/main.rs:20:6
@@ -661,13 +661,13 @@ try using `:?` instead if you are using a format string
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-struct Point {
-    x: i32,
-    y: i32,
-}
-</span>#
-use std::fmt;
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Point {
+</span><span class="boring">    x: i32,
+</span><span class="boring">    y: i32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>use std::fmt;
 
 impl fmt::Display for Point {
     fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {
@@ -675,7 +675,7 @@ impl fmt::Display for Point {
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>그러면 <code>Point</code> 상의 <code>OutlinePrint</code> 트레잇 구현은 성공적으로
 컴파일될 것이고, 우리는 애스터리스크로 감싸진 값을 출력하기 위해
 <code>Point</code> 인스턴스 상에서 <code>outline_print</code>를 호출할 수 있습니다.</p>

@@ -228,10 +228,10 @@ The value of x is: 6
 상수 명명 규칙에 따라 모든 단어를 대문자로 사용합니다.)</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>const MAX_POINTS: u32 = 100_000;
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>상수는 자신이 선언되어 있는 영역 내에서 프로그램이 실행되는 시간 동안 항상 유효하기에, 당신의 어플리케이션 도메인 전체에
 걸쳐 프로그램의 다양한 곳에서 사용되는 값을 상수로 하면 유용합니다. 사용자가 한 게임에서 획득할 수 있는 최대 포인트,
 빛의 속도 같은 값 등등...</p>
@@ -271,11 +271,11 @@ The value of x is: 12
 문자가 있는지 보여주고자 할 때, 실제로는 저장하고자 하는 것은 공백의 갯수일테죠. </p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>let spaces = &quot;   &quot;;
 let spaces = spaces.len();
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이와 같은 구조가 허용되는 이유는 첫 <code>spaces</code> 변수가 문자열 유형이고 두 번째 <code>spaces</code> 변수는 첫 번째 것과 
 동일한 이름을 가진 새롭게 정의된 숫자 유형의 변수이기 때문입니다. Shadowing은 <code>space_str</code>이나 <code>space_num</code>
 과 같이 대체된 이름을 사용는 대신 간단히 <code>spaces</code> 이름을 사용할 수 있게 해줍니다. 그러나 우리가 <code>mut</code>을 사용하려고 

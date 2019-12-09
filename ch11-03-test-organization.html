@@ -176,16 +176,16 @@ interface)를 테스트합니다. 통합 테스트는 완전히 여러분의 라
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
-[cfg(test)]
-</span>mod tests {
-<span class="boring">    [test]
-</span>    fn it_works() {
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
         assert_eq!(2 + 2, 4);
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>이 코드는 자동으로 생성되는 테스트 모듈입니다. <code>cfg</code> 속성은 <em>환경 설정(configuration)</em> 을 의미하며,
 러스트에게 뒤따르는 아이템이 특정한 환경 값에 대해서만 포함되어야 함을 말해줍니다. 위의 경우, 환경 값이
 <code>test</code>인데, 테스트를 컴파일하고 실행하기 위해 러스트로부터 제공되는 것입니다. 이 속성을 이용함으로써,
@@ -201,7 +201,7 @@ fn main() {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub fn add_two(a: i32) -&gt; i32 {
     internal_adder(a, 2)
 }
@@ -210,17 +210,17 @@ fn internal_adder(a: i32, b: i32) -&gt; i32 {
     a + b
 }
 
-<span class="boring">[cfg(test)]
-</span>mod tests {
+#[cfg(test)]
+mod tests {
     use super::*;
 
-<span class="boring">    [test]
-</span>    fn internal() {
+    #[test]
+    fn internal() {
         assert_eq!(4, internal_adder(2, 2));
     }
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p><span class="caption">Listing 11-12: 비공개 함수 테스트하기</span></p>
 <p><code>internal_adder</code> 함수는 <code>pub</code>으로 표시되어 있지 않지만, 테스트가 그저 러스트 코드일 뿐이고
 <code>tests</code> 모듈도 그냥 또 다른 모듈이기 때문에, <code>internal_adder</code>를 불러들여 호출하는 것이 그냥 되는
@@ -321,12 +321,12 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <p><span class="filename">Filename: tests/common.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
-fn main() {
+</span><span class="boring">fn main() {
 </span>pub fn setup() {
     // 여러분의 라이브러리 테스트에 특화된 셋업 코드가 여기 올 것입니다
 }
 <span class="boring">}
-</code></pre></pre>
+</span></code></pre></pre>
 <p>만약 테스트를 다시 실행시키면, 비록 이 코드가 어떠한 테스트 함수도 담고 있지 않고, <code>setup</code> 함수를
 다른 어딘가에서 호출하고 있지 않을지라도, <em>common.rs</em> 파일을 위한 테스트 출력 내의 새로운 섹션을
 보게 될 것입니다:</p>
