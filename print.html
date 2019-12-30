@@ -6887,7 +6887,7 @@ fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
 수도 있고, 기본 사용자 이름을 사용할 수도 있으며, 혹은 파일이 아닌 다른 어딘가에서 사용자 이름을
 찾을 수도 있습니다. 호출하는 코드가 정확히 어떤 것을 시도하려 하는지에 대한 충분한 정보가 없기 때문에,
 우리는 모든 성공 혹은 에러 정보를 위로 전파하여 호출하는 코드가 적절하게 처리를 하도록 합니다.</p>
-<p>러스트에서 에러를 전파하는 패턴은 너무 흔하여 러스트에서는 이를 더 쉽게 해주는 물음포 연산자 <code>?</code>를
+<p>러스트에서 에러를 전파하는 패턴은 너무 흔하여 러스트에서는 이를 더 쉽게 해주는 물음표 연산자 <code>?</code>를
 제공합니다.</p>
 <h3><a class="header" href="#에러를-전파하기-위한-숏컷-" id="에러를-전파하기-위한-숏컷-">에러를 전파하기 위한 숏컷: <code>?</code></a></h3>
 <p>Listing 9-7은 Listing 9-6과 같은 기능을 가진 <code>read_username_from_file</code>의 구현을 보여주는데,
@@ -7059,7 +7059,7 @@ let home = &quot;127.0.0.1&quot;.parse::&lt;IpAddr&gt;().unwrap();
 만일 그렇지 않다면 <code>panic!</code>을 호출해야 합니다. 이는 주로 안전상의 이유를 위한 것입니다: 유효하지
 않은 데이터 상에서 어떤 연산을 시도하는 것은 여러분의 코드를 취약점에 노출시킬 수 있습니다. 이는
 여러분이 범위를 벗어난 메모리 접근을 시도했을 경우 표준 라이브러리가 <code>panic!</code>을 호출하는 주된 이유입니다:
-현제의 데이터 구조가 소유하지 않은 메모리를 접근 시도하는 것은 흔한 보안 문제입니다. 함수는 종종
+현재의 데이터 구조가 소유하지 않은 메모리를 접근 시도하는 것은 흔한 보안 문제입니다. 함수는 종종
 <em>계약</em>을 갖고 있습니다: 입력이 특정 요구사항을 만족시킬 경우에만 함수의 행동이 보장됩니다. 이 계약을
 위반했을 때 패닉에 빠지는 것은 사리에 맞는데, 그 이유는 계약 위반이 언제나 호출자 쪽의 버그임을 나타내고,
 이는 호출하는 코드가 명시적으로 처리하도록 하는 종류의 버그가 아니기 때문입니다. 사실, 호출하는 쪽의 코드가
@@ -8834,7 +8834,7 @@ error: test failed
 <p>이제 서로 다른 시나리오에서 테스트 결과가 어떻게 보이는지를 알았으니,
 <code>panic!</code> 외에 테스트 내에서 유용하게 쓰일 수 있는 몇 가지 매크로를 봅시다.</p>
 <h3><a class="header" href="#assert-매크로를-이용하여-결과-확인하기" id="assert-매크로를-이용하여-결과-확인하기"><code>assert!</code> 매크로를 이용하여 결과 확인하기</a></h3>
-<p>표준 라이브러리에서 제공하는 <code>assert!</code> 매크로는 여러분이 테스트이 어떤 조건이 <code>true</code>임을 보장하기를
+<p>표준 라이브러리에서 제공하는 <code>assert!</code> 매크로는 여러분이 테스트가 어떤 조건이 <code>true</code>임을 보장하기를
 원하는 경우 유용합니다. <code>assert!</code> 매크로에는 부울린 타입으로 계산되는 인자가 제공됩니다. 만일 값이
 <code>true</code>라면 <code>assert!</code>는 아무일도 하지 않고 테스트는 통과됩니다. 만일 값이 <code>false</code>라면, <code>assert!</code>는
 <code>panic!</code> 매크로를 호출하는데, 이것이 테스트를 실패하게 합니다. 이는 우리의 코드가 우리 의도대로
@@ -9702,7 +9702,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <p>어떠한 <em>src</em> 파일에 단위 테스트 함수를 더 추가하는 것이 단위 테스트 섹션의 테스트 결과 라인을 더
 늘린다는 점을 상기하세요. 통합 테스트 파일에 테스트 함수를 더 추가하는 것은 그 파일의 섹션의 라인을
 더 늘릴 것입니다. 각 통합 테스트 파일은 고유의 섹션을 가지고 있으므로, 만일 우리가 <em>tests</em> 디렉토리에
-파일을 더 추가하면, 통합 테스트 생선이 더 생길 것입니다.</p>
+파일을 더 추가하면, 통합 테스트 섹션이 더 생길 것입니다.</p>
 <p><code>cargo test</code>의 인자로서 테스트 함수의 이름을 명시하는 식으로 특정 통합 테스트 함수를 실행시키는 것도
 여전히 가능합니다. 특정한 통합 테스트 파일 내의 모든 테스트를 실행시키기 위해서는, <code>cargo test</code>에
 파일 이름을 뒤에 붙인 <code>--test</code> 인자를 사용하세요:</p>
@@ -9953,7 +9953,7 @@ $ cargo run needle haystack
 것입니다 우리가 필요로하는 두 가지 주장 만 저장하면됩니다.</p>
 <p>벡터의 첫 값이 &quot;target/debug/greprs&quot;으로 바이너리의 이름임을 알 수 있습니다. 왜 그런지에 대한 내용은 이번 장을
 넘어가니, 우리가 필요한 두 인자를 저장하였음을 기억하면 되겠습니다.</p>
-<h3><a class="header" href="#변수에-인자-값들-저장하기" id="변수에-인자-값들-저장하기">변수에 인자 값들 저장하기.</a></h3>
+<h3><a class="header" href="#변수에-인자-값들-저장하기" id="변수에-인자-값들-저장하기">변수에 인자 값들 저장하기</a></h3>
 <p>인자값들이 들어있는 벡터의 값들을 출력하는 것을 통해 우리의 프로그램에서 커맨드라인 인자의 원하는 값에 접근하는 것이
 가능하다는 것을 상상할 수 있습니다. 다음은 정확히 우리가 원하는 방식이 아니지만, 두개의 인자값을 변수로 저장하여 그
 값들을 우리의 프로그램에서 사용할 수 있도록 합니다. </p>
@@ -10157,8 +10157,7 @@ To tell your name the livelong day
 To an admiring bog!
 </code></pre>
 <p><span class="caption">항목 12-3: 테스트 용으로 적합한 에밀리 딕킨슨의 시 &quot;I'm nobody! Who are you?&quot;</span></p>
-<p>With that in place, edit <em>src/main.rs</em> and add code to open the file as shown
-in Listing 12-4:</p>
+<p>언급된 위치에 위의 파일을 생성한 후, <em>src/main.rs</em> 파일을 아래 항목 12-4의 내용을 참고하여 편집합니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust should_panic">use std::env;
 use std::fs::File;

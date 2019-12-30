@@ -323,7 +323,7 @@ error: test failed
 <p>이제 서로 다른 시나리오에서 테스트 결과가 어떻게 보이는지를 알았으니,
 <code>panic!</code> 외에 테스트 내에서 유용하게 쓰일 수 있는 몇 가지 매크로를 봅시다.</p>
 <h3><a class="header" href="#assert-매크로를-이용하여-결과-확인하기" id="assert-매크로를-이용하여-결과-확인하기"><code>assert!</code> 매크로를 이용하여 결과 확인하기</a></h3>
-<p>표준 라이브러리에서 제공하는 <code>assert!</code> 매크로는 여러분이 테스트이 어떤 조건이 <code>true</code>임을 보장하기를
+<p>표준 라이브러리에서 제공하는 <code>assert!</code> 매크로는 여러분이 테스트가 어떤 조건이 <code>true</code>임을 보장하기를
 원하는 경우 유용합니다. <code>assert!</code> 매크로에는 부울린 타입으로 계산되는 인자가 제공됩니다. 만일 값이
 <code>true</code>라면 <code>assert!</code>는 아무일도 하지 않고 테스트는 통과됩니다. 만일 값이 <code>false</code>라면, <code>assert!</code>는
 <code>panic!</code> 매크로를 호출하는데, 이것이 테스트를 실패하게 합니다. 이는 우리의 코드가 우리 의도대로
