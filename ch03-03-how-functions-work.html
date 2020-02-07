@@ -153,7 +153,7 @@
 이는 다수의 프로그램에서 실행 지점입니다. 여러분은 또한 <code>fn</code> 키워드도 보셨을텐데, 이는 새로운 함수의 선언을
 가능하게 합니다.</p>
 <p>Rust 코드는 <em>뱀 형태</em>를 변수나 함수 이름의 형식 규칙으로 사용합니다. 뱀 형태에서, 모든 문자는 소문자를 사용하며
-밑줄 표시로 단어를 구분합니다. 다음은 예제로 함수를 선언하는 프로그램 입니다:</p>
+밑줄 표시로 단어를 구분합니다. 다음은 예제로 함수를 선언하는 프로그램입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     println!(&quot;Hello, world!&quot;);
@@ -165,7 +165,7 @@ fn another_function() {
     println!(&quot;Another function.&quot;);
 }
 </code></pre></pre>
-<p>Rust 에서의 함수 선언은 <code>fn</code>으로 시작하며 함수 이름 뒤에 괄호의 형식으로 되어 있습니다. 중괄호는 컴파일러에게
+<p>Rust에서의 함수 선언은 <code>fn</code>으로 시작하며 함수 이름 뒤에 괄호의 형식으로 되어 있습니다. 중괄호는 컴파일러에게
 함수의 시작과 종료 지점을 알려주게 됩니다. </p>
 <p>우리는 함수의 이름과 괄호 형식을 기입하는 것을 통해 우리가 선언했던 어떤 함수든 호출할 수 있습니다. 
 <code>another_function</code>이 프로그램 내에 정의되어 있으므로, <code>main</code> 함수에서 해당 함수를 호출할 수 있습니다. 
@@ -187,7 +187,7 @@ Another function.
 <p>함수는 함수 고유한 부분인 특별한 변수 <em>매개변수</em>를 갖는 형식으로 선언될 수 있습니다. 함수가 매개변수를 취할 때, 우리는
 상수를 그들의 전달인자로 제공할 수 있습니다. 기술적으로, 여기서 전달되는 상수를 <em>전달인자</em>라고 부릅니다만, 사람들은 보통
 “전달인자”와 “매개변수”를 혼용해서 사용하는 경향이 있습니다.</p>
-<p>다음의 재작성 된 <code>another_function</code>은 Rust에서 매개변수가 어떤 것이지 보여줍니다:</p>
+<p>다음의 재작성 된 <code>another_function</code>은 Rust에서 매개변수가 어떤 것인지 보여줍니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     another_function(5);
@@ -207,7 +207,7 @@ The value of x is: 5
 <p><code>another_function</code>의 선언은 <code>x</code>로 명명된 하나의 매개변수를 갖습니다. <code>x</code>의 타입은 <code>i32</code>로 정의됩니다.
 <code>5</code>가 <code>another_function</code>으로 전달되면, <code>println!</code> 매크로는 중괄호 짝으로 된 형식 문자열에 <code>5</code>를
 전달합니다. 함수의 선언부에서, 여러분은 <em>반드시</em> 각 매개변수의 타입을 정의해야 합니다. 이 사항은 Rust를 설계하며 
-내린 신중한 결정사항 입니다: 함수의 정의에 타입을 명시하여 코드내 다른 부분에서 이들을 사용하는 것을 통해 당신의 의도를 
+내린 신중한 결정사항입니다: 함수의 정의에 타입을 명시하여 코드 내 다른 부분에서 이들을 사용하는 것을 통해 당신의 의도를 
 추측하지 않아도 되게 됩니다. </p>
 <p>여러분의 함수에 여러 개의 매개변수를 사용하고 싶으면, 매개변수들을 다음처럼 쉼표와 함께 구분해서 사용할 수 있습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
@@ -240,14 +240,14 @@ The value of y is: 6
 <h3><a class="header" href="#구문과-표현식" id="구문과-표현식">구문과 표현식</a></h3>
 <p>사실 우리는 이미 구문과 표현식을 사용했습니다. <em>구문</em>은 어떤 명령들의 나열로 값을 반환하지 않는 어떤 동작을 수행 
 합니다. <em>포현식</em>은 결과 값을 산출해냅니다. 다음 몇 개의 예제를 살펴보도록 합시다. <code>let</code> 키워드를 통해 변수를 
-만들고 값을 할당하는 구문을 만듭니다. 항목 3-3의, <code>let y = 6;</code>은 구문 입니다:</p>
+만들고 값을 할당하는 구문을 만듭니다. 항목 3-3의, <code>let y = 6;</code>은 구문입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     let y = 6;
 }
 </code></pre></pre>
 <p><span class="caption">항목 3-3: 하나의 구문을 갖는 <code>main</code> 함수를 선언하였다. </span></p>
-<p>함수 정의는 또 하나의 구문입니다; 상기 예제는 자신 그 자체가 구문 입니다. 구문은 값을 반환하지 않습니다. 
+<p>함수 정의는 또 하나의 구문입니다; 상기 예제는 자신 그 자체가 구문입니다. 구문은 값을 반환하지 않습니다. 
 그러니, 여러분은 다음처럼 <code>let</code> 구문을 사용해서는 다른 변수에 값을 대입할 수 없습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
@@ -294,7 +294,7 @@ Ruby와의 차이점 입니다. 이들 언어들은 <code>x = y = 6</code>와 �
 <p>이번 경우에 해당 block은 <code>4</code>를 산출합니다. 이 값은 <code>let</code> 구문의 일부로 <code>y</code>에 bound됩니다. 
 여러분이 앞서 봐온 것과 다르게 <code>x + 1</code> 줄의 마지막이 세미콜론으로 끝나지 않은 점을 주목하세요.
 표현식은 종결을 나타내는 세미콜론을 사용하지 않습니다. 만약 세미콜론을 표현식 마지막에 추가하면,
-이는 구문으로 변경되고 반환 값이 아니게 됩니다. 이후부터 함수의 반환 값과 표현식을 살펴보실때
+이는 구문으로 변경되고 반환 값이 아니게 됩니다. 이후부터 함수의 반환 값과 표현식을 살펴보실 때
 이 점을 유의하세요. </p>
 <h3><a class="header" href="#반환-값을-갖는-함수" id="반환-값을-갖는-함수">반환 값을 갖는 함수</a></h3>
 <p>함수는 그들을 호출한 코드에 값을 반환할 수 있습니다. 우리는 반환되는 값을 명명해야 할 필요는 없지만, 그들의 
@@ -332,7 +332,7 @@ The value of x is: 5
 <span class="boring">}
 </span></code></pre></pre>
 <p>둘 째, <code>five</code> 함수는 매개변수 없이 반환 값에 대한 타입만 정의되어 있지만, 본문에는 <code>5</code>만이 세미콜론 없이 
-외로이 있는 이유는 이것이 우리가 값을 반환하고자 할때 사용하는 하는 표현식이기 때문입니다. 다른 예제를 통해 
+외로이 있는 이유는 이것이 우리가 값을 반환하고자 할 때 사용하는 표현식이기 때문입니다. 다른 예제를 통해 
 살펴보겠습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
