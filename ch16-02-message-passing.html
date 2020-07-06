@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>메세지 패싱 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -177,7 +185,7 @@
 우리가 채널을 통해 어떤 타입의 값을 보내는지에 대해 러스트에게 말하지 않았기 때문에
 아직 컴파일되지 않는다는 점을 주의하세요.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">use std::sync::mpsc;
+<pre><pre class="playground"><code class="language-rust">use std::sync::mpsc;
 
 fn main() {
     let (tx, rx) = mpsc::channel();
@@ -208,7 +216,7 @@ fn main() {
 해봅시다. 이는 강 상류에 고무 오리를 띄우는 것 혹은 한 스레드에서 다른
 스레드로 채팅 메세지를 보내는 것과 비슷합니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">use std::thread;
+<pre><pre class="playground"><code class="language-rust">use std::thread;
 use std::sync::mpsc;
 
 fn main() {
@@ -236,7 +244,7 @@ fn main() {
 받을 것입니다. 이는 강의 끝물에서 고무 오리를 건져올리는 것 혹은 채팅
 메세지를 받는 것과 비슷합니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">use std::thread;
+<pre><pre class="playground"><code class="language-rust">use std::thread;
 use std::sync::mpsc;
 
 fn main() {
@@ -329,7 +337,7 @@ Listing 16-10에서는 Listing 16-8의 코드가 동시에 실행된다는 것�
 입증해 중 수정본을 만들었습니다: 이제 생성된 스레드가 여러 메세지를 보내면서
 각 메세지 사이에 1초씩 잠깐 멈출 것입니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">use std::thread;
+<pre><pre class="playground"><code class="language-rust">use std::thread;
 use std::sync::mpsc;
 use std::time::Duration;
 
@@ -380,7 +388,7 @@ Got: thread
 수신자로 값들을 보내는 여러 스레드들을 만들도록 코드를 확장해봅시다. Listing 16-11에서
 보시는 것처럼 채널의 송신자를 복제하는 것으로 그렇게 할 수 있습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::thread;
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use std::thread;
 </span><span class="boring">use std::sync::mpsc;
 </span><span class="boring">use std::time::Duration;
 </span><span class="boring">
@@ -491,10 +499,10 @@ Got: you
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

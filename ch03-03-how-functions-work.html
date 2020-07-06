@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>함수 동작 원리 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -154,7 +162,7 @@
 <p>Rust 코드는 <em>뱀 형태</em>를 변수나 함수 이름의 형식 규칙으로 사용합니다. 뱀 형태에서, 모든 문자는 소문자를 사용하며
 밑줄 표시로 단어를 구분합니다. 다음은 예제로 함수를 선언하는 프로그램입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     println!(&quot;Hello, world!&quot;);
 
     another_function();
@@ -188,7 +196,7 @@ Another function.
 “전달인자”와 “매개변수”를 혼용해서 사용하는 경향이 있습니다.</p>
 <p>다음의 재작성 된 <code>another_function</code>은 Rust에서 매개변수가 어떤 것인지 보여줍니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     another_function(5);
 }
 
@@ -210,7 +218,7 @@ The value of x is: 5
 추측하지 않아도 되게 됩니다. </p>
 <p>여러분의 함수에 여러 개의 매개변수를 사용하고 싶으면, 매개변수들을 다음처럼 쉼표와 함께 구분해서 사용할 수 있습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     another_function(5, 6);
 }
 
@@ -241,7 +249,7 @@ The value of y is: 6
 합니다. <em>포현식</em>은 결과 값을 산출해냅니다. 다음 몇 개의 예제를 살펴보도록 합시다. <code>let</code> 키워드를 통해 변수를 
 만들고 값을 할당하는 구문을 만듭니다. 항목 3-3의, <code>let y = 6;</code>은 구문입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let y = 6;
 }
 </code></pre></pre>
@@ -273,7 +281,7 @@ Ruby와의 차이점 입니다. 이들 언어들은 <code>x = y = 6</code>와 �
 산출하는 표현식입니다. 함수를 호출하는 것은 표현식입니다. 매크로를 호출하는 것은 표현식입니다. 예제처럼 새로운 
 범위를 생성하는데 사용하는 block <code>{}</code>은 표현식입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let x = 5;
 
     let y = {
@@ -301,7 +309,7 @@ Ruby와의 차이점 입니다. 이들 언어들은 <code>x = y = 6</code>와 �
 <code>return</code> 키워드와 값을 써서 함수로부터 일찍 반환할 수 있지만, 대부분의 함수들은 암묵적으로 마지막
 표현식을 반환합니다. 값을 반환하는 함수의 예를 보겠습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn five() -&gt; i32 {
+<pre><pre class="playground"><code class="language-rust">fn five() -&gt; i32 {
     5
 }
 
@@ -324,8 +332,8 @@ The value of x is: 5
 설명해보겠습니다. 중요한 지점이 두 곳 있습니다: 첫 째, <code>let x = five();</code> 줄은 우리가 반환 값을 
 변수의 초기 값으로 사용하는 것을 보여줍니다. <code>five</code>의 반환 값이 <code>5</code>이기 때문에, 해당 줄은 다음과 
 동일합니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let x = 5;
 <span class="boring">}
@@ -334,7 +342,7 @@ The value of x is: 5
 외로이 있는 이유는 이것이 우리가 값을 반환하고자 할 때 사용하는 표현식이기 때문입니다. 다른 예제를 통해 
 살펴보겠습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let x = plus_one(5);
 
     println!(&quot;The value of x is: {}&quot;, x);
@@ -419,10 +427,10 @@ fn plus_one(x: i32) -&gt; i32 {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

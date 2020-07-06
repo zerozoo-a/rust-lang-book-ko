@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>벡터 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -154,8 +162,8 @@
 가격들 같은 아이템 리스트를 저장하는 상황일 경우 유용합니다.</p>
 <h3><a class="header" href="#새-벡터-만들기" id="새-벡터-만들기">새 벡터 만들기</a></h3>
 <p>비어있는 새 벡터를 만들기 위해서는, 아래의 Listing 8-1과 같이 <code>Vec::new</code> 함수를 호출해 줍니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let v: Vec&lt;i32&gt; = Vec::new();
 <span class="boring">}
@@ -174,8 +182,8 @@
 것이 더 일반적이며, 러스트는 편의를 위해 <code>vec!</code> 매크로를 제공합니다. 이 매크로는 우리가 준 값들을
 저장하고 있는 새로운 <code>Vec</code>을 생성합니다. Listing 8-2는 <code>1</code>, <code>2</code>, <code>3</code>을 저장하고 있는 새로운
 <code>Vec&lt;i32&gt;</code>을 생성할 것입니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let v = vec![1, 2, 3];
 <span class="boring">}
@@ -186,8 +194,8 @@
 <h3><a class="header" href="#벡터-갱신하기" id="벡터-갱신하기">벡터 갱신하기</a></h3>
 <p>벡터를 만들고 여기에 요소들을 추가하기 위해서는 아래 Listing 8-3과 같이 <code>push</code> 메소드를 사용할 수
 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let mut v = Vec::new();
 
@@ -204,8 +212,8 @@ v.push(8);
 붙일 필요가 없습니다.</p>
 <h3><a class="header" href="#벡터를-드롭하는-것은-벡터의-요소들을-드롭시킵니다" id="벡터를-드롭하는-것은-벡터의-요소들을-드롭시킵니다">벡터를 드롭하는 것은 벡터의 요소들을 드롭시킵니다</a></h3>
 <p><code>struct</code>와 마찬가지로, Listing 8-4에 달려있는 주석처럼 벡터도 스코프 밖으로 벗어났을 때 해제됩니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>{
     let v = vec![1, 2, 3, 4];
@@ -225,8 +233,8 @@ v.push(8);
 예제에서는 특별히 더 명료하게 하기 위해 함수들이 반환하는 값의 타입을 명시했습니다.</p>
 <p>Listing 8-5는 인덱스 문법이나 <code>get</code> 메소드를 가지고 벡터의 값에 접근하는 두 방법 모두를 보여주고
 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let v = vec![1, 2, 3, 4, 5];
 
@@ -244,8 +252,8 @@ let third: Option&lt;&amp;i32&gt; = v.get(2);
 사용하고자 했을 때 프로그램이 어떻게 동작할 것인지 여러분이 선택할 수 있도록 하기 위해서입니다. 예를
 들어, 아래의 Listing 8-6과 같이 5개의 요소를 가지고 있는 벡터가 있고 100 인덱스에 있는 요소에
 접근하려고 시도한 경우 프로그램은 어떻게 동작해야 할까요:</p>
-<pre><pre class="playpen"><code class="language-rust should_panic">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust should_panic">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let v = vec![1, 2, 3, 4, 5];
 
@@ -304,8 +312,8 @@ https://doc.rust-lang.org/stable/nomicon/vec.html 에 있는 노미콘(The Nomic
 <p>만일 벡터 내의 각 요소들을 차례대로 접근하고 싶다면, 하나의 값에 접근하기 위해 인덱스를 사용하는것 보다는,
 모든 요소들에 대해 반복처리를 할 수 있습니다. Listing 8-8은 <code>for</code> 루프를 사용하여 <code>i32</code>의 벡터
 내에 있는 각 요소들에 대한 불변 참조자를 얻어서 이를 출력하는 방법을 보여줍니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let v = vec![100, 32, 57];
 for i in &amp;v {
@@ -317,8 +325,8 @@ for i in &amp;v {
 각 요소들을 출력하기</span></p>
 <p>만일 모든 요소들을 변형시키길 원한다면 가변 벡터 내의 각 요소에 대한 가변 참조자로 반복작업을
 할 수도 있습니다. Listing 8-9의 <code>for</code> 루프는 각 요소에 <code>50</code>을 더할 것입니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let mut v = vec![100, 32, 57];
 for i in &amp;mut v {
@@ -339,8 +347,8 @@ for i in &amp;mut v {
 정의할 수 있고, 모든 열거형 variant들은 해당 열거형 타입, 즉 같은 타입으로 취급될 것입니다. 따라서
 우리는 궁극적으로 다른 타입을 담은 열거형 값에 대한 벡터를 생성할 수 있습니다. Listing 8-10에서
 이를 보여주고 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum SpreadsheetCell {
     Int(i32),
@@ -412,10 +420,10 @@ let row = vec![
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

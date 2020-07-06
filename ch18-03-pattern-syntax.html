@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>패턴 문법의 모든 것 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -154,8 +162,8 @@
 <h3><a class="header" href="#리터럴-매칭" id="리터럴-매칭">리터럴 매칭</a></h3>
 <p>6장에서 보신 것 처럼 여러분은 패턴과 리터럴을 직접 매칭할 수 있습니다.
 다음 코드가 예시입니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let x = 1;
 
@@ -182,7 +190,7 @@ Listing 18-11 에서 <code>Some(5)</code> 값으로 <code>x</code> 변수를 선
 갈래 내의 패턴과 마지막의 <code>println!</code> 을 보고 이 코드가 뭘 출력할지
 맞춰보세요:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let x = Some(5);
     let y = 10;
 
@@ -225,8 +233,8 @@ Listing 18-11 에서 <code>Some(5)</code> 값으로 <code>x</code> 변수를 선
 첫번째 갈래에서 <em>or</em> 옵션을 사용하고 있습니다. 이럴 경우 해당 갈래 내의 값 중
 일치하는 값이 있으면, 즉 <code>x</code> 가 <code>1</code> 이나 <code>2</code> 일 경우 해당 갈래의 코드가
 실행됩니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let x = 1;
 
@@ -242,8 +250,8 @@ match x {
 <p>우린 <code>...</code> 구문을 이용해 값의 범위 내에 매치시킬 수 있습니다.
 다음 코드에선 패턴이 범위 내 값에 매칭될 경우
 해당 갈래가 실행됩니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let x = 5;
 
@@ -262,8 +270,8 @@ match x {
 컴파일러가 컴파일 타임에 해당 범위가 비어있지 않은지 검사하는데,
 러스트가 해당 범위가 비어있는지 알아낼 수 있는 타입의 종류가 정수 값과 <code>char</code> 뿐이기 때문입니다.</p>
 <p><code>char</code> 값의 범위를 이용하는 예시는 여기 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let x = 'c';
 
@@ -283,7 +291,7 @@ match x {
 <p>Listing 18-12 는 <code>x</code> 와 <code>y</code> 두개의 필드를 가진 <code>Point</code> 구조체를 나타냅니다.
 이는 <code>let</code> 구문과 패턴을 이용해 이를 해체해봅시다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">struct Point {
+<pre><pre class="playground"><code class="language-rust">struct Point {
     x: i32,
     y: i32,
 }
@@ -311,7 +319,7 @@ fn main() {
 Listing 18-13 은 Listing 18-12 의 코드를 <code>let</code> 패턴내의 <code>a</code> 와 <code>b</code> 대신
 <code>x</code> 와 <code>y</code> 변수를 사용하도록 변경한 예시입니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">struct Point {
+<pre><pre class="playground"><code class="language-rust">struct Point {
     x: i32,
     y: i32,
 }
@@ -337,7 +345,7 @@ fn main() {
 <code>x</code> 축 위의 점(<code>y = 0</code> 일때 참) 인 경우, <code>y</code> 축 위인 경우(<code>x = 0</code>),
 혹은 그 외일 경우:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">struct Point {
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct Point {
 </span><span class="boring">    x: i32,
 </span><span class="boring">    y: i32,
 </span><span class="boring">}
@@ -371,7 +379,7 @@ fn main() {
 <code>Message</code> 열거형을 이용하고 각 내부 값을 해체하기 위한
 <code>match</code> 패턴을 작성했습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">enum Message {
+<pre><pre class="playground"><code class="language-rust">enum Message {
     Quit,
     Move { x: i32, y: i32 },
     Write(String),
@@ -432,8 +440,8 @@ variant 명 뒤에 중괄호를 작성하고, 해당 갈래에서
 <p>Listing 18-16 의 예시는 <code>vector</code> 내의 <code>Point</code> 객체들을 가리키는
 참조자들을 반복하며 구조체 참조자를 해체하는 것으로
 간단하게 <code>x</code> 와 <code>y</code> 값을 계산할 수 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct Point {
 </span><span class="boring">    x: i32,
@@ -476,8 +484,8 @@ let sum_of_squares: i32 = points
 <p>우린 패턴 해체를 더 복잡한 방법으로 섞고, 비교하고, 중첩시킬 수 있습니다.
 다음 예제는 튜플 내에 구조체와 튜플을 갖는, 즉 중첩된 구조에서 본래 값을
 얻는 복잡한 해체를 보여줍니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct Point {
 </span><span class="boring">    x: i32,
@@ -505,7 +513,7 @@ let sum_of_squares: i32 = points
 <code>match</code> 의 마지막 갈래 표현에서 특히 유용하지만, Listing 18-17 처럼
 함수 매개변수를 포함한 모든 패턴에서 사용할 수 있습니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn foo(_: i32, y: i32) {
+<pre><pre class="playground"><code class="language-rust">fn foo(_: i32, y: i32) {
     println!(&quot;This code only uses the y parameter: {}&quot;, y);
 }
 
@@ -531,8 +539,8 @@ Listing 18-18 은 설정 값을 관리하는 코드를 보여줍니다.
 비즈니스 요구 사항은 사용자가 기존 커스텀을 덮어쓰진 않아야 하지만
 기존 설정을 해제할 순 있으며 해제된 상태에선 값을 설정하는 것이
 가능해야 한다는 것입니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let mut setting_value = Some(5);
 let new_setting_value = Some(10);
@@ -564,8 +572,8 @@ println!(&quot;setting is {:?}&quot;, setting_value);
 <p>우린 특정 값들을 무시하기 위해 한 패턴 내에서 언더스코어를 여러번
 사용할 수도 있습니다. Listing 18-19 는 5개의 요소를 가진 튜플에서
 두 번째와 네 번째 요소만 무시하는 예제입니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let numbers = (2, 4, 8, 16, 32);
 
@@ -588,7 +596,7 @@ match numbers {
 Listing 18-20 에선 두 개의 미사용 변수를 생성하지만 이 코드를 실행할 땐
 하나의 경고만 나타납니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let _x = 5;
     let y = 10;
 }
@@ -615,8 +623,8 @@ println!(&quot;{:?}&quot;, s);
 반면 언더스코어만 사용하는 경우는 값이 바인드되지 않습니다.
 따라서 <code>s</code> 는 <code>_</code> 로 이동하지 않고, Listing 18-22 는
 컴파일 시 어떤 에러도 발생하지 않습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let s = Some(String::from(&quot;Hello!&quot;));
 
@@ -638,8 +646,8 @@ println!(&quot;{:?}&quot;, s);
 무시합니다. Listing 18-23 은 3차원 공간의 좌표를 갖는 <code>Point</code> 구조체를
 갖습니다. 이 <code>match</code> 표현에서는 <code>x</code> 좌표만 사용하고 <code>y</code> 와 <code>z</code> 필드의 값은
 무시합니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct Point {
     x: i32,
@@ -663,7 +671,7 @@ match origin {
 <p><code>..</code> 구문은 필요한 만큼 많은 값으로 확대될 수 있습니다.
 Listing 18-24 는 <code>..</code> 를 튜플과 사용하는 법을 보여줍니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let numbers = (2, 4, 8, 16, 32);
 
     match numbers {
@@ -741,8 +749,8 @@ println!(&quot;robot_name is: {:?}&quot;, robot_name);
 참조자를 생성하기 위해 <code>&amp;</code> 를 사용할 수 없습니다.</p>
 <p>대신 우린 Listing 18-27 에 나오는 것 처럼 새 변수 앞에 <code>ref</code> 키워드를 사용해
 패턴 내에서 참조자를 생성할 수 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let robot_name = Some(String::from(&quot;Bors&quot;));
 
@@ -764,8 +772,8 @@ println!(&quot;robot_name is: {:?}&quot;, robot_name);
 <code>&amp;</code> 는 새 참조자를 생성하는 것이 아닌 이미 존재하는 가변 참조자를
 매치시키는데 사용되기 때문입니다. Listing 18-28 은 가변 참조자를
 생성하는 패턴의 에시를 보여줍니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let mut robot_name = Some(String::from(&quot;Bors&quot;));
 
@@ -790,8 +798,8 @@ println!(&quot;robot_name is: {:?}&quot;, robot_name);
 <p>조건은 패턴 내에서 생성된 변수를 사용할 수 있습니다.
 Listing 18-29 에서 <code>match</code> 의 첫 번째 갈래가 <code>Some(x)</code> 패턴과
 <code>if x &lt; 5</code> 매치 가드를 갖는 것을 볼 수 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let num = Some(4);
 
@@ -820,7 +828,7 @@ match num {
 Listing 18-30 은 매치 가드를 사용해 이 문제를
 해결하는 방법을 보여줍니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let x = Some(5);
     let y = 10;
 
@@ -851,8 +859,8 @@ Listing 18-31 은 매치 가드 앞에 <code>|</code> 를 이용한 다중 패�
 여기서 중요한 점은 <code>if y</code> 매치 가드가 <code>6</code> 에만 적용되는 것 처럼 보여도
 사실은 <code>4</code>, <code>5</code>, <code>6</code> 모두에 적용된다는
 것입니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let x = 4;
 let y = false;
@@ -890,8 +898,8 @@ match x {
 그 갈래의 코드에서 사용하길 원합니다. 우린 이 변수를
 필드명과 똑같이 <code>id</code> 라는 이름으로 만들 수도 있지만,
 이번 예제에선 다른 이름을 사용하겠습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum Message {
     Hello { id: i32 },
@@ -981,10 +989,10 @@ match msg {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

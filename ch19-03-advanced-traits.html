@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>고급 트레잇 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -168,8 +176,8 @@
 “<code>Iterator</code> 트레잇과 <code>next</code> 메소드”절에서, 우리는 <code>Iterator</code>
 트레잇의 정의가 Listing 19-20에서 보는 바과 같다고
 언급했었습니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub trait Iterator {
     type Item;
@@ -199,8 +207,8 @@
 </code></pre>
 <p>이 문법은 제네릭과 비슷해 보입니다. 그럼 왜 Listing 19-21처럼 그냥
 제네릭을 사용하여 <code>Iterator</code> 트레잇을 정의하지 않을까요?</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub trait Iterator&lt;T&gt; {
     fn next(&amp;mut self) -&gt; Option&lt;T&gt;;
@@ -239,7 +247,7 @@ Listing 19-22에서는 두 개의 <code>Point</code> 인스턴스를 함께 더�
 <code>+</code> 연산자를 오버로딩 하였습니다. 이는 <code>Point</code> 구조체 상에 <code>Add</code> 트레잇을
 구현하는 것으로 되었습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">use std::ops::Add;
+<pre><pre class="playground"><code class="language-rust">use std::ops::Add;
 
 #[derive(Debug, PartialEq)]
 struct Point {
@@ -271,8 +279,8 @@ fn main() {
 결정합니다.</p>
 <p>이 코드에서 기본 제네릭 타입은 <code>Add</code> 트레잇 내에 있습니다. 아래는
 이 트레잇의 정의입니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>trait Add&lt;RHS=Self&gt; {
     type Output;
@@ -297,8 +305,8 @@ fn main() {
 구현체가 변환을 올바르게 하기를 원합니다. Listing 19-23에서 보시는 것처럼, <code>RHS</code>로
 <code>Meters</code>를 사용하여 <code>Millimeters</code>에 대한 <code>Add</code>의 구현을 할 수 있습니다.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::ops::Add;
 
@@ -344,8 +352,8 @@ impl Add&lt;Meters&gt; for Millimeters {
 <code>fly</code>라는 이름의 메소드를 가지고 있는 <code>Human</code> 타입에 대하여 두 트레잇 모두
 구현하였습니다. 각각의 <code>fly</code> 메소드는 다른 일을 합니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>trait Pilot {
     fn fly(&amp;self);
@@ -382,7 +390,7 @@ impl Human {
 <p>우리가 <code>Human</code> 인스턴스 상에서 <code>fly</code>를 호출할 때, Listing 19-25에서 보시는
 것처럼 컴파일러는 기본적으로 그 타입에 직접 구현된 메소드를 호출합니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">trait Pilot {
+<pre><pre class="playground"><code class="language-rust"><span class="boring">trait Pilot {
 </span><span class="boring">    fn fly(&amp;self);
 </span><span class="boring">}
 </span><span class="boring">
@@ -423,7 +431,7 @@ impl Human {
 우리가 어떤 <code>fly</code> 메소드를 뜻한 것인지를 특정하기 위하여 좀더 명시적인 문법을 사용할
 필요가 있습니다. Listing 19-26은 이 문법의 예시를 보여줍니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">trait Pilot {
+<pre><pre class="playground"><code class="language-rust"><span class="boring">trait Pilot {
 </span><span class="boring">    fn fly(&amp;self);
 </span><span class="boring">}
 </span><span class="boring">
@@ -479,7 +487,7 @@ Listing 19-27에는 <code>baby_name</code>이라는 연관 함수를 가지고 �
 <code>Dog</code> 구조체에 대한 <code>Animal</code>의 구현체, 그리고 <code>Dog</code>에 바로 정의된 <code>baby_name</code>
 연관 함수가 있습니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">trait Animal {
+<pre><pre class="playground"><code class="language-rust">trait Animal {
     fn baby_name() -&gt; String;
 }
 
@@ -542,7 +550,7 @@ fn main() {
 할 수 있는 한 가장 명시적인 것입니다. Listing 19-29는 완전 정규화 문법을
 어떻게 사용하는지를 보여줍니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">trait Animal {
+<pre><pre class="playground"><code class="language-rust"><span class="boring">trait Animal {
 </span><span class="boring">    fn baby_name() -&gt; String;
 </span><span class="boring">}
 </span><span class="boring">
@@ -605,8 +613,8 @@ fn main() {
 명시하는 것으로 할 수 있습니다. 이 기법은 트레잇에게 트레잇 바운드 추가하는 것과
 유사합니다. Listing 19-30은 <code>OutlinePrint</code> 트레잇의 구현체를 보여줍니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::fmt;
 
@@ -633,8 +641,8 @@ trait OutlinePrint: fmt::Display {
 <p>아래 <code>Point</code> 구조체처럼 <code>Display</code>를 구현하지 않은 타입에 대해
 <code>OutlinePrint</code>를 구현 시도하면 어떤 일이 벌어지는지 봅시다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">trait OutlinePrint {}
 </span>struct Point {
@@ -658,8 +666,8 @@ try using `:?` instead if you are using a format string
 <p>이를 고치기 위해서는 아래와 같이 <code>Point</code> 상에 <code>Display</code>를 구현하여 <code>OutlinePrint</code>가
 요구하는 제약사항을 만족시켜줍니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct Point {
 </span><span class="boring">    x: i32,
@@ -696,7 +704,7 @@ impl fmt::Display for Point {
 <code>Wrapper</code> 구조체를 만들 수 있습니다; 그런 다음 Listing 19-31에서 보시는 것처럼
 <code>Wrapper</code> 상에 <code>Display</code>를 구현하고 <code>Vec</code> 값을 이용할 수 있습니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">use std::fmt;
+<pre><pre class="playground"><code class="language-rust">use std::fmt;
 
 struct Wrapper(Vec&lt;String&gt;);
 
@@ -773,10 +781,10 @@ fn main() {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>패턴이 사용될 수 있는 모든 곳 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -192,7 +200,7 @@
 숫자 값에 따라 보라나 주황으로 배경 색이 정해집니다.
 위의 그 어떤 조건에도 맞지 않을 경우 배경은 파란색이 됩니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let favorite_color: Option&lt;&amp;str&gt; = None;
     let is_tuesday = false;
     let age: Result&lt;u8, _&gt; = &quot;34&quot;.parse();
@@ -233,8 +241,8 @@
 계속 대응 되는한 실행 되는 <code>while</code> 루프입니다.
 예제 18-2는 vector를 스택처럼 이용해 push된 역순으로 값을 출력하는
 <code>while let</code> 조건 루프입니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let mut stack = Vec::new();
 
@@ -261,8 +269,8 @@ while let Some(top) = stack.pop() {
 즉 <code>for x in y</code>에서 <code>x</code>가 패턴입니다.</p>
 <p>예제 18-3은 <code>for</code>에서 패턴을 이용해 튜플을 분해하여 튜플을 <code>for</code> 루프의 일부로써
 사용하는 것을 보여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let v = vec!['a', 'b', 'c'];
 
@@ -288,8 +296,8 @@ c is at index 2
 하지만 이미 여러 곳에서 패턴을 사용하고 있었습니다.
 대표적으로 <code>let</code>구문이 있습니다.
 <code>let</code>을 이용한 변수 대입을 예로 들어 봅시다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let x = 5;
 <span class="boring">}
@@ -307,8 +315,8 @@ c is at index 2
 의미를 갖게 됩니다.</p>
 <p><code>let</code>의 좀 더 &quot;패턴 매칭&quot;스러운 면모를 보기 위해 예제 18-4를 봅시다. 이 예제는
 튜플을 분해하는 패턴을 사용하고 있습니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let (x, y, z) = (1, 2, 3);
 <span class="boring">}
@@ -346,8 +354,8 @@ c is at index 2
 <p>함수의 매개변수들도 물론 패턴입니다.
 예제 18-6은 <code>i32</code>타입의 매개변수 <code>x</code>를 가지는 함수 <code>foo</code>를 정의 하는 코드입니다.
 이제는 익숙한 코드라 생각합니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn foo(x: i32) {
     // code goes here
@@ -360,7 +368,7 @@ c is at index 2
 튜플을 패턴에 대응시킬 수 있습니다.
 예제 18-7은 함수에 튜플을 넘기면서 그 값들을 분해해서 사용하는 코드입니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn print_coordinates(&amp;(x, y): &amp;(i32, i32)) {
+<pre><pre class="playground"><code class="language-rust">fn print_coordinates(&amp;(x, y): &amp;(i32, i32)) {
     println!(&quot;Current location: ({}, {})&quot;, x, y);
 }
 
@@ -423,10 +431,10 @@ fn main() {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

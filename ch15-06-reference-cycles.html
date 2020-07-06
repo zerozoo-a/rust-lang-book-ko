@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>순환 참조를 만드는 것과 메모리 누수는 안전한 것에 해당됩니다 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -163,7 +171,7 @@
 <p><span class="filename">Filename: src/main.rs</span></p>
 <!-- Hidden fn main is here to disable the automatic wrapping in fn main that
 doc tests do; the `use List` fails if this listing is put within a main -->
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {}
 </span>use std::rc::Rc;
 use std::cell::RefCell;
 use List::{Cons, Nil};
@@ -197,7 +205,7 @@ impl List {
 이것이 순환 참조를 생성합니다. 이 과정 내의 다양한 지점에서 참조 카운트가 얼마인지를
 보기 위해 곳곳에 <code>println!</code> 구문들이 있습니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">use List::{Cons, Nil};
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use List::{Cons, Nil};
 </span><span class="boring">use std::rc::Rc;
 </span><span class="boring">use std::cell::RefCell;
 </span><span class="boring">#[derive(Debug)]
@@ -327,8 +335,8 @@ a rc count after changing a = 2
 우리는 <code>i32</code>값은 물론 자식 <code>Node</code>들의 참조자들 또한 가지고 있는 <code>Node</code>라는 이름의
 구조체를 만들 것입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::rc::Rc;
 use std::cell::RefCell;
@@ -349,7 +357,7 @@ struct Node {
 자식 노드가 없는 <code>leaf</code>라는 이름의 <code>Node</code> 인스턴스, 그리고 5의 값과 <code>leaf</code>를
 자식으로 갖는 <code>branch</code>라는 이름의 인스턴스를 만들도록 하겠습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::rc::Rc;
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use std::rc::Rc;
 </span><span class="boring">use std::cell::RefCell;
 </span><span class="boring">
 </span><span class="boring">#[derive(Debug)]
@@ -393,8 +401,8 @@ struct Node {
 이용하여 <code>parent</code>의 타입을 만들겠습니다. 이제 우리의 <code>Node</code> 구조체 정의는 아래와
 같이 생기게 되었습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::rc::{Rc, Weak};
 use std::cell::RefCell;
@@ -411,7 +419,7 @@ struct Node {
 Listing 15-28에서, 우리는 이 새로운 정의를 사용하도록 <code>main</code>을 업데이트하여
 <code>leaf</code> 노드가 그의 부모인 <code>branch</code>를 참조할 수 있는 방법을 갖도록 할 것입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::rc::{Rc, Weak};
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use std::rc::{Rc, Weak};
 </span><span class="boring">use std::cell::RefCell;
 </span><span class="boring">
 </span><span class="boring">#[derive(Debug)]
@@ -477,7 +485,7 @@ children: RefCell { value: [] } }] } })
 그 다음 스코프 밖으로 벗어났을 때 어떤일이 생기는지 알 수 있습니다. 수정본은
 Listing 15-29와 같습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::rc::{Rc, Weak};
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use std::rc::{Rc, Weak};
 </span><span class="boring">use std::cell::RefCell;
 </span><span class="boring">
 </span><span class="boring">#[derive(Debug)]
@@ -614,10 +622,10 @@ Listing 15-29와 같습니다:</p>
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

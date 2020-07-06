@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>모듈성과 에러처리의 향상을 위한 리팩토링 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -246,7 +254,7 @@ fn parse_config(args: &amp;[String]) -&gt; (&amp;str, &amp;str) {
 구조체의 객체를 반환하게 변경하였으며, <code>main</code>에서 별개의 변수가 아닌 구조체의 필드를
 사용하도록 변경했습니다. </p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust should_panic"><span class="boring">use std::env;
+<pre><pre class="playground"><code class="language-rust should_panic"><span class="boring">use std::env;
 </span><span class="boring">use std::fs::File;
 </span><span class="boring">
 </span>fn main() {
@@ -311,7 +319,7 @@ fn parse_config(args: &amp;[String]) -&gt; Config {
 <code>Config</code>의 객체를 <code>Config::new</code>를 호출하여 생성할 수 있게 됩니다. 항목 12-7는
 우리가 해야할 변동사항 보여줍니다. </p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust should_panic"><span class="boring">use std::env;
+<pre><pre class="playground"><code class="language-rust should_panic"><span class="boring">use std::env;
 </span><span class="boring">
 </span>fn main() {
     let args: Vec&lt;String&gt; = env::args().collect();
@@ -642,8 +650,8 @@ fn main() {
 <p><span class="caption">항목 12-14: <code>greprs</code>크레이트를 <em>src/main.rs</em> 범위로 연결하기</span></p>
 <!-- 이하의  https://doc.rust-lang.org/book/second-edition/ch12-03-improving-error-handling-and-modularity.html 
 에서 직접 옮겼습니다. -->
-<p>라이브러리 크레이트를 바이너리 크레이트에 가져 오려면 <code>extern crate minigrep</code>을 
-사용합니다. 그런 다음 <code>minigrep::Config</code>줄을 추가하여 <code>Config</code>타입을 범위로 가져오고 
+<p>라이브러리 크레이트를 바이너리 크레이트에 가져 오려면 <code>extern crate greprs</code>을 
+사용합니다. 그런 다음 <code>greprs::Config</code>줄을 추가하여 <code>Config</code>타입을 범위로 가져오고 
 <code>run</code> 함수 접두어에 크레이트 이름을 붙입니다. 이를 통해 모든 기능이 연결되어 있어야 하며 
 작동해야 합니다. <code>cargo run</code>을 실행하여 모든 것이 올바르게 연결되어 있는지 확인하십시오.</p>
 <p>아오! 빡시게 작업했네요, 우리의 미래를 우리 스스로가 성공의 방향으로 설정했습니다. 이제 에러를 
@@ -1376,10 +1384,10 @@ write some tests!
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

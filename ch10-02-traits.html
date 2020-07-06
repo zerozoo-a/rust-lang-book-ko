@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>트레잇: 공유 동작을 정의하기 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -172,8 +180,8 @@
 되어야 하며, 그래서 각 인스턴스 상에서 <code>summary</code> 메소드를 호출함으로써 해당 정리를 얻어낼 수 있어야
 한다는 것입니다. Listing 10-11은 이러한 개념을 표현한 <code>Summarizable</code> 트레잇의 정의를 나타냅니다:</p>
 <p><span class="filename">Filename: lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub trait Summarizable {
     fn summary(&amp;self) -&gt; String;
@@ -198,8 +206,8 @@
 <code>Tweet</code> 구조체에 대해서는, 트윗 내용이 이미 140자로 제한되어 있음을 가정하고, <code>summary</code>를 정의하는
 데 있어 사용자 이름과 해당 트윗의 전체 텍스트를 가지고 오는 선택을 했습니다.</p>
 <p><span class="filename">Filename: lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub trait Summarizable {
 </span><span class="boring">    fn summary(&amp;self) -&gt; String;
@@ -301,8 +309,8 @@ impl Summarizable for WeatherForecast {
 대신 <code>Summarizable</code> 트레잇의 <code>summary</code> 메소드에 대한 기본 스트링을 명시하는 선택을 하는 방법을
 보여줍니다:</p>
 <p><span class="filename">Filename: lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub trait Summarizable {
     fn summary(&amp;self) -&gt; String {
@@ -341,8 +349,8 @@ println!(&quot;New article available! {}&quot;, article.summary());
 구현자들이 해당 트레잇의 작은 일부분만 구현하도록 요구할 수 있습니다. 우리는 <code>Summarizable</code> 트레잇이
 구현이 필요한 <code>author_summary</code> 메소드도 갖도록 하여, <code>summary</code> 메소드가 <code>author_summary</code>
 메소드를 호출하는 기본 구현을 갖는 형태를 선택할 수도 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub trait Summarizable {
     fn author_summary(&amp;self) -&gt; String;
@@ -464,7 +472,7 @@ error[E0507]: cannot move out of borrowed content
 타입이 <code>i32</code>와 <code>char</code>처럼 <code>PartialOrd</code> 및 <code>Copy</code> 트레잇 모두를 구현했을 때에 한하여 컴파일되는
 제네릭 <code>largest</code> 함수의 완전체 코드를 보여줍니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">use std::cmp::PartialOrd;
+<pre><pre class="playground"><code class="language-rust">use std::cmp::PartialOrd;
 
 fn largest&lt;T: PartialOrd + Copy&gt;(list: &amp;[T]) -&gt; T {
     let mut largest = list[0];
@@ -556,10 +564,10 @@ fn main() {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

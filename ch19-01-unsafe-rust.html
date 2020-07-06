@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>안전하지 않은 러스트 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -223,8 +231,8 @@ pointer)</em> 라고 불리는 참조자와 유사한 두가지 새로운 타입
 혹은 하드웨어와의 상호작용 능력을 얻는 기회비용을 얻을 수 있습니다.</p>
 <p>Listing 19-1은 참조자로부터 불변 및 가변 로우 포인터를 만드는 방법을
 보여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let mut num = 5;
 
@@ -247,8 +255,8 @@ let r2 = &amp;mut num as *mut i32;
 수도 있고 없을 수도 있으며, 컴파일러가 코드를 최적화해서 메모리 접근이 없을 수도,
 혹은 프로그램이 세그먼테이션 폴트 (segmentation fault) 에러를 일으킬지도 모릅니다.
 보통은 이러한 코드를 작성할 어떠한 좋은 이유도 없지만, 가능은 합니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let address = 0x012345usize;
 let r = address as *const i32;
@@ -259,8 +267,8 @@ let r = address as *const i32;
 <p>우리가 안전한 코드 내에서 로우 포인터를 생성할 수는 있지만, 로우 포인터를 <em>역참조</em>하여
 해당 포인터가 가리키고 있는 데이터를 읽지는 못함을 상기하세요. Listing 19-3에서는 <code>unsafe</code>
 블록을 필요로 하는 로우 포인터에 상에서의 역참조 연산자 <code>*</code>를 사용합니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let mut num = 5;
 
@@ -302,8 +310,8 @@ unsafe {
 문서를 읽었고 함수의 계약서를 준수할 책임을 가지고 있다고 말하는 것입니다.</p>
 <p>아래는 본체에서 아무것도 하지 않는 <code>dangerous</code>라는 이름의 안전하지 않은
 함수입니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>unsafe fn dangerous() {}
 
@@ -334,8 +342,8 @@ unsafe {
 우리가 어떻게 구현할 수 있을지 탐구해볼만 합니다. 이 안전한 메소드는 가변 슬라이스 상에서
 정의됩니다: 이것은 하나의 슬라이스를 취해서 인자로 주어진 인덱스에서 슬라이스를 쪼개서 둘로
 만들어줍니다. Listing 19-4는 <code>split_at_mut</code>를 사용하는 방법을 보여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let mut v = vec![1, 2, 3, 4, 5, 6];
 
@@ -390,8 +398,8 @@ assert_eq!(b, &amp;mut [4, 5, 6]);
 괜찮은 것임을 알지만 러스트는 그렇지 못하므로, 안전하지 않은 코드를 이용할 시간입니다.</p>
 <p>Listing 19-6은 <code>split_at_mut</code>의 구현체가 동작하도록 만들기 위해서 <code>unsafe</code>
 블록, 로우 포인터, 그리고 몇몇 안전하지 않은 함수의 호출을 사용하는 방법을 보여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::slice;
 
@@ -440,8 +448,8 @@ fn split_at_mut(slice: &amp;mut [i32], mid: usize) -&gt; (&amp;mut [i32], &amp;m
 <p>반면, Listing 19-7의 <code>slice::from_raw_parts_mut</code> 사용은 슬라이스에
 사용될 때 크래시를 일으키기 쉽습니다. 이 코드는 임의의 메모리 위치를 얻어서
 만개의 아이템 길이를 갖는 슬라이스를 생성합니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::slice;
 
@@ -470,7 +478,7 @@ let slice = unsafe {
 러스트가 이들을 검사할 수도 없으므로, 따라서 안전성을 보장하기 위한 책임은
 프로그래머에게 떨어집니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">extern &quot;C&quot; {
+<pre><pre class="playground"><code class="language-rust">extern &quot;C&quot; {
     fn abs(input: i32) -&gt; i32;
 }
 
@@ -501,8 +509,8 @@ API는 어셈플리 수준에서 함수를 어떻게 호출하는지를 정의�
 꺼야 합니다.</p>
 <p>아래의 예제에서, 우리는 <code>call_from_c</code>를 공유 라이브러리로 컴파일하고 C로 링크한 다음,
 이 함수를 C 코드에서 접근 가능하게 만들었습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[no_mangle]
 pub extern &quot;C&quot; fn call_from_c() {
@@ -520,7 +528,7 @@ pub extern &quot;C&quot; fn call_from_c() {
 19-9는 스트링 슬라이스를 값으로 갖는 정적 변수의 정의 및 사용의 예를
 보여줍니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">static HELLO_WORLD: &amp;str = &quot;Hello, world!&quot;;
+<pre><pre class="playground"><code class="language-rust">static HELLO_WORLD: &amp;str = &quot;Hello, world!&quot;;
 
 fn main() {
     println!(&quot;name is: {}&quot;, HELLO_WORLD);
@@ -544,7 +552,7 @@ fn main() {
 Listing 19-10는 <code>COUNTER</code>라는 이름의 가변 정적 변수를 선언하고,
 접근하고, 수정하는 방법을 보여줍니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">static mut COUNTER: u32 = 0;
+<pre><pre class="playground"><code class="language-rust">static mut COUNTER: u32 = 0;
 
 fn add_to_count(inc: u32) {
     unsafe {
@@ -578,8 +586,8 @@ fn main() {
 때 안전하지 않게 됩니다. 우리는 <code>trait</code> 전에 <code>unsafe</code>를 추가함으로써 어떤 트레잇이
 <code>unsafe</code>함을 선언할 수 있습니다; 그 다음 트레잇의 구현체 또한 Listing 19-11에서
 보는 바와 같이 <code>unsafe</code>로 표시되어야 합니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>unsafe trait Foo {
     // methods go here
@@ -652,10 +660,10 @@ unsafe impl Foo for i32 {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

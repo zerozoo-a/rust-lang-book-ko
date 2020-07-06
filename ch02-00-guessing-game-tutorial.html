@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>추리 게임 튜토리얼 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -180,7 +188,7 @@ authors = [&quot;Your Name &lt;you@example.com&gt;&quot;]
 <p>1장에서 보았듯이 <code>cargo new</code>는 여러분을 위해 &quot;Hello, world!&quot; 프로그램을 생성합니다.
 <em>src/main.rs</em> 파일을 살펴보면 다음과 같습니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     println!(&quot;Hello, world!&quot;);
 }
 </code></pre></pre>
@@ -248,8 +256,8 @@ println!(&quot;Please input your guess.&quot;);
 <p>이 라인은 <code>foo</code>라는 변수를 선언하고 <code>bar</code>라는 값과 묶습니다. 러스트에서
 변수는 기본적으로 불변입니다. 다음 예시는 변수 앞에 <code>mut</code>을 이용하여 가변변수를
 만드는 법을 보여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let foo = 5; // immutable
 let mut bar = 5; // mutable
@@ -344,8 +352,8 @@ warning: unused `std::result::Result` which must be used
 첫번째 <code>{}</code>는 형식 문자열(format string) 이후의 첫번째 값을 표시하며, 두번째 <code>{}</code>는 두번째 값을 나타내며
 이후에도 비슷하게 작동합니다. 다음 코드는 <code>println!</code>을 이용하여 여러 값을 표시하는 방법을
 보여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let x = 5;
 let y = 10;
@@ -965,10 +973,10 @@ fn main() {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

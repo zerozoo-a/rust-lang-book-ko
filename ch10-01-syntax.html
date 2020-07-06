@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>제네릭 데이터 타입 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -161,7 +169,7 @@
 슬라이스에서 가장 큰 <code>i32</code>를 찾는 함수입니다. 두 번째 함수는 슬라이스에서 가장 큰 <code>char</code>를
 찾습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn largest_i32(list: &amp;[i32]) -&gt; i32 {
+<pre><pre class="playground"><code class="language-rust">fn largest_i32(list: &amp;[i32]) -&gt; i32 {
     let mut largest = list[0];
 
     for &amp;item in list.iter() {
@@ -277,7 +285,7 @@ what you think. /Carol -->
 있습니다. Listing 10-6은 임의의 타입으로 된 <code>x</code>와 <code>y</code> 좌표값을 가질 수 있는 <code>Point</code> 구조체의
 정의 및 사용법을 보여주고 있습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">struct Point&lt;T&gt; {
+<pre><pre class="playground"><code class="language-rust">struct Point&lt;T&gt; {
     x: T,
     y: T,
 }
@@ -328,7 +336,7 @@ fn main() {
 <code>T</code>와 <code>U</code>를 이용한 제네릭이 되도록 변경했습니다. 필드 <code>x</code>의 타입은 <code>T</code>이고, 필드 <code>y</code>의 타입은
 <code>U</code>입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">struct Point&lt;T, U&gt; {
+<pre><pre class="playground"><code class="language-rust">struct Point&lt;T, U&gt; {
     x: T,
     y: U,
 }
@@ -349,8 +357,8 @@ fn main() {
 <p>구조체와 유사하게, 열거형도 그 variant 내에서 제네릭 데이터 타입을 갖도록 정의될 수 있습니다.
 6장에서 표준 라이브러리가 제공하는 <code>Option&lt;T&gt;</code> 열거형을 이용해봤는데, 이제는 그 정의를 좀 더
 잘 이해할 수 있겠지요. 다시 한번 봅시다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum Option&lt;T&gt; {
     Some(T),
@@ -365,8 +373,8 @@ fn main() {
 러스트는 이 추상화 개념을 수많은 중복 없이 표현할 수 있도록 해줍니다.</p>
 <p>열거형은 또한 여러 개의 제네릭 타입을 이용할 수 있습니다. 우리가 9장에서 사용해본 <code>Result</code> 열거형의
 정의가 한 가지 예입니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum Result&lt;T, E&gt; {
     Ok(T),
@@ -390,7 +398,7 @@ fn main() {
 있습니다. 그러고 나서 필드 <code>x</code>의 값에 대한 참조자를 반환하는 <code>x</code>라는 이름의 메소드를 <code>Point&lt;T&gt;</code>
 상에 정의했습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">struct Point&lt;T&gt; {
+<pre><pre class="playground"><code class="language-rust">struct Point&lt;T&gt; {
     x: T,
     y: T,
 }
@@ -418,7 +426,7 @@ fn main() {
 수도 있습니다. 이 메소드는 새로운 <code>Point</code>를 생성하는데 <code>self</code> <code>Point</code>로부터 (<code>T</code> 타입인) <code>x</code>
 값을 가져오고, 파라미터로 넘겨받은 <code>Point</code>로부터 (<code>W</code> 타입인) <code>y</code> 값을 가져온 것입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">struct Point&lt;T, U&gt; {
+<pre><pre class="playground"><code class="language-rust">struct Point&lt;T, U&gt; {
     x: T,
     y: U,
 }
@@ -463,8 +471,8 @@ fn main() {
 컴파일러는 제네릭 코드가 호출되는 모든 곳을 살펴보고 제네릭 코드가 호출될 때 사용된 구체적인 타입에 대한
 코드를 생성합니다.</p>
 <p>표준 라이브러리의 <code>Option</code> 열거형을 사용하는 예제를 통해 알아봅시다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let integer = Some(5);
 let float = Some(5.0);
@@ -477,7 +485,7 @@ let float = Some(5.0);
 <p>컴파일러가 생성한 우리의 단형성화된 버전의 코드는 아래와 같이 보이게 되는데, 컴파일러에 의해 생성된
 구체화된 정의로 교체된 제네릭 <code>Option</code>이 사용되었습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">enum Option_i32 {
+<pre><pre class="playground"><code class="language-rust">enum Option_i32 {
     Some(i32),
     None,
 }
@@ -539,10 +547,10 @@ fn main() {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

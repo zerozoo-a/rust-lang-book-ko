@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>메소드 문법 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -157,7 +165,7 @@
 <p>Listing 5-12에서 보는 바와 같이 <code>Rectangle</code> 인스턴스를 파라미터로 가지고 있는 <code>area</code> 함수를
 바꿔서 그 대신 <code>Rectangle</code> 구조체 위에서 정의된 <code>area</code> 메소드를 만들어 봅시다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">#[derive(Debug)]
+<pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
 struct Rectangle {
     length: u32,
     width: u32,
@@ -215,8 +223,8 @@ fn main() {
 <p>동작 방식을 설명해보겠습니다: 여러분이 <code>object.something()</code>이라고 메소드를 호출했을 때, 러스트는
 자동적으로 <code>&amp;</code>나 <code>&amp;mut</code>, 혹은 <code>*</code>을 붙여서 <code>object</code>가 해당 메소드의 시그니처와 맞도록 합니다.
 달리 말하면, 다음은 동일한 표현입니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">#[derive(Debug,Copy,Clone)]
 </span><span class="boring">struct Point {
@@ -277,8 +285,8 @@ Can rect1 hold rect3? false
 길이와 너비보다 둘다 각각 큰지를 검사할 것입니다. Listing 5-14에서 보는 것처럼, 이 새로운
 <code>can_hold</code> 메소드를 Listing 5-12의 <code>impl</code> 블록에 추가해 봅시다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">#[derive(Debug)]
 </span><span class="boring">struct Rectangle {
@@ -312,8 +320,8 @@ Can rect1 hold rect3? false
 파라미터를 받아서 이를 길이와 너비 양쪽에 사용하여, 정사각형 <code>Rectangle</code>을 생성할 때 같은 값을 두번
 명시하도록 하는 것보다 쉽게 해주는 연관 함수를 제공할 수 있습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">#[derive(Debug)]
 </span><span class="boring">struct Rectangle {
@@ -381,10 +389,10 @@ Can rect1 hold rect3? false
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

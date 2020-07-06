@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>테스트 작성하기 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -182,8 +190,8 @@ $ cd adder
 <p>여러분의 adder 라이브러리 내에 있는 <code>src/lib.rs</code> 파일의 내용물은 Listing 11-1과 같아야
 합니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[cfg(test)]
 mod tests {
@@ -243,8 +251,8 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <p>우리의 테스트의 이름을 변경하고 테스트 출력이 어떻게 변하는지를 살펴봅시다.
 다음과 같이 <code>it_works</code> 함수의 이름을 <code>exploration</code>으로 변경하세요:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[cfg(test)]
 mod tests {
@@ -269,8 +277,8 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 바로 <code>panic!</code> 매크로를 호출하는 것이죠! 새로운 테스트를 입력하여 여러분의 <code>src/lib.rs</code>가
 Listing 11-3과 같은 모양이 되게 해 보세요:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[cfg(test)]
 mod tests {
@@ -333,8 +341,8 @@ error: test failed
 <!-- Listing 5-9 wasn't marked as such; I'll fix it the next time I get Chapter
 5 for editing. /Carol -->
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(Debug)]
 pub struct Rectangle {
@@ -356,8 +364,8 @@ impl Rectangle {
 길이 5에 너비 1인 다른 <code>Rectangle</code> 인스턴스를 포함할 수 있는지 단언(assert)해보는 것으로
 <code>can_hold</code> 메소드를 시험하는 테스트를 작성합니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[cfg(test)]
 mod tests {
@@ -391,8 +399,8 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <p>통과되었군요! 이번에는 작은 사각형이 큰 사각형을 포함시킬수 없음을 단언하는 또 다른 테스트를
 추가합시다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[cfg(test)]
 mod tests {
@@ -425,8 +433,8 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <p>통과하는 테스트가 두 개가 되었습니다! 이제는 만약 우리의 코드에 버그가 있을 때는 테스트 결과가
 어찌되는지 봅시다. <code>can_hold</code> 메소드의 구현 부분 중 큰(&gt;) 부등호를 이용해 길이를 비교하는 부분을
 작은(&lt;) 부등호로 바꿔봅시다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">#[derive(Debug)]
 </span><span class="boring">pub struct Rectangle {
@@ -472,8 +480,8 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <p>Listing 11-7와 같이, 파라미터에 <code>2</code>를 더하여 결과를 반환하는 <code>add_two</code> 함수를 작성합시다. 그 후
 <code>assert_eq!</code> 매크로를 이용하여 이 함수를 테스트하겠습니다.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub fn add_two(a: i32) -&gt; i32 {
     a + 2
@@ -503,8 +511,8 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 통과했음을 나타냅니다!</p>
 <p><code>assert_eq!</code>를 이용하는 테스트가 실패했을때는 어떻게 보이는지를 알아보기 위해 테스트에 버그를
 집어넣어 봅시다. <code>add_two</code> 함수에 <code>3</code>을 대신 더하는 형태로 구현을 변경해 보세요:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub fn add_two(a: i32) -&gt; i32 {
     a + 3
@@ -562,8 +570,8 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <p>예를 들어, 이름을 부르며 사람들을 환영하는 함수가 있고, 이 함수에 넘겨주는 이름이 출력 내에 있는지
 테스트하고 싶다고 칩시다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub fn greeting(name: &amp;str) -&gt; String {
     format!(&quot;Hello {}!&quot;, name)
@@ -587,8 +595,8 @@ mod tests {
 출력 값이 입력 파라미터의 텍스트를 포함하고 있는지만 단언할 것입니다.</p>
 <p><code>greeting</code>이 <code>name</code>을 포함하지 않도록 변경하는 것으로 버그를 집어넣어 테스트 실패가 어떻게 보이는지
 살펴봅시다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub fn greeting(name: &amp;str) -&gt; String {
     String::from(&quot;Hello!&quot;)
@@ -643,8 +651,8 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <p>Listing 11-8은 <code>Guess::new</code>의 에러 조건이 우리 예상대로 발동되는지를 검사하는 테스트를
 보여줍니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub struct Guess {
     value: u32,
@@ -685,8 +693,8 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 </code></pre>
 <p>좋아 보이는군요! 이제 <code>new</code> 함수가 100 이상의 값일 때 패닉을 발생시키는 조건을 제거함으로써 코드에
 버그를 넣어봅시다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub struct Guess {
 </span><span class="boring">    value: u32,
@@ -727,8 +735,8 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 입력된 값이 너무 작거나 혹은 너무 클 경우에 대해 서로 다른 메세지를 가진 패닉을 일으키는 <code>new</code> 함수를
 갖고 있는 수정된 <code>Guess</code> 코드를 고려해봅시다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub struct Guess {
 </span><span class="boring">    value: u32,
@@ -847,10 +855,10 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

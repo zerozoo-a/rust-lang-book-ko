@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>RefCell&lt;T&gt;와 내부 가변성 패턴 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -256,8 +264,8 @@ API 호출수의 허용량을 추적하는데 사용될 수 있습니다.</p>
 모든 것은 우리가 제공할 <code>Messenger</code>라는 이름의 트레잇을 구현하는 것입니다. Listing
 15-20는 라이브러리 코드를 보여줍니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub trait Messenger {
     fn send(&amp;self, msg: &amp;str);
@@ -315,8 +323,8 @@ impl&lt;'a, T&gt; LimitTracker&lt;'a, T&gt;
 일을 하지만 빌림 검사기가 허용하지는 않을 목 객체 구현 시도를 보여주고
 있습니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[cfg(test)]
 mod tests {
@@ -387,8 +395,8 @@ mod tests {
 메세지를 저장하기 위해 <code>sent_message</code>를 수정할 수 있을 것입니다. Listing
 15-22는 이것이 어떤 형태인지를 보여줍니다: </p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[cfg(test)]
 mod tests {
@@ -505,7 +513,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <code>RefCell&lt;T&gt;</code>를 사용함으로써 우리가 모든 리스트 내에 저장된 값을 변경할 수 있음을
 보여줍니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">#[derive(Debug)]
+<pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
 enum List {
     Cons(Rc&lt;RefCell&lt;i32&gt;&gt;, Rc&lt;List&gt;),
     Nil,
@@ -607,10 +615,10 @@ c after = Cons(RefCell { value: 10 }, Cons(RefCell { value: 15 }, Nil))
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

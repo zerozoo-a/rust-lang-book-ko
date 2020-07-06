@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>use로 이름 가져오기 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -152,7 +160,7 @@
 모듈 이름을 호출 구문의 일부분으로 사용하여 해당 모듈 내에 정의된 함수를 호출하는
 방법을 다룬바 있습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">pub mod a {
+<pre><pre class="playground"><code class="language-rust">pub mod a {
     pub mod series {
         pub mod of {
             pub fn nested_modules() {}
@@ -173,7 +181,7 @@ fn main() {
 가져옴으로써 긴 함수 호출을 줄여줍니다. <code>a::series::of</code> 모듈을 바이너리 크레이트의
 루트 스코프로 가져온 예제입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">pub mod a {
+<pre><pre class="playground"><code class="language-rust">pub mod a {
     pub mod series {
         pub mod of {
             pub fn nested_modules() {}
@@ -194,7 +202,7 @@ fn main() {
 여전히 <code>of::nested_modules</code>를 사용해야 하는 이유입니다.</p>
 <p>다음과 같이 <code>use</code> 구문 안에서 모듈 대신 함수를 명시하여 스코프 내에서 함수를 가져올
 수도 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">pub mod a {
+<pre><pre class="playground"><code class="language-rust">pub mod a {
     pub mod series {
         pub mod of {
             pub fn nested_modules() {}
@@ -213,7 +221,7 @@ fn main() {
 또한 <code>use</code>를 이용하여 가져올 수 있습니다. 어떠한 <code>use</code> 구문이건 하나의 이름공간으로부터
 여러 개의 아이템을 가져오려 한다면, 여러분은 아래와 같이 중괄호와 쉼표를 구문의 마지막
 위치에 사용하여 이 아이템들을 나열할 수 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">enum TrafficLight {
+<pre><pre class="playground"><code class="language-rust">enum TrafficLight {
     Red,
     Yellow,
     Green,
@@ -231,7 +239,7 @@ fn main() {
 이는 <code>use</code> 구문 내에 <code>Green</code>를 포함하지 않았기 때문입니다.</p>
 <h3><a class="header" href="#를-이용한-모두glob-가져오기" id="를-이용한-모두glob-가져오기"><code>*</code>를 이용한 모두(glob) 가져오기</a></h3>
 <p>이름공간 내의 모든 아이템을 가져오기 위해서는 <code>*</code> 문법을 이용할 수 있습니다. 예를 들면:</p>
-<pre><pre class="playpen"><code class="language-rust">enum TrafficLight {
+<pre><pre class="playground"><code class="language-rust">enum TrafficLight {
     Red,
     Yellow,
     Green,
@@ -280,8 +288,8 @@ mod tests {
 기능도 확인할 게 없긴 하지만, <code>it_works</code> 함수 안에서 우리의 <code>client::connect</code> 함수를
 호출해 봅시다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[cfg(test)]
 mod tests {
@@ -330,8 +338,8 @@ error[E0433]: failed to resolve. Use of undeclared type or module `client`
 <p>이러한 이유로, 특히 <code>tests</code> 모듈 내에서는 보통 <code>use super::something</code>이 가장 좋은
 해결책이 됩니다. 따라서 이제 우리의 테스트는 이렇게 됩니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[cfg(test)]
 mod tests {
@@ -404,10 +412,10 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

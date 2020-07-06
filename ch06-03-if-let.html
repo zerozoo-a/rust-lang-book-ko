@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>if let을 사용한 간결한 흐름 제어 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -151,8 +159,8 @@
 <p><code>if let</code> 문법은 <code>if</code>와 <code>let</code>을 조합하여 하나의 패턴만 매칭 시키고 나머지 경우는 무시하는 값을
 다루는 덜 수다스러운 방법을 제공합니다. 어떤 <code>Option&lt;u8&gt;</code> 값을 매칭 하지만 그 값이 3일 경우에만
 코드를 실행시키고 싶어 하는 Listing 6-6에서의 프로그램을 고려해 보세요:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let some_u8_value = Some(0u8);
 match some_u8_value {
@@ -168,8 +176,8 @@ match some_u8_value {
 variant를 처리한 다음에 추가해야 하는데, 이는 추가하기에 너무 많은 보일러 플레이트 코드입니다.</p>
 <p>그 대신, <code>if let</code>을 이용하여 이 코드를 더 짧게 쓸 수 있습니다. 아래의 코드는 Listing 6-6에서의
 <code>match</code>와 동일하게 동작합니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">let some_u8_value = Some(0u8);
 </span>if let Some(3) = some_u8_value {
@@ -189,8 +197,8 @@ variant를 처리한 다음에 추가해야 하는데, 이는 추가하기에 �
 <code>_</code> 케이스 뒤에 나오는 코드 블록과 동일합니다. Listing 6-4에서 <code>Quarter</code> variant가 <code>UsState</code>
 값도 들고 있었던 <code>Coin</code> 열거형 정의부를 상기해 보세요. 만일 우리가 쿼터가 아닌 모든 동전을 세고
 싶은 동시에 쿼터 동전일 경우 또한 알려주고 싶었다면, 아래와 같이 <code>match</code>문을 쓸 수 있었을 겁니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">#[derive(Debug)]
 </span><span class="boring">enum UsState {
@@ -213,8 +221,8 @@ match coin {
 <span class="boring">}
 </span></code></pre></pre>
 <p>혹은 아래와 같이 <code>if let</code>과 <code>else</code> 표현식을 이용할 수도 있겠지요:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">#[derive(Debug)]
 </span><span class="boring">enum UsState {
@@ -293,10 +301,10 @@ if let Coin::Quarter(state) = coin {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

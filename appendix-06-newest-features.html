@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>F - 새로운 기능 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -154,7 +162,7 @@
 <p>자료 구조(구조체, 열거형, union)에서 필드명을 갖는 필드를 초기화할 때
 <code>fieldname: fieldname</code> 을 <code>fieldname</code> 으로 줄여서 쓸 수 있습니다.
 이 기능은 초기화 구문을 간결하게 만들어 코드 중복을 줄여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust">#[derive(Debug)]
+<pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
 struct Person {
     name: String,
     age: u8,
@@ -181,7 +189,7 @@ fn main() {
 실패할 수도 있다는 것을 알고 있을 때, 해당 연산을 재시도 하는 데
 사용 가능합니다. 이 연산 결과를 다른 코드로 넘겨 주어야 한다면,
 <code>break</code> 를 이용해 반복을 멈추고 결과를 반환할 수 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let mut counter = 0;
 
     let result = loop {
@@ -203,7 +211,7 @@ fn main() {
 <p><code>use</code> 선언은 간결한 임포트 및 글롭에서 합칠 수 있습니다.
 다음은 <code>bar</code> 과 <code>Foo</code>, 그리고 <code>baz</code>와 <code>Bar</code> 내
 모든 항목을 가져오는 예시입니다:</p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">#![allow(unused_imports, dead_code)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused_imports, dead_code)]
 </span><span class="boring">
 </span><span class="boring">mod foo {
 </span><span class="boring">    pub mod bar {
@@ -228,7 +236,7 @@ fn main() {
 표현식에선 상한을 포함하지 않는 <code>..</code> 를 사용하고, 패턴에선
 상한을 포함하는 <code>...</code> 를 사용했습니다. 하지만 이제 <code>..=</code>
 하나로 표현식과 패턴 모두에서 사용할 수 있습니다.</p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     for i in 0 ..= 10 {
         match i {
             0 ..= 5 =&gt; println!(&quot;{}: low&quot;, i),
@@ -294,10 +302,10 @@ fn main() {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

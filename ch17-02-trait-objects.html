@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>트레잇 객체를 사용하여 다른 타입 간의 값 허용하기 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -205,8 +213,8 @@ GUI 도구들에게 있어서는 흔한 방식이죠. 우리가 만들 라이브
 <p>Listing 17-3은 <code>draw</code>라는 이름의 메소드를 갖는 <code>Draw </code>라는 트레잇을 정의하는
 방법을 보여줍니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub trait Draw {
     fn draw(&amp;self);
@@ -220,8 +228,8 @@ GUI 도구들에게 있어서는 흔한 방식이죠. 우리가 만들 라이브
 타입의 벡터인데, 이것이 트레잇 객체입니다; 이것은 <code>Draw</code> 트레잇을 구현한
 <code>Box</code>에 담긴 임의의 타입에 대한 대역입니다.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub trait Draw {
 </span><span class="boring">    fn draw(&amp;self);
@@ -238,8 +246,8 @@ GUI 도구들에게 있어서는 흔한 방식이죠. 우리가 만들 라이브
 <p><code>Screen</code> 구조체에서는 Listing 17-5와 같이 각 <code>components</code> 마다
 <code>draw</code>메소드를 호출하는 <code>run</code> 메소드를 정의합니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub trait Draw {
 </span><span class="boring">    fn draw(&amp;self);
@@ -267,8 +275,8 @@ GUI 도구들에게 있어서는 흔한 방식이죠. 우리가 만들 라이브
 예를 들면, Listing 17-6처럼 제네릭 타입과 트레잇 바운드를 사용하여
 <code>Screen</code> 구조체를 정의할 수도 있을 겁니다.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub trait Draw {
 </span><span class="boring">    fn draw(&amp;self);
@@ -305,8 +313,8 @@ impl&lt;T&gt; Screen&lt;T&gt;
 않을 겁니다. 구현하려는 것을 상상해보자면, <code>Button</code> 구조체는 Listing 17-7에서
 보시는 바와 같이 <code>width</code>, <code>height</code> 그리고 <code>label</code> 항목들을 가지게 될 것입니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub trait Draw {
 </span><span class="boring">    fn draw(&amp;self);
@@ -482,8 +490,8 @@ Listing 17-9과 같은 지원이 가능해졌으니, 여기에는 고려할 기�
 <p>메소드가 객채 안전하지 않은 트레잇의 예는 표준 라이브러리의 <code>Clone</code>
 트레잇입니다. <code>Clone</code> 트레잇의 <code>clone</code> 메소드에 대한 시그니처는
 다음과 같습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub trait Clone {
     fn clone(&amp;self) -&gt; Self;
@@ -558,10 +566,10 @@ made into an object
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

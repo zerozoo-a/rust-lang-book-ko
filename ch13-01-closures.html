@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>클로저: 환경을 캡쳐할 수 있는 익명 함수 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -167,8 +175,8 @@
 이 가상의 알고리즘 호출을 실험할 것입니다. 이 함수는 <code>calculating slowly...</code> 을
 출력하고, 2초를 기다린 다음, 인자로 넘어온 어떤 값이든 돌려줍니다:</p>
 <p><span class="filename">파일명: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::thread;
 use std::time::Duration;
@@ -196,7 +204,7 @@ fn simulated_expensive_calculation(intensity: u32) -&gt; u32 {
 <p>결과는 추천 운동 계획이 될 것입니다. 리스트 13-2 에 우리가 사용할 <code>main</code> 함수
 가 있습니다:</p>
 <p><span class="filename">파일이름: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let simulated_user_specified_value = 10;
     let simulated_random_number = 7;
 
@@ -218,8 +226,8 @@ fn simulated_expensive_calculation(intensity: u32) -&gt; u32 {
 <code>generate_workout</code> 함수는 이 예제에서 가장 신경써야 할 앱의 비즈니스 로직을
 포함하고 있습니다. 이 예제에서 나머지 코드를 변경 사항은 이 함수에 적용 됩니다:</p>
 <p><span class="filename">파일이름: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">use std::thread;
 </span><span class="boring">use std::time::Duration;
@@ -278,8 +286,8 @@ fn simulated_expensive_calculation(intensity: u32) -&gt; u32 {
 13-4 에 보이는 것처럼, 중복된 <code>expensive_calculation</code> 함수 호출을 하나의 
 변수로 추출 해볼 것입니다:</p>
 <p><span class="filename">파일이름: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">use std::thread;
 </span><span class="boring">use std::time::Duration;
@@ -330,8 +338,8 @@ fn simulated_expensive_calculation(intensity: u32) -&gt; u32 {
 <em>클로저</em>를 변수에 저장 할 수 있습니다. 여기서 소개하는 것처럼 실제로 클로저 안에
 <code>simulated_expensive_calculation</code> 의 전체 내용을 옮길 수 있습니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">use std::thread;
 </span><span class="boring">use std::time::Duration;
@@ -367,8 +375,8 @@ fn simulated_expensive_calculation(intensity: u32) -&gt; u32 {
 클로저를 호출 합니다: 리스트 13-6 에 보이는 것처럼, 클로저 정의를 갖고 있는
 변수명을 쓰고 다음엔 사용할 인자값을 포함하는 괄호가 따라 옵니다:</p>
 <p><span class="filename">파일명: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">use std::thread;
 </span><span class="boring">use std::time::Duration;
@@ -431,8 +439,8 @@ fn simulated_expensive_calculation(intensity: u32) -&gt; u32 {
 리스트 13-4 에 정의한 클로저에 타입을 명시하는 것은 리스트 13-7 에 보이는 것과
 같을 것입니다:</p>
 <p><span class="filename">파일명: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">use std::thread;
 </span><span class="boring">use std::time::Duration;
@@ -517,8 +525,8 @@ let n = example_closure(5);
 <p>리스트 13-9 는 <code>Cacher</code> 구조체의 정의를 보여주는데 클로저와 선택적인 반환값을
 갖고 있습니다:</p>
 <p><span class="filename">파일명: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct Cacher&lt;T&gt;
     where T: Fn(u32) -&gt; u32
@@ -548,8 +556,8 @@ let n = example_closure(5);
 것입니다.</p>
 <p>방금 설명한 <code>value</code> 필드에 대한 로직은 리스트 13-10 에 정의되어 있습니다: </p>
 <p><span class="filename">파일명: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct Cacher&lt;T&gt;
 </span><span class="boring">    where T: Fn(u32) -&gt; u32
@@ -599,8 +607,8 @@ let n = example_closure(5);
 <p>리스트 13-11 는 리스트 13-6 에 있는 <code>generate_workout</code> 함수에서 이 <code>Cacher</code> 구조
 체를 사용하는 방법을 보여줍니다:</p>
 <p><span class="filename">파일명: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">use std::thread;
 </span><span class="boring">use std::time::Duration;
@@ -723,7 +731,7 @@ fn call_with_different_values() {
 <p><code>equal_to_x</code> 변수에 저장된 클로저가 클로저를 둘러싼 환경에 있는 <code>x</code> 변수를
 사용하는 예제가 리스트 13-12 에 있습니다:</p>
 <p><span class="filename">파일명: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let x = 4;
 
     let equal_to_x = |z| z == x;
@@ -867,10 +875,10 @@ fn call_with_different_values() {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

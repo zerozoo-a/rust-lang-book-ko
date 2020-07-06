@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>Deref 트레잇은 참조자를 통하여 데이터로의 접근을 허용합니다 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -165,7 +173,7 @@
 값의 참조자를 생성하고는 참조자를 따라가서 값을 얻기 위해 역참조 연산자를
 사용합니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let x = 5;
     let y = &amp;x;
 
@@ -201,7 +209,7 @@ not satisfied
 <code>Box&lt;T&gt;</code>를 이용하여 재작성될 수 있으며, 역참조 연산자는 동일한 방식으로
 작동될 것입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let x = 5;
     let y = Box::new(x);
 
@@ -226,8 +234,8 @@ not satisfied
 Listing 15-8은 <code>MyBox&lt;T&gt;</code> 타입을 동일한 방식으로 정의하였습니다. 또한
 <code>Box&lt;T&gt;</code>에 정의되어 있는 <code>new</code> 함수에 맞추기 위해 <code>new</code> 함수도 정의겠습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct MyBox&lt;T&gt;(T);
 
@@ -275,8 +283,8 @@ impl&lt;T&gt; MyBox&lt;T&gt; {
 메소드 하나를 구현하도록 요구합니다. Listing 15-10은 <code>MyBox</code>의 정의에 덧붙여
 <code>Deref</code>의 구현을 담고 있습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::ops::Deref;
 
@@ -340,8 +348,8 @@ impl&lt;T&gt; MyBox&lt;T&gt; {
 이용합시다. Listing 15-11은 스트링 슬라이스 파라미터를 갖는 함수의
 정의를 보여줍니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn hello(name: &amp;str) {
     println!(&quot;Hello, {}!&quot;, name);
@@ -354,7 +362,7 @@ impl&lt;T&gt; MyBox&lt;T&gt; {
 호출할 수 있습니다. Listing 15-12에서 보는 바와 같이, 역참조 강제는 <code>MyBox&lt;String&gt;</code>
 타입의 값에 대한 참조자를 이용하여 <code>hello</code>를 호출하는 것을 가능하게 해 줍니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::ops::Deref;
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use std::ops::Deref;
 </span><span class="boring">
 </span><span class="boring">struct MyBox&lt;T&gt;(T);
 </span><span class="boring">
@@ -394,7 +402,7 @@ impl&lt;T&gt; MyBox&lt;T&gt; {
 타입의 값을 가지고 <code>hello</code> 함수를 호출하는 데 있어 Listing 15-12의 코드 대신
 Listing 15-13의 코드를 작성해야 했을 것입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::ops::Deref;
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use std::ops::Deref;
 </span><span class="boring">
 </span><span class="boring">struct MyBox&lt;T&gt;(T);
 </span><span class="boring">
@@ -501,10 +509,10 @@ Listing 15-13의 코드를 작성해야 했을 것입니다:</p>
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

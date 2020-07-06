@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>반복자로 일련의 항목들 처리하기 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -156,8 +164,8 @@
 예를 들면, 리스트 13-13 의 코드는 <code>Vec</code> 에 정의된 <code>iter</code> 메서드를 호출함으로써,
 벡터 <code>v1</code> 에 있는 항목들에 대한 반복자를 생성 합니다. 이 코드 자체로는 어떤
 유용한 동작을 하진 않습니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let v1 = vec![1, 2, 3];
 
@@ -172,8 +180,8 @@ let v1_iter = v1.iter();
 분리 했습니다. 반복자는 <code>v1_iter</code> 변수에 저장되고, 그 시점에 순회는 발생하지
 않습니다. <code>v1_iter</code> 에 있는 반복자를 사용하는 <code>for</code> 루프가 호출되면,
 루프 순회 마다 반복자의 각 요소가 사용되는데, 각각의 값을 출력 합니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let v1 = vec![1, 2, 3];
 
@@ -196,8 +204,8 @@ for val in v1_iter {
 <h3><a class="header" href="#iterator트레잇과-next-메서드" id="iterator트레잇과-next-메서드"><code>Iterator</code>트레잇과 <code>next</code> 메서드</a></h3>
 <p>모든 반복자는 표준 라이브러리에 정의된 <code>Iterator</code> 라는 이름의 트레잇을 구현 합니
 다. 트레잇의 정의는 아래와 같습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>trait Iterator {
     type Item;
@@ -220,8 +228,8 @@ for val in v1_iter {
 <p>반복자의 <code>next</code> 메서드를 직접 호출할 수 있습니다; 리스트 13-15 는 벡터로 부터
 생성된 반복자에 대해 반복된 <code>next</code> 호출이 어떤 값들을 반환하는지 보여줍니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[test]
 fn iterator_demonstration() {
@@ -260,8 +268,8 @@ fn iterator_demonstration() {
 순회해 나가면서 누적합계에 각 아이템을 더하고 순회가 완료되면 합계를 반환
 합니다. 리스트 13-16 은 <code>sum</code> 메서드의 사용을 보여주는 테스트 입니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[test]
 fn iterator_sum() {
@@ -290,8 +298,8 @@ fn iterator_sum() {
 여기서 클로저는 벡터의 각 항목에서 1이 증가된 새로운 반복자를 만듭니다.
 그러나, 이 코드는 경고를 발생 합니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let v1: Vec&lt;i32&gt; = vec![1, 2, 3];
 
@@ -320,8 +328,8 @@ and do nothing unless consumed
 결과를 모읍니다. 이 벡터는 각 항목이 원본 벡터로 부터 1씩 증가된 상태로 될 것
 입니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let v1: Vec&lt;i32&gt; = vec![1, 2, 3];
 
@@ -347,8 +355,8 @@ assert_eq!(v2, vec![2, 3, 4]);
 와 그 환경으로 부터 <code>shoe_size</code> 변수를 캡쳐하는 클로저를 사용 합니다. 그것은
 기술된 크기의 신발들만 반환 할 것 입니다.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[derive(PartialEq, Debug)]
 struct Shoe {
@@ -408,8 +416,8 @@ fn filters_by_size() {
 <p>리스트 13-20 에는 <code>Counter</code> 구조체의 정의와 <code>Counter</code> 인스턴스를 생성하는 연관된
 <code>new</code> 함수가 있습니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct Counter {
     count: u32,
@@ -433,8 +441,8 @@ impl Counter {
 본문을 정의함으로써 <code>Counter</code> 타입에 대한 <code>Iterator</code> 특성을 구현할 것입니다,
 리스트 13-21 참조:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct Counter {
 </span><span class="boring">    count: u32,
@@ -470,8 +478,8 @@ impl Counter {
 <code>next</code> 메서드를 호출 함으로써 반복자 기능을 사용할 수 있다는 것을 보여주는
 테스트를 보여 줍니다.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct Counter {
 </span><span class="boring">    count: u32,
@@ -517,8 +525,8 @@ fn calling_next_directly() {
 3으로 나눠지는 값들만 유지하며, 모든 결과 값을 함께 더하고 싶다면, 리스트 12-23
 의 테스트에서 보여지는 것처럼, 그렇게 할 수 있습니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct Counter {
 </span><span class="boring">    count: u32,
@@ -608,10 +616,10 @@ fn using_other_iterator_trait_methods() {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

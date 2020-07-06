@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>panic!과 함께하는 복구 불가능한 에러 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -169,7 +177,7 @@ panic = 'abort'
 </blockquote>
 <p>단순한 프로그램 내에서 <code>panic!</code> 호출을 시도해 봅시다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust should_panic">fn main() {
+<pre><pre class="playground"><code class="language-rust should_panic">fn main() {
     panic!(&quot;crash and burn&quot;);
 }
 </code></pre></pre>
@@ -196,7 +204,7 @@ error: Process didn't exit successfully: `target/debug/panic` (exit code: 101)
 라이브러리로부터 발생될 때는 어떻게 되는지 살펴봅시다. Listing 9-1은 벡터 내의 요소를 인덱스로
 접근 시도하는 코드입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust should_panic">fn main() {
+<pre><pre class="playground"><code class="language-rust should_panic">fn main() {
     let v = vec![1, 2, 3];
 
     v[99];
@@ -333,10 +341,10 @@ stack backtrace:
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

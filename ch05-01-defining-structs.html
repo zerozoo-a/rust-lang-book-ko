@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>구조체를 정의하고 생성하기 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -156,8 +164,8 @@
 함께 묶이게 되는 구성요소들의 의미를 내포할 수 있도록 짓는 것이 좋습니다.
 이후 중괄호 안에서는, 필드(<em>field</em>)라 불리는 각 구성요소들의 타입과 접근할 수 있는 이름을 정의합니다.</p>
 <p>아래 예제 5-1에서는 사용자 계정에 대한 정보를 저장하는 구조체를 정의합니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct User {
     username: String,
@@ -175,8 +183,8 @@
 정의는 무엇이 들어가야 하는 지 대략적으로 정의된 양식 정도라고 생각하시면 되고, 인스턴스는 그것에
 특정한 값을 넣어 실체화한 것이라 생각하시면 됩니다. 아래 예제 5-2에서는 특정 사용자를 선언하는
 과정을 보여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct User {
 </span><span class="boring">    username: String,
@@ -203,8 +211,8 @@
 이를 활용하면 구조체를 생성하는 함수를 더 간단히 작성할 수 있게 됩니다.
 아래 예제 5-3의 <code>build_user</code> 함수에는 <code>email</code>과 <code>username</code> 라는 매개변수가
 있습니다. 함수는 <code>User</code>구조체가 구현된 인스턴스를 반환합니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct User {
 </span><span class="boring">    username: String,
@@ -229,8 +237,8 @@
 에서 <code>email</code>과 <code>username</code>를 명시하는 부분을 예제 5-4와 같이 다시 작성할 필요가 없습니다.</p>
 <p>예제 5-4의 <code>build_user</code> 함수는 예제 5-3과 같은 방식으로 동작합니다. 필드 초기화를 이러한 방식으로
 수행하는 문법은 간결한 코드를 작성하는데 도움이 되고, 많은 필드의 값이 정의되어야할 때 특히 유용합니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct User {
 </span><span class="boring">    username: String,
@@ -256,8 +264,8 @@
 유용합니다. 예제 5-5는 변수 <code>user2</code>에 <code>email</code>과 <code>username</code>은 새로 할당하고, 나머지
 필드들은 예제 5-2에서 정의한 <code>user1</code>의 값들을 그대로 사용하는 방식으로 <code>User</code> 인스턴스를
 생성하는 것을 보여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct User {
 </span><span class="boring">    username: String,
@@ -288,8 +296,8 @@
 않기 위해 <code>..</code> 구문을 사용합니다. 예제 5-6의 코드는 <code>user1</code> 인스턴스와 <code>active</code>,
 <code>sign_in_count</code> 필드의 값은 같고, <code>email</code>과 <code>username</code> 필드들은 값은 다른 <code>user2</code>
 인스턴스를 생성할 때 구조체 갱신법을 사용하는 것을 보여줍니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct User {
 </span><span class="boring">    username: String,
@@ -320,8 +328,8 @@
 <p>튜플 구조체는 일반적인 구조체 정의방법과 똑같이 <code>struct</code> 키워드를 통해 정의할 수 있고, 튜플의
 타입 정의가 키워드 뒤에서 이루어지면 됩니다. 아래는 튜플 구조체인 <code>Color</code>, <code>Point</code>의 정의와
 사용 예시 입니다.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct Color(i32, i32, i32);
 struct Point(i32, i32, i32);
@@ -423,10 +431,10 @@ error[E0106]: missing lifetime specifier
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

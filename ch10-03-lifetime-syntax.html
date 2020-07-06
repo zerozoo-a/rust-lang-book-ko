@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>라이프타임을 이용한 참조자 유효화 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -236,8 +244,8 @@ looking arrows and labels? /Carol -->
 가지고 있는 어떤 오브젝트를 참조하고 있음을 보게 됩니다. <code>'b</code> 라이프타임이 <code>'a</code> 라이프타임에 비해
 작기 때문에 러스트 컴파일러는 이 프로그램을 거부합니다: 참조자의 주체가 참조자만큼 오래 살지 못하고 있으니까요.</p>
 <p>댕글링 참조자를 만드는 시도가 없고 에러 없이 컴파일되는 Listing 10-18의 예제를 살펴봅시다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>{
     let x = 5;            // -----+-- 'b
@@ -359,8 +367,8 @@ Listing 10-17과 10-18에서 했던 것과 같이 스코프를 살펴볼 수도 
 것인데, 이는 Listing 10-21에서 보는 바와 같이 우리가 <code>'a</code>라고 명명하여 각각의 참조자에
 추가할 것입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
     if x.len() &gt; y.len() {
@@ -401,7 +409,7 @@ Listing 10-17과 10-18에서 했던 것과 같이 스코프를 살펴볼 수도 
 <code>result</code>는 내부 스코프가 끝날 때까지 유효한 무언가를 참조합니다. 빌림 검사기는 이 코드를 승인합니다;
 이는 컴파일되며 실행했을 때 <code>The longest string is long string is long</code>를 출력합니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
 </span><span class="boring">    if x.len() &gt; y.len() {
 </span><span class="boring">        x
 </span><span class="boring">    } else {
@@ -468,8 +476,8 @@ Listing 10-23의 코드는 컴파일되지 않을 것입니다:</p>
 예를 들면, <code>longest</code> 함수의 구현을 제일 긴 스트링 슬라이스 대신 항상 첫 번째 인자를 반환하도록
 바꾸었다면, <code>y</code> 파라미터에 대한 라이프타임을 특정할 필요는 없을 것입니다. 아래 코드는 컴파일됩니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;str) -&gt; &amp;'a str {
     x
@@ -519,7 +527,7 @@ at 1:44...
 있도록 할 수 있지만, 구조체 정의 내의 모든 참조자들에 대하여 라이프타임을 표시할 필요가 있습니다.
 Listing 10-24에 스트링 슬라이스를 들고 있는 <code>ImportantExcerpt</code>라고 명명된 구조체가 있습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">struct ImportantExcerpt&lt;'a&gt; {
+<pre><pre class="playground"><code class="language-rust">struct ImportantExcerpt&lt;'a&gt; {
     part: &amp;'a str,
 }
 
@@ -544,8 +552,8 @@ fn main() {
 라이프타임 파라미터를 특정할 필요가 있다고 배웠습니다. 하지만, Listing 10-25에서 다시 보여주듯이,
 4장의 &quot;스트링 슬라이스&quot;절의 함수는 라이프타임 명시 없이도 컴파일이 됐었지요:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn first_word(s: &amp;str) -&gt; &amp;str {
     let bytes = s.as_bytes();
@@ -658,8 +666,8 @@ methods. /Carol -->
 <code>ImportantExcerpt</code>라는 이름의 구조체를 이용한 몇 가지 예제를 봅시다.</p>
 <p>먼저, 여기 <code>level</code>라는 이름의 메소드가 있습니다. 파라미터는 오직 <code>self</code>에 대한 참조자이며,
 반환 값은 무언가에 대한 참조자가 아닌, 그냥 <code>i32</code>입니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct ImportantExcerpt&lt;'a&gt; {
 </span><span class="boring">    part: &amp;'a str,
@@ -675,8 +683,8 @@ methods. /Carol -->
 <p><code>impl</code>뒤의 라이프타임 파라미터 선언부와 타입 이름 뒤에서 이를 사용하는 것이 필요하지만, 첫 번째 생략
 규칙때문에 <code>self</code>로의 참조자의 라이프타임을 명시할 필요는 없습니다.</p>
 <p>아래는 세번째 라이프타임 생략 규칙이 적용되는 예제입니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct ImportantExcerpt&lt;'a&gt; {
 </span><span class="boring">    part: &amp;'a str,
@@ -697,8 +705,8 @@ methods. /Carol -->
 <p>우리가 논의할 필요가 있는 특별한 라이프타임이 <em>딱 하나</em> 있습니다: 바로 <code>'static</code>입니다.
 <code>'static</code> 라이프타임은 프로그램의 전체 생애주기를 가리킵니다. 모든 스트링 리터럴은 <code>'static</code>
 라이프타임을 가지고 있는데, 아래와 같이 명시하는 쪽을 선택할 수 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let s: &amp;'static str = &quot;I have a static lifetime.&quot;;
 <span class="boring">}
@@ -716,8 +724,8 @@ methods. /Carol -->
 <h3><a class="header" href="#제네릭-타입-파라미터-트레잇-바운드-라이프타임을-함께-써보기" id="제네릭-타입-파라미터-트레잇-바운드-라이프타임을-함께-써보기">제네릭 타입 파라미터, 트레잇 바운드, 라이프타임을 함께 써보기</a></h3>
 <p>그럼 제네릭 타입 파라미터, 트레잇 바운드, 그리고 라이프타임이 하나의 함수에 모두 특정된 문법을
 간단하게 살펴봅시다!</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::fmt::Display;
 
@@ -795,10 +803,10 @@ fn longest_with_an_announcement&lt;'a, T&gt;(x: &amp;'a str, y: &amp;'a str, ann
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

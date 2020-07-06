@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>객체 지향 디자인 패턴 구현하기 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -223,8 +231,8 @@ fn main() {
 감싸진 <code>Box&lt;State&gt;</code> 형태의 트레잇 객체를 보유할 겁니다. 곧 <code>Option</code>이
 왜 필요한지 보게 될 겁니다. </p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub struct Post {
     state: Option&lt;Box&lt;State&gt;&gt;,
@@ -269,8 +277,8 @@ impl State for Draft {}
 <code>add_text</code> 메소드는 매우 직관적이니까, Listing 17-13에서 <code>impl Post</code>
 블록에 구현을 추가해봅시다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub struct Post {
 </span><span class="boring">    content: String,
@@ -303,8 +311,8 @@ Listing 17-11의 8번째 줄처럼 게시물이 여전히 초안 상태이기 �
 그 때까지 게시물은 오직 초안 상태로만 존재하기에 게시물 컨텐츠는 항상 비어 있어야
 합니다. Listing 17-14는 이 껍데기 구현을 보여줍니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub struct Post {
 </span><span class="boring">    content: String,
@@ -326,8 +334,8 @@ Listing 17-11의 8번째 줄처럼 게시물이 여전히 초안 상태이기 �
 <p>다음으로, 우리는 게시물의 리뷰를 요청하는 기능을 만들어야 하는데, 이는 게시물의 상태를 <code>Draft</code>에서
 <code>PendingReview</code>로 변경해야 합니다. Listing 17-15는 이에 관련된 코드 입니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub struct Post {
 </span><span class="boring">    state: Option&lt;Box&lt;State&gt;&gt;,
@@ -406,8 +414,8 @@ impl State for PendingReview {
 Listing 17-16과 같이 해당 상태가 허가되었을때 가져야 하는 값으로 <code>state</code>를
 설정할 것입니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub struct Post {
 </span><span class="boring">    state: Option&lt;Box&lt;State&gt;&gt;,
@@ -481,8 +489,8 @@ impl State for Published {
 17-17처럼 만일 상태가 <code>Published</code>이면, 우리는 게시물의 <code>content</code> 필드의
 값을 반환하길 원합니다; 그렇지 않다면, 우리는 빈 스트링 슬라이스를 반환하고자 합니다.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">trait State {
 </span><span class="boring">    fn content&lt;'a&gt;(&amp;self, post: &amp;'a Post) -&gt; &amp;'a str;
@@ -524,8 +532,8 @@ impl State for Published {
 <code>content</code>를 추가할 필요가 있음을 의미하고, 이곳이 Listing 17-18처럼
 우리가 가진 상태에 따라 어떤 컨텐츠를 반환할지에 대한 로직을 삽입할 위치입니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub struct Post {
 </span><span class="boring">    content: String
@@ -637,8 +645,8 @@ impl State for Published {
 17-19에서는 <code>Post</code> 구조체와 <code>DraftPost</code> 구조체의 정의와 각각의 메소드를
 보여줍니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub struct Post {
     content: String,
@@ -692,8 +700,8 @@ impl DraftPost {
 <code>PendingReviewPost</code>에 <code>Post</code>를 반환하는 <code>approve</code> 메소드를 정의하여
 위의 제약사항들을 구현해봅시다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">pub struct Post {
 </span><span class="boring">    content: String,
@@ -840,10 +848,10 @@ fn main() {
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>Hello, World! - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -192,7 +200,7 @@ $ cd hello_world
 <em>hello_world.rs</em>를 사용하세요.</p>
 <p>이제 여러분이 방금 만든 <em>main.rs</em>을 열고 Listing 1-1의 코드를 입력하세요.</p>
 <p><span class="filename">Filename: main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     println!(&quot;Hello, world!&quot;);
 }
 </code></pre></pre>
@@ -216,7 +224,7 @@ Hello, world!
 <h3><a class="header" href="#러스트-프로그램-해부하기" id="러스트-프로그램-해부하기">러스트 프로그램 해부하기</a></h3>
 <p>여러분의 “Hello, world!” 프로그램에서 어떤 일이 벌어졌는지를 상세하게 짚어보겠습니다.
 여기 첫번째 퍼즐 조각이 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
 
 }
 </code></pre></pre>
@@ -236,8 +244,8 @@ Hello, world!
 언제 읽는가에 따라써, 이 툴이 여러분의 컴퓨터에 이미 설치되어 있을지도 모릅니다!
 더 자세한 사항에 대해서는 온라인 문서를 참고하세요.</p>
 <p><code>main</code> 함수 내부에는 다음과 같은 코드가 있습니다:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    println!(&quot;Hello, world!&quot;);
 <span class="boring">}
@@ -338,10 +346,10 @@ main.rs
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

@@ -5,12 +5,19 @@
         <meta charset="UTF-8">
         <title>제어문 - The Rust Programming Language</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -36,7 +44,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -157,7 +165,7 @@
 <p><em>branches</em>로 명명된 새 프로젝트를 우리의 <em>projects</em> 디렉토리에 생성하고 <code>if</code>식을 탐구합시다.
 <em>src/main.rs</em> 파일에 다음의 내용을 기입하세요:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let number = 3;
 
     if number &lt; 5 {
@@ -218,7 +226,7 @@ condition was false
 명시적으로 <code>boolean</code>을 <code>if</code>의 조건으로 사용해야 합니다. 만약 우리가 <code>if</code>표현식의 코드 블록을 숫자가 
 <code>0</code>이 아닐 시에 실행하고 싶다면, 다음처럼, 우리는 <code>if</code>표현식을 변경할 수 있습니다. </p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let number = 3;
 
     if number != 0 {
@@ -231,7 +239,7 @@ condition was false
 <p>우리는 <code>if</code>와 <code>else</code> 사이에 <code>else if</code>식을 추가 결합하여 다양한 조건을 다룰 수 있습니다. 
 예제를 보시죠:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let number = 6;
 
     if number % 4 == 0 {
@@ -261,7 +269,7 @@ Rust가 첫 번째로 조건이 참이 되는 블록만 찾아 실행하고, 한
 <h4><a class="header" href="#let구문에서-if-사용하기" id="let구문에서-if-사용하기"><code>let</code>구문에서 <code>if</code> 사용하기</a></h4>
 <p><code>if</code>가 표현식이기 때문에, 항목 3-4에서 처럼, 우리는 이를 <code>let</code> 구문의 우측에 사용할 수 있죠. </p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let condition = true;
     let number = if condition {
         5
@@ -358,7 +366,7 @@ again!
 반복문이라 부릅니다. 다음의 예제를 통해 <code>while</code>을 사용해 봅시다: 프로그램은 세 번 반복되고, 반복 때마다 
 카운트 다운됩니다. 마침내 반복이 끝나면 다른 메시지를 출력하고 종료됩니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let mut number = 3;
 
     while number != 0 {
@@ -376,7 +384,7 @@ again!
 <p>우리는 <code>while</code> 구조자를 통해 배열과 같은, 콜렉션의 각 요소에 걸쳐 반복 수행 할 수 있습니다.
 예를 들어서, Listing 3-5을 살펴봅시다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let a = [10, 20, 30, 40, 50];
     let mut index = 0;
 
@@ -408,7 +416,7 @@ the value is: 50
 <p>보다 효율적인 대안으로, 우리는 <code>for</code> 반복문을 사용하여 콜렉션의 각 요소에 대한 코드를 수행할 수 있습니다.
 <code>for</code> 반복문은 다음 Listing 3-6과 같습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let a = [10, 20, 30, 40, 50];
 
     for element in a.iter() {
@@ -428,7 +436,7 @@ the value is: 50
 <code>Range</code>는 한 숫자에서 다른 숫자 전까지 모든 숫자를 차례로 생성합니다. </p>
 <p>여기 <code>for</code>반복문과 아직 설명하지 않은 range를 역순하는 <code>rev</code>메소드를 사용하는 카운트다운 프로그램이 있습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     for number in (1..4).rev() {
         println!(&quot;{}!&quot;, number);
     }
@@ -489,10 +497,10 @@ the value is: 50
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 
