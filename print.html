@@ -3427,7 +3427,7 @@ fn main() {
 한번 더 개선시킬 수 있는데, 바로 이 함수의 시그니처입니다:</p>
 <pre><code class="language-rust ignore">fn first_word(s: &amp;String) -&gt; &amp;str {
 </code></pre>
-<p>더 경험이 많은 러스트인이라면 대신 아래와 같이 작성하는데, 그 이유는 <code>String</code>과 <code>&amp;str</code> 둘 모두에
+<p>더 경험이 많은 러스트인이라면 대신 아래와 같이 작성하는데, 그 이유는 <code>&amp;String</code>과 <code>&amp;str</code> 둘 모두에
 대한 같은 함수를 사용할 수 있도록 해주기 때문입니다.</p>
 <pre><code class="language-rust ignore">fn first_word(s: &amp;str) -&gt; &amp;str {
 </code></pre>
