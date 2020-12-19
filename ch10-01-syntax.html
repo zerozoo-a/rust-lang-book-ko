@@ -311,8 +311,7 @@ fn main() {
 <p><code>Point</code>의 정의 내에서 단 하나의 제네릭 타입을 사용했기 때문에, <code>Point</code> 구조체는 어떤 타입 <code>T</code>를
 이용한 제네릭이고 <code>x</code>와 <code>y</code>가 이게 결국 무엇이 되든 간에 <em>둘 다</em> 동일한 타입을 가지고 있다고
 말할 수 있음을 주목하세요. 만일 Listing 10-7에서와 같이 다른 타입의 값을 갖는 <code>Point</code>의
-인스턴스를 만들고자 한다면, 컴파일이 되지 않을 것입니다:
-`</p>
+인스턴스를 만들고자 한다면, 컴파일이 되지 않을 것입니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">struct Point&lt;T&gt; {
     x: T,
