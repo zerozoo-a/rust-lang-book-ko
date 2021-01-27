@@ -172,10 +172,8 @@
 <p>우리는 몇가지 일반적인 네트워크 기능을 제공하는 라이브러리의 뼈대를 만들 것입니다;
 여기서는 모듈들과 함수들의 조직화에 집중할 것이고, 함수의 본체에 어떤 코드가 들어가야
 하는지는 신경쓰지 않겠습니다. 이 라이브러리를 <code>communicator</code>라고 부르겠습니다.
-기본적으로, 카고는 다른 타입의 프로젝트로 특정하지 않는 이상 라이브러리를 만들
-것입니다: 이전의 모든 장들에서 사용해왔던 <code>--bin</code> 옵션을 제거하면, 프로젝트는
-라이브러리가 될 것입니다:</p>
-<pre><code class="language-text">$ cargo new communicator
+라이브러리를 만들기 위해서는 <code>--bin</code> 대신 <code>--lib</code> 옵션을 넘기세요:</p>
+<pre><code class="language-text">$ cargo new communicator --lib
 $ cd communicator
 </code></pre>
 <p>카고가 <em>src/main.rs</em> 대신 <em>src/lib.rs</em>을 생성했음을 주목하세요. <em>src/lib.rs</em>
