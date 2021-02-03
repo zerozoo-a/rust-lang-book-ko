@@ -6621,11 +6621,11 @@ error: Process didn't exit successfully: `target/debug/panic` (exit code: 101)
 <p>그 다음 노트는 <code>RUST_BACKTRACE</code> 환경 변수를 설정하여 에러의 원인이 된 것이 무엇인지 정확하게
 백트레이스할 수 있다고 말해주고 있습니다. <em>백트레이스 (backtrace)</em> 란 어떤 지점에 도달하기까지
 호출해온 모든 함수의 리스트를 말합니다. 러스트의 백트레이스는 다른 언어들에서와 마찬가지로
-동작합니다: 백트레이스를 읽는 요령은 위에서부터 시작하여 여러분이 작성한 파일이 보일때까지 읽는
+동작합니다: 백트레이스를 읽는 요령은 위에서부터 시작하여 여러분이 작성한 파일이 보일 때까지 읽는
 것입니다. 그곳이 바로 문제를 읽으킨 지점입니다. 여러분의 파일을 언급한 줄보다 위에 있는 줄들은
 여러분의 코드가 호출한 코드입니다; 밑의 코드는 여러분의 코드를 호출한 코드입니다. 이 줄들은
 핵심(core) 러스트 코드, 표준 라이브러리, 혹은 여러분이 이용하고 있는 크레이트를 포함하고
-있을지도 모릅니다. 백트레이스를 얻어내는 시도를 해봅시다: Listing 9-2는 여러분이 보게될 것과
+있을지도 모릅니다. 백트레이스를 얻어내는 시도를 해봅시다: Listing 9-2는 여러분이 보게 될 것과
 유사한 출력을 보여줍니다:</p>
 <pre><code class="language-text">$ RUST_BACKTRACE=1 cargo run
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
@@ -6779,9 +6779,9 @@ Os { code: 2, message: &quot;No such file or directory&quot; } }', src/main.rs:9
 <h3><a class="header" href="#서로-다른-에러에-대해-매칭하기" id="서로-다른-에러에-대해-매칭하기">서로 다른 에러에 대해 매칭하기</a></h3>
 <p>Listing 9-3의 코드는 <code>File::open</code>이 실패한 이유가 무엇이든 간에 <code>panic!</code>을 일으킬 것입니다.
 대신 우리가 원하는 것은 실패 이유에 따라 다른 행동을 취하는 것입니다: 파일이 없어서
-<code>File::open</code>이 실패한 것이라면, 새로운 파일을 만들어서 핸들을 반환하고 싶습니다. 만일 그밖의
-이유로 <code>File::open</code>이 실패한 거라면, 예를 들어 파일을 열 권한이 없어서라면, 예를 들어 우리가
-파일을 열 권한이 없기 때문이라면, Listing 9-4에서 했던 것과 마찬가지로 <code>panic!</code>을 일으키고
+<code>File::open</code>이 실패한 것이라면, 새로운 파일을 만들어서 핸들을 반환하고 싶습니다. 만일 그 밖의
+이유로 <code>File::open</code>이 실패한 거라면, 예를 들어 파일을 열 권한이 없어서라면,
+Listing 9-4에서 했던 것과 마찬가지로 <code>panic!</code>을 일으키고
 싶습니다. <code>match</code>에 새로운 경우를 추가한 Listing 9-5를 봅시다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <!-- ignore this test because otherwise it creates hello.txt which causes other
@@ -6831,7 +6831,7 @@ fn main() {
 <p>매치 가드 내에서 확인하고자 하는 조건문은 <code>error.kind()</code>에 의해 반환된 값이 <code>ErrorKind</code> 열거형의
 <code>NotFound</code> variant인가 하는 것입니다. 만일 그렇다면, <code>File::create</code>로 파일 생성을 시도합니다.
 그러나, <code>File::create</code> 또한 실패할 수 있기 때문에, 안쪽에 <code>match</code> 구문을 바깥쪽과 마찬가지로 추가할
-필요가 있습니다. 파일이 열수 없을 때, 다른 에러 메세지가 출력될 것입니다. 바깥쪽 <code>match</code>의 마지막 갈래는
+필요가 있습니다. 파일이 열 수 없을 때, 다른 에러 메세지가 출력될 것입니다. 바깥쪽 <code>match</code>의 마지막 갈래는
 똑같이 남아서, 파일을 못 찾는 에러 외에 다른 어떤 에러에 대해서도 패닉을 일으킵니다.</p>
 <h3><a class="header" href="#에러가-났을-때-패닉을-위한-숏컷-unwrap과-expect" id="에러가-났을-때-패닉을-위한-숏컷-unwrap과-expect">에러가 났을 때 패닉을 위한 숏컷: <code>unwrap</code>과 <code>expect</code></a></h3>
 <p><code>match</code>의 사용은 충분히 잘 동작하지만, 살짝 장황하기도 하고 의도를 항상 잘 전달하는 것도 아닙니다.
