@@ -163,14 +163,14 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#panic과-함께하는-복구-불가능한-에러" id="panic과-함께하는-복구-불가능한-에러"><code>panic!</code>과 함께하는 복구 불가능한 에러</a></h2>
+                        <h2 id="panic과-함께하는-복구-불가능한-에러"><a class="header" href="#panic과-함께하는-복구-불가능한-에러"><code>panic!</code>과 함께하는 복구 불가능한 에러</a></h2>
 <p>가끔씩 여러분의 코드에서 나쁜 일이 일어나고, 이에 대해 여러분이 할 수 있는 것이 없을 수도 있습니다.
 이러한 경우를 위하여 러스트는 <code>panic!</code> 매크로를 가지고 있습니다. 이 매크로가 실행되면, 여러분의
 프로그램은 실패 메세지를 출력하고, 스택을 되감고 청소하고, 그 후 종료됩니다. 이런 일이 발생하는 가장
 흔한 상황은 어떤 종류의 버그가 발견되었고 프로그래머가 이 에러를 어떻게 처리할지가 명확하지 않을 때
 입니다.</p>
 <blockquote>
-<h3><a class="header" href="#panic에-응하여-스택을-되감거나-그만두기" id="panic에-응하여-스택을-되감거나-그만두기"><code>panic!</code>에 응하여 스택을 되감거나 그만두기</a></h3>
+<h3 id="panic에-응하여-스택을-되감거나-그만두기"><a class="header" href="#panic에-응하여-스택을-되감거나-그만두기"><code>panic!</code>에 응하여 스택을 되감거나 그만두기</a></h3>
 <p>기본적으로, <code>panic!</code>이 발생하면, 프로그램은 <em>되감기(unwinding)</em> 를 시작하는데, 이는 러스트가
 패닉을 마주친 각 함수로부터 스택을 거꾸로 훑어가면서 데이터를 제거한다는 뜻이지만, 이 훑어가기 및
 제거는 일이 많습니다. 다른 대안으로는 즉시 <em>그만두기(abort)</em> 가 있는데, 이는 데이터 제거 없이
@@ -207,7 +207,7 @@ error: Process didn't exit successfully: `target/debug/panic` (exit code: 101)
 <code>panic!</code>을 이끌어낸 것이 우리 코드 라인이 아닐 것입니다. 문제를 일으킨 코드 부분을 발견하기 위해서
 <code>panic!</code> 호출이 발생된 함수에 대한 백트레이스(backtrace)를 사용할 수 있습니다. 백트레이스가 무엇인가에
 대해서는 뒤에 더 자세히 다를 것입니다.</p>
-<h3><a class="header" href="#panic-백트레이스-사용하기" id="panic-백트레이스-사용하기"><code>panic!</code> 백트레이스 사용하기</a></h3>
+<h3 id="panic-백트레이스-사용하기"><a class="header" href="#panic-백트레이스-사용하기"><code>panic!</code> 백트레이스 사용하기</a></h3>
 <p>다른 예를 통해서, 우리 코드가 직접 매크로를 호출하는 대신 우리 코드의 버그 때문에 <code>panic!</code> 호출이
 라이브러리로부터 발생될 때는 어떻게 되는지 살펴봅시다. Listing 9-1은 벡터 내의 요소를 인덱스로
 접근 시도하는 코드입니다:</p>

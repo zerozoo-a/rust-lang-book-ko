@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#이름-가져오기-importing-names" id="이름-가져오기-importing-names">이름 가져오기 (Importing Names)</a></h2>
+                        <h2 id="이름-가져오기-importing-names"><a class="header" href="#이름-가져오기-importing-names">이름 가져오기 (Importing Names)</a></h2>
 <p>우리는 Listing 7-6에서 보시는 것과 같이 <code>nested_modules</code> 함수를 호출하는 것처럼,
 모듈 이름을 호출 구문의 일부분으로 사용하여 해당 모듈 내에 정의된 함수를 호출하는
 방법을 다룬바 있습니다:</p>
@@ -184,7 +184,7 @@ fn main() {
 호출하기</span></p>
 <p>보시다시피 완전하게 경로를 지정한 이름을 참조하는 것은 너무 길어질 수 있습니다.
 다행히도 러스트는 이러한 호출을 더 간결하게 만들어주는 키워드를 가지고 있습니다.</p>
-<h3><a class="header" href="#use를-이용한-간결한-가져오기" id="use를-이용한-간결한-가져오기"><code>use</code>를 이용한 간결한 가져오기</a></h3>
+<h3 id="use를-이용한-간결한-가져오기"><a class="header" href="#use를-이용한-간결한-가져오기"><code>use</code>를 이용한 간결한 가져오기</a></h3>
 <p>러스트의 <code>use</code> 키워드는 여러분이 스코프 내에서 호출하고 싶어하는 함수의 모듈을
 가져옴으로써 긴 함수 호출을 줄여줍니다. <code>a::series::of</code> 모듈을 바이너리 크레이트의
 루트 스코프로 가져온 예제입니다:</p>
@@ -245,7 +245,7 @@ fn main() {
 </code></pre></pre>
 <p><code>Green</code> variant에 대해서는 여전히 <code>TrafficLight</code> 이름공간을 명시하고 있는데,
 이는 <code>use</code> 구문 내에 <code>Green</code>를 포함하지 않았기 때문입니다.</p>
-<h3><a class="header" href="#를-이용한-모두glob-가져오기" id="를-이용한-모두glob-가져오기"><code>*</code>를 이용한 모두(glob) 가져오기</a></h3>
+<h3 id="를-이용한-모두glob-가져오기"><a class="header" href="#를-이용한-모두glob-가져오기"><code>*</code>를 이용한 모두(glob) 가져오기</a></h3>
 <p>이름공간 내의 모든 아이템을 가져오기 위해서는 <code>*</code> 문법을 이용할 수 있습니다. 예를 들면:</p>
 <pre><pre class="playground"><code class="language-rust">enum TrafficLight {
     Red,
@@ -265,7 +265,7 @@ fn main() {
 것입니다. 여러분은 글롭을 아껴가며 써야 합니다: 글롭은 편리하지만, 여러분이 예상한
 것보다 더 많은 아이템을 끌어와서 이름 간의 충돌(naming conflict)의 원인이 될수도
 있습니다.</p>
-<h3><a class="header" href="#super를-사용하여-부모-모듈에-접근하기" id="super를-사용하여-부모-모듈에-접근하기"><code>super</code>를 사용하여 부모 모듈에 접근하기</a></h3>
+<h3 id="super를-사용하여-부모-모듈에-접근하기"><a class="header" href="#super를-사용하여-부모-모듈에-접근하기"><code>super</code>를 사용하여 부모 모듈에 접근하기</a></h3>
 <p>이 장의 시작 부분에서 보셨듯이, 여러분이 라이브러리 크레이트를 만들때, 카고는
 여러분들을 위해 <code>tests</code> 모듈을 만들어줍니다. 지금부터 이에 대한 구체적인 부분들을
 봅시다. 여러분의 <code>communicator</code> 프로젝트 내에 있는 <em>src/lib.rs</em>을 여세요:</p>
@@ -371,7 +371,7 @@ test tests::it_works ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
 </code></pre>
-<h2><a class="header" href="#정리" id="정리">정리</a></h2>
+<h2 id="정리"><a class="header" href="#정리">정리</a></h2>
 <p>이제 여러분은 코드를 조직화하기 위한 몇가지 새로운 기술을 알게 되었습니다! 관련된
 기능들을 함께 묶여주는 이 기술들을 사용하고, 파일들이 너무 길어지지 않게 하고,
 여러분의 라이브러리 사용자들에게 깔끔한 공개 API를 제공해 보세요.</p>

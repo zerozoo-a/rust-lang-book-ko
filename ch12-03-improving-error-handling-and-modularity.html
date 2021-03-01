@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#모듈성과-에러처리의-향상을-위한-리팩토링" id="모듈성과-에러처리의-향상을-위한-리팩토링">모듈성과 에러처리의 향상을 위한 리팩토링</a></h2>
+                        <h2 id="모듈성과-에러처리의-향상을-위한-리팩토링"><a class="header" href="#모듈성과-에러처리의-향상을-위한-리팩토링">모듈성과 에러처리의 향상을 위한 리팩토링</a></h2>
 <p>우리 프로그램을 향상시키기 위해 네 가지 수정하고 싶은 문제가 있는데, 이들은 프로그램을 
 구조화하고 발생가능한 에러를 처리하는 방식과 관련있습니다.</p>
 <p>첫 번째, 우리 <code>main</code> 함수는 현재 두 가지 작업을 수행합니다: 인자들을 분석하고 파일을
@@ -189,7 +189,7 @@ bounds&quot; 오류가 발생하는데 이는 문제를 명확하게 설명하�
 참고하면 되니 더 좋죠. 또한, 모든 오류 처리 코드를 한 곳에 저장하면 우리가 최종 사용자에게
 도움이 되는 메시지를 출력하고 있는지 확신하는데도 도움이 됩니다.</p>
 <p>이런 문제들을 우리 프로젝트를 리팩토링하여 해결해보도록 하겠습니다.</p>
-<h3><a class="header" href="#바이너리-프로젝트를-위한-관심사의-분리" id="바이너리-프로젝트를-위한-관심사의-분리">바이너리 프로젝트를 위한 관심사의 분리</a></h3>
+<h3 id="바이너리-프로젝트를-위한-관심사의-분리"><a class="header" href="#바이너리-프로젝트를-위한-관심사의-분리">바이너리 프로젝트를 위한 관심사의 분리</a></h3>
 <p><code>main</code> 함수가 여러 작업에 책임을 갖게 되는 구조적 문제는 많은 바이너리 프로젝트에서 
 공통적입니다. 그래서 Rust 커뮤니티는 <code>main</code>이 커지기 시작할 때 바이너리 프로그램의 
 핵심기능을 나누기 위한 가이드라인 프로세스를 개발했습니다. 프로세스에는 다음 단계가 있습니다:</p>
@@ -213,7 +213,7 @@ bounds&quot; 오류가 발생하는데 이는 문제를 명확하게 설명하�
 수 없지만, 이런 구조로 <em>lib.rs</em> 으로 프로그램의 모든 함수와 로직을 옮긴 후에는 테스트가
 가능해집니다. <em>main.rs</em>에는 읽어서 옳바른지 여부를 검증할 수 있을 정도로 적은 코드만을 
 남겨두도록 합니다. 다음의 과정을 거치며 재작업을 해봅시다.</p>
-<h3><a class="header" href="#인자-파서의-추출" id="인자-파서의-추출">인자 파서의 추출</a></h3>
+<h3 id="인자-파서의-추출"><a class="header" href="#인자-파서의-추출">인자 파서의 추출</a></h3>
 <p>먼저 우리는 커맨드라인 인자를 분석하는 기능을 추출할 겁니다. 항목 12-5에서 <code>main</code>의 시작 부분이 새로운 함수 <code>parse_config</code>를 호출하는 것을 볼 수 있을텐데, 이는 아직은  <em>src/main.rs</em>에 정의되어 있을 겁니다. </p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
@@ -243,7 +243,7 @@ fn parse_config(args: &amp;[String]) -&gt; (&amp;str, &amp;str) {
 점진적으로 리팩토링을 진행하고 있습니다. 이런 변화를 준 뒤에는, 프로그램을 다시 실행해 인자의 
 파싱이 정상적으로 동작하고 있는지 확인해보십시오. 진행 상황을 자주 확인하면 문제가 생겼을 때
 원인을 파악하는데 도움이 됩니다. </p>
-<h4><a class="header" href="#설정-변수들을-그룹짓기" id="설정-변수들을-그룹짓기">설정 변수들을 그룹짓기</a></h4>
+<h4 id="설정-변수들을-그룹짓기"><a class="header" href="#설정-변수들을-그룹짓기">설정 변수들을 그룹짓기</a></h4>
 <!-- 원문의 내용이 잘못 작성된 것 같음. At the moment, we’re returning a tuple, but then we immediately break that tuple up into individual parts again. 문장은 but 이후 문장이 부정적 의미로 와야맞는 될 것 같음 -->
 <p>우리는 이 함수의 기능을 더 향상시키기 위해 또 다른 작은 행동을 할 수 있습니다. 현재 우리는
 튜플을 반환하고 있는데, 그 시점에 즉시 튜플을 개별된 부분으로 나눌 수가 없습니다. 이는 우리가
@@ -299,7 +299,7 @@ fn parse_config(args: &amp;[String]) -&gt; Config {
 대여 규칙을 위반하게 됩니다.</p>
 <p>우리가 <code>String</code> 데이터를 관리하는 방식은 여러가지가 있겠습니다만, 가장 쉽고 약간 비효율적인 방법은 <code>clone</code> 메소드를 호출하는 겁니다. 이 방식은 <code>Config</code> 객체에서 소유하게 할 data 전체에 대한 복사본을 만들 것이며, 이런 방식은 참조만 보관하는 것에 비해 약간 더 많은 비용과 메모리가 소비됩니다. 하지만 데이터의 복제본을 만드는 방식은 우리가 참조의 생명주기를 관리하지 않아도 되기 때문에 우리의 코드를 매우 직관적이게 합니다. 그래서 이런 상황에서는 약간의 성능을 포기하고 간소함을 유지하는 것이 매우 가치있는 거래입니다.</p>
 <blockquote>
-<h3><a class="header" href="#clone-사용의-기회비용" id="clone-사용의-기회비용"><code>clone</code> 사용의 기회비용</a></h3>
+<h3 id="clone-사용의-기회비용"><a class="header" href="#clone-사용의-기회비용"><code>clone</code> 사용의 기회비용</a></h3>
 <p>많은 Rust 사용자들은 런타임 비용 때문에 소유권 문제를 수정하기 위해 clone을 사용하지
 않는 경향이 있습니다. 13장 이터레이터에서, 이런 상황에서보다 효율적인 메소드를
 사용하는 법을 배우겠지만, 지금은 한 번만 clone하며 query와 filename이 매우 작기
@@ -313,7 +313,7 @@ fn parse_config(args: &amp;[String]) -&gt; Config {
 필드를 사용하도록 <code>main</code>을 업데이트했습니다.</p>
 <p>우리의 코드는 이제 보다 분명하게 <code>query</code>와 <code>filename</code>이 연관되어 있으며 이들의 목적이
 프로그램이 어떻게 동작할지에 대한 설정이라는 의도를 전달할 수 있습니다. 이 값을 사용하는 모든 코드는 그들의 의도에 맞게 지정된 필드를 <code>config</code> 객체에서 찾을 수 있습니다.</p>
-<h4><a class="header" href="#config를-위한-생성자-만들기" id="config를-위한-생성자-만들기"><code>Config</code>를 위한 생성자 만들기.</a></h4>
+<h4 id="config를-위한-생성자-만들기"><a class="header" href="#config를-위한-생성자-만들기"><code>Config</code>를 위한 생성자 만들기.</a></h4>
 <p>지금까지 우리는 <code>main</code>에서 <code>parse_config</code>함수로 커맨드라인 인자를 파싱하는 로직을 
 추출했습니다. 이를 통해 우리 코드에서 <code>query</code>와 <code>filename</code>값이 연관되어 있고 그
 연결성이 전달되어야 한다는 것을 알았습니다. 그래서 우리는 <code>Config</code> 구조체를 추가하고
@@ -359,7 +359,7 @@ impl Config {
 호출하게 되었습니다. 우리는 <code>parse_config</code>의 이름을 <code>new</code>로 바꾸고 그를 <code>impl</code>블록 
 안으로 옮겼는데, 이를 통해 <code>new</code>함수가 <code>Config</code>와 연결되게 됩니다. 다시 컴파일을 하고 
 제대로 동작하는지 확인해보도록 합시다. </p>
-<h3><a class="header" href="#에러-처리-수정하기" id="에러-처리-수정하기">에러 처리 수정하기</a></h3>
+<h3 id="에러-처리-수정하기"><a class="header" href="#에러-처리-수정하기">에러 처리 수정하기</a></h3>
 <p>이번에는 우리의 에러 처리를 수정해 볼 겁니다. 만일 <code>args</code> 벡터가 3개 미만의 아이템을<br />
 가지고 있을 때 인덱스 <code>2</code> 혹은 <code>3</code>의 값에 접근하려는 시도를 하면 프로그램은 패닉을 
 일으키게 된다고 했던 것을 상기시켜 드립니다. 프로그램을 인자 없이 실행해보시면; 
@@ -374,7 +374,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <p><code>index out of bounds: the len is 1 but the index is 1</code> 줄은 
 프로그래머를 위해 의도된 에러 메시지이지, 최종 사용자에게는 무슨 일이 있었는지 무엇을 해야 하는지
 이해하는데 아무런 도움이 되지 않습니다. 당장 한번 고쳐보겠습니다.</p>
-<h4><a class="header" href="#에러-메시지-향상시키기" id="에러-메시지-향상시키기">에러 메시지 향상시키기</a></h4>
+<h4 id="에러-메시지-향상시키기"><a class="header" href="#에러-메시지-향상시키기">에러 메시지 향상시키기</a></h4>
 <p>항목 12-8에서 <code>new</code>함수에 검사를 추가하여 인덱스 <code>1</code>과 <code>2</code>에 접근하기 전에 조각이 
 충분한 길이인지를 확인합니다. 조각이 충분히 길지 않다면, 프로그램은 더 좋은 에러메시지
 <code>index out of bounds</code>를 보여주고 패닉을 일으킵니다:</p>
@@ -401,7 +401,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <code>panic!</code>에 대한 호출은 9장에서 논의했던 것처럼 사용 방법에 대한 문제가 아닌 아니라 프로그래밍
 관련 문제에 더 적합합니다. 대신, 우리는 9장에서 배운 다른 기법으로 <code>Result</code>를 반환하는 것을
 성공이나 오류를 나타낼 수 있습니다.</p>
-<h4><a class="header" href="#new에서-panic을-호출하는-대신-result를-반환하기" id="new에서-panic을-호출하는-대신-result를-반환하기"><code>new</code>에서 <code>panic!</code>을 호출하는 대신 <code>Result</code>를 반환하기.</a></h4>
+<h4 id="new에서-panic을-호출하는-대신-result를-반환하기"><a class="header" href="#new에서-panic을-호출하는-대신-result를-반환하기"><code>new</code>에서 <code>panic!</code>을 호출하는 대신 <code>Result</code>를 반환하기.</a></h4>
 <p>우리는 <code>Result</code>를 반환 값으로 선택하여 성공인 경우에는 <code>Config</code> 객체를 포함시키고 에러가 
 발생한 경우에는 문제가 무엇인지 설명할 수 있게 만들 수 있습니다. <code>Config::new</code>가 <code>main</code>과 
 상호작용할 시에, 우리는 <code>Result</code>를 사용하여 문제가 있다고 신호할 수 있습니다. 그리고<code>main</code>에선
@@ -432,7 +432,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 반환 합니다. 이런 변경으로 인해 함수는 새로운 타입 선언을 갖게 됩니다.</p>
 <p><code>Config::new</code>가 <code>Err</code>값을 반환하게 함으로써, <code>main</code>함수는 <code>new</code>함수로부터 반환된 
 <code>Result</code>값을 처리하고 에러 상황에 프로세스를 더 깨끗하게 종료 할 수 있습니다.</p>
-<h4><a class="header" href="#confignew를-호출하고-에러-처리하기" id="confignew를-호출하고-에러-처리하기"><code>Config::new</code>를 호출하고 에러 처리하기</a></h4>
+<h4 id="confignew를-호출하고-에러-처리하기"><a class="header" href="#confignew를-호출하고-에러-처리하기"><code>Config::new</code>를 호출하고 에러 처리하기</a></h4>
 <p>에러 케이스를 처리하고 사용자-친화적인 메시지를 출력하기 위해서, 항목 12-10에서처럼 
 <code>Config::new</code>가 리턴하는 <code>Result</code>를 처리하기 위해 <code>main</code>을 갱신해야 합니다. 그리고
 우리 커맨드라인 프로그램을 <code>panic!</code>으로 0이 아닌 값을 발생시킬 때에는 종료시켜야 하므로 직접
@@ -474,7 +474,7 @@ fn main() {
 Problem parsing arguments: not enough arguments
 </code></pre>
 <p>훌륭하네요! 이 출력은 우리 사용자들에게 훨씬 친화적입니다.</p>
-<h3><a class="header" href="#run-함수-추출하기" id="run-함수-추출하기"><code>run</code> 함수 추출하기</a></h3>
+<h3 id="run-함수-추출하기"><a class="header" href="#run-함수-추출하기"><code>run</code> 함수 추출하기</a></h3>
 <p>이제 환경 설정 파싱 리팩토링을 마무리 했습니다. 우리 프로그램의 로직으로 돌아갑시다. 우리가 
 &quot;바이너리 프로젝트에서 핵심 기능의 분리&quot;절에서 논의한 과정에 따라, 우리는 <code>main</code>함수에 구성 
 설정 또는 오류 처리와 관계 없는 남아있는 모든 로직들을 담고있는 <code>run</code>함수를 추출 할 겁니다. 
@@ -506,7 +506,7 @@ fn run(config: Config) {
 <p><span class="caption">항목 12-11: 남은 프로그램 로직을 <code>run</code> 함수로 추출하기 </span></p>
 <p>이제 <code>run</code>함수에는 <code>main</code>에 잔존하는 파일을 읽는 것부터 나머지 모든 로직이 포함됩니다. 
 <code>run</code> 함수는 <code>Config</code> 객체를 인수로 취합니다.</p>
-<h4><a class="header" href="#run-함수에서-에러-반환하기" id="run-함수에서-에러-반환하기"><code>run</code> 함수에서 에러 반환하기</a></h4>
+<h4 id="run-함수에서-에러-반환하기"><a class="header" href="#run-함수에서-에러-반환하기"><code>run</code> 함수에서 에러 반환하기</a></h4>
 <p>나머지 프로그램 로직을 <code>main</code>이 아닌<code>run</code> 함수로 분리하면, Listing 12-9의 
 <code>Config::new</code>처럼 에러 처리를 향상시킬 수 있습니다. <code>expect</code>를 호출하여 프로그램을 패닉 
 상태로 만드는 대신, <code>run</code>함수는 무언가가 잘못되었을 때 <code>Result &lt;T, E&gt;</code>를 리턴 할 
@@ -553,7 +553,7 @@ fn run(config: Config) -&gt; Result&lt;(), Box&lt;Error&gt;&gt; {
 에러가 있는지 아닌지를 확인하지 않고 있고, 컴파일러는 우리에게 아마도 여기에 에러 처리 코드를 
 작성해야 한다는 것을 상기 시켜줄 것입니다! 당장 바로잡아 봅시다. </p>
 <p>Rust는 우리 코드가 오류가 있음을 나타내는 'Result'값을 무시한다는 것을 알려줍니다. 우리는 에러가 있는지 아닌지를 확인하지 않고 있고, 컴파일러는 아마도 여기에 에러 처리 코드를 가지고 있다는 것을 상기 시켜줄 것입니다! 지금 바로 잡아 보자.</p>
-<h4><a class="header" href="#main안의-run에서-반환되는-에러-처리하기" id="main안의-run에서-반환되는-에러-처리하기"><code>main</code>안의 <code>run</code>에서 반환되는 에러 처리하기</a></h4>
+<h4 id="main안의-run에서-반환되는-에러-처리하기"><a class="header" href="#main안의-run에서-반환되는-에러-처리하기"><code>main</code>안의 <code>run</code>에서 반환되는 에러 처리하기</a></h4>
 <p>우리는 항목 12-10의 <code>Config::new</code>를 사용하여 오류를 처리하는 방식과 비슷한 방법을 사용하여 오류를 검사하고 멋지게 처리합니다. 그러나 약간의 차이점이 있습니다.</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
@@ -577,7 +577,7 @@ fn run(config: Config) -&gt; Result&lt;(), Box&lt;Error&gt;&gt; {
 값은 무조건 <code>()</code>일테니까요.</p>
 <p><code>if let</code>과 <code>unwrap_or_else</code> 함수의 내용은 동일한 경우에 동일한 동작을 합니다, 오류를 
 출력하고 종료하죠.</p>
-<h3><a class="header" href="#라이브러리-크레이트로-코드를-나누기" id="라이브러리-크레이트로-코드를-나누기">라이브러리 크레이트로 코드를 나누기</a></h3>
+<h3 id="라이브러리-크레이트로-코드를-나누기"><a class="header" href="#라이브러리-크레이트로-코드를-나누기">라이브러리 크레이트로 코드를 나누기</a></h3>
 <p>지금까지 꽤 좋아 보인다! 이제 우리는 <em>src/main.rs</em> 파일을 나눠서 <em>src/lib.rs</em>에 몇 개의 코드를 넣어서 테스트 할 수 있고 작은 <em>src/main.rs</em> 파일을 갖게 될 것입니다.</p>
 <p><em>src/main.rs</em>에 파편으로 존재하는 다음 코드들을 새 파일로 옮겨봅시다. 
 <em>src/lib.rs</em>:</p>
@@ -624,7 +624,7 @@ pub fn run(config: Config) -&gt; Result&lt;(), Box&lt;Error&gt;&gt;{
 </code></pre>
 <p><span class="caption">항목 12-13: <code>Config</code>과 <code>run</code>을 <em>src/lib.rs</em>로 옮기기</span></p>
 <p>우리는 <code>Config</code>의 필드 및 <code>new</code> 메소드와 <code>run</code> 함수에 대해 <code>pub</code>을 자유롭게 사용했습니다. 이제 우리가 테스트 할 수있는 공개 API를 가진 라이브러리 크레이트가 생겼습니다.</p>
-<h4><a class="header" href="#바이너리-크레이트에서-라이브러리-크레이트-호출하기" id="바이너리-크레이트에서-라이브러리-크레이트-호출하기">바이너리 크레이트에서 라이브러리 크레이트 호출하기</a></h4>
+<h4 id="바이너리-크레이트에서-라이브러리-크레이트-호출하기"><a class="header" href="#바이너리-크레이트에서-라이브러리-크레이트-호출하기">바이너리 크레이트에서 라이브러리 크레이트 호출하기</a></h4>
 <p>이제 우리는 <em>src/main.rs</em>에 있는 바이너리 크레이트의 범위에 <em>src/lib.rs</em>로 옮긴 코드를 
 <code>extern crate greprs</code>를 사용하여 가져와야 합니다. 이후 <code>use greprs::Config</code> 
 행을 추가하여 <code>Config</code> 타입을 범위로 가져오고 항목 12-14와 같이 크레이트 이름으로<code>run</code> 

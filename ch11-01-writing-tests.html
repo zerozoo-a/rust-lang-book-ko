@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#테스트를-작성하는-방법" id="테스트를-작성하는-방법">테스트를 작성하는 방법</a></h2>
+                        <h2 id="테스트를-작성하는-방법"><a class="header" href="#테스트를-작성하는-방법">테스트를 작성하는 방법</a></h2>
 <p>테스트는 테스트 아닌 코드가 프로그램 내에서 기대했던 대로 기능을 하는지 검증하는 러스트
 함수입니다. 테스트 함수의 본체는 통상적으로 다음의 세 가지 동작을 수행합니다:</p>
 <ol>
@@ -173,7 +173,7 @@
 </ol>
 <p>이러한 동작을 하는 테스트 작성을 위해 러스트가 특별히 제공하는 기능들을 살펴봅시다.
 <code>test</code> 속성, 몇 가지 매크로, 그리고 <code>should_panic</code> 속성들을 포함해서 말이죠.</p>
-<h3><a class="header" href="#테스트-함수의-해부" id="테스트-함수의-해부">테스트 함수의 해부</a></h3>
+<h3 id="테스트-함수의-해부"><a class="header" href="#테스트-함수의-해부">테스트 함수의 해부</a></h3>
 <p>가장 단순하게 말하면, 러스트 내의 테스트란 <code>test</code> 속성(attribute)이 주석으로 달려진
 (annotated) 함수입니다. 속성은 러스트 코드 조각에 대한 메타데이터입니다: 한 가지 예로
 5장에서 우리가 구조체와 함께 사용했던 <code>derive</code> 속성이 있습니다. 함수를 테스트 함수로
@@ -337,7 +337,7 @@ error: test failed
 우리는 하나의 테스트에 통과했고 하나의 테스트에 실패했습니다.</p>
 <p>이제 서로 다른 시나리오에서 테스트 결과가 어떻게 보이는지를 알았으니,
 <code>panic!</code> 외에 테스트 내에서 유용하게 쓰일 수 있는 몇 가지 매크로를 봅시다.</p>
-<h3><a class="header" href="#assert-매크로를-이용하여-결과-확인하기" id="assert-매크로를-이용하여-결과-확인하기"><code>assert!</code> 매크로를 이용하여 결과 확인하기</a></h3>
+<h3 id="assert-매크로를-이용하여-결과-확인하기"><a class="header" href="#assert-매크로를-이용하여-결과-확인하기"><code>assert!</code> 매크로를 이용하여 결과 확인하기</a></h3>
 <p>표준 라이브러리에서 제공하는 <code>assert!</code> 매크로는 여러분이 테스트가 어떤 조건이 <code>true</code>임을 보장하기를
 원하는 경우 유용합니다. <code>assert!</code> 매크로에는 부울린 타입으로 계산되는 인자가 제공됩니다. 만일 값이
 <code>true</code>라면 <code>assert!</code>는 아무일도 하지 않고 테스트는 통과됩니다. 만일 값이 <code>false</code>라면, <code>assert!</code>는
@@ -477,7 +477,7 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 </code></pre>
 <p>우리의 테스트가 버그를 찾았습니다! <code>larger.length</code>는 8이고 <code>smaller.length</code>는 5이므로,
 <code>can_hold</code>의 길이 부분에 대한 비교값은 이제 <code>false</code>를 반환합니다: 8이 5보다 작지 않으니까요.</p>
-<h3><a class="header" href="#aseert_eq와-assert_ne를-이용한-동치equality-테스트" id="aseert_eq와-assert_ne를-이용한-동치equality-테스트"><code>aseert_eq!</code>와 <code>assert_ne!</code>를 이용한 동치(equality) 테스트</a></h3>
+<h3 id="aseert_eq와-assert_ne를-이용한-동치equality-테스트"><a class="header" href="#aseert_eq와-assert_ne를-이용한-동치equality-테스트"><code>aseert_eq!</code>와 <code>assert_ne!</code>를 이용한 동치(equality) 테스트</a></h3>
 <p>기능성을 테스트하는 일반적인 방법은 테스트 내의 코드의 결과값과 우리가 기대하는 값을 비교하여 둘이
 서로 같은지를 확실히 하는 것입니다. 이를 <code>assert!</code> 매크로에 <code>==</code>를 이용한 표현식을 넘기는 식으로
 할 수도 있습니다. 그러나 이러한 테스트를 더 편리하게 수행해주는 표준 라이브러리가 제공하는 한 쌍의
@@ -567,7 +567,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 두 트레잇 모두 추론 가능한(derivable) 트레잇이기 때문에, 이 트레잇의 구현은 보통
 <code>#[derive(PartialEq, Debug)]</code> 어노테이션을 여러분의 구조체나 열거형 정의부에 추가하는 정도로
 간단합니다. 이에 대한 것과 다른 추론 가능한 트레잇에 대한 더 자세한 내용은 부록 C를 참고하세요.</p>
-<h3><a class="header" href="#커스텀-실패-메세지-추가하기" id="커스텀-실패-메세지-추가하기">커스텀 실패 메세지 추가하기</a></h3>
+<h3 id="커스텀-실패-메세지-추가하기"><a class="header" href="#커스텀-실패-메세지-추가하기">커스텀 실패 메세지 추가하기</a></h3>
 <p>또한 우리는 <code>assert!</code>, <code>assert_eq!</code> 및 <code>assert_ne!</code> 매크로의 추가 인자로서 커스텀 메세지를 입력하여
 실패 메세지와 함께 출력되도록 할 수 있습니다. <code>assert!</code>가 요구하는 하나의 인자 후에 지정된 인자들이나
 <code>assert_eq!</code>와 <code>assert_ne!</code>가 요구하는 두 개의 인자 후에 지정된 인자들은 우리가 8장의 “<code>+</code> 연산자나
@@ -646,7 +646,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 </code></pre>
 <p>이제 실제로 테스트 출력에서 얻어진 값을 볼 수 있고, 이는 우리가 기대했던 일 대신 실제 어떤 일이
 일어났는지 디버깅하는데 도움을 줄 것입니다.</p>
-<h3><a class="header" href="#should_panic을-이용한-패닉에-대한-체크" id="should_panic을-이용한-패닉에-대한-체크"><code>should_panic</code>을 이용한 패닉에 대한 체크</a></h3>
+<h3 id="should_panic을-이용한-패닉에-대한-체크"><a class="header" href="#should_panic을-이용한-패닉에-대한-체크"><code>should_panic</code>을 이용한 패닉에 대한 체크</a></h3>
 <p>우리의 코드가 우리가 기대한 정확한 값을 반환하는 것을 체크하는 것에 더하여, 우리의 코드가
 우리가 기대한 대로 에러가 나는 경우를 처리할 수 있는지 체크하는 것 또한 중요합니다. 예를 들어,
 9장의 Listing 9-9에서 우리가 만들었던 <code>Guess</code> 타입을 떠올려보세요. <code>Guess</code>를 이용하는

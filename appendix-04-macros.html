@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#부록-d-매크로" id="부록-d-매크로">부록 D: 매크로</a></h2>
+                        <h2 id="부록-d-매크로"><a class="header" href="#부록-d-매크로">부록 D: 매크로</a></h2>
 <p>우린 이 책에서 <code>println!</code> 등의 매크로를 사용했습니다.
 하지만 아직 매크로가 정확히 무엇이고, 어떻게 동작하는지는 알아보지 않았습니다.
 이번 부록에선 매크로에 대해 다음과 같은 순서로 알아볼 것입니다:</p>
@@ -180,7 +180,7 @@
 그때쯤엔 이 책이 발행된 시점에선 사용할 수 없었던 추가 기능이나,
 보다 쉽게 매크로를 작성하는 여러 방법이 존재할 것입니다.
 만약 이 부록을 참고해 무언가 구현하려 하신다면 이 점을 염두해두시기 바랍니다.</p>
-<h3><a class="header" href="#매크로와-함수의-차이" id="매크로와-함수의-차이">매크로와 함수의 차이</a></h3>
+<h3 id="매크로와-함수의-차이"><a class="header" href="#매크로와-함수의-차이">매크로와 함수의 차이</a></h3>
 <p>근본적으로, 매크로는 다른 코드를 작성하는 코드입니다.
 이 개념은 <em>메타프로그래밍(metaprogramming)</em> 으로 잘 알려져 있죠.
 우린 부록 C 에서 트레잇에 다양한 구현체를 생성해주는 <code>derive</code> 속성에 대해 다뤘고,
@@ -218,7 +218,7 @@ extern crate serde;
 <p>마지막으로, 매크로와 함수의 차이 중 중요한 한 가지가 남았습니다:
 함수는 정의 위치에 관계 없이 아무 곳에서나 호출이 가능하지만,
 매크로는 호출 하기 전에 반드시 해당 파일에 정의하거나 가져와야 합니다.</p>
-<h3><a class="header" href="#일반적인-메타프로그래밍을-위한-macro_rules-를-사용하는-선언적-매크로" id="일반적인-메타프로그래밍을-위한-macro_rules-를-사용하는-선언적-매크로">일반적인 메타프로그래밍을 위한 <code>macro_rules!</code> 를 사용하는 선언적 매크로</a></h3>
+<h3 id="일반적인-메타프로그래밍을-위한-macro_rules-를-사용하는-선언적-매크로"><a class="header" href="#일반적인-메타프로그래밍을-위한-macro_rules-를-사용하는-선언적-매크로">일반적인 메타프로그래밍을 위한 <code>macro_rules!</code> 를 사용하는 선언적 매크로</a></h3>
 <p>러스트에서 매크로는 <em>선언적 매크로(declarative macros)</em> 의 형태로
 가장 널리 사용됩니다. 이는 <em>예제 별 매크로(macros by example)</em>,
 <em><code>macro_rules!</code> 매크로</em>, 아니면 그냥 <em>매크로</em> 라고 불리기도 합니다.
@@ -316,7 +316,7 @@ temp_vec
 많을 겁니다. 따라서 여기선 <code>macro_rules!</code> 에 대해서 더 이상 다루지 않습니다.
 매크로를 작성하는 법에 대해 더 많은 것을 배우고 싶으신 분은
 <a href="https://danielkeep.github.io/tlborm/book/index.html">“The Little Book of Rust Macros”</a> 등의 온라인 문서를 찾아보세요.</p>
-<h3><a class="header" href="#커스텀-derive-를-위한-절차적-매크로" id="커스텀-derive-를-위한-절차적-매크로">커스텀 <code>derive</code> 를 위한 절차적 매크로</a></h3>
+<h3 id="커스텀-derive-를-위한-절차적-매크로"><a class="header" href="#커스텀-derive-를-위한-절차적-매크로">커스텀 <code>derive</code> 를 위한 절차적 매크로</a></h3>
 <p>두번째 매크로 형식은 함수(프로시저(procedure) 유형)에
 가깝기 때문에 <em>절차적 매크로(procedural macros)</em> 라고 불립니다.
 선언적 매크로는 코드를 패턴과 매치시키고 다른 코드로 대체하는 반면,
@@ -561,7 +561,7 @@ hello_macro_derive = { path = &quot;../hello_macro/hello_macro_derive&quot; }
 <code>pancakes</code> 크레이트에서 따로 구현할 필요 없이,
 절차적 매크로로부터 만들어진 <code>HelloMacro</code> 트레잇 구현체만으로 말이죠;
 트레잇 구현체는 <code>#[derive(HelloMacro)]</code> 로 인해 추가됩니다.</p>
-<h3><a class="header" href="#향후의-매크로" id="향후의-매크로">향후의 매크로</a></h3>
+<h3 id="향후의-매크로"><a class="header" href="#향후의-매크로">향후의 매크로</a></h3>
 <p>러스트는 앞으로 선언적, 절차적 매크로를 발전시킬 겁니다.
 <code>macro</code> 키워드를 이용해 더 나은 선언적 매크로 시스템을 사용하고, <code>derive</code>
 보다 더 강력한 여러 작업을 위해 더 많은 종류의 절차적 매크로를 추가할 겁니다.

@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#테스트-주도-개발로-라이브러리의-기능-개발하기" id="테스트-주도-개발로-라이브러리의-기능-개발하기">테스트 주도 개발로 라이브러리의 기능 개발하기</a></h2>
+                        <h2 id="테스트-주도-개발로-라이브러리의-기능-개발하기"><a class="header" href="#테스트-주도-개발로-라이브러리의-기능-개발하기">테스트 주도 개발로 라이브러리의 기능 개발하기</a></h2>
 <p><em>src/lib.rs</em>으로 로직을 추출하고 <em>src/main.rs</em>에 인수 수집 및 에러 처리를 남겨 두었으므로 우리의 핵심 기능 코드에 대한 테스트를 작성하는 것이 훨씬 쉬워졌습니다. 커맨드라인에서 바이너리를 실행할 필요없이 다양한 인수를 사용하여 함수를 직접 호출하고 반환 값을 확인할 수 있습니다. 자신이 만든 <code>Config::new</code>와 <code>run</code>함수의 기능에 대해 몇 가지 테스트를 작성하면서 자유도를 느껴보세요. </p>
 <p>이 섹션에서는 TDD(Test Driven Development) 프로세스에 따라 <code>minigrep</code>에 검색 로직을 추가합니다. 해당 소프트웨어 개발 기법은 다음의 단계를 따릅니다:</p>
 <ol>
@@ -174,7 +174,7 @@
 </ol>
 <p>이것은 소프트웨어를 작성하는 여러 가지 방법 중 하나지만 TDD는 코드 설계를 좋은 상태로 유지시켜 줍니다. 코드를 작성하기 전에 테스트를 작성하고 테스트를 통과시키면 높은 테스트 범위를 유지하는데 도움이 됩니다. 테스트 패스를 작성하는 코드를 작성하기 전에 테스트를 작성하면 프로세스 전체에서 높은 테스트 적용 범위를 유지하는 데 도움이 됩니다.</p>
 <p>우리는 실제로 파일 내용에서 쿼리 문자열을 검색하고 쿼리와 일치하는 줄의 목록을 생성하는 기능의 구현을 테스트 주도로 개발해 볼 겁니다. 이 기능을 <code>search</code>라는 함수에 추가 할 것입니다.</p>
-<h3><a class="header" href="#실패-테스트-작성하기" id="실패-테스트-작성하기">실패 테스트 작성하기</a></h3>
+<h3 id="실패-테스트-작성하기"><a class="header" href="#실패-테스트-작성하기">실패 테스트 작성하기</a></h3>
 <p>더 이상 필요하지 않으므로 프로그램의 동작을 확인하는 데 사용했던 <em>src/lib.rs</em> 및 *src/main.rs *에서 <code>println!</code>문을 제거해 봅시다. 그런 다음 <em>src/lib.rs</em>에 11 장에서 했던 것처럼 test 함수가 있는 <code>test</code> 모듈을 추가 할 것입니다. test 함수는 <code>search</code> 함수에 필요한 동작을 지정합니다. 쿼리와 텍스트를 가져 와서 쿼리를 검색하고 쿼리를 포함하는 텍스트의 줄만 반환합니다. 항목 12-15는 아직 컴파일되지 않는 이 테스트를 보여줍니다.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><pre class="playground"><code class="language-rust">
@@ -262,7 +262,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 error: test failed, to rerun pass '--lib'
 </code></pre>
 <p>훌륭하게, 우리가 예상했던 예상대로 테스트가 실패했습니다. 테스트를 통과하게 만들어봅시다!</p>
-<h3><a class="header" href="#테스트를-통과하는-코드-작성" id="테스트를-통과하는-코드-작성">테스트를 통과하는 코드 작성</a></h3>
+<h3 id="테스트를-통과하는-코드-작성"><a class="header" href="#테스트를-통과하는-코드-작성">테스트를 통과하는 코드 작성</a></h3>
 <p>현재는, 우리가 늘 빈 벡터를 반환하니까 테스트가 실패하게 됩니다. 이를 수정하고 <code>search</code>를 구현하기 위해, 우리의 프로그램은 다음 단계를 따를 필요가 있습니다. </p>
 <ul>
 <li>contents의 각 줄에 대한 반복작업</li>
@@ -272,7 +272,7 @@ error: test failed, to rerun pass '--lib'
 <li>일치하는 결과 목록을 반환 </li>
 </ul>
 <p>각 단계를 밟아가기 위해, 줄들에 대한 반복작업부터 시작합시다!</p>
-<h4><a class="header" href="#lines-메소드를-사용하여-줄들에-대한-반복-작업" id="lines-메소드를-사용하여-줄들에-대한-반복-작업"><code>lines</code> 메소드를 사용하여 줄들에 대한 반복 작업</a></h4>
+<h4 id="lines-메소드를-사용하여-줄들에-대한-반복-작업"><a class="header" href="#lines-메소드를-사용하여-줄들에-대한-반복-작업"><code>lines</code> 메소드를 사용하여 줄들에 대한 반복 작업</a></h4>
 <p>Rust는 문자열의 줄-단위로 반복 작업을 할 수 있는 유용한 메소드가 있는데, 편리하게 이름이 <code>lines</code>이고, 항목 12-17처럼 보여주는 것처럼 동작합니다. 아직 컴파일되지 않는다는 점에 유의하세요:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">pub fn search&lt;'a&gt;(query: &amp;str, contents: &amp;'a str) -&gt; Vec&lt;&amp;'a str&gt; {
@@ -284,7 +284,7 @@ error: test failed, to rerun pass '--lib'
 <p><span class="caption">항목 12-17: <code>contents</code>의 각 줄마다 반복작업
 </span></p>
 <p><code>lines</code> 메소드는 반복자를 리턴합니다. 우리는 13장에서 반복자에 대해서 다루게 될 겁니다만, 항목 3-4에서 반복자를 사용하는 방법을 봤었다는걸 상기시켜 드립니다. 항목 3-4에서는 반복자와 함께 for반복문을 사용하여 컬렉션의 각 항목에 대해 임의의 코드를 수행했었습니다. </p>
-<h4><a class="header" href="#query로-각-줄을-검색하기" id="query로-각-줄을-검색하기">Query로 각 줄을 검색하기</a></h4>
+<h4 id="query로-각-줄을-검색하기"><a class="header" href="#query로-각-줄을-검색하기">Query로 각 줄을 검색하기</a></h4>
 <p>다음으로 현재 줄에 쿼리 문자열이 포함되어 있는지 확인합니다. 다행스럽게도 문자열에는 유용한 'contains'라는 메소드가 있습니다. 항목 12-18과 같이 <code>search</code> 함수에서 <code>contains</code> 메소드에 대한 호출을 추가하십시오. 이 코드는 여전히 컴파일되지 않으니 주의하세요.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">pub fn search&lt;'a&gt;(query: &amp;str, contents: &amp;'a str) -&gt; Vec&lt;&amp;'a str&gt; {
@@ -297,7 +297,7 @@ error: test failed, to rerun pass '--lib'
 </code></pre>
 <p><span class="caption">항목 12-18: 어느 줄이 <code>query</code> 문자열을 포함하고 있는지 보기 위한 기능 추가
 </span></p>
-<h4><a class="header" href="#일치하는-줄-보관하기" id="일치하는-줄-보관하기">일치하는 줄 보관하기</a></h4>
+<h4 id="일치하는-줄-보관하기"><a class="header" href="#일치하는-줄-보관하기">일치하는 줄 보관하기</a></h4>
 <p>또한 쿼리 문자열이 포함된 줄을 저장할 방법이 필요합니다. 이를 위해 우리는 <code>for</code>반복문 전에 가변 벡터를 만들고 <code>push</code> 메소드를 호출하여 벡터에 <code>line</code>을 저장합니다. 항목 12-19처럼 <code>for</code>반복문이 끝난 다음에 벡터를 반환합니다.</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">pub fn search&lt;'a&gt;(query: &amp;str, contents: &amp;'a str) -&gt; Vec&lt;&amp;'a str&gt; {
@@ -323,7 +323,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 </code></pre>
 <p>우리 테스트가 통과되었으니, 제대로 동작한다는 것을 알게 되죠!</p>
 <p>이 시점에서, 우리는 동일한 기능을 유지하기 위해 테스트를 통과시키면서 search 함수를 리팩토링할 기회를 고려해 볼 수 있게 됐습니다. search 함수가 많이 나쁘지는 않지만, 반복자의 기능들이 주는 유용함을 충분히 활용하지 못하고 있습니다. 우리는 13장에서 이 예제로 돌아와 반복자에 대해서 자세히 알아보고 어떻게 개선할 수 있는지 알아볼 겁니다. </p>
-<h4><a class="header" href="#run함수에서-search함수를-사용하기" id="run함수에서-search함수를-사용하기"><code>run</code>함수에서 <code>search</code>함수를 사용하기</a></h4>
+<h4 id="run함수에서-search함수를-사용하기"><a class="header" href="#run함수에서-search함수를-사용하기"><code>run</code>함수에서 <code>search</code>함수를 사용하기</a></h4>
 <p>Using the <code>search</code> Function in the <code>run</code> Function</p>
 <p>이제 <code>search</code> 함수는 실행되고 테스트 되었지만, 우리의 <code>run</code>함수에서 <code>search</code>를 호출하게 해야 합니다. 우리는 <code>config.query</code> 값과 <code>run</code>으로 파일에서 읽어온 <code>contents</code>를 <code>search</code>함수에 전달해야 합니다. 그 이후 <code>run</code>은 <code>search</code>로부터 반환된 각 줄을 출력합니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>

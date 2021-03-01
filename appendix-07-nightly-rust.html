@@ -163,13 +163,13 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#부록-g-러스트가-만들어지는-과정과-rust-nightly" id="부록-g-러스트가-만들어지는-과정과-rust-nightly">부록 G: 러스트가 만들어지는 과정과 &quot;Rust Nightly&quot;</a></h1>
+                        <h1 id="부록-g-러스트가-만들어지는-과정과-rust-nightly"><a class="header" href="#부록-g-러스트가-만들어지는-과정과-rust-nightly">부록 G: 러스트가 만들어지는 과정과 &quot;Rust Nightly&quot;</a></h1>
 <p>다음 내용은 러스트가 만들어지는 과정과 해당 과정이
 러스트 개발자인 여러분에게 어떤 영향이 미치는지를 다룹니다.
 앞서 이 책의 예제들은 러스트 stable 1.21.0 버전을 기준으로
 만들었다고 했지만 모든 예제는 더 높은 버전에서도 작동할 겁니다.
 어떻게 이런 일이 가능한지 알아보도록 합시다.</p>
-<h3><a class="header" href="#막힘-없이-안정된-발전-stability-without-stagnation" id="막힘-없이-안정된-발전-stability-without-stagnation">막힘 없이 안정된 발전 (Stability Without Stagnation)</a></h3>
+<h3 id="막힘-없이-안정된-발전-stability-without-stagnation"><a class="header" href="#막힘-없이-안정된-발전-stability-without-stagnation">막힘 없이 안정된 발전 (Stability Without Stagnation)</a></h3>
 <p>러스트는 하나의 언어로서 여러분 코드를 여러 방면으로 관리하는 동시에
 여러분이 안심하고 위에 무언가 지을 수 있는 단단한 기반을 마련해야 합니다.
 언어가 자주 변경된다면 이 목표는 달성하기 힘들어지겠죠. 하지만 새로운
@@ -179,7 +179,7 @@
 &quot;막힘 없이 안정된 발전(Stability Without Stagnation)&quot; 입니다:
 모든 업데이트에서 발생하는 문제를 최소화하고, 새로운 기능은 착실히 추가하되,
 버그를 줄이고 컴파일 속도를 높여서 사용자들이 마음 편히 업데이트할 수 있게 하는 것이 목표입니다.</p>
-<h3><a class="header" href="#릴리즈-채널-열차가-달려갑니다" id="릴리즈-채널-열차가-달려갑니다">릴리즈 채널 열차가 달려갑니다</a></h3>
+<h3 id="릴리즈-채널-열차가-달려갑니다"><a class="header" href="#릴리즈-채널-열차가-달려갑니다">릴리즈 채널 열차가 달려갑니다</a></h3>
 <p>러스트 개발은 <em>열차 스케줄 (train schedule)</em> 로 운영됩니다. 모든 개발은
 러스트 저장소의 <code>master</code> 브랜치에서 완료됩니다. 릴리즈 방식은 Cisco IOS 를
 비롯한 여러 소프트웨어 프로젝트에서 사용하는 &quot;train model&quot; 을 사용합니다.
@@ -254,7 +254,7 @@ stable:                                *
 문제가 발생하기도 합니다. 모든 소프트웨어에는 버그가 존재할 수 있는
 법이고, <code>rustc</code> 도 소프트웨어니까요. 하지만 beta 릴리즈에 문제가 있더라도
 개발팀에 제보하면 stable 릴리즈 이전에 해당 오류를 수정받을 수 있습니다.</p>
-<h3><a class="header" href="#불안정한-기능" id="불안정한-기능">불안정한 기능</a></h3>
+<h3 id="불안정한-기능"><a class="header" href="#불안정한-기능">불안정한 기능</a></h3>
 <p>릴리즈 모델에서 하나 더 짚고 넘어갈 게 있습니다:
 바로 '불안정한 기능' 입니다. 러스트에는 &quot;Feature flags&quot; 라는 기술이
 적용됐기 때문에 릴리즈에서 어떤 기능을 활성화 하거나, 비활성화 할 수 있습니다.
@@ -271,7 +271,7 @@ beta 나 stable 릴리즈에선 feature flag 를 사용할 수 없습니다.
 내용은 언제든 변경될 수 있으므로 책에 작성된 내용과 실제 stable 빌드에
 추가된 내용이 전혀 다를 가능성이 있기 때문입니다. 따라서 nightly 에만
 존재하는 기능은 온라인에서 관련 문서를 찾아보시기 바랍니다.</p>
-<h3><a class="header" href="#rustup-과-rust-nightly-의-역할" id="rustup-과-rust-nightly-의-역할">Rustup 과 Rust Nightly 의 역할</a></h3>
+<h3 id="rustup-과-rust-nightly-의-역할"><a class="header" href="#rustup-과-rust-nightly-의-역할">Rustup 과 Rust Nightly 의 역할</a></h3>
 <p>여러분은 stable 러스트를 설치하셨을 겁니다.
 하지만 특정 프로젝트에선 특정 릴리즈 채널을 사용하도록 설정하거나, 혹은 글로벌 설정을 변경하고 싶다면 어떻게 해야 할까요? 답은 Rustup 입니다.
 rustup 으로 nightly 를 설치하는 방법은 다음과 같습니다:</p>
@@ -297,7 +297,7 @@ $ rustup override add nightly
 <code>rustc</code> 나 <code>cargo</code> 가 호출될 때마다 기본값인 stable 대신
 nigthly 를 사용하고 있는지 확인합니다. 덕분에 앞으로 여러분이
 관리할 러스트 프로젝트가 많아지더라도 관리가 편해질 겁니다.</p>
-<h3><a class="header" href="#rfc-과정과-러스트-rfc-팀" id="rfc-과정과-러스트-rfc-팀">RFC 과정과 러스트 RFC 팀</a></h3>
+<h3 id="rfc-과정과-러스트-rfc-팀"><a class="header" href="#rfc-과정과-러스트-rfc-팀">RFC 과정과 러스트 RFC 팀</a></h3>
 <p>이런 새로운 기능에 관한 정보는 어디서 볼 수 있을까요?
 러스트 개발 모델은 <em>RFC (Request For Comments) 과정</em> 을 따릅니다.
 따라서 러스트를 더 발전시키고 싶다면, 제안서, 즉 RFC 를 작성하면 됩니다.</p>

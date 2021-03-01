@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#부록-c-derive-가능한-트레잇" id="부록-c-derive-가능한-트레잇">부록 C: derive 가능한 트레잇</a></h2>
+                        <h2 id="부록-c-derive-가능한-트레잇"><a class="header" href="#부록-c-derive-가능한-트레잇">부록 C: derive 가능한 트레잇</a></h2>
 <p>책의 여러 곳에서 구조체나 열거형 정의 시
 적용할 수 있는 <code>derive</code> 속성을 다뤘습니다.
 <code>derive</code> 속성은 여러분이 <code>derive</code> 문법을 명시함으로써
@@ -194,7 +194,7 @@
 라이브러리에서 자신들의 트레잇에 <code>derive</code> 를 구현할 수도 있기 때문에, 여러분이
 <code>derive</code> 를 사용할 수 있는 트레잇은 사실상 무제한이라고 보셔도 됩니다.
 <code>derive</code> 를 구현하는 법에 관해선 절차 매크로 사용을 포함해 부록 D 에서 다루고 있습니다.</p>
-<h3><a class="header" href="#프로그래머-출력을-위한-debug" id="프로그래머-출력을-위한-debug">프로그래머 출력을 위한 <code>Debug</code></a></h3>
+<h3 id="프로그래머-출력을-위한-debug"><a class="header" href="#프로그래머-출력을-위한-debug">프로그래머 출력을 위한 <code>Debug</code></a></h3>
 <p><code>Debug</code> 트레잇을 사용하면 형식 문자열에서 디버그 포맷팅을 사용할 수 있습니다.
 디버그 포맷팅은 형식 문자열의 <code>{}</code> 변경자 내에 <code>:?</code> 를 추가해서 사용합니다.</p>
 <p><code>Debug</code> 트레잇을 사용하면 해당 타입의 인스턴스를 디버깅 목적으로서 출력 가능합니다.
@@ -203,7 +203,7 @@
 <p><code>Debug</code> 트레잇이 필수적인 경우의 예는, <code>assert_eq</code> 매크로를 사용할 때입니다.
 이 매크로는 동치 비교 결과가 거짓일 경우, 프로그래머가 두 인스턴스가 같지 않다는
 것을 확인할 수 있도록 인수로 넘겨받은 인스턴스의 값들을 출력하기 때문입니다.</p>
-<h3><a class="header" href="#동치-비교를-위한-partialeq-와-eq" id="동치-비교를-위한-partialeq-와-eq">동치 비교를 위한 <code>PartialEq</code> 와 <code>Eq</code></a></h3>
+<h3 id="동치-비교를-위한-partialeq-와-eq"><a class="header" href="#동치-비교를-위한-partialeq-와-eq">동치 비교를 위한 <code>PartialEq</code> 와 <code>Eq</code></a></h3>
 <p><code>PartialEq</code> 트레잇을 사용하면 타입의 인스턴스를 동치 비교할 수 있고
 <code>==</code> 와 <code>!=</code> 연산자를 사용할 수 있습니다.</p>
 <p><code>PartialEq</code> derive 는 <code>eq</code> 메소드를 구현합니다. <code>PartialEq</code> 가 구조체에 derive
@@ -221,7 +221,7 @@
 따르면, 두 비수(<code>NaN</code>, not-a-number) 의 인스턴스는 서로 같지 않습니다.</p>
 <p><code>Eq</code> 가 필수적인 예는 <code>HashMap&lt;K, V&gt;</code> 의 키값으로 사용될 경우입니다.
 <code>HashMap&lt;K, V&gt;</code> 에서 두 키값이 서로 같은지 확인해야 하기 때문입니다.</p>
-<h3><a class="header" href="#순서-비교를-위한-partialord-와-ord" id="순서-비교를-위한-partialord-와-ord">순서 비교를 위한 <code>PartialOrd</code> 와 <code>Ord</code></a></h3>
+<h3 id="순서-비교를-위한-partialord-와-ord"><a class="header" href="#순서-비교를-위한-partialord-와-ord">순서 비교를 위한 <code>PartialOrd</code> 와 <code>Ord</code></a></h3>
 <p><code>PartialOrd</code> 트레잇은 정렬 목적으로 타입의 인스턴스를 비교할 수 있게 해줍니다.
 이를 구현한 타입은 <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code> 등의 연산자를 사용할 수 있습니다.
 <code>PartialOrd</code> 트레잇은 <code>PartialEq</code> 트레잇을 구현한 타입에만
@@ -248,7 +248,7 @@ variant 가 나중에 선언한 variant 보다 더 적게(less) 평가됩니다.
 <code>PartialOrd</code>  의 <code>partial_cmp</code> 가 derive 되어 구현된 것과 똑같이 작동할 것입니다.</p>
 <p><code>Ord</code> 가 필수적인 예는, 값을 정렬해서 저장하는 자료구조인
 <code>BTreeSet&lt;T&gt;</code> 에 값을 저장할 때입니다.</p>
-<h3><a class="header" href="#값-복제를-위한-clone-와-copy" id="값-복제를-위한-clone-와-copy">값 복제를 위한 <code>Clone</code> 와 <code>Copy</code></a></h3>
+<h3 id="값-복제를-위한-clone-와-copy"><a class="header" href="#값-복제를-위한-clone-와-copy">값 복제를 위한 <code>Clone</code> 와 <code>Copy</code></a></h3>
 <p><code>Clone</code> 트레잇은 명시적으로 값의 깊은 복사를 생성할 수 있게 해주며,
 복제 과정은 임의의 코드 실행과 힙 데이터 복사가 포함될 수 있습니다.
 <code>Clone</code> 에 대한 자세한 내용을 원하시는 분은 4-1 장의
@@ -276,7 +276,7 @@ variant 가 나중에 선언한 variant 보다 더 적게(less) 평가됩니다.
 호출하지 않아도 된다는 의미이며, 이는 코드를 더 간결하게 만들어 줍니다.</p>
 <p><code>Copy</code> 로 할 수 있는 것은 <code>Clone</code> 으로도 할 수 있습니다만,
 이 경우 코드가 좀 느려지거나 코드에서 <code>clone</code> 을 사용해야 할 수도 있습니다.</p>
-<h3><a class="header" href="#값을-고정된-크기의-값으로-매핑하기-위한-hash" id="값을-고정된-크기의-값으로-매핑하기-위한-hash">값을 고정된 크기의 값으로 매핑하기 위한 <code>Hash</code></a></h3>
+<h3 id="값을-고정된-크기의-값으로-매핑하기-위한-hash"><a class="header" href="#값을-고정된-크기의-값으로-매핑하기-위한-hash">값을 고정된 크기의 값으로 매핑하기 위한 <code>Hash</code></a></h3>
 <p><code>Hash</code> 트레잇은 해쉬 함수를 이용해 임의 크기 타입의 인스턴스를
 고정된 크기의 값으로 매핑할 수 있게 해줍니다. <code>Hash</code> derive 는
 <code>hash</code> 메소드를 구현합니다. <code>hash</code> 메소드의 구현 상 타입의 각 부분에
@@ -284,7 +284,7 @@ variant 가 나중에 선언한 variant 보다 더 적게(less) 평가됩니다.
 모든 필드나 값은 <code>Hash</code> 를 구현해야 합니다.</p>
 <p><code>Hash</code> 가 필수적인 예는 <code>HashMap&lt;K, V&gt;</code> 에 효율적으로 데이터를 저장하기 위해
 key 값을 저장하는 경우입니다.</p>
-<h3><a class="header" href="#기본-값을-위한-default" id="기본-값을-위한-default">기본 값을 위한 <code>Default</code></a></h3>
+<h3 id="기본-값을-위한-default"><a class="header" href="#기본-값을-위한-default">기본 값을 위한 <code>Default</code></a></h3>
 <p><code>Default</code> 트레잇은 타입의 기본 값을 생성할 수 있게 해줍니다.
 <code>Default</code> derive 는 <code>default</code> 함수를 구현합니다.
 <code>default</code> 메소드의 구현 상 타입의 각 부분에 <code>default</code> 를

@@ -163,11 +163,11 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#패턴이-사용될-수-있는-모든-곳" id="패턴이-사용될-수-있는-모든-곳">패턴이 사용될 수 있는 모든 곳</a></h2>
+                        <h2 id="패턴이-사용될-수-있는-모든-곳"><a class="header" href="#패턴이-사용될-수-있는-모든-곳">패턴이 사용될 수 있는 모든 곳</a></h2>
 <p>패턴은 러스트 코드 곳곳에 튀어나옵니다. 아마 모르는 사이 이미 아주 많이 쓰고있었을
 겁니다! 이번 절에선 패턴을 사용할 수 있는 모든 코드상의 장소에 대한 레퍼런스를
 제공합니다.</p>
-<h3><a class="header" href="#match-갈래" id="match-갈래"><code>match</code> 갈래</a></h3>
+<h3 id="match-갈래"><a class="header" href="#match-갈래"><code>match</code> 갈래</a></h3>
 <p>6장에서도 다루었듯, 패턴은 <code>match</code>표현의 각 갈래에 사용됩니다. <code>match</code>표현은
 <code>match</code> 키워드, 대응 시킬 값, 갈래들로 이루어지고, 각 갈래는 갈래를 나타내는 패턴,
 해당 패턴에 값이 대응 될때 실행할 표현으로 구성됩니다.
@@ -188,7 +188,7 @@
 <code>_</code>패턴은 명시 하지 않은 값들을 무시할 때 유용합니다.
 이 특별한 패턴은 뒤의 &quot;패턴에서 값 무시하기&quot; 절에서 더 자세하게
 다룰 것입니다.</p>
-<h3><a class="header" href="#if-let-조건-표현" id="if-let-조건-표현"><code>if let</code> 조건 표현</a></h3>
+<h3 id="if-let-조건-표현"><a class="header" href="#if-let-조건-표현"><code>if let</code> 조건 표현</a></h3>
 <p>6장에서 <code>if let</code> 표현을 사용하는 법을 다뤘습니다. 
 주로 갈래가 하나 밖에 없는 <code>match </code>표현을 더 짧게 표현하는 방법으로 사용됐습니다.
 추가적으로 <code>if let</code>은 <code>else</code>절을 가질 수 있습니다.
@@ -244,7 +244,7 @@
 판단하지 않는다는 점입니다. 예제의 마지막 <code>else</code>절을 빼먹어서 처리 되지 않는 경우가
 생기더라도 컴파일러가 이를 찾아내지 않고 이에 따라 발생 할 수 있는 논리 버그를 사전에
 경고해주지 않습니다.</p>
-<h3><a class="header" href="#while-let-조건-루프" id="while-let-조건-루프"><code>while let</code> 조건 루프</a></h3>
+<h3 id="while-let-조건-루프"><a class="header" href="#while-let-조건-루프"><code>while let</code> 조건 루프</a></h3>
 <p><code>if let</code>과 구조적으로 비슷하게 생긴 <code>while let</code> 조건 루프는 주어진 값이 패턴에
 계속 대응 되는한 실행 되는 <code>while</code> 루프입니다.
 예제 18-2는 vector를 스택처럼 이용해 push된 역순으로 값을 출력하는
@@ -270,7 +270,7 @@ while let Some(top) = stack.pop() {
 코드의 <code>while</code>루프는 <code>pop</code>이 <code>Some</code>을 반환 할 동안 실행됩니다. <code>None</code>이 반환되는
 경우에 더 이상 패턴에 맞지 않으므로 멈춥니다. <code>while let</code> 표현으로 스택의 모든
 값들을 간편하게 꺼낼 수 있습니다.</p>
-<h3><a class="header" href="#for-루프" id="for-루프"><code>for</code> 루프</a></h3>
+<h3 id="for-루프"><a class="header" href="#for-루프"><code>for</code> 루프</a></h3>
 <p>3장에서 <code>for</code> 루프가 러스트에서 가장 흔하게 쓰이는 반복문 구문인 것을 언급 했습니다.
 다만 그 <code>for</code> 루프들에서 사용하는 패턴에 대해선 아직 다루지 않았습니다.
 <code>for</code> 루프의 패턴은 <code>for</code> 키워드 바로 다음에 오는 값입니다.
@@ -299,7 +299,7 @@ c is at index 2
 이 반환된 튜플은 <code>(index, value)</code> 패턴에 대응 되면 <code>index</code>는 <code>0</code>, <code>value</code>는 <code>'a'</code>값을
 갖게 합니다.
 이들의 값은 출력의 첫 줄에 등장하게 됩니다.</p>
-<h3><a class="header" href="#let-구문" id="let-구문"><code>let</code> 구문</a></h3>
+<h3 id="let-구문"><a class="header" href="#let-구문"><code>let</code> 구문</a></h3>
 <p>이번 장 전까지 <code>match</code>나 <code>if let</code>에서만 직접적으로 패턴의 사용을 언급했습니다.
 하지만 이미 여러 곳에서 패턴을 사용하고 있었습니다.
 대표적으로 <code>let</code>구문이 있습니다.
@@ -358,7 +358,7 @@ c is at index 2
 반대로 문제가 패턴 쪽의 변수가 너무 많아서 생겼다면 패턴의 변수 일부를 없에는
 것으로 튜플의 원소의 수와 패턴의 변수 원소의 수를 맞추어 둘의 타입을 맞춰주면
 됩니다.</p>
-<h3><a class="header" href="#함수의-매개변수" id="함수의-매개변수">함수의 매개변수</a></h3>
+<h3 id="함수의-매개변수"><a class="header" href="#함수의-매개변수">함수의 매개변수</a></h3>
 <p>함수의 매개변수들도 물론 패턴입니다.
 예제 18-6은 <code>i32</code>타입의 매개변수 <code>x</code>를 가지는 함수 <code>foo</code>를 정의 하는 코드입니다.
 이제는 익숙한 코드라 생각합니다.</p>

@@ -163,7 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#반복자로-일련의-항목들-처리하기" id="반복자로-일련의-항목들-처리하기">반복자로 일련의 항목들 처리하기</a></h2>
+                        <h2 id="반복자로-일련의-항목들-처리하기"><a class="header" href="#반복자로-일련의-항목들-처리하기">반복자로 일련의 항목들 처리하기</a></h2>
 <p>반복자 패턴은 일련의 항목들에 대해 순서대로 어떤 작업을 수행할 수 있도록 해줍
 니다. 반복자는 각 항목들을 순회하고 언제 시퀀스가 종료될지 결정하는 로직을
 담당 합니다. 반복자를 사용하면, 저런 로직을 다시 구현할 필요가 없습니다.</p>
@@ -209,7 +209,7 @@ for val in v1_iter {
 반복적인 코드를 줄여 줍니다. 반복자는 벡터처럼 색인할 수 있는 자료구조 뿐만
 아니라, 많은 다른 종류의 시퀀스에 대해 동일한 로직을 사용할 수 있도록 더 많은
 유연성을 제공 합니다. 반복자가 어떻게 그렇게 하는지 살펴 봅시다.</p>
-<h3><a class="header" href="#iterator트레잇과-next-메서드" id="iterator트레잇과-next-메서드"><code>Iterator</code>트레잇과 <code>next</code> 메서드</a></h3>
+<h3 id="iterator트레잇과-next-메서드"><a class="header" href="#iterator트레잇과-next-메서드"><code>Iterator</code>트레잇과 <code>next</code> 메서드</a></h3>
 <p>모든 반복자는 표준 라이브러리에 정의된 <code>Iterator</code> 라는 이름의 트레잇을 구현 합니
 다. 트레잇의 정의는 아래와 같습니다:</p>
 <pre><pre class="playground"><code class="language-rust">
@@ -264,7 +264,7 @@ fn iterator_demonstration() {
 소유권을 갖고 소유된 값들을 반환하도록 하고 싶다면, <code>iter</code> 대신 <code>into_iter</code> 를
 호출해야 합니다. 비슷하게, 가변 참조에 대한 반복자를 원한다면, <code>iter</code> 대신
 <code>iter_mut</code> 을 호출할 수 있습니다.</p>
-<h3><a class="header" href="#반복자를-소비하는-메서드들" id="반복자를-소비하는-메서드들">반복자를 소비하는 메서드들</a></h3>
+<h3 id="반복자를-소비하는-메서드들"><a class="header" href="#반복자를-소비하는-메서드들">반복자를 소비하는 메서드들</a></h3>
 <p><code>Iterator</code> 트레잇에는 표준 라이브러리에서 기본 구현을 제공하는 다수의 다른
 메서드들이 있습니다; <code>Iterator</code> 트레잇에 대한 표준 라이브러리 API 문서를 살펴
 보면, 이 메서드들을 찾을 수 있습니다. 이 메서드들 중 일부는 그들의 구현에서
@@ -295,7 +295,7 @@ fn iterator_sum() {
 <code>sum</code> 메서드 호출 하기</span></p>
 <p><code>sum</code> 은 호출한 반복자의 소유권을 갖기 때문에, <code>sum</code> 을 호출한 후 <code>v1_iter</code> 은
 사용할 수 없습니다.</p>
-<h3><a class="header" href="#다른-반복자를-생성하는-메서드들" id="다른-반복자를-생성하는-메서드들">다른 반복자를 생성하는 메서드들</a></h3>
+<h3 id="다른-반복자를-생성하는-메서드들"><a class="header" href="#다른-반복자를-생성하는-메서드들">다른 반복자를 생성하는 메서드들</a></h3>
 <p><code>Iterator</code> 트레잇에 정의된 다른 메서드들 중에 <em>반복자 어댑터들</em> 로 알려진 메서드
 들은 반복자를 다른 종류의 반복자로 변경하도록 허용 합니다. 복잡한 행위를 수행하
 기 위해 읽기 쉬운 방법으로 반복자 어댑터에 대한 여러개의 호출을 연결할 수 있습
@@ -353,7 +353,7 @@ assert_eq!(v2, vec![2, 3, 4]);
 연산도 기술할 수 있습니다. 이것은 <code>Iterator</code> 트레잇이 제공하는 반복자 행위를
 재사용 하면서 클로저가 어떻게 일부 행위를 맞춤 조작할 수 있는지를 보여주는
 굉장한 예제 입니다.</p>
-<h3><a class="header" href="#환경을-캡쳐하는-클로저-사용하기" id="환경을-캡쳐하는-클로저-사용하기">환경을 캡쳐하는 클로저 사용하기</a></h3>
+<h3 id="환경을-캡쳐하는-클로저-사용하기"><a class="header" href="#환경을-캡쳐하는-클로저-사용하기">환경을 캡쳐하는 클로저 사용하기</a></h3>
 <p>이제 반복자를 소개했으니, <code>filter</code> 반복자 어댑터를 사용해서 환경을 캡쳐하는
 클로저의 일반적인 사용을 보여줄 수 있습니다. 반복자의 <code>filter</code> 메서드는 반복자로
 부터 각 항목을 받아 Boolean 을 반환하는 클로저를 인자로 받습니다. 만약 클로저가
@@ -410,7 +410,7 @@ fn filters_by_size() {
 적용된 반복자에 의해 리턴된 값을 함수가 리턴한 벡터로 모으게됩니다.</p>
 <p>테스트는 <code>shoes_in_my_size</code> 를 호출 했을 때, 지정된 값과 동일한 사이즈를 갖는
 신발들만 돌려받는 다는 것을 보여 줍니다.</p>
-<h3><a class="header" href="#iterator-트레잇으로-자신만의-반복자-만들기" id="iterator-트레잇으로-자신만의-반복자-만들기"><code>Iterator</code> 트레잇으로 자신만의 반복자 만들기</a></h3>
+<h3 id="iterator-트레잇으로-자신만의-반복자-만들기"><a class="header" href="#iterator-트레잇으로-자신만의-반복자-만들기"><code>Iterator</code> 트레잇으로 자신만의 반복자 만들기</a></h3>
 <p>벡터에 대해 <code>iter</code>, <code>into_iter</code> 혹은 <code>iter_mut</code> 을 호출해서 반복자를 생성할 수
 있다는 것을 보았습니다. 해시맵과 같은 표준 라이브러리에 있는 다른 컬렉션
 타입으로 부터 반복자를 생성할 수 있습니다. 자신만의 타입에 대해 <code>Iterator</code>
@@ -480,7 +480,7 @@ impl Counter {
 초기화 했고 처음엔 1을 반환할 것 입니다. <code>count</code> 의 값이 6 보다 작다면, <code>next</code>
 는 <code>Some</code> 으로 포장된 현재 값을 리턴할 것이며, <code>count</code> 가 6 이거나 더 크다면,
 우리의 반복자는 <code>None</code> 을 반환할 것 입니다.</p>
-<h4><a class="header" href="#counter-반복자의-next-메서드-사용하기" id="counter-반복자의-next-메서드-사용하기"><code>Counter</code> 반복자의 <code>next</code> 메서드 사용하기</a></h4>
+<h4 id="counter-반복자의-next-메서드-사용하기"><a class="header" href="#counter-반복자의-next-메서드-사용하기"><code>Counter</code> 반복자의 <code>next</code> 메서드 사용하기</a></h4>
 <p><code>Iterator</code> 트레잇을 구현 했다면, 반복자를 갖게 됩니다! 리스트 13-22 는 리스트
 13-15 에서 벡터로 부터 생셩된 반복자에 했던 것 처럼, <code>Counter</code> 구조체에 직접
 <code>next</code> 메서드를 호출 함으로써 반복자 기능을 사용할 수 있다는 것을 보여주는
@@ -524,7 +524,7 @@ fn calling_next_directly() {
 <p>이 테스트는 <code>counter</code> 변수에 새로운 <code>Counter</code> 인스턴스를 생성하고 <code>next</code> 를
 반복적으로 호출하면서, 이 반복자가 우리가 원하는 행위를 구현했다는 것을 검증
 합니다: 1 부터 5까지의 값을 반환함.</p>
-<h4><a class="header" href="#다른-iterator-메서드들-사용하기" id="다른-iterator-메서드들-사용하기">다른 <code>Iterator</code> 메서드들 사용하기</a></h4>
+<h4 id="다른-iterator-메서드들-사용하기"><a class="header" href="#다른-iterator-메서드들-사용하기">다른 <code>Iterator</code> 메서드들 사용하기</a></h4>
 <p>우리는 <code>next</code> 메서드를 정의함으로써 <code>Iterator</code> 트레잇을 구현했습니다, 그래서
 표준 라이브러리에 정의된 <code>Iterator</code> 트레잇 메서드들의 기본 구현을 사용할 수 있
 는데, 그들은 모두 <code>next</code> 메서드의 기능을 사용하기 때문 입니다.</p>
