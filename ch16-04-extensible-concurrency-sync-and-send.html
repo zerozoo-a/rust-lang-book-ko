@@ -173,7 +173,7 @@
 트레잇인 <code>Sync</code>와 <code>Send</code>입니다.</p>
 <h3 id="send를-사용하여-스레드-사이에-소유권-이전을-허용하기"><a class="header" href="#send를-사용하여-스레드-사이에-소유권-이전을-허용하기"><code>Send</code>를 사용하여 스레드 사이에 소유권 이전을 허용하기</a></h3>
 <p><code>Send</code> 마커 트레잇은 <code>Send</code>가 구현된 타입의 소유권이 스레드 사이에서 이전될 수 있음을
-나타냅니다. 거의 대부분의 러스트 타입이 <code>Send</code>이지만, 몇 개의 예왜가 있는데, 그 중
+나타냅니다. 거의 대부분의 러스트 타입이 <code>Send</code>이지만, 몇 개의 예외가 있는데, 그 중
 <code>Rc&lt;T&gt;</code>도 있습니다: 이것은 <code>Send</code>가 될 수 없는데 그 이유는 여러분이 <code>Rc&lt;T&gt;</code> 값을
 클론하여 다른 스레드로 복제본의 소유권 전송을 시도한다면, 두 스레드 모두 동시에 참조
 카운트 값을 갱신할지도 모르기 때문입니다. 이러한 이유로, <code>Rc&lt;T&gt;</code>는 여러분이
@@ -193,7 +193,7 @@
 즉 참조자가 다른 스레드로 안전하게 보내질 수 있다면, <code>T</code>는 <code>Sync</code>합니다.
 <code>Send</code>와 유사하게, 기초 타입들은 <code>Sync</code>하고, 또한 <code>Sync</code>한 타입들로
 전체가 구성된 타입 또한 <code>Sync</code>합니다.</p>
-<p>스마트 포인터 <code>Rc&lt;T&gt;</code>는 <code>Send</code>가 아닌 이유와 동잃한 이유로 또한
+<p>스마트 포인터 <code>Rc&lt;T&gt;</code>는 <code>Send</code>가 아닌 이유와 동일한 이유로 또한
 <code>Sync</code>하지도 않습니다. (15장에서 예기했었던) <code>RefCell&lt;T&gt;</code> 타입과
 연관된 <code>Cell&lt;T&gt;</code> 타입의 가족들도 <code>Sync</code>하지 않습니다.
 <code>RefCell&lt;T&gt;</code>가 런타임에 수행하는 빌림 검사 구현은 스레드-안전하지
