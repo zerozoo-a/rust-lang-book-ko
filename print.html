@@ -10066,7 +10066,7 @@ fn main() {
 도입부를 명시적으로 <code>use</code>해야 합니다. </p>
 <p><code>main</code>에서, 우리는 다음 세 가지를 추가했습니다:  첫 째, <code>File::open</code>함수를 호출하고 <code>filename</code>값을 전달하여 
 파일을 변경할 수 있는 핸들을 얻습니다. 두 번째로, <code>contents</code>라는 이름의 빈 <code>String</code> 가변 변수를 만들었습니다. 이 
-변수는 우리가 읽어들인 내용을 보과하기 위한 용도로 사용될 겁니다. 셋 째, 우리가 만들어 둔 파일 핸들에 
+변수는 우리가 읽어들인 내용을 보관하기 위한 용도로 사용될 겁니다. 셋 째, 우리가 만들어 둔 파일 핸들에 
 <code>read_to_string</code>을 호출하여 가변 참조를 <code>contents</code>의 인자로 전달합니다.</p>
 <p>이후, 임시로 <code>println!</code>을 추가하여 <code>contents</code>의 값을 출력함으로서 파일을 읽어들인 이후 우리 프로그램이 제대로 
 동작했는지 확인할 수 있습니다. </p>
@@ -12978,8 +12978,8 @@ let add_one_v4 = |x|               x + 1  ;
 보여 줍니다. 세번째 줄은 클로저 정의에서 타입 어노테이션을 지웠고, 네번째 줄은
 선택적인 중괄호를 지웠는데, 클로저 보디가 단 하나의 표현식을 갖기 때문 입니다.
 이것은 모두 호출 했을 때 동일한 행위를 수행하는 유효한 정의들 입니다.</p>
-<p>클로저 정의는 각 파리미터들과 그들의 반환값에 대해 단 하나의 추론된 구체적인
-타입을 갖을 것입니다. 예를 들면, 리스트 13-8 은 파리미터로 받은 값을 그대로
+<p>클로저 정의는 각 파라미터들과 그들의 반환값에 대해 단 하나의 추론된 구체적인
+타입을 갖을 것입니다. 예를 들면, 리스트 13-8 은 파라미터로 받은 값을 그대로
 반환하는 짧은 클로저의 정의를 보여줍니다. 이 클로저는 이 예제의 목적 이에외는
 유용하지 않습니다. 정의에 타입 어노테이션을 추가하지 않았다는 것에 유의하세요:
 클로저를 두번 호출하는데, 첫번째는 <code>String</code> 을 인자로 사용하고 두번째는 <code>u32</code> 을
@@ -13109,8 +13109,8 @@ let n = example_closure(5);
 <code>value</code> 메서드를 호출 할 것입니다. 이 메서드는 이미 <code>self.value</code> 에 결과값을
 <code>Some</code> 으로 갖고 있는지 체크 합니다; 만약 그렇다면 클로저를 다시 실행하는 대신
 <code>Some</code> 안에 있는 값을 반환 합니다.</p>
-<p>만약 <code>self.value</code> 라 <code>None</code> 이라면, <code>self.calculation</code> 에 저장된 클로저를 호출
-하고, 나중에 재사용 하기 위해 결과를 <code>self.value</code> 저장한 다음 그 값을 반환
+<p>만약 <code>self.value</code> 가 <code>None</code> 이라면, <code>self.calculation</code> 에 저장된 클로저를 호출
+하고, 나중에 재사용 하기 위해 결과를 <code>self.value</code> 에 저장한 다음 그 값을 반환
 합니다.</p>
 <p>리스트 13-11 는 리스트 13-6 에 있는 <code>generate_workout</code> 함수에서 이 <code>Cacher</code> 구조
 체를 사용하는 방법을 보여줍니다:</p>
@@ -13829,7 +13829,7 @@ fn using_other_iterator_trait_methods() {
 업데이트 하기</span></p>
 <p><code>env::args</code> 함수에 대한 표준 라이브러리 문서에는 반환하는 반복자의 타입이
 <code>std::env::Args</code> 라고 명시되어 있습니다. <code>Config::new</code> 함수의 시그니처를 업데이
-트 해서 <code>args</code> 파리미터가 <code>&amp;[String]</code> 대신 <code>std::env::Args</code> 타입을 갖도록
+트 해서 <code>args</code> 파라미터가 <code>&amp;[String]</code> 대신 <code>std::env::Args</code> 타입을 갖도록
 했습니다. <code>args</code> 의 소유권을 갖고 그것을 순회하면서 <code>args</code> 를 변경할 것이기
 때문에, 변경 가능하도록 하기 위해 <code>args</code> 파라미터의 명세에 <code>mut</code> 키워드를 추가
 할 수 있습니다.</p>
@@ -16006,7 +16006,7 @@ mod tests {
     'already borrowed: BorrowMutError', src/libcore/result.rs:906:4
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 </code></pre>
-<p>코드가 <code>already borrowed: BorrowMutError</code>라는 메세지와 함꼐 패닉을
+<p>코드가 <code>already borrowed: BorrowMutError</code>라는 메세지와 함께 패닉을
 일으켰음을 주목하세요. 이것이 바로 <code>RefCell&lt;T&gt;</code>가 런타임에 빌림 규칙의 위반을
 다루는 방법입니다.</p>
 <p>빌림 에러를 컴파일 타임보다 런타임에 잡는다는 것은 개발 과정 이후에 우리
@@ -16904,7 +16904,7 @@ fn main() {
 <p>프로그래밍에서의 채널은 둘로 나뉘어져 있습니다: 바로 송신자(transmitter)와
 수신자(receiver)입니다. 송신자 측은 여러분이 강에 고무 오리를 띄우는
 상류 위치이고, 수신자 측은 하류에 고무 오리가 도달하는 곳입니다. 여러분
-코드 중 한 곳에서 여러분이 보내고자 하는 데이터와 함꼐 송신자의 메소드를
+코드 중 한 곳에서 여러분이 보내고자 하는 데이터와 함께 송신자의 메소드를
 호출하면, 다른 곳에서는 도달한 메세지에 대한 수신 종료를 검사합니다.
 송신자 혹은 송신자가 드롭되면 채널이 <em>닫혔다 (closed)</em> 라고
 말합니다.</p>
@@ -18158,7 +18158,7 @@ made into an object
 패턴의 핵심은 어떤 값이 <em>상태 객체들</em>의 집합으로 표현되는 일종의
 내부 상태를 가지며, 이 값의 동작은 내부 상태에 기반한여 바뀐다는
 것입니다. 상태 객체들은 기능을 공유합니다: 당연히 러스트에서는
-객체와 상속보다는 구조체와 트레잇을을 사용합니다. 각 상태 객체는
+객체와 상속보다는 구조체와 트레잇을 사용합니다. 각 상태 객체는
 자신의 동작 및 다른 상태로 변경되어야 할 때의 제어에 대한 책임이
 있습니다. 상태 객체를 보유한 값은 상태들의 서로 다른 행동 혹은
 상태 간의 전이가 이뤄지는 때에 대해 아무것도 모릅니다.</p>
@@ -20191,7 +20191,7 @@ fn split_at_mut(slice: &amp;mut [i32], mid: usize) -&gt; (&amp;mut [i32], &amp;m
 않은 코드에 왔습니다: <code>slice::from_raw_parts_mut</code> 함수는 로우
 포인터와 길이를 받아서 슬라이스를 생성합니다. 이 함수를 이용하여 <code>ptr</code>로
 시작하고 <code>mid</code> 만큼의 아이템을 가진 슬라이스를 생성합니다. 그다음 우리는
-<code>ptr</code> 상에서 <code>offset</code> 메소드를 인자 <code>mid</code>와 함꼐 호출하여 <code>mid</code>에서부터
+<code>ptr</code> 상에서 <code>offset</code> 메소드를 인자 <code>mid</code>와 함께 호출하여 <code>mid</code>에서부터
 시작하는 로우 포인터를 얻고, 이 포인터와 <code>mid</code> 뒤에 남은 아이템의 개수를 길이로
 하는 슬라이스를 생성합니다.</p>
 <p>함수 <code>slice::from_raw_parts_mut</code>는 로우 포인터를 인자로 사용하고
@@ -22016,7 +22016,7 @@ CRLF 시퀀스 이후는 헤더, 또 다른 CRLF의 뒤는 응답의 body가 들
 그 뒤 <code>response</code> 의 <code>as_bytes</code>를 호출하여 문자열 데이터를
 바이트 배열로 변환합니다. <code>stream</code> 의 <code>write</code> 메소드는 <code>&amp;[u8]</code> 을
 전달받고 커넥션에 바이트 배열을 전송합니다.</p>
-<p><code>write</code> 작업이 실패할 수 잇기 때문에, 우린 전처럼 <code>unwrap</code> 을 사용합니다.
+<p><code>write</code> 작업이 실패할 수 있기 때문에, 우린 전처럼 <code>unwrap</code> 을 사용합니다.
 다시 말하지만, 실제 어플리케이션에선 이런 경우에 에러 처리를 해야합니다.
 마지막으로, <code>flush</code> 는 모든 바이트들이 커넥션으로 쓰여질때까지 프로그램을 대기시킵니다.
 <code>TcpStream</code> 은 운영체제의 기능 호출을 최소화하기 위해 내부적으로 버퍼를 사용하기 때문에,

@@ -471,7 +471,7 @@ mod tests {
     'already borrowed: BorrowMutError', src/libcore/result.rs:906:4
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 </code></pre>
-<p>코드가 <code>already borrowed: BorrowMutError</code>라는 메세지와 함꼐 패닉을
+<p>코드가 <code>already borrowed: BorrowMutError</code>라는 메세지와 함께 패닉을
 일으켰음을 주목하세요. 이것이 바로 <code>RefCell&lt;T&gt;</code>가 런타임에 빌림 규칙의 위반을
 다루는 방법입니다.</p>
 <p>빌림 에러를 컴파일 타임보다 런타임에 잡는다는 것은 개발 과정 이후에 우리
