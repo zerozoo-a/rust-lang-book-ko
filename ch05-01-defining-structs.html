@@ -248,7 +248,7 @@ Rust에서는 특정 필드만 변경할 수 있도록 허용하지 않습니다
 이를 활용하면 구조체를 생성하는 함수를 더 간단히 작성할 수 있게 됩니다.
 아래 예제 5-5의 <code>build_user</code> 함수에는 <code>email</code>과 <code>username</code> 라는 매개변수가
 있습니다. 함수는 <code>User</code>구조체가 구현된 인스턴스를 반환합니다.</p>
-<p>매개변수인 <code>email</code>과 <code>username</code>이 <code>User</code>구조체의 필드명과 같기 떄문에, 함수 <code>build_user</code>
+<p>매개변수인 <code>email</code>과 <code>username</code>이 <code>User</code>구조체의 필드명과 같기 때문에, 함수 <code>build_user</code>
 에서 <code>email</code>과 <code>username</code>를 명시하는 부분을 예제 5-4와 같이 다시 작성할 필요가 없습니다.</p>
 <p>예제 5-5의 <code>build_user</code> 함수는 예제 5-4와 같은 방식으로 동작합니다. 필드 초기화를 이러한 방식으로
 수행하는 문법은 간결한 코드를 작성하는데 도움이 되고, 많은 필드의 값이 정의되어야할 때 특히 유용합니다.</p>
