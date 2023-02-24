@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -170,8 +170,7 @@ Listing 10-16의 프로그램과 같이 외부 스코프와 내부 스코프를 
     }
 
     println!(&quot;r: {}&quot;, r);
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 10-16: 스코프 밖으로 벗어난 값에 대한 참조자를 사용하는
 시도</span></p>
 <blockquote>
@@ -214,8 +213,7 @@ Listing 10-16과 동일한 예제를 보여줍니다:</p>
     println!(&quot;r: {}&quot;, r); // |
                    //        |
                    // -------+
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 10-17: 각각 <code>'a</code>과 <code>'b</code>로 명명된 <code>r</code>과 <code>x</code>의
 라이프타임에 대한 주석</span></p>
 <!-- Just checking I'm reading this right: the inside block is the b lifetime,
@@ -241,8 +239,7 @@ looking arrows and labels? /Carol -->
     println!(&quot;r: {}&quot;, r); //   |  |
                           // --+  |
 }                         // -----+
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 10-18: 데이터가 참조자에 비해 더 긴 라이프타임을 갖고
 있기 때문에 유효한 참조자</span></p>
 <p>여기서 <code>x</code>는 라이프타임 <code>'b</code>를 갖고 있는데, 위의 경우 <code>'a</code>에 비해 더 큽니다. 이는 <code>r</code>이 <code>x</code>를
@@ -262,8 +259,7 @@ looking arrows and labels? /Carol -->
 
     let result = longest(string1.as_str(), string2);
     println!(&quot;The longest string is {}&quot;, result);
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 10-19: 두 스트링 슬라이스 중 긴 쪽을 찾기 위해
 <code>longest</code> 함수를 호출하는 <code>main</code> 함수</span></p>
 <p><code>longest</code> 함수가 인자의 소유권을 얻는 것을 원치 않기 때문에 스트링 슬라이스들을 (4장에서 이야기했던
@@ -297,8 +293,7 @@ interested to know if rereading Chapter 4 clears up that confusion.
     } else {
         y
     }
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 10-20: 두 스트링 슬라이스 중 긴 쪽을 반환하는
 <code>longest</code> 함수의 구현체, 그러나 아직 컴파일되지 않음</span></p>
 <p>대신 우리는 라이프타임에 대해 이야기하는 다음과 같은 에러를 얻습니다:</p>
@@ -336,8 +331,7 @@ Listing 10-17과 10-18에서 했던 것과 같이 스코프를 살펴볼 수도 
 <code>i32</code>에 대한 가변 참조자입니다:</p>
 <pre><code class="language-rust ignore">&amp;i32        // a reference
 &amp;'a i32     // a reference with an explicit lifetime
-&amp;'a mut i32 // a mutable reference with an explicit lifetime
-</code></pre>
+&amp;'a mut i32 // a mutable reference with an explicit lifetime</code></pre>
 <p>스스로에 대한 하나의 라이프타임 명시는 큰 의미를 가지고 있지 않습니다: 라이프타임 명시는
 러스트에게 여러 개의 참조자에 대한 제네릭 라이프타임 파라미터가 서로 어떻게 연관되는지를
 말해줍니다. 만일 라이프타임 <code>'a</code>를 가지고 있는 <code>i32</code>에 대한 참조자인 <code>first</code>를
@@ -362,8 +356,7 @@ Listing 10-17과 10-18에서 했던 것과 같이 스코프를 살펴볼 수도 
         y
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 10-21: 시그니처 내의 모든 참조자들이 동일한
 라이프타임 <code>'a</code>를 가지고 있어야 함을 특정한 <code>longest</code> 함수 정의</span></p>
 <p>이는 컴파일될 것이고 Listing 10-19에 있는 <code>main</code> 함수에서 사용되었을 때 우리가 원하는 결과를
@@ -410,8 +403,7 @@ Listing 10-17과 10-18에서 했던 것과 같이 스코프를 살펴볼 수도 
         let result = longest(string1.as_str(), string2.as_str());
         println!(&quot;The longest string is {}&quot;, result);
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 10-22: 서로 다른 구체적인 라이프타임을 가진 <code>String</code>
 값의 참조자들을 이용한 <code>longest</code> 함수의 사용 </span></p>
 <p>다음으로, <code>result</code>의 참조자의 라이프타임이 두 인자들의 라이프타임보다 작아야 함을 보여줄 예제를
@@ -428,8 +420,7 @@ Listing 10-23의 코드는 컴파일되지 않을 것입니다:</p>
         result = longest(string1.as_str(), string2.as_str());
     }
     println!(&quot;The longest string is {}&quot;, result);
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 10-23: <code>string2</code>가 스코프 밖으로 벗어난 후에
 <code>result</code>를 사용하고자 하는 시도는 컴파일되지 않습니다</span></p>
 <p>만일 이를 컴파일하고자 시도하면, 다음과 같은 에러를 얻습니다:</p>
@@ -466,8 +457,7 @@ Listing 10-23의 코드는 컴파일되지 않을 것입니다:</p>
 </span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;str) -&gt; &amp;'a str {
     x
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 예제에서, 파라미터 <code>x</code>와 반환 값에 대한 라이프타임 파라미터 <code>'a</code>는 특정하였지만, 파라미터 <code>y</code>는
 특정하지 않았는데, 그 이유는 <code>y</code>의 라이프타임이 <code>x</code> 혹은 반환 값의 라이프타임과 어떠한 관련도 없기
 때문입니다.</p>
@@ -480,8 +470,7 @@ Listing 10-23의 코드는 컴파일되지 않을 것입니다:</p>
 <pre><code class="language-rust ignore">fn longest&lt;'a&gt;(x: &amp;str, y: &amp;str) -&gt; &amp;'a str {
     let result = String::from(&quot;really long string&quot;);
     result.as_str()
-}
-</code></pre>
+}</code></pre>
 <p>우리가 반환 타입에 대해 라이프타임 파라미터 <code>'a</code>를 특정했을지라도, 이러한 구현은 컴파일에 실패하게 되는데
 이는 반환되는 값의 라이프타임이 파라미터의 라이프타임과 아무런 관련이 없기 때문입니다. 여기 우리가 얻게
 되는 에러 메시지를 보시죠:</p>
@@ -521,8 +510,7 @@ fn main() {
         .next()
         .expect(&quot;Could not find a '.'&quot;);
     let i = ImportantExcerpt { part: first_sentence };
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 10-24: 참조자를 들고 있는 구조체, 따라서
 정의 부분에 라이프타임 명시가 필요합니다</span></p>
 <p>이 구조체는 스트링 슬라이스를 담을 수 있는 <code>part</code>라는 하나의 필드를 갖고 있는데, 이것이
@@ -549,15 +537,13 @@ fn main() {
 
     &amp;s[..]
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 10-25: 파라미터와 반환 값의 타입이 참조자임에도 불구하고
 라이프타임 명시 없이 컴파일되었던, 4장에서 정의한 바 있는 함수</span></p>
 <p>이 함수가 라이프타임 없이 컴파일되는 이유는 역사가 있습니다: 1.0 이전 시절의 러스트에서는 이 코드가
 실제로 컴파일되지 않았습니다. 모든 참조자들은 명시적인 라이프타임이 필요했지요. 그 시절, 함수 시그니처는
 아래와 같이 작성되었습니다:</p>
-<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str {
-</code></pre>
+<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str {</code></pre>
 <p>수많은 러스트 코드를 작성하고 난 후, 러스트 팀은 러스트 프로그래머들이 특정한 상황에서 똑같은 라이프타임
 명시를 계속하여 타이핑하고 있다는 사실을 발견하게 되었습니다. 이 상황들은 예측 가능하며 몇 가지 결정론적인
 패턴을 따르고 있었습니다. 그리하여 러스트 팀은 러스트 컴파일러 코드 내에 이 패턴들을 프로그래밍하여
@@ -600,27 +586,22 @@ fn main() {
 <p>우리가 직접 컴파일러가 된 척하여 Listing 10-25의 <code>first_word</code> 함수의 시그니처에 있는 참조자들의
 라이프타임이 무엇인지 알아내기 위해 이 규칙들을 적용해 봅시다. 이 시그니처는 참조자들과 관련된 아무런
 라이프타임도 없이 시작합니다:</p>
-<pre><code class="language-rust ignore">fn first_word(s: &amp;str) -&gt; &amp;str {
-</code></pre>
+<pre><code class="language-rust ignore">fn first_word(s: &amp;str) -&gt; &amp;str {</code></pre>
 <p>그러면 (컴파일러로서의) 우리는 첫 번째 규칙을 적용하는데, 이는 각각의 파라미터가 고유의 라이프타임을 갖는다고
 말해주고 있습니다. 우리는 이를 평범하게 <code>'a</code>라고 명명할 것이며, 따라서 이제 시그니처는 다음과 같습니다:</p>
-<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;str {
-</code></pre>
+<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;str {</code></pre>
 <p>두 번째 규칙 상에 놓이게 되는데, 이는 정확히 단 하나의 입력 라이프타임만 존재하기 때문에 적용됩니다.
 두 번째 규칙은 그 하나의 입력 파라미터에 대한 라이프타임이 출력 라이프타임에 대입된다고 말하고 있으므로,
 이제 시그니처는 다음과 같아집니다:</p>
-<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str {
-</code></pre>
+<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str {</code></pre>
 <p>이제 이 함수 시그니처의 모든 참조자들이 라이프타임을 갖게 되었고, 컴파일러는 프로그래머에게
 이 함수 시그니처 내의 라이프타임을 명시하도록 요구하지 않고도 분석을 계속할 수 있게 되었습니다.</p>
 <p>또 다른 예제를 해보려는데, 이번에는 Listing 10-20에서와 같이 우리가 처음 시작할 때의
 아무런 라이프타임 파라미터도 가지고 있지 않은 <code>longest</code> 함수를 가지고 해 봅시다:</p>
-<pre><code class="language-rust ignore">fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str {
-</code></pre>
+<pre><code class="language-rust ignore">fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str {</code></pre>
 <p>다시 한번 우리가 컴파일러가 된 척하여, 첫 번째 규칙을 적용해봅시다: 각각의 파라미터는 고유의 라이프타임을
 갖습니다. 이번에는 두 개의 파라미터들이 있으므로, 두 개의 라이프타임을 갖게 됩니다:</p>
-<pre><code class="language-rust ignore">fn longest&lt;'a, 'b&gt;(x: &amp;'a str, y: &amp;'b str) -&gt; &amp;str {
-</code></pre>
+<pre><code class="language-rust ignore">fn longest&lt;'a, 'b&gt;(x: &amp;'a str, y: &amp;'b str) -&gt; &amp;str {</code></pre>
 <p>두 번째 규칙을 살펴봤을 때, 하나 이상의 입력 라이프타임이 있으므로 적용되지 않습니다. 세번째 규칙을
 살펴봤을 때, 이 또한 적용되지 않는데 이는 이것이 메소드가 아니라 함수이고, 따라서 어떠한 파라미터도
 <code>self</code>가 아니기 때문입니다. 따라서 규칙이 더 이상 남아있지 않은데, 우리는 아직 반환 타입의
@@ -660,8 +641,7 @@ methods. /Carol -->
         3
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><code>impl</code>뒤의 라이프타임 파라미터 선언부와 타입 이름 뒤에서 이를 사용하는 것이 필요하지만, 첫 번째 생략
 규칙때문에 <code>self</code>로의 참조자의 라이프타임을 명시할 필요는 없습니다.</p>
 <p>아래는 세번째 라이프타임 생략 규칙이 적용되는 예제입니다:</p>
@@ -677,8 +657,7 @@ methods. /Carol -->
         self.part
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>두 개의 입력 라이프타임이 있으므로, 러스트는 첫 번째 라이프타임 생략 규칙을 적용하여 <code>&amp;self</code>와
 <code>announcement</code>에게 각각 라이프타임을 부여합니다. 그다음, 파라미터 중 하나가 <code>&amp;self</code>이므로,
 반환 타입은 <code>&amp;self</code>의 라이프타임을 얻고, 모든 라이프타임들이 추론되었습니다.</p>
@@ -689,8 +668,7 @@ methods. /Carol -->
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let s: &amp;'static str = &quot;I have a static lifetime.&quot;;
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 스트링의 텍스트는 여러분의 프로그램의 바이너리 내에 직접 저장되며 여러분 프로그램의 바이너리는
 항상 이용이 가능하지요. 따라서, 모든 스트링 리터럴의 라이프타임은 <code>'static</code>입니다.</p>
 <!-- How would you add a static lifetime (below)? -->
@@ -718,8 +696,7 @@ fn longest_with_an_announcement&lt;'a, T&gt;(x: &amp;'a str, y: &amp;'a str, ann
         y
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이것은 Listing 10-21에 나온 바 있는 두 스트링 슬라이스 중 긴 쪽을 반환하는 <code>longest</code> 함수지만,
 <code>ann</code>이라는 이름의 추가 인자를 가지고 있습니다. <code>ann</code>의 타입은 제네릭 타입 <code>T</code>인데, <code>where</code> 절을
 가지고 특정한 바와 같이 <code>Display</code> 트레잇을 구현한 어떤 타입으로도 채워질 수 있습니다. 이 추가 인자는
@@ -772,21 +749,22 @@ fn longest_with_an_announcement&lt;'a, T&gt;(x: &amp;'a str, y: &amp;'a str, ann
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

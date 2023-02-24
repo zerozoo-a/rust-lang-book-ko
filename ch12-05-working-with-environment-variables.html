@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -189,8 +189,7 @@ Trust me.&quot;;
         );
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">항목 12-20: 새로운 실패 테스트를 우리가 추가할 대소문자 구문 함수를 위해 추가</span></p>
 <p>우리가 예전 테스트의 <code>contents</code>도 바꿨음을 주의하세요. 우리는 <code>“Duct tape”</code>라는 대문자 D로 시작되는 새로운 
 문자를 추가해 대소문자 구분 시에 쿼리 “duct”으로는 검색되지 않도록 하였습니다. 이러한 방식으로 이전 테스트를 변경하면 
@@ -220,8 +219,7 @@ Trust me.&quot;;
 
     results
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">항목 12-21: <code>search_case_insensitive</code> 함수를 정의해 query와 line을 
 query와 line을 비교하기 전에 소문자로 변경.</span></p>
 <p>첫 째, 소문자화 한 <code>query</code> 문자열을 동일한 이름을 가진 그림자 변수에 보관합니다. <code>to_lowercase</code>를 쿼리에서 호출하면
@@ -251,8 +249,7 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
     pub filename: String,
     pub case_sensitive: bool,
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>우리는 불린 값을 갖는 <code>case_sensitive</code>를 추가했어요. 다음으로, 우리는 <code>run</code> 함수를 실행해서
 <code>case_sensitive</code> 필드의 값을 확인한 뒤에 <code>search</code> 함수와 <code>search_case_insensitive</code>
 함수 중에 어느 쪽을 호출 할 것인지 결정하면 되요, 항목 12-22처럼 말이죠. 아직도 컴파일은 안되욧!</p>
@@ -295,8 +292,7 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
     Ok(())
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">항목 12-22: <code>config.case_sensitive</code>의 값을 기준으로<br />
 <code>search</code> 혹은 <code>search_case_insensitive</code>이 호출됩니다. </span></p>
 <p>마지막으로, 우리는 환경 변수를 검사해야 해요. 환경 변수를 다루기 위한 함수들은 <code>env</code>모듈이 있는 표준 라이브러리에
@@ -329,8 +325,7 @@ impl Config {
         Ok(Config { query, filename, case_sensitive })
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">항목 12-23: <code>CASE_INSENSITIVE</code>란 이름의 환경변수 검사하기</span></p>
 <p>여기서 우리는 <code>case_sensitive</code>라는 새 변수를 만들어요. 그의 값을 설정하려고, <code>env::var</code> 함수를 호출하고 
 <code>CASE_INSENSITIVE</code>란 환경변수의 이름을 전달하죠. <code>env::var</code> 메소드는 <code>Result</code>를 반환하는데, 만약
@@ -716,21 +711,22 @@ environment variables: check out its documentation to see what is available.
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -214,8 +214,7 @@ the stack</em>)라고 부릅니다.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let s = &quot;hello&quot;;
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>변수 <code>s</code>는 스트링 리터럴을 나타내는데, 스트링 리터럴의 값은 우리의 프로그램의 텍스트 내에 하드코딩되어
 있습니다. 변수는 선언된 시점부터 현재의 <em>스코프</em>가 끝날 때까지 유효합니다. 아래 예제 Listing 4-1은
 변수 <code>s</code>가 유효한 지점을 주석으로 표시했습니다:</p>
@@ -226,8 +225,7 @@ the stack</em>)라고 부릅니다.</p>
 
     // s를 가지고 뭔가 합니다.
 }                      // 이 스코프는 이제 끝이므로, s는 더이상 유효하지 않습니다.
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 4-1: 변수와 이 변수가 유효한 스코프</span></p>
 <p>바꿔 말하면, 두가지 중요한 지점이 있습니다:</p>
 <ol>
@@ -254,8 +252,7 @@ the stack</em>)라고 부릅니다.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let s = String::from(&quot;hello&quot;);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>더블 콜론(<code>::</code>)은 우리가 <code>string_from</code>과 같은 이름을 쓰기 보다는 <code>String</code> 타입 아래의
 <code>from</code> 함수를 특정지을 수 있도록 해주는 네임스페이스 연산자입니다. 우리는 이러한 문법에 대해 5장의
 &quot;메소드 문법&quot; 부분에서 더 자세히 다룰 것이고, 모듈에서의 네임스페이스와 관련한 이야기는 7장에서 할
@@ -268,8 +265,7 @@ the stack</em>)라고 부릅니다.</p>
 s.push_str(&quot;, world!&quot;); // push_str()은 해당 스트링 리터럴을 스트링에 붙여줍니다.
 
 println!(&quot;{}&quot;, s); // 이 부분이 `hello, world!`를 출력할 겁니다.
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>그러니까, 여기서 어떤게 달라졌나요?, 왜 <code>String</code>은 변할 수 있는데 스트링 리터럴은 안될까요?
 차이점은 두 타입이 메모리를 쓰는 방식에 있습니다.</p>
 <h3 id="메모리와-할당"><a class="header" href="#메모리와-할당">메모리와 할당</a></h3>
@@ -306,8 +302,7 @@ println!(&quot;{}&quot;, s); // 이 부분이 `hello, world!`를 출력할 겁�
     // s를 가지고 뭔가 합니다
 }                                  // 이 스코프는 끝났고, s는 더 이상 
                                    // 유효하지 않습니다
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><code>String</code>이 요구한 메모리를 운영체제에게 반납하는 자연스러운 지점이 있죠: <code>s</code>가 스코프
 밖으로 벗어날 때입니다. 변수가 스코프 밖으로 벗어나면, 러스트는 우리를 위해 특별한 함수를
 호출합니다. 이 함수를 <code>drop</code>이라고 부르고, <code>String</code>의 개발자가 메모리를 반환하도록 하는
@@ -329,8 +324,7 @@ println!(&quot;{}&quot;, s); // 이 부분이 `hello, world!`를 출력할 겁�
 </span><span class="boring">fn main() {
 </span>let x = 5;
 let y = x;
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 4-2: 변수 <code>x</code>의 정수값을 <code>y</code>에 대입하기</span></p>
 <p>우리는 아마도 다른 언어들에서의 경험을 토대로 어떤 일이 벌어지는지 추측할 수 있습니다:
 “정수값 <code>5</code>를 <code>x</code>에 묶어놓고; <code>x</code>의 값의 복사본을 만들어 <code>y</code>에 묶는다.” 우리는 이제
@@ -342,8 +336,7 @@ let y = x;
 </span><span class="boring">fn main() {
 </span>let s1 = String::from(&quot;hello&quot;);
 let s2 = s1;
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 코드는 이전의 코드와 매우 유사해 보여서, 동작하는 방식도 동일할 것이라고 가정할지도
 모르겠습니다: 즉, 두번째 줄이 <code>s1</code>의 복사본을 만들어서 <code>s2</code>에 묶어놓는 식으로 말이죠.
 그렇지만 이는 실제 동작과 다른 생각입니다.</p>
@@ -385,8 +378,7 @@ let s2 = s1;
 <pre><code class="language-rust ignore">let s1 = String::from(&quot;hello&quot;);
 let s2 = s1;
 
-println!(&quot;{}, world!&quot;, s1);
-</code></pre>
+println!(&quot;{}, world!&quot;, s1);</code></pre>
 <p>여러분은 아래와 같은 에러 메세지를 보게 될텐데, 그 이유는 러스트가 여러분으로부터
 유효하지 않은 참조자를 사용하는 것을 막기 때문입니다:</p>
 <pre><code class="language-text">error[E0382]: use of moved value: `s1`
@@ -425,8 +417,7 @@ which does not implement the `Copy` trait
 let s2 = s1.clone();
 
 println!(&quot;s1 = {}, s2 = {}&quot;, s1, s2);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 코드는 잘 동작하고 Figure 4-5가 나타내는, 즉 힙 데이터가 <em>정말로</em> 복사되는 동작을
 여러분이 명시적으로 만들어낼 수 있는 방법입니다. </p>
 <p><code>clone</code>을 호출하는 부분을 보면, 어떤 비용이 많이 들어갈지도 모르는 코드가 실행되는
@@ -441,8 +432,7 @@ println!(&quot;s1 = {}, s2 = {}&quot;, s1, s2);
 let y = x;
 
 println!(&quot;x = {}, y = {}&quot;, x, y);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>하지만 이 코드는 우리가 방금 배운 것과 대립되는 것처럼 보입니다: <code>clone</code>을 호출하지
 않았지만, <code>x</code>도 유효하며 <code>y</code>로 이동하지도 않았지요.</p>
 <p>그 이유는 정수형과 같이 컴파일 타임에 결정되어 있는 크기의 타입은 스택에 모두 저장되기
@@ -496,8 +486,7 @@ fn takes_ownership(some_string: String) { // some_string이 스코프 안으로 
 
 fn makes_copy(some_integer: i32) { // some_integer이 스코프 안으로 들어왔습니다.
     println!(&quot;{}&quot;, some_integer);
-} // 여기서 some_integer가 스코프 밖으로 벗어났습니다. 별다른 일은 발생하지 않습니다.
-</code></pre></pre>
+} // 여기서 some_integer가 스코프 밖으로 벗어났습니다. 별다른 일은 발생하지 않습니다.</code></pre></pre>
 <p><span class="caption">Listing 4-7: 소유권과 스코프에 대한 설명이 주석으로 달린 함수들</span></p>
 <p>만일 우리가 <code>s</code>를 <code>takes_ownership</code> 함수를 호출한 이후에 사용하려 한다면, 러스트는
 컴파일 타임 오류를 낼 것입니다. 이러한 정적 확인은 여러 실수들을 방지해 줍니다.
@@ -535,8 +524,7 @@ fn takes_and_gives_back(a_string: String) -&gt; String { // a_string이 스코�
                                                       // 안으로 들어왔습니다.
 
     a_string  // a_string은 반환되고, 호출한 쪽의 함수로 이동됩니다.
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>변수의 소유권은 모든 순간 똑같은 패턴을 따릅니다: 어떤 값을 다른 변수에 대입하면
 값이 이동됩니다. 힙에 데이터를 갖고 있는 변수가 스코프 밖으로 벗어나면, 해당 값은
 데이터가 다른 변수에 의해 소유되도록 이동하지 않는한 <code>drop</code>에 의해 제거될 것입니다.</p>
@@ -558,8 +546,7 @@ fn calculate_length(s: String) -&gt; (String, usize) {
     let length = s.len(); // len()함수는 문자열의 길이를 반환합니다.
 
     (s, length)
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>하지만 이건 너무 많이 나간 의례절차고 일반적인 개념로서는 과한 작업이 됩니다.
 운좋게도, 러스트는 이를 위한 기능을 갖고 있으며, <em>참조자</em>(<em>references</em>)라고 부릅니다.</p>
 
@@ -595,21 +582,22 @@ fn calculate_length(s: String) -&gt; (String, usize) {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

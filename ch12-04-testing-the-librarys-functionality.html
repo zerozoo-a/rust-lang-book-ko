@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -180,8 +180,7 @@ Pick three.&quot;;
         );
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 12-15: Creating a failing test for the <code>search</code>
 function we wish we had</span></p>
 <p>이 테스트는 “duct.”라는 문자열을 검색합니다. 우리가 검색하는 텍스트는 세 줄로, 한 줄은 “duct.”를 포함합니다. 우리는 <code>search</code> 함수에서 반환하는 값이 우리가 예상한 줄이어야 한다고 단정했습니다(assert).</p>
@@ -192,8 +191,7 @@ function we wish we had</span></p>
 </span>pub fn search&lt;'a&gt;(query: &amp;str, contents: &amp;'a str) -&gt; Vec&lt;&amp;'a str&gt; {
     vec![]
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">항목 12-16: 우리 테스트를 컴파일 하기 위해 필요한 <code>search</code> 정의.
 </span></p>
 <p><code>search</code>의 선언부에는 필요한 명시적인 라이프타임 <code>'a</code>가 <code>contents</code> 인자, 그리고 반환 값과 함께 사용됩니다. 10 장에서 인자의 라이프타임으로 라이프타임 값이 매개변수로 명시된 경우 반환되는 값의 라이프타임도 연결된다고 했던 점을 상기하십시오. 이 경우 반환된 벡터는 인자로 받은 <code>contents</code>를 참조하는 문자열 조각들이 포함되어 있어야 합니다. (<code>query</code> 인자가 아니라)</p>
@@ -256,8 +254,7 @@ error: test failed, to rerun pass '--lib'
     for line in contents.lines() {
         // do something with line
     }
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">항목 12-17: <code>contents</code>의 각 줄마다 반복작업
 </span></p>
 <p><code>lines</code> 메소드는 반복자를 리턴합니다. 우리는 13장에서 반복자에 대해서 다루게 될 겁니다만, 항목 3-4에서 반복자를 사용하는 방법을 봤었다는걸 상기시켜 드립니다. 항목 3-4에서는 반복자와 함께 for반복문을 사용하여 컬렉션의 각 항목에 대해 임의의 코드를 수행했었습니다. </p>
@@ -270,8 +267,7 @@ error: test failed, to rerun pass '--lib'
             // do something with line
         }
     }
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">항목 12-18: 어느 줄이 <code>query</code> 문자열을 포함하고 있는지 보기 위한 기능 추가
 </span></p>
 <h4 id="일치하는-줄-보관하기"><a class="header" href="#일치하는-줄-보관하기">일치하는 줄 보관하기</a></h4>
@@ -287,8 +283,7 @@ error: test failed, to rerun pass '--lib'
     }
 
     results
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">항목 12-19: 일치하는 라인들을 저장하여 반환할 수 있게 만들기.</span></p>
 <p>이제 <code>search</code>함수는 <code>query</code>를 포함하는 줄들만 반환하게 되었으니 우리의 테스트는 통과되야 할 겁니다. 테스트를 실행해 봅시다:</p>
 <pre><code class="language-text">$ cargo test
@@ -315,8 +310,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
     }
 
     Ok(())
-}
-</code></pre>
+}</code></pre>
 <p>우리는 아직 <code>search</code>에서 <code>for</code>반복문을 사용해 각 줄을 반환하고 출력하고 있습니다. </p>
 <p>이제 우리의 프로그램 전체가 동작하는 것 같습니다! 확신하기 위해, 첫째로 “frog” 단어로 Emily Dickinson의 시에서 정확히 한 줄이 반환되야 합니다: </p>
 <pre><code class="language-text">$ cargo run frog poem.txt
@@ -706,21 +700,22 @@ useful when you’re writing command line programs. -->
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

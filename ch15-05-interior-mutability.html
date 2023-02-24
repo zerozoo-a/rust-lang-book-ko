@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -208,8 +208,7 @@
 <pre><code class="language-rust ignore">fn main() {
     let x = 5;
     let y = &amp;mut x;
-}
-</code></pre>
+}</code></pre>
 <p>이 코드의 컴파일을 시도하면, 다음과 같은 에러를 얻을 것입니다:</p>
 <pre><code class="language-text">error[E0596]: cannot borrow immutable local variable `x` as mutable
  --&gt; src/main.rs:3:18
@@ -286,8 +285,7 @@ impl&lt;'a, T&gt; LimitTracker&lt;'a, T&gt;
         }
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 15-20: 어떤 값이 최대값에 얼마나 근접하는지를
 추적하고 특정 수준에 값이 있으면 경고해주는 라이브러리</span></p>
 <p>이 코드에서 한가지 중요한 부분은 <code>Messenger</code> 트레잇이 <code>self</code>에 대한
@@ -340,8 +338,7 @@ mod tests {
         assert_eq!(mock_messenger.sent_messages.len(), 1);
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 15-21: 빌림 검사기가 허용하지 않는
 <code>MockMessenger</code> 구현 시도</span></p>
 <p>이 테스트 코드는 보내질 메세지들을 추적하기 위한 <code>String</code> 값의 <code>Vec</code>인
@@ -412,8 +409,7 @@ mod tests {
         assert_eq!(mock_messenger.sent_messages.borrow().len(), 1);
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 15-22: <code>RefCell&lt;T&gt;</code>를 사용하여 바깥쪽에서는
 불변으로 간주되는 동안 내부의 값을 변경하기</span></p>
 <p><code>sent_messages</code> 필드는 이제 <code>Vec&lt;String&gt;</code> 대신 <code>RefCell&lt;Vec&lt;String&gt;&gt;</code>
@@ -457,8 +453,7 @@ mod tests {
         one_borrow.push(String::from(message));
         two_borrow.push(String::from(message));
     }
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 15-23: <code>RefCell&lt;T&gt;</code>이 패닉을 일으킬
 것을 보기 위한 같은 스코프 내에 두 개의 가변 참조자 만들기</span></p>
 <p>우리는 <code>borrow_mut</code>로부터 반환된 <code>RefMut&lt;T&gt;</code> 스마트 포인터를 위한 <code>one_borrow</code>
@@ -519,8 +514,7 @@ fn main() {
     println!(&quot;a after = {:?}&quot;, a);
     println!(&quot;b after = {:?}&quot;, b);
     println!(&quot;c after = {:?}&quot;, c);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 15-24: <code>Rc&lt;RefCell&lt;i32&gt;&gt;</code>을 사용하여
 변경 가능한 <code>List</code> 생성하기</span></p>
 <p>우리는 <code>Rc&lt;RefCell&lt;i32&gt;&gt;</code>의 인스턴스인 값을 생성하고 <code>value</code>라는 이름의
@@ -588,21 +582,22 @@ c after = Cons(RefCell { value: 10 }, Cons(RefCell { value: 15 }, Nil))
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

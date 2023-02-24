@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -180,8 +180,7 @@
 </span>use std::net::IpAddr;
 
 let home = &quot;127.0.0.1&quot;.parse::&lt;IpAddr&gt;().unwrap();
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>여기서는 하드코딩된 스트링을 파싱하여 <code>IpAddr</code> 인스턴스를 만드는 중입니다. 우리는 <code>127.0.0.1</code>이
 유효한 IP 주소임을 볼 수 있으므로, 여기서 <code>unwrap</code>을 사용하는 것은 허용됩니다. 그러나, 하드코딩된
 유효한 스트링을 갖고 있다는 것이 <code>parse</code> 메소드의 반환 타입을 변경해주지는 않습니다: 우리는 여전히
@@ -255,8 +254,7 @@ let home = &quot;127.0.0.1&quot;.parse::&lt;IpAddr&gt;().unwrap();
 
     match guess.cmp(&amp;secret_number) {
     // snip
-}
-</code></pre>
+}</code></pre>
 <p><code>if</code> 표현식은 우리의 값이 범위 밖에 있는지 혹은 그렇지 않은지 검사하고, 사용자에게 문제점을 말해주고,
 <code>continue</code>를 호출하여 루프의 다음 반복을 시작하고 다른 추측값을 요청해줍니다. <code>if</code> 표현식 이후에는,
 <code>guess</code>가 1과 100 사이의 값이라는 것을 아는 상태에서 <code>guess</code>와 비밀 숫자의 비교를 진행할 수 있습니다.</p>
@@ -289,8 +287,7 @@ impl Guess {
         self.value
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 9-9: 1과 100 사이의 값일 때만 계속되는 <code>Guess</code> 타입
 </span></p>
 <p>먼저 <code>u32</code>를 갖는 <code>value</code>라는 이름의 항목을 가진 <code>Guess</code>라는 이름의 구조체를 선언하였습니다.
@@ -358,21 +355,22 @@ impl Guess {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

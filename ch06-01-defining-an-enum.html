@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -164,8 +164,7 @@ IP 주소에 적용되는 상황을 다룰 때 동일한 타입으로 처리되�
     V4,
     V6,
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이제 <code>IpAddrKind</code> 은 우리의 코드 어디에서나 쓸 수 있는 데이터 타입이 되었습니다.</p>
 <h3 id="열거형-값"><a class="header" href="#열거형-값">열거형 값</a></h3>
 <p>아래처럼 <code>IpAddrKind</code> 의 두 개의 variants 에 대한 인스턴스를 만들 수 있습니다:</p>
@@ -178,8 +177,7 @@ IP 주소에 적용되는 상황을 다룰 때 동일한 타입으로 처리되�
 </span><span class="boring">
 </span>let four = IpAddrKind::V4;
 let six = IpAddrKind::V6;
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>열거형의 variants 는 열거형을 정의한 식별자에 의해 이름 공간이 생기며, 두 개의 
 콜론을 사용하여 둘을 구분할 수 있습니다. <code>IpAddrKind::V4</code> 와 <code>IpAddrKind::V6</code> 의
 값은 동일한 타입이기 때문에, 이 방식이 유용합니다: <code>IpAddrKind</code>.
@@ -192,8 +190,7 @@ let six = IpAddrKind::V6;
 </span><span class="boring">}
 </span><span class="boring">
 </span>fn route(ip_type: IpAddrKind) { }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>그리고, variant 중 하나를 사용해서 함수를 호출할 수 있습니다:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -206,8 +203,7 @@ let six = IpAddrKind::V6;
 </span><span class="boring">
 </span>route(IpAddrKind::V4);
 route(IpAddrKind::V6);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>열거형을 사용하면 이점이 더 있습니다. IP 주소 타입에 대해 더 생각해 볼 때, 
 지금으로써는 실제 IP 주소 <em>데이터</em>를 저장할 방법이 없습니다. 단지 어떤 <em>종류</em> 
 인지만 알 뿐입니다. 5장에서 구조체에 대해 방금 공부했다고 한다면, 이 문제를 
@@ -233,8 +229,7 @@ let loopback = IpAddr {
     kind: IpAddrKind::V6,
     address: String::from(&quot;::1&quot;),
 };
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 6-1: <code>struct</code> 를 사용해서 IP 주소의 데이터와 
 <code>IpAddrKind</code> variant 저장하기</span></p>
 <p>여기서 두 개의 필드를 갖는 <code>IpAddr</code> 를 정의했습니다: <code>IpAddrKind</code> 타입(이전에 
@@ -259,8 +254,7 @@ let loopback = IpAddr {
 let home = IpAddr::V4(String::from(&quot;127.0.0.1&quot;));
 
 let loopback = IpAddr::V6(String::from(&quot;::1&quot;));
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>열거형의 각 variant 에 직접 데이터를 붙임으로써, 구조체를 사용할 필요가 없어졌습니다.</p>
 <p>구조체 보다 열거형을 사용할 때 다른 장점이 있습니다. 각 variant 는 다른 타입과 
 다른 양의 연관된 데이터를 가질 수 있습니다. 버전 4 타입의 IP 주소는 항상 0 ~ 255
@@ -277,8 +271,7 @@ let loopback = IpAddr::V6(String::from(&quot;::1&quot;));
 let home = IpAddr::V4(127, 0, 0, 1);
 
 let loopback = IpAddr::V6(String::from(&quot;::1&quot;));
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>두 가지 다른 종류의 IP 주소를 저장하기 위해 코드상에서 열거형을 정의하는 몇 가지
 방법을 살펴봤습니다. 그러나, 누구나 알듯이 IP 주소와 그 종류를 저장하는 것은
 흔하기 때문에, <a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html">표준 라이브러리에 사용할 수 있는 정의가 있습니다!</a></p>
@@ -300,8 +293,7 @@ enum IpAddr {
     V4(Ipv4Addr),
     V6(Ipv6Addr),
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 코드에서 보듯이 열거형 variant 에 어떤 종류의 데이터라도 넣을 수 있습니다:
 예를 들면 문자열, 숫자 타입, 혹은 구조체. 다른 열거형 조차도 포함할 수 있습니다!
 또한 표준 라이브러리 타입들은 어떤 경우에는 해결책으로 생각한 것보다 훨씬 더
@@ -319,8 +311,7 @@ enum IpAddr {
     Write(String),
     ChangeColor(i32, i32, i32),
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 6-2: <code>Message</code> 열거형은 각 variants 가 다른 타입과
 다른 양의 값을 저장함.</span></p>
 <p>이 열거형에는 다른 데이터 타입을 갖는 네 개의 variants 가 있습니다:</p>
@@ -344,8 +335,7 @@ struct MoveMessage {
 }
 struct WriteMessage(String); // 튜플 구조체
 struct ChangeColorMessage(i32, i32, i32); // 튜플 구조체
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>각기 다른 타입을 갖는 여러 개의 구조체를 사용한다면, 이 메시지 중 어떤 한 가지를
 인자로 받는 함수를 정의하기 힘들 것입니다. Listing 6-2 에 정의한 <code>Message</code>
 열거형은 하나의 타입으로 이것이 가능합니다.</p>
@@ -369,8 +359,7 @@ struct ChangeColorMessage(i32, i32, i32); // 튜플 구조체
 
 let m = Message::Write(String::from(&quot;hello&quot;));
 m.call();
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>열거형의 값을 가져오기 위해 메소드 안에서 <code>self</code> 를 사용할 것입니다. 이 예제에서 생성한
 변수 <code>m</code> 은 <code>Message::Write(String::from(&quot;hello&quot;))</code> 값을 갖게 되고, 이 값은
 <code>m.call()</code>이 실행될 때, <code>call</code> 메소드 안에서 <code>self</code>가 될 것입니다.</p>
@@ -415,8 +404,7 @@ null 혹은 null 이 아님.</p>
     Some(T),
     None,
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><code>Option&lt;T&gt;</code> 열거형은 매우 유용하며 기본적으로 포함되어 있기 때문에, 명시적으로 가져오지 않아도
 사용할 수 있습니다. 또한 variants 도 마찬가지입니다: <code>Option::</code> 를 앞에 붙이지 않고,
 <code>Some</code> 과 <code>None</code> 을 바로 사용할 수 있습니다.
@@ -433,8 +421,7 @@ variants 입니다.</p>
 let some_string = Some(&quot;a string&quot;);
 
 let absent_number: Option&lt;i32&gt; = None;
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><code>Some</code> 이 아닌 <code>None</code> 을 사용한다면, <code>Option&lt;T&gt;</code> 이 어떤 타입을 가질지 러스트에게 알려줄 필요가
 있습니다. 컴파일러는 <code>None</code> 만 보고는 <code>Some</code> variant 가 어떤 타입인지 추론할 수 없습니다.</p>
 <p><code>Some</code> 값을 얻게 되면, 값이 있다는 것과 <code>Some</code> 이 갖고 있는 값에 대해 알 수 있습니다.
@@ -446,8 +433,7 @@ let absent_number: Option&lt;i32&gt; = None;
 <pre><code class="language-rust ignore">let x: i8 = 5;
 let y: Option&lt;i8&gt; = Some(5);
 
-let sum = x + y;
-</code></pre>
+let sum = x + y;</code></pre>
 <p>이 코드를 실행하면, 아래와 같은 에러 메시지가 출력됩니다:</p>
 <pre><code class="language-text">error[E0277]: the trait bound `i8: std::ops::Add&lt;std::option::Option&lt;i8&gt;&gt;` is
 not satisfied
@@ -519,21 +505,22 @@ not satisfied
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

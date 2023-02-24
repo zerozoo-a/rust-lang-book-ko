@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -157,8 +157,7 @@
 
 fn another_function() {
     println!(&quot;Another function.&quot;);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>Rust에서의 함수 선언은 <code>fn</code>으로 시작하며 함수 이름 뒤에 괄호의 형식으로 되어 있습니다. 중괄호는 컴파일러에게
 함수의 시작과 종료 지점을 알려주게 됩니다. </p>
 <p>우리는 함수의 이름과 괄호 형식을 기입하는 것을 통해 우리가 선언했던 어떤 함수든 호출할 수 있습니다. 
@@ -189,8 +188,7 @@ Another function.
 
 fn another_function(x: i32) {
     println!(&quot;The value of x is: {}&quot;, x);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>이 프로그램을 실행해보시면 다음과 같은 결과가 출력되는 것을 보게 될 겁니다:</p>
 <pre><code class="language-text">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
@@ -212,8 +210,7 @@ The value of x is: 5
 fn another_function(x: i32, y: i32) {
     println!(&quot;The value of x is: {}&quot;, x);
     println!(&quot;The value of y is: {}&quot;, y);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>이 예제는 각각 <code>i32</code> 타입인 두 개의 매개변수를 갖는 함수를 생성합니다. 함수는 그의 두 매개변수의 값을 출력합니다. 
 주의할 점은, 함수 매개변수는 이번 예제처럼 굳이 같은 타입이 아니여도 된다는 점 입니다. 한번 코드를 실행해봅시다. 
 여러분의 <em>function</em> 프로젝트의 <em>src/main.rs</em> 내용을 위의 예제로 변경한 뒤에, 
@@ -238,16 +235,14 @@ The value of y is: 6
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let y = 6;
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">항목 3-3: 하나의 구문을 갖는 <code>main</code> 함수를 선언하였다. </span></p>
 <p>함수 정의는 또 하나의 구문입니다; 상기 예제는 자신 그 자체가 구문입니다. 구문은 값을 반환하지 않습니다. 
 그러니, 여러분은 다음처럼 <code>let</code> 구문을 사용해서는 다른 변수에 값을 대입할 수 없습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><code class="language-rust ignore">fn main() {
     let x = (let y = 6);
-}
-</code></pre>
+}</code></pre>
 <p>여러분이 이 프로그램을 수행하면, 다음과 같은 에러를 보게 될 겁니다:</p>
 <pre><code class="language-text">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
@@ -277,14 +272,12 @@ Ruby와의 차이점 입니다. 이들 언어들은 <code>x = y = 6</code>와 �
     };
 
     println!(&quot;The value of y is: {}&quot;, y);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>표현식 부:</p>
 <pre><code class="language-rust ignore">{
     let x = 3;
     x + 1
-}
-</code></pre>
+}</code></pre>
 <p>이번 경우에 해당 block은 <code>4</code>를 산출합니다. 이 값은 <code>let</code> 구문의 일부로 <code>y</code>에 bound됩니다. 
 여러분이 앞서 봐온 것과 다르게 <code>x + 1</code> 줄의 마지막이 세미콜론으로 끝나지 않은 점을 주목하세요.
 표현식은 종결을 나타내는 세미콜론을 사용하지 않습니다. 만약 세미콜론을 표현식 마지막에 추가하면,
@@ -304,8 +297,7 @@ fn main() {
     let x = five();
 
     println!(&quot;The value of x is: {}&quot;, x);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><code>five</code> 함수에는 함수 호출, 매크로, 심지어 <code>let</code> 구문도 없이 그저 <code>5</code>란 숫자 하나가 있습니다. 
 이는 Rust에서 완벽하게 함수로 허용됩니다. 함수 반환 값의 타입이 <code>-&gt; i32</code>로 명시되어 있다는 점 
 또한 주목하세요. 해당 코드를 수행하면 다음과 같은 결과를 얻게 될 겁니다:</p>
@@ -322,8 +314,7 @@ The value of x is: 5
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let x = 5;
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>둘 째, <code>five</code> 함수는 매개변수 없이 반환 값에 대한 타입만 정의되어 있지만, 본문에는 <code>5</code>만이 세미콜론 없이 
 외로이 있는 이유는 이것이 우리가 값을 반환하고자 할 때 사용하는 표현식이기 때문입니다. 다른 예제를 통해 
 살펴보겠습니다:</p>
@@ -336,8 +327,7 @@ The value of x is: 5
 
 fn plus_one(x: i32) -&gt; i32 {
     x + 1
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>이 코드를 수행하면 <code>The value of x is: 6</code>를 출력하게 됩니다. 우리가 <code>x + 1</code> 끝에 세미콜론을 
 추가하여 표현식을 구문으로 변경하면 어떤 일이 일어날까요?</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
@@ -349,8 +339,7 @@ fn plus_one(x: i32) -&gt; i32 {
 
 fn plus_one(x: i32) -&gt; i32 {
     x + 1;
-}
-</code></pre>
+}</code></pre>
 <p>이 코드를 실행하면 다음과 같은 에러를 얻게 됩니다:</p>
 <pre><code class="language-text">error[E0308]: mismatched types
  --&gt; src/main.rs:7:28
@@ -403,21 +392,22 @@ fn plus_one(x: i32) -&gt; i32 {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -180,8 +180,7 @@ warning: function is never used: `connect`, #[warn(dead_code)] on by default
 
 fn main() {
     communicator::client::connect();
-}
-</code></pre>
+}</code></pre>
 <p><code>communicator</code> 라이브러리 크레이트를 가져오기 위해 <code>extern crate</code> 명령어를
 사용합니다. 우리의 패키지는 이제 <em>두 개의</em> 크레이트를 담고 있습니다. 카고는
 <em>src/main.rs</em>를 바이너리 크레이트의 루트 파일로 취급하는데, 이 바이너리 크레이트는
@@ -226,8 +225,7 @@ fn main() {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">pub mod client;
 
-mod network;
-</code></pre>
+mod network;</code></pre>
 <p><code>pub</code> 키워드는 <code>mod</code> 바로 전에 위치합니다. 다시 빌드를 시도해봅시다:</p>
 <pre><code class="language-text">error: function `connect` is private
  --&gt; src/main.rs:4:5
@@ -243,8 +241,7 @@ mod network;
 </span><span class="boring">fn main() {
 </span>pub fn connect() {
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이제 <code>cargo build</code>를 다시 실행하면:</p>
 <pre><code class="language-text">warning: function is never used: `connect`, #[warn(dead_code)] on by default
  --&gt; src/network/mod.rs:1:1
@@ -272,8 +269,7 @@ warning: function is never used: `connect`, #[warn(dead_code)] on by default
 <pre><code class="language-rust ignore">pub fn connect() {
 }
 
-mod server;
-</code></pre>
+mod server;</code></pre>
 <p>그리고 컴파일하면:</p>
 <pre><code class="language-text">warning: function is never used: `connect`, #[warn(dead_code)] on by default
  --&gt; src/network/mod.rs:1:1
@@ -295,8 +291,7 @@ warning: function is never used: `connect`, #[warn(dead_code)] on by default
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">pub mod client;
 
-pub mod network;
-</code></pre>
+pub mod network;</code></pre>
 <p>이제 컴파일하면, 그 경고는 사라집니다:</p>
 <pre><code class="language-text">warning: function is never used: `connect`, #[warn(dead_code)] on by default
  --&gt; src/network/server.rs:1:1
@@ -333,8 +328,7 @@ fn try_me() {
     outermost::middle_secret_function();
     outermost::inside::inner_function();
     outermost::inside::secret_function();
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 7-5: 비공개 및 공개 함수 예제. 몇 가지는 잘못되었음.</span></p>
 <p>이 코드를 컴파일하기 전에, <code>try_me</code> 함수의 어떤 라인이 에러를 발생시킬지 추측해보세요.
 그리고나서 컴파일을 하여 여러분이 맞았는지 확인하고, 에러에 대한 논의를 위해 계속
@@ -402,21 +396,22 @@ fn try_me() {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

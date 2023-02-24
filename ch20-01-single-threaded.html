@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -181,8 +181,7 @@ fn main() {
 
         println!(&quot;Connection established!&quot;);
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">예제 20-1: 수신 스트림 대기와 수신시 메시지 출력</span></p>
 <p>우린 <code>TcpListener</code> 를 사용하여 <code>127.0.0.1:7878</code> 주소로 TCP연결을 수신할 수 있습니다.
 이 주소의 <code>:</code> 앞부분은 여러분의 컴퓨터의 IP주소를 뜻합니다.
@@ -273,8 +272,7 @@ fn handle_connection(mut stream: TcpStream) {
     stream.read(&amp;mut buffer).unwrap();
 
     println!(&quot;Request: {}&quot;, String::from_utf8_lossy(&amp;buffer[..]));
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">예제 20-2: <code>TcpStream</code>으로부터 데이터를 읽고
 출력</span></p>
 <p>우린 <code>std::io::prelude</code>를 가져와 스트림으로부터
@@ -390,8 +388,7 @@ CRLF 시퀀스 이후는 헤더, 또 다른 CRLF의 뒤는 응답의 body가 들
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">예제 20-3: 스트림에 간단한 HTTP 응답 성공 메시지
 작성하기</span></p>
 <p>첫번째 새 줄에선 응답 메시지를 저장할 <code>response</code> 변수를 선언했습니다.
@@ -458,8 +455,7 @@ fn handle_connection(mut stream: TcpStream) {
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">예제 20-5: <em>hello.html</em> 의 내용을 응답의
 body에 넣고 전송하기</span></p>
 <p>맨 윗줄에서 <code>File</code> 표준 라이브러리를 가져왔습니다.
@@ -517,8 +513,7 @@ fn handle_connection(mut stream: TcpStream) {
         // 기타 다른 요청
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">예제 20-6: 요청을 비교하고 <code>/</code> 로의 요청을
 다른 요청들과 다르게 처리하기</span></p>
 <p>먼저, 우리는 <code>/</code> 로의 요청에 해당하는 데이터를 <code>get</code> 변수에 하드코딩했습니다.
@@ -567,8 +562,7 @@ fn handle_connection(mut stream: TcpStream) {
     stream.flush().unwrap();
 }
 <span class="boring">}
-</span><span class="boring">}
-</span></code></pre></pre>
+</span><span class="boring">}</span></code></pre></pre>
 <p><span class="caption">예제 20-7: <code>/</code> 로의 요청이 아닐 경우
 <code>404</code> 상태 코드와 에러 페이지를 응답</span></p>
 <p>여기서, 우린 <code>404</code> 상태 코드와 <code>NOT FOUND</code> 상태 메시지를 가진
@@ -639,8 +633,7 @@ fn handle_connection(mut stream: TcpStream) {
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">예제 20-9: <code>if</code> 와 <code>else</code> 블록을 각각이 처리하는 내용 중
 다른부분만 포함하도록 리팩토링</span></p>
 <p>이제 <code>if</code>와 <code>else</code> 블록은 오직 각각의 적절한 status line과
@@ -693,21 +686,22 @@ fn handle_connection(mut stream: TcpStream) {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

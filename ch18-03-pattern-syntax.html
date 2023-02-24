@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -159,8 +159,7 @@ match x {
     3 =&gt; println!(&quot;three&quot;),
     _ =&gt; println!(&quot;anything&quot;),
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><code>x</code> 의 값이 1 이기 때문에 이 코드는 <code>one</code> 을 출력합니다.
 이 구문은 특정한 구체적인 값을 가질때 행동하도록
 여러분의 코드를 작성하는데 도움이 됩니다.</p>
@@ -187,8 +186,7 @@ Listing 18-11 에서 <code>Some(5)</code> 값으로 <code>x</code> 변수를 선
     }
 
     println!(&quot;at the end: x = {:?}, y = {:?}&quot;, x, y);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 18-11: 갈래에서 <code>y</code> 변수를 새로 만들어
 기존의 것이 가려지도록 한 <code>match</code> 표현</span></p>
 <p><code>match</code> 표현이 실행되었을때 어떤 일이 일어나는지 살펴봅시다.
@@ -228,8 +226,7 @@ match x {
     3 =&gt; println!(&quot;three&quot;),
     _ =&gt; println!(&quot;anything&quot;),
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>따라서 코드는 <code>one or two</code> 를 출력합니다.</p>
 <h3 id="-를-이용한-값의-범위-매칭"><a class="header" href="#-를-이용한-값의-범위-매칭"><code>...</code> 를 이용한 값의 범위 매칭</a></h3>
 <p>우린 <code>...</code> 구문을 이용해 값의 범위 내에 매치시킬 수 있습니다.
@@ -243,8 +240,7 @@ match x {
     1 ... 5 =&gt; println!(&quot;one through five&quot;),
     _ =&gt; println!(&quot;something else&quot;),
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>만약 <code>x</code> 가 1, 2, 3, 4, 5 중 하나라면 첫번째 갈래와 매치됩니다.
 우리가 같은 코드를 앞서 설명한 <code>|</code> 이용해 작성했다면
 <code>1 | 2 | 3 | 4 | 5</code> 라고 써야 했겠지만, 이 구문을 이용하면
@@ -263,8 +259,7 @@ match x {
     'k' ... 'z' =&gt; println!(&quot;late ASCII letter&quot;),
     _ =&gt; println!(&quot;something else&quot;),
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>러스트는 <code>c</code> 가 첫번째 패턴(앞쪽 순서의 알파벳들)의 범위 안에 속한다는 것을
 알아낼 수 있고, <code>early ASCII letter</code> 을 출력합니다.</p>
 <h3 id="값을-해체하여-분리하기"><a class="header" href="#값을-해체하여-분리하기">값을 해체하여 분리하기</a></h3>
@@ -285,8 +280,7 @@ fn main() {
     let Point { x: a, y: b } = p;
     assert_eq!(0, a);
     assert_eq!(7, b);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 18-12: 구조체의 필드를
 여러 분리된 변수로 해체하기</span></p>
 <p>이 코드는 <code>p</code> 변수의 필드인 <code>x</code> 와 <code>y</code> 에 각각 대응되는 <code>a</code> 와 <code>b</code> 변수를
@@ -313,8 +307,7 @@ fn main() {
     let Point { x, y } = p;
     assert_eq!(0, x);
     assert_eq!(7, y);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 18-13: 약칭 구문을 이용해
 구조체 필드 해체하기</span></p>
 <p>이 코드는 <code>p</code> 변수의 <code>x</code> 와 <code>y</code> 필드에
@@ -341,8 +334,7 @@ fn main() {
         Point { x: 0, y } =&gt; println!(&quot;On the y axis at {}&quot;, y),
         Point { x, y } =&gt; println!(&quot;On neither axis: ({}, {})&quot;, x, y),
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 18-14: 한 패턴 내에서
 해체와 리터럴 값 매칭</span></p>
 <p>첫 번째 갈래는 <code>x</code> 축 위의 점인 경우에 해당하기에, <code>y</code> 필드가 <code>0</code> 값과
@@ -393,8 +385,7 @@ fn main() {
             )
         }
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 18-15: 다른 종류의 값들을 갖는
 열거형 variant 해체</span></p>
 <p>이 코드는 <code>Change the color to red 0, green 160, and blue 255</code> 를 출력합니다.
@@ -440,8 +431,7 @@ let sum_of_squares: i32 = points
     .iter()
     .map(|&amp;Point { x, y }| x * x + y * y)
     .sum();
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 18-16: 구조체 참조자를
 구조체 필드 값들로 해체하기</span></p>
 <p>이 코드의 <code>sum_of_squares</code> 변수는 135 의 값을 갖습니다.
@@ -474,8 +464,7 @@ let sum_of_squares: i32 = points
 </span><span class="boring">}
 </span><span class="boring">
 </span>let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 코드는 우리가 복잡한 타입의 컴포넌트를 분리하고
 각각의 값을 사용할 수 있게 합니다.</p>
 <p>패턴을 이용한 해체는 구조체의 각 필드값과 같은 일부의 값을 서로 별도로
@@ -500,8 +489,7 @@ let sum_of_squares: i32 = points
 
 fn main() {
     foo(3, 4);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 18-17: 함수 시그니처에서 <code>_</code> 사용하기</span></p>
 <p>이 코드는 첫번째 인자로 전달된 값인 <code>3</code> 을 완벽히 무시하고,
 <code>This code only uses the y parameter: 4</code> 를 출력합니다.</p>
@@ -535,8 +523,7 @@ match (setting_value, new_setting_value) {
 }
 
 println!(&quot;setting is {:?}&quot;, setting_value);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 18-18: <code>Some</code> 내부 값이 필요하지 않은
 상황에서 패턴 내에 언더스코어를 사용해 <code>Some</code> varaint 와
 매치시키기</span></p>
@@ -561,8 +548,7 @@ match numbers {
         println!(&quot;Some numbers: {}, {}, {}&quot;, first, third, fifth)
     },
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 18-19: 튜플의 여러 부분 무시하기</span></p>
 <p>이 코드는 <code>Some numbers: 2, 8, 32</code> 를 출력하고,
 4 와 16 은 무시됩니다.</p>
@@ -578,8 +564,7 @@ Listing 18-20 에선 두 개의 미사용 변수를 생성하지만 이 코드�
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let _x = 5;
     let y = 10;
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 18-20: 미사용 변수 경고를 피하기 위해
 변수명을 언더스코어로 시작하도록 하기</span></p>
 <p><code>y</code> 변수를 사용하지 않았다는 경고가 나타나지만,
@@ -594,8 +579,7 @@ if let Some(_s) = s {
     println!(&quot;found a string&quot;);
 }
 
-println!(&quot;{:?}&quot;, s);
-</code></pre>
+println!(&quot;{:?}&quot;, s);</code></pre>
 <p><span class="caption">Listing 18-21: 언더스코어로 시작하는 변수는
 여전히 값이 바인드되기 때문에 해당 값의 소유권을 가져갑니다</span></p>
 <p><code>s</code> 값이 <code>_s</code>로 이동되었기 때문에, <code>s</code> 를 다시 사용할 수 없다는 오류가 발생합니다.
@@ -611,8 +595,7 @@ if let Some(_) = s {
 }
 
 println!(&quot;{:?}&quot;, s);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 18-22: 언더스코어를 사용하면
 값이 바인드되지 않습니다</span></p>
 <p>우린 <code>s</code> 를 어느 것에도 바인드하지 않았습니다; 따라서 <code>s</code> 는 이동하지 않고, 이 코드는 잘 작동합니다.</p>
@@ -637,8 +620,7 @@ let origin = Point { x: 0, y: 0, z: 0 };
 match origin {
     Point { x, .. } =&gt; println!(&quot;x is {}&quot;, x),
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 18-23: <code>..</code> 를 사용해
 <code>Point</code> 의 <code>x</code> 필드 외 모든 필드 무시하기</span></p>
 <p><code>x</code> 를 나열하고, <code>..</code> 패턴을 포함했습니다.
@@ -656,8 +638,7 @@ Listing 18-24 는 <code>..</code> 를 튜플과 사용하는 법을 보여줍니
             println!(&quot;Some numbers: {}, {}&quot;, first, last);
         },
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 18-24: 튜플의 첫 번째와 마지막 값만 매칭시키고
 나머지 값은 모두 무시하기</span></p>
 <p>이 코드에선 첫 번째와 마지막 값이 <code>first</code> 와 <code>last</code> 에 매치되고,
@@ -674,8 +655,7 @@ Listing 18-25 는 <code>..</code> 를 모호하게 사용해 컴파일 되지 �
             println!(&quot;Some numbers: {}&quot;, second)
         },
     }
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 18-25: <code>..</code> 를 모호하게
 사용해보기</span></p>
 <p>이 예시를 컴파일하면 다음과 같은 에러가 나타납니다:</p>
@@ -709,8 +689,7 @@ match robot_name {
     None =&gt; (),
 }
 
-println!(&quot;robot_name is: {:?}&quot;, robot_name);
-</code></pre>
+println!(&quot;robot_name is: {:?}&quot;, robot_name);</code></pre>
 <p><span class="caption">Listing 18-26: <code>match</code> 갈래의 패턴에서
 값의 소유권을 갖는 변수 생성하기</span></p>
 <p><code>robot_name</code> 의 소유권이 <code>name</code> 으로 이동했기 때문에
@@ -736,8 +715,7 @@ match robot_name {
 }
 
 println!(&quot;robot_name is: {:?}&quot;, robot_name);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 18-27: 패턴 변수가 값의 소유권을 갖지 않도록
 참조자 생성하기</span></p>
 <p><code>robot_name</code> 의 <code>Some</code> 내 variant 값이 <code>match</code> 로 이동하지 않기 때문에
@@ -758,8 +736,7 @@ match robot_name {
 }
 
 println!(&quot;robot_name is: {:?}&quot;, robot_name);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 18-28: <code>ref mut</code> 를 이용해 패턴 내에서
 가변 참조자 생성하기</span></p>
 <p>이 예제는 문제 없이 컴파일되고 <code>robot_name is: Some(&quot;Another name&quot;)</code> 를
@@ -782,8 +759,7 @@ match num {
     Some(x) =&gt; println!(&quot;{}&quot;, x),
     None =&gt; (),
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 18-29: 패턴에 매치 가드 추가</span></p>
 <p>이 예제는 <code>less than five: 4</code> 를 출력합니다. <code>num</code> 이 첫 번째 갈래에서
 비교될 때, <code>Some(4)</code> 는 <code>Some(x)</code> 에 매치되기 때문에 매치됩니다.
@@ -813,8 +789,7 @@ Listing 18-30 은 매치 가드를 사용해 이 문제를
     }
 
     println!(&quot;at the end: x = {:?}, y = {:?}&quot;, x, y);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 18-30: 외부 변수와 같은지 테스트하기 위해
 매치 가드를 사용</span></p>
 <p>현재 이 코드는 <code>Default case, x = Some(5)</code> 를 출력합니다.
@@ -842,8 +817,7 @@ match x {
     4 | 5 | 6 if y =&gt; println!(&quot;yes&quot;),
     _ =&gt; println!(&quot;no&quot;),
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 18-31: 다중 패턴과
 매치 가드의 결합</span></p>
 <p>갈래의 매치 조건 상태는 <code>x</code> 가 <code>4</code>, <code>5</code>, <code>6</code> 중 하나이고
@@ -890,8 +864,7 @@ match msg {
         println!(&quot;Found some other id: {}&quot;, id)
     },
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 18-32: 패턴 내에서 값을 테스트하는 동시에
 <code>@</code> 를 이용해 값 바인드하기</span></p>
 <p>이 예제는 <code>Found an id in range: 5</code> 를 출력할 겁니다.
@@ -951,21 +924,22 @@ match msg {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

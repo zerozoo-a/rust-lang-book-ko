@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -184,8 +184,7 @@ fn handle_connection(mut stream: TcpStream) {
 
     // --생략--
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 20-10: <code>/sleep</code> 요청을 인식할시 5초간
 멈춤으로써 느린 요청을 시뮬레이션 하기</span></p>
 <p>이 코드는 좀 지저분하지만 시뮬레이션 용도로는 충분합니다.
@@ -264,8 +263,7 @@ Listing 20-11는 <code>main</code> 함수의 <code>for</code> 반복문을 모�
         });
     }
 }
-<span class="boring">fn handle_connection(mut stream: TcpStream) {}
-</span></code></pre></pre>
+<span class="boring">fn handle_connection(mut stream: TcpStream) {}</span></code></pre></pre>
 <p><span class="caption">Listing 20-11: 매 요청마다
 새 스레드 생성</span></p>
 <p>여러분이 16장에서 배우신대로, <code>thread::spawn</code> 은 새 스레드를 생성하고,
@@ -303,8 +301,7 @@ Listing 20-12는 <code>thread::spawn</code> 대신 이용하고자 하는 <code>
         });
     }
 }
-<span class="boring">fn handle_connection(mut stream: TcpStream) {}
-</span></code></pre></pre>
+<span class="boring">fn handle_connection(mut stream: TcpStream) {}</span></code></pre></pre>
 <p><span class="caption">Listing 20-12: 우리의 이상적인 <code>ThreadPool</code> 인터페이스</span></p>
 <p>우린 새로운 스레드 풀을 만들때 <code>ThreadPool::new</code> 를
 설정할 스레드의 개수를 나타내는 수(이 경우는 4)와 함께 사용했습니다.
@@ -340,8 +337,7 @@ error: aborting due to previous error
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub struct ThreadPool;
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>그 후 <em>src/bin</em> 이라는 새 디렉토리를 생성하고
 <em>src/main.rs</em> 바이너리 크레이트를 <em>src/bin/main.rs</em> 의 위치로 이동시킵니다.
 이로써 <em>hello</em> 디렉토리 안의 라이브러리 크레이트가 주요 크레이트가 될 것입니다;
@@ -350,8 +346,7 @@ error: aborting due to previous error
 <em>src/bin/main.rs</em> 상단에 다음 코드를 추가하여 <code>ThreadPool</code> 을 스코프 내로 가져옵니다:</p>
 <p><span class="filename">파일명: src/bin/main.rs</span></p>
 <pre><code class="language-rust ignore">extern crate hello;
-use hello::ThreadPool;
-</code></pre>
+use hello::ThreadPool;</code></pre>
 <p>이 코드는 여전히 작동하지 않지만,
 다음 오류를 확인하기 위해 다시 확인해 보겠습니다.</p>
 <pre><code class="language-text">$ cargo check
@@ -379,8 +374,7 @@ impl ThreadPool {
         ThreadPool
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>스레드의 개수가 음수라는 것은 말이 안되기 때문에
 <code>size</code> 인자의 타입을 <code>usize</code> 로 정했습니다.
 3장의 &quot;정수 타입&quot; 절에서 설명했듯이 이 4 라는 숫자를
@@ -420,8 +414,7 @@ error[E0599]: no method named `execute` found for type `hello::ThreadPool` in th
 <pre><code class="language-rust ignore">pub fn spawn&lt;F, T&gt;(f: F) -&gt; JoinHandle&lt;T&gt;
     where
         F: FnOnce() -&gt; T + Send + 'static,
-        T: Send + 'static
-</code></pre>
+        T: Send + 'static</code></pre>
 <p><code>F</code> 타입 인자가 바로 우리가 찾는 녀석입니다.
 <code>T</code> 타입 인자는 반환값과 연관된 인자니 관심을 가지지 않아도 됩니다.
 우린 <code>spawn</code> 이 <code>F</code> 의 트레잇으로 <code>FnOnce</code> 를 사용하는 것을 알 수 있는데,
@@ -448,8 +441,7 @@ error[E0599]: no method named `execute` found for type `hello::ThreadPool` in th
 
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>우린 클로저가 인자를 받지 않고 반환값도 없기 때문에
 <code>FnOnce</code> 뒤에 <code>()</code> 를 사용합니다.
 이처럼 함수의 반환값은 생략될 수 있습니다.
@@ -517,8 +509,7 @@ warning: unused variable: `f`
 
     // --생략--
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 20-13: <code>ThreadPool::new</code> 를 <code>size</code> 가 0일 경우 패닉을
 일으키도록 구현</span></p>
 <p><code>ThreadPool</code> 에 문서 주석(doc comments)을 좀 추가해 봤습니다.
@@ -532,8 +523,7 @@ warning: unused variable: `f`
 에러가 되어야 합니다. 만약 여러분이 오기가 생기신다면,
 <code>new</code> 를 다음과 같이 시그니처를 만든 새 버전을 작성해 보시고,
 두 버전을 비교해보세요.</p>
-<pre><code class="language-rust ignore">pub fn new(size: usize) -&gt; Result&lt;ThreadPool, PoolCreationError&gt; {
-</code></pre>
+<pre><code class="language-rust ignore">pub fn new(size: usize) -&gt; Result&lt;ThreadPool, PoolCreationError&gt; {</code></pre>
 <h4 id="스레드를-보관하기-위한-공간-생성하기"><a class="header" href="#스레드를-보관하기-위한-공간-생성하기">스레드를 보관하기 위한 공간 생성하기</a></h4>
 <p>이제 우린 스레드풀에 보관할 스레드의 개수가 유효하단 것을 확인했으니,
 반환하기 전에 <code>ThreadPool</code> 구조체에 스레드들을 생성하고 보관해 놓을 수 있습니다.
@@ -542,8 +532,7 @@ warning: unused variable: `f`
 <pre><code class="language-rust ignore">pub fn spawn&lt;F, T&gt;(f: F) -&gt; JoinHandle&lt;T&gt;
     where
         F: FnOnce() -&gt; T + Send + 'static,
-        T: Send + 'static
-</code></pre>
+        T: Send + 'static</code></pre>
 <p><code>spawn</code> 함수는 <code>JoinHandle&lt;T&gt;</code> 를 반환합니다. 여기서 <code>T</code> 는 클로저가
 반환할 타입입니다. <code>JoinHandle</code> 을 사용해보고 무슨 일이 일어나는지 살펴봅시다.
 우리의 경우, 스레드풀로 전달된 클로저는 커넥션을 다루고
@@ -577,8 +566,7 @@ impl ThreadPool {
     }
 
     // --생략--
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 20-14: <code>ThreadPool</code> 에 스레드들을 보관하기 위한
 벡터 만들기</span></p>
 <p><code>std::thread</code> 를 라이브러리 크레이트의 스코프 내로 가져왔습니다.
@@ -671,8 +659,7 @@ impl Worker {
         }
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 20-15: <code>ThreadPool</code> 을 스레드들을 직접 내장하는 대신
 <code>Worker</code> 인스턴스들을 내장하게 변경</span></p>
 <p>이제 <code>JoinHandle&lt;()&gt;</code> 인스턴스들이 아닌 <code>Worker</code> 인스턴스들을 내장하기 때문에
@@ -764,8 +751,7 @@ impl ThreadPool {
 </span><span class="boring">        }
 </span><span class="boring">    }
 </span><span class="boring">}
-</span><span class="boring">}
-</span></code></pre></pre>
+</span><span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 20-16: <code>ThreadPool</code> 이 <code>Job</code> 객제를 전송하는
 채널의 송신 측을 저장하도록 변경</span></p>
 <p><code>ThreadPool::new</code> 에서 우린 새 채널을 만들고 풀에 송신단을 저장합니다.
@@ -809,8 +795,7 @@ impl Worker {
             thread,
         }
     }
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 20-17: <em>worker</em> 에
 채널의 송신단을 전달</span></p>
 <p>작고 간단한 변경사항을 만들었습니다: <code>Worker::new</code> 에 채널의 수신단을
@@ -900,8 +885,7 @@ use std::sync::Mutex;
 </span><span class="boring">        }
 </span>    }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 20-18: <code>Arc</code> 와 <code>Mutex</code> 를 이용해 채널의
 를 <em>worker</em> 들이 공유하도록 변경</span></p>
 <p><code>ThreadPool::new</code> 에서, <code>Arc</code> 와 <code>Mutex</code> 를 이용해 채널의 수신단을 감싸고,
@@ -941,8 +925,7 @@ impl ThreadPool {
 }
 
 // --생략--
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">예제 20-19: 각 클로저를 내장한 <code>Box</code> 에 대한 타입 별칭인
 <code>Job</code> 을 만들고 채널에 작업 전송하기</span></p>
 <p><code>execute</code> 로 얻은 클로저를 사용하여 새 <code>Job</code> 객체를 생성하고 나면,
@@ -978,8 +961,7 @@ impl Worker {
             thread,
         }
     }
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 20-20: <em>worker</em> 스레드에서 작업을 수신하고
 실행하기</span></p>
 <p>맨 처음, 뮤텍스를 얻기 위해 <code>receiver</code> 의 <code>lock</code> 을 호출 하였고,
@@ -1065,8 +1047,7 @@ impl Worker {
             thread,
         }
     }
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 20-21: <code>Box&lt;FnOnce()&gt;</code> 의 한계를 해결하기 위한
 새 트레잇 <code>FnBox</code> 추가</span></p>
 <p>먼저, <code>FnBox</code> 라는 이름의 새 트레잇을 생성합니다.
@@ -1151,8 +1132,7 @@ impl Worker {
             thread,
         }
     }
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 20-22: <code>while let</code> 을 이용한
 <code>Worker::new</code> 의 대안 구현체</span></p>
 <p>이 코드는 컴파일 될 것이나 원하던 스레딩 동작은 하지 않습니다.
@@ -1205,21 +1185,22 @@ lock 의 소유권은 <code>LockResult&lt;MutexGuard&lt;T&gt;&gt;</code> 에 있
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

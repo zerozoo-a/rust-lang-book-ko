@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -153,8 +153,7 @@ match some_u8_value {
     Some(3) =&gt; println!(&quot;three&quot;),
     _ =&gt; (),
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 6-6: 어떤 값이 <code>Some(3)</code> 일 때에만 코드를 실행하도록
 하는 <code>match</code></span></p>
 <p>우리는 <code>Some(3)</code>에 매칭 되는 경우에만 뭔가를 하지만 다른 <code>Some&lt;u8&gt;</code> 값 혹은 <code>None</code> 값인 경우에는
@@ -168,8 +167,7 @@ variant를 처리한 다음에 추가해야 하는데, 이는 추가하기에 �
 </span>if let Some(3) = some_u8_value {
     println!(&quot;three&quot;);
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><code>if let</code>은 <code>=</code>로 구분된 패턴과 표현식을 입력받습니다. 이는 <code>match</code>와 동일한 방식으로 작동하는데,
 여기서 표현식은 <code>match</code>에 주어지는 것이고 패턴은 이 <code>match</code>의 첫 번째 갈래와 같습니다.</p>
 <p><code>if let</code>을 이용하는 것은 여러분이 덜 타이핑하고, 덜 들여 쓰기 하고, 보일러 플레이트 코드를 덜
@@ -202,8 +200,7 @@ match coin {
     Coin::Quarter(state) =&gt; println!(&quot;State quarter from {:?}!&quot;, state),
     _ =&gt; count += 1,
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>혹은 아래와 같이 <code>if let</code>과 <code>else</code> 표현식을 이용할 수도 있겠지요:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -226,8 +223,7 @@ if let Coin::Quarter(state) = coin {
 } else {
     count += 1;
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>만일 여러분의 프로그램이 <code>match</code>로 표현하기에는 너무 수다스러운 로직을 가지고 있는 경우에 놓여 있다면,
 여러분의 러스트 도구 상자에는 또한 <code>if let</code>이 있음을 기억하세요.</p>
 <h2 id="정리"><a class="header" href="#정리">정리</a></h2>
@@ -274,21 +270,22 @@ if let Coin::Quarter(state) = coin {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

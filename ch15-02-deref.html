@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -166,8 +166,7 @@
 
     assert_eq!(5, x);
     assert_eq!(5, *y);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 15-6: 역참조 연산자를 사용하여 <code>i32</code> 값에 대한
 참조자를 따라가기</span></p>
 <p>변수 <code>x</code>는 <code>i32</code> 값을 가지고 있습니다. <code>y</code>에는 <code>x</code>의 참조자를 설정했습니다.
@@ -202,8 +201,7 @@ not satisfied
 
     assert_eq!(5, x);
     assert_eq!(5, *y);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 15-7: <code>Box&lt;i32&gt;</code> 상에 역참조 연산자
 사용하기</span></p>
 <p>Listing 15-7와 Listing 15-6 사이의 차이점은 오직 <code>x</code>의 값을 가리키는
@@ -219,7 +217,7 @@ not satisfied
 수 있는 기능을 추가하는지 살펴보겠습니다.</p>
 <p><code>Box&lt;T&gt;</code> 타입은 궁극적으로 하나의 요소를 가진 튜플 구조체로 정의되므로,
 Listing 15-8은 <code>MyBox&lt;T&gt;</code> 타입을 동일한 방식으로 정의하였습니다. 또한
-<code>Box&lt;T&gt;</code>에 정의되어 있는 <code>new</code> 함수에 맞추기 위해 <code>new</code> 함수도 정의겠습니다:</p>
+<code>Box&lt;T&gt;</code>에 정의되어 있는 <code>new</code> 함수에 맞추기 위해 <code>new</code> 함수도 정의하겠습니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -230,14 +228,13 @@ impl&lt;T&gt; MyBox&lt;T&gt; {
         MyBox(x)
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 15-8: <code>MyBox&lt;T&gt;</code> 타입 정의하기</span></p>
 <p>우리는 <code>MyBox</code>라는 이름의 구조체를 정의하고 제네릭 파라미터 <code>T</code>를 선언했는데, 이는
 우리의 타입이 어떠한 종류의 타입 값이든 가질 수 있길 원하기 때문입니다. <code>MyBox</code>
 타입은 <code>T</code> 타입의 하나의 요소를 가진 튜플 구조체입니다. <code>MyBox::new</code> 함수는
 <code>T</code> 타입인 하나의 파라미터를 받아서 그 값을 갖는 <code>MyBox</code> 인스턴스를 반환합니다.</p>
-<p>Lisint 15-7의 <code>main</code> 함수를 Listing 15-8에 추가하고 <code>Box&lt;T&gt;</code> 대신 우리가
+<p>Listing 15-7의 <code>main</code> 함수를 Listing 15-8에 추가하고 <code>Box&lt;T&gt;</code> 대신 우리가
 정의한 <code>MyBox&lt;T&gt;</code>를 이용하도록 수정해봅시다. Listing 15-9는 컴파일되지
 않을 것인데 그 이유는 러스트가 <code>MyBox</code>를 어떻게 역참조 하는지 모르기
 때문입니다:</p>
@@ -248,8 +245,7 @@ impl&lt;T&gt; MyBox&lt;T&gt; {
 
     assert_eq!(5, x);
     assert_eq!(5, *y);
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 15-9: 참조자와 <code>Box&lt;T&gt;</code>를 사용한 것과 동일한
 방식으로 <code>MyBox&lt;T&gt;</code> 사용 시도하기</span></p>
 <p>아래는 그 결과 발생한 컴파일 에러입니다:</p>
@@ -281,8 +277,7 @@ impl&lt;T&gt; MyBox&lt;T&gt; {
         &amp;self.0
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 15-10: <code>MyBox&lt;T&gt;</code> 상의 <code>Deref</code> 구현</span></p>
 <p><code>type Target = T;</code> 문법은 <code>Deref</code> 트레잇이 사용할 연관 타입 (associated type)
 을 정의합니다. 연관 타입은 제네릭 파라미터를 정의하는 것과 약간 다른 방식이지만,
@@ -298,8 +293,7 @@ impl&lt;T&gt; MyBox&lt;T&gt; {
 호출하는 기능을 부여합니다.</p>
 <p>Listing 15-9의 <code>*y</code>에 들어설 때, 무대 뒤에서 러스트는 실제로 아래의 코드를
 실행했습니다:</p>
-<pre><code class="language-rust ignore">*(y.deref())
-</code></pre>
+<pre><code class="language-rust ignore">*(y.deref())</code></pre>
 <p>러스트는 <code>*</code> 연산자에 <code>deref</code> 메소드 호출 후 보통의 역참조를 대입하므로
 프로그래머로서 우리는 <code>deref</code> 메소드를 호출할 필요가 있는지 혹은 없는지를
 생각하지 않아도 됩니다. 이 러스트의 기능은 우리가 보통의 참조자를 가지고
@@ -337,8 +331,7 @@ impl&lt;T&gt; MyBox&lt;T&gt; {
 </span>fn hello(name: &amp;str) {
     println!(&quot;Hello, {}!&quot;, name);
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 15-11: 타입 <code>&amp;str</code>의 <code>name</code>이라는 파라미터를
 갖는 <code>hello</code> 함수</span></p>
 <p>우리는 예를 들면 <code>hello(&quot;Rust&quot;);</code>와 같이 스트링 슬라이스를 인자로 하여 <code>hello</code> 함수를
@@ -370,8 +363,7 @@ impl&lt;T&gt; MyBox&lt;T&gt; {
 </span>fn main() {
     let m = MyBox::new(String::from(&quot;Rust&quot;));
     hello(&amp;m);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 15-12: 역참조 강제 때문에 작동되는,
 <code>MyBox&lt;String&gt;</code> 값에 대한 참조자로 <code>hello</code> 호출하기</span></p>
 <p>여기서 우리는 <code>hello</code> 함수를 호출하는 인자로서 <code>&amp;m</code>를 이용했는데, 이는
@@ -410,8 +402,7 @@ Listing 15-13의 코드를 작성해야 했을 것입니다:</p>
 </span>fn main() {
     let m = MyBox::new(String::from(&quot;Rust&quot;));
     hello(&amp;(*m)[..]);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 15-13: 만일 러스트에 역참조 강제가 없었다면
 우리가 작성했어야 했을 코드</span></p>
 <p><code>(*m)</code>은 <code>MyBox&lt;String&gt;</code>을 <code>String</code>로 역참조해 줍니다. 그런 다음 <code>&amp;</code>과
@@ -482,21 +473,22 @@ Listing 15-13의 코드를 작성해야 했을 것입니다:</p>
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

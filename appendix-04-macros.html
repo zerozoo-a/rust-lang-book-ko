@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -188,8 +188,7 @@
 다음은 <code>serde</code> 크레이트에 정의된 매크로를
 현재 크레이트의 스코프로 가져오는 예제입니다:</p>
 <pre><code class="language-rust ignore">#[macro_use]
-extern crate serde;
-</code></pre>
+extern crate serde;</code></pre>
 <p>만약 어노테이션을 명시하지 않더라도 <code>extern crate</code> 만으로 스코프 내에 매크로가
 자동적으로 들어오게 됐더라면, 여러분은 같은 이름의 매크로가 정의된 크레이트를
 동시에 사용하지 못했을 겁니다. 충돌이 실제로 자주 발생하는 건 아니지만,
@@ -217,8 +216,7 @@ extern crate serde;
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let v: Vec&lt;u32&gt; = vec![1, 2, 3];
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이외에도 <code>vec!</code> 매크로는 두 정수로 이루어진 벡터나
 5 개의 스트링 슬라이스로 이루어진 벡터를 만드는 데도 사용할 수 있습니다.
 함수는 사전에 값의 개수나 타입을 알 수 없으므로 이러한 작업은 불가능합니다.</p>
@@ -238,8 +236,7 @@ macro_rules! vec {
         }
     };
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing D-1: <code>vec!</code> 매크로 정의를 간략화한
 모습</span></p>
 <blockquote>
@@ -285,8 +282,7 @@ macro_rules! vec {
 temp_vec.push(1);
 temp_vec.push(2);
 temp_vec.push(3);
-temp_vec
-</code></pre>
+temp_vec</code></pre>
 <p>우린 인수 개수가 어느만큼이건, 어떤 타입이건 가리지 않고 특정한 요소들을
 포함할 벡터를 만들어내는 코드를 생성할 수 있는 매크로를 선언했습니다.</p>
 <p>대부분의 러스트 프로그래머는 매크로를 <em>작성하기</em> 보다는 <em>사용하는</em> 일이 더
@@ -322,8 +318,7 @@ struct Pancakes;
 
 fn main() {
     Pancakes::hello_macro();
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing D-2: 우리가 만든 크레이트의 사용자가
 우리 절차적 매크로를 이용해 작성 가능할 코드</span></p>
 <p>완성됐을 때, 이 코드는 <code>Hello, Macro! My name is Pancakes!</code> 를 출력할 겁니다.
@@ -337,8 +332,7 @@ fn main() {
 </span>pub trait HelloMacro {
     fn hello_macro();
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이제 트레잇과 함수를 만들었습니다. 또한 현재 시점에서도 이 크레이트를
 이용해 다음과 같은 방식으로 우리가 원하던 기능을 구현할 수는 있습니다.</p>
 <pre><code class="language-rust ignore">extern crate hello_macro;
@@ -355,8 +349,7 @@ impl HelloMacro for Pancakes {
 
 fn main() {
     Pancakes::hello_macro();
-}
-</code></pre>
+}</code></pre>
 <p>하지만 지금으로서는 <code>hello_macro</code> 와 같이 사용하려는 타입마다
 구현 내용을 직접 작성해줘야 합니다; 이 작업은 생략할 수 있도록
 하는 편이 좋을 것입니다.</p>
@@ -418,8 +411,7 @@ pub fn hello_macro_derive(input: TokenStream) -&gt; TokenStream {
 
     // Return the generated impl
     gen.parse().unwrap()
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing D-3: 대부분의 절차적 매크로 크레이트가
 러스트 코드를 처리하는데 사용할 코드</span></p>
 <p>D-3 에서 함수들이 분리된것을 주목하세요;
@@ -464,8 +456,7 @@ pub fn hello_macro_derive(input: TokenStream) -&gt; TokenStream {
     body: Struct(
         Unit
     )
-}
-</code></pre>
+}</code></pre>
 <p>이 구조체 필드는 우리가 파싱한 러스트 코드가 <code>Pancakes</code> 라는 <code>ident</code>
 (식별자, 즉 이름) 를 갖는 유닛 구조체라는 것을 나타냅니다. 물론 여기 나온
 필드 이외에도 많은 필드가 모든 종류의 러스트 코드를 기술하기 위해 존재합니다;
@@ -497,8 +488,7 @@ pub fn hello_macro_derive(input: TokenStream) -&gt; TokenStream {
             }
         }
     }
-}
-</code></pre>
+}</code></pre>
 <p><code>asd.ident</code> 를 이용해 어노테이션 된 타입의 타입명(식별자)을 담고 있는
 <code>Ident</code> 구조체 인스턴스를 가져왔습니다. Listing D-2 코드의 경우,
 <code>name</code> 값은 <code>Ident(&quot;Pancakes&quot;)</code> 가 됩니다.</p>
@@ -576,21 +566,22 @@ hello_macro_derive = { path = &quot;../hello_macro/hello_macro_derive&quot; }
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

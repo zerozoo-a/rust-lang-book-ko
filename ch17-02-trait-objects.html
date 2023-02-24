@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -205,8 +205,7 @@ GUI 도구들에게 있어서는 흔한 방식이죠. 우리가 만들 라이브
 </span>pub trait Draw {
     fn draw(&amp;self);
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-3: <code>Draw</code> 트레잇의 정의</span></p>
 <p>이 문법은 10장에 있는 트레잇을 정의하는 방법에서 다뤘으니 익숙하실 겁니다.
 다음에 새로운 문법이 등장합니다: Listing 17-4는 <code>components</code> 라는
@@ -223,8 +222,7 @@ GUI 도구들에게 있어서는 흔한 방식이죠. 우리가 만들 라이브
 </span>pub struct Screen {
     pub components: Vec&lt;Box&lt;Draw&gt;&gt;,
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-4: <code>Draw</code> 트레잇을
 구현하는 트레잇 객체들의 벡터 항목 <code>components</code>를 소유한 구조체
 <code>Screen</code></span></p>
@@ -248,8 +246,7 @@ GUI 도구들에게 있어서는 흔한 방식이죠. 우리가 만들 라이브
         }
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-5: 각 컴포넌트에 대해 <code>draw</code> 메소드를
 호출하는 <code>Screen</code>의 <code>run</code> 메소드</span></p>
 <p>이것은 트레잇 바운드와 함께 제네릭 타입 파라미터를 사용하는 구조체를
@@ -277,8 +274,7 @@ impl&lt;T&gt; Screen&lt;T&gt;
         }
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-6: 제네릭과 트레잇 바운드를 사용한
 <code>Screen</code> 구조체와 <code>run</code> 메소드의 대체 구현</span></p>
 <p>이렇게하면 전부 <code>Button</code> 타입 혹은 전부 <code>TextField</code> 타입인 컴포넌트
@@ -313,8 +309,7 @@ impl Draw for Button {
         // code to actually draw a button
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-7: <code>Draw</code> 트레잇을 구현하는
 <code>Button</code> 구조체</span></p>
 <p><code>Button</code>의 <code>width</code>, <code>height</code> 및 <code>label</code> 필드는 다른 컴포넌트와는
@@ -343,8 +338,7 @@ impl Draw for SelectBox {
     fn draw(&amp;self) {
         // code to actually draw a select box
     }
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 17-8: <code>gui</code>를 사용하고 <code>Draw</code> 트레잇을
 <code>SelectBox</code> 구조체에 구현한 또 다른 크레이트</span></p>
 <p>우리 라이브러리의 사용자는 이제 <code>Screen</code> 인스턴스를 만들기 위해 <code>main</code> 함수를
@@ -376,8 +370,7 @@ fn main() {
     };
 
     screen.run();
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 17-9: 트레잇 객체를 사용하여 동일한 트레잇을
 구현하는 서로 다른 타입들의 값 저장하기</span></p>
 <p>우리가 라이브러리를 작성할 때는, 누군가 <code>SelectBox</code> 타입을 추가할 수도
@@ -412,8 +405,7 @@ fn main() {
     };
 
     screen.run();
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 17-10: 트레잇 객체의 트레잇을 구현하지 않은
 타입의 사용 시도하기</span></p>
 <p>우리는 아래와 같은 에러를 보게 될 것이며 이유는 <code>String</code> 이 <code>Draw</code> 트레잇을 구현하지 않기 때문입니다:</p>
@@ -477,8 +469,7 @@ Listing 17-9과 같은 지원이 가능해졌으니, 여기에는 고려할 기�
 </span>pub trait Clone {
     fn clone(&amp;self) -&gt; Self;
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><code>String</code> 타입은 <code>Clone</code> 트레잇을 구현하고, <code>String</code> 인스턴스에 대하여
 <code>clone</code> 메소드를 호출하면 우리는 <code>String</code>의 인스턴스를 반환받을 수 있습니다.
 비슷하게, 우리가 <code>Vec&lt;T&gt;</code>의 인스턴스 상의 <code>clone</code>을 호출하면, 우리는 <code>Vec&lt;T&gt;</code>
@@ -490,8 +481,7 @@ Listing 17-9과 같은 지원이 가능해졌으니, 여기에는 고려할 기�
 타입을 보관하도록 아래처럼 구현 시도를 해봅시다:</p>
 <pre><code class="language-rust ignore">pub struct Screen {
     pub components: Vec&lt;Box&lt;Clone&gt;&gt;,
-}
-</code></pre>
+}</code></pre>
 <p>우리는 이런 에러를 얻게 될 겁니다:</p>
 <pre><code class="language-text">error[E0038]: the trait `std::clone::Clone` cannot be made into an object
  --&gt; src/lib.rs:2:5
@@ -537,21 +527,22 @@ made into an object
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -167,8 +167,7 @@ fn main() {
     let answer = do_twice(add_one, 5);
 
     println!(&quot;The answer is: {}&quot;, answer);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 19-35: <code>fn</code> 타입을 사용하여
 함수 포인터를 인자로서 허용하기</span></p>
 <p>이 코드는 <code>The answer is: 12</code>를 출력합니다. 여기서는 <code>do_twice</code> 내의 파라미터
@@ -196,8 +195,7 @@ let list_of_strings: Vec&lt;String&gt; = list_of_numbers
     .iter()
     .map(|i| i.to_string())
     .collect();
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>혹은 아래와 같이 클로저 대신 <code>map</code>의 인자로서 함수 이름을 쓸 수도
 있습니다:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
@@ -207,8 +205,7 @@ let list_of_strings: Vec&lt;String&gt; = list_of_numbers
     .iter()
     .map(ToString::to_string)
     .collect();
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><code>to_string</code>이라는 이름의 사용 가능한 함수가 여러개이므로, 앞서 “고급
 트레잇” 절에서 이야기했던 완전 정규화 문법을 사용해야 하는 점을 주목하세요.
 여기서 우리는 <code>ToString</code> 트레잇 내에 정의된 <code>to_string</code> 함수를
@@ -226,8 +223,7 @@ let list_of_strings: Vec&lt;String&gt; = list_of_numbers
 <p>아래의 코드는 클로저를 직접 반환 시도를 하지만, 컴파일되지 않을 것입니다:</p>
 <pre><code class="language-rust ignore">fn returns_closure() -&gt; Fn(i32) -&gt; i32 {
     |x| x + 1
-}
-</code></pre>
+}</code></pre>
 <p>컴파일 에러는 다음과 같습니다:</p>
 <pre><code class="language-text">error[E0277]: the trait bound `std::ops::Fn(i32) -&gt; i32 + 'static:
 std::marker::Sized` is not satisfied
@@ -249,8 +245,7 @@ std::marker::Sized` is not satisfied
 </span>fn returns_closure() -&gt; Box&lt;Fn(i32) -&gt; i32&gt; {
     Box::new(|x| x + 1)
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 코드는 그냥 잘 컴파일 될 것입니다. 트레잇 객체에 대한 더 자세한 내용은
 17장의 “서로 다른 타입의 값을 허용하기 위한 트레잇 객체 사용하기” 절을
 참고하세요.</p>
@@ -296,21 +291,22 @@ std::marker::Sized` is not satisfied
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

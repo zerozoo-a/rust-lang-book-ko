@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -149,8 +149,7 @@
 함수를 작성하세요. 만일 함수가 공백문자를 찾지 못한다면, 이는 전체 스트링이 한 단어라는 의미이고,
 이때는 전체 스트링이 반환되어야 합니다.</p>
 <p>이 함수의 시그니처(signature)에 대해 생각해봅시다:</p>
-<pre><code class="language-rust ignore">fn first_word(s: &amp;String) -&gt; ?
-</code></pre>
+<pre><code class="language-rust ignore">fn first_word(s: &amp;String) -&gt; ?</code></pre>
 <p>이 함수 <code>first_word</code>는 <code>&amp;String</code>을 파라미터로 갖습니다. 우리는 소유권을 원하지 않으므로, 이렇게
 해도 좋습니다. 하지만 뭘 반환해야할까요? 우리는 스트링의 <em>일부</em>에 대해 표현할 방법이 없습니다. 하지만
 단어의 끝부분의 인덱스를 반환할 수는 있겠습니다. Listing 4-10의 코드처럼 시도해 봅시다:</p>
@@ -168,17 +167,14 @@
 
     s.len()
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 4-10: <code>String</code> 파라미터의 바이트 인덱스 값을 반환하는
 <code>first_word</code> 함수</span></p>
 <p>이 코드를 쪼개서 봅시다. 입력된 <code>String</code>를 요소별로 보면서 그 값이 공백인지 확인할 필요가 있기
 때문에, <code>String</code>은 <code>as_bytes</code> 메소드를 이용하여 바이트 배열로 변환됩니다:</p>
-<pre><code class="language-rust ignore">let bytes = s.as_bytes();
-</code></pre>
+<pre><code class="language-rust ignore">let bytes = s.as_bytes();</code></pre>
 <p>다음으로, <code>iter</code> 메소드를 이용하여 바이트 배열의 반복자(iterator)를 생성합니다:</p>
-<pre><code class="language-rust ignore">for (i, &amp;item) in bytes.iter().enumerate() {
-</code></pre>
+<pre><code class="language-rust ignore">for (i, &amp;item) in bytes.iter().enumerate() {</code></pre>
 <p>반복자에 대한 것은 13장에서 더 자세히 다루겠습니다. 지금은 <code>iter</code>가 컬렉션의 각 요소를 반환하는 함수이며,
 <code>enumerate</code>은 <code>iter</code>의 결과값을 직접 반환하는 대신 이를 감싸서 튜플의 일부로 만들어 반환한다는 정도만
 알아두세요. 반환된 튜플의 첫번째 요소는 인덱스이며, 두번째 요소는 요소에 대한 참조값입니다. 이는 우리 스스로
@@ -193,8 +189,7 @@
         return i;
     }
 }
-s.len()
-</code></pre>
+s.len()</code></pre>
 <p>이제 우리에게 스트링의 첫번째 단어의 끝부분의 인덱스를 찾아낼 방법이 생겼습니다. <code>usize</code>를
 그대로 반환하고 있지만, 이는 <code>&amp;String</code>의 내용물 내에서만 의미가 있습니다. 바꿔 말하면,
 이것이 <code>String</code>로부터 분리되어 있는 숫자이기 때문에, 이것이 나중에도 여전히 유효한지를 보장할
@@ -222,8 +217,7 @@ s.len()
 
     // word는 여기서 여전히 5를 갖고 있지만, 5라는 값을 의미있게 쓸 수 있는 스트링은 이제 없습니다.
     // word는 이제 완전 유효하지 않습니다!
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 4-11: <code>first_word</code> 함수를 호출하여 결과를 저장한 뒤
 <code>String</code>의 내용물을 바꾸기</span></p>
 <p>이 프로그램은 아무런 오류 없이 컴파일되고, <code>s.clear()</code>을 호출한 뒤 <code>word</code>를 사용한다 해도
@@ -233,8 +227,7 @@ s.len()
 <p><code>word</code>의 인덱스가 <code>s</code>의 데이터와 싱크가 안맞을 것을 걱정하는 건 지겹고 쉽게 발생할 수 있는 오류입니다!
 이러한 인덱스들을 관리하는 것은 우리가 <code>second_word</code> 함수를 작성했을 때 더더욱 다루기 어려워집니다.
 이 함수의 시그니처는 아래와 같은 모양이 되어야 할 것입니다:</p>
-<pre><code class="language-rust ignore">fn second_word(s: &amp;String) -&gt; (usize, usize) {
-</code></pre>
+<pre><code class="language-rust ignore">fn second_word(s: &amp;String) -&gt; (usize, usize) {</code></pre>
 <p>이제 우리는 시작, <em>그리고</em> 끝 인덱스를 추적하고 있고, 특정 상태에 있는 데이터로부터 계산되었지만
 그 상태와 전혀 묶여있지 않은 더 많은 값들을 갖게 됩니다. 이제 우리는 동기화를 유지할 필요가 있는
 주위를 떠다니는 세 개의 관련없는 변수들을 갖게 되었습니다.</p>
@@ -248,8 +241,7 @@ s.len()
 
 let hello = &amp;s[0..5];
 let world = &amp;s[6..11];
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이는 전체 <code>String</code>의 참조자를 갖는 것과 비슷하지만, 추가적으로 <code>[0..5]</code>라는 코드가 붙어 있습니다.
 전체 <code>String</code>에 대한 참조자 보다는, <code>String</code>의 일부분에 대한 참조자입니다. <code>start..end</code> 문법은
 <code>start</code>부터 시작하여 <code>end</code>를 포함하지 않는 연속된 범위를 기술합니다.</p>
@@ -270,8 +262,7 @@ let world = &amp;s[6..11];
 
 let slice = &amp;s[0..2];
 let slice = &amp;s[..2];
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>비슷한 이치로, 만일 여러분의 슬라이스가 <code>String</code>의 마지막 바이트까지 포함한다면, 여러분은 끝의
 숫자를 생략할 수 있습니다. 이는 아래 두 줄의 표현이 동일하다는 의미입니다:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
@@ -282,8 +273,7 @@ let len = s.len();
 
 let slice = &amp;s[3..len];
 let slice = &amp;s[3..];
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>여러분은 또한 전체 스트링의 슬라이스를 만들기 위해 양쪽 값을 모두 생략할 수 있습니다. 따라서 아래
 두 줄의 표현은 동일합니다:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
@@ -294,8 +284,7 @@ let len = s.len();
 
 let slice = &amp;s[0..len];
 let slice = &amp;s[..];
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 모든 정보를 잘 기억하시고, <code>first_word</code>가 슬라이스를 반환하도록 다시 작성해봅시다.
 “스트링 슬라이스”를  나타내는 타입은 <code>&amp;str</code>로 씁니다:</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
@@ -312,16 +301,14 @@ let slice = &amp;s[..];
 
     &amp;s[..]
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>우리는 Listing 4-10에서 작성한 것과 같은 방법으로 공백 문자가 첫번째로 나타난 지점을 찾아서 단어의
 끝 인덱스를 얻어냅니다. 공백 문자를 찾으면, 스트링의 시작과 공백 문자의 인덱스를 각각 시작과 끝 인덱스로
 사용하여 스트링 슬라이스를 반환합니다.</p>
 <p>이제 <code>first_word</code>가 호출되면, 해당 데이터와 묶여있는 하나의 값을 반환받게 되었습니다. 이 값은
 슬라이스의 시작 위치에 대한 참조자와 슬라이스의 요소 개수로 이루어져 있습니다.</p>
 <p><code>second_word</code> 함수에 대해서도 마찬가지로 슬라이스를 반환하는 형식이 잘 동작할 것입니다:</p>
-<pre><code class="language-rust ignore">fn second_word(s: &amp;String) -&gt; &amp;str {
-</code></pre>
+<pre><code class="language-rust ignore">fn second_word(s: &amp;String) -&gt; &amp;str {</code></pre>
 <p>우리는 이제 엉망이 되기 훨씬 힘든 직관적인 API를 갖게 되었는데, 이는 컴파일러가 <code>String</code>에 대한
 참조자들이 유효한 상태로 남아있게끔 보장할 것이기 때문입니다. 첫번째 단어의 끝 인덱스를 찾았지만,
 그 후 스트링을 비워버려서 인덱스가 유효하지 않게되는 Listing 4-11의 프로그램 내의 버그를 기억하시나요?
@@ -338,8 +325,7 @@ let slice = &amp;s[..];
     s.clear(); // Error!
 
     println!(&quot;the first word is: {}&quot;, word);
-}
-</code></pre>
+}</code></pre>
 <p>여기 컴파일 오류 메세지를 보시죠:</p>
 <pre><code class="language-text">17:6 error: cannot borrow `s` as mutable because it is also borrowed as
             immutable [E0502]
@@ -365,19 +351,16 @@ fn main() {
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let s = &quot;Hello, world!&quot;;
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>여기서 <code>s</code>의 타입은 <code>&amp;str</code>입니다: 이것은 바이너리의 특정 지점을 가리키고 있는 슬라이스입니다.
 이는 왜 스트링 리터럴이 불변인가도 설명해줍니다; <code>&amp;str</code>은 불변 참조자이기 때문입니다.</p>
 <h4 id="파라미터로서의-스트링-슬라이스"><a class="header" href="#파라미터로서의-스트링-슬라이스">파라미터로서의 스트링 슬라이스</a></h4>
 <p>여러분이 리터럴과 <code>String</code>의 슬라이스를 얻을 수 있다는 것을 알게 되었다면 <code>first_word</code> 함수를
 한번 더 개선시킬 수 있는데, 바로 이 함수의 시그니처입니다:</p>
-<pre><code class="language-rust ignore">fn first_word(s: &amp;String) -&gt; &amp;str {
-</code></pre>
+<pre><code class="language-rust ignore">fn first_word(s: &amp;String) -&gt; &amp;str {</code></pre>
 <p>더 경험이 많은 러스트인이라면 대신 아래와 같이 작성하는데, 그 이유는 <code>&amp;String</code>과 <code>&amp;str</code> 둘 모두에
 대한 같은 함수를 사용할 수 있도록 해주기 때문입니다.</p>
-<pre><code class="language-rust ignore">fn first_word(s: &amp;str) -&gt; &amp;str {
-</code></pre>
+<pre><code class="language-rust ignore">fn first_word(s: &amp;str) -&gt; &amp;str {</code></pre>
 <p>만일 우리가 스트링 슬라이스를 갖고 있다면, 이를 바로 넘길 수 있습니다. <code>String</code>을 갖고 있다면,
 이 <code>String</code>의 전체 슬라이스를 넘길 수 있습니다. 함수가 <code>String</code>의 참조자 대신 스트링 슬라이스를
 갖도록 정의하는 것은 우리의 API를 어떠한 기능적인 손실 없이도 더 일반적이고 유용하게 해줍니다:</p>
@@ -407,16 +390,14 @@ fn main() {
     // 스트링 리터럴은 *또한* 스트링 슬라이스이기 때문에,
     // 아래 코드도 슬라이스 문법 없이 동작합니다!
     let word = first_word(my_string_literal);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <h3 id="그-밖의-슬라이스들"><a class="header" href="#그-밖의-슬라이스들">그 밖의 슬라이스들</a></h3>
 <p>스트링 슬라이스는 여러분이 상상하는 바와 같이, 스트링에 특정되어 있습니다. 하지만 더 일반적인
 슬라이스 타입도 역시 있습니다. 아래 배열을 보시죠:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let a = [1, 2, 3, 4, 5];
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>우리가 스트링의 일부를 참조하고 싶어할 수 있는 것처럼, 배열의 일부를 참조하고 싶을 수 있고, 그러면
 아래와 같이 쓸 수 있습니다:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
@@ -424,8 +405,7 @@ fn main() {
 </span>let a = [1, 2, 3, 4, 5];
 
 let slice = &amp;a[1..3];
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 슬라이스는 <code>&amp;[i32]</code> 타입을 갖습니다. 이는 스트링 슬라이스가 동작하는 방법과 똑같이, 슬라이스의
 첫번째 요소에 대한 참조자와 슬라이스의 길이를 저장하는 방식으로 동작합니다. 여러분은 다른 모든 종류의
 컬렉션들에 대하여 이런 종류의 슬라이스를 이용할 수 있습니다. 벡터에 대해서 8장에서 이야기할 때 이러한
@@ -471,21 +451,22 @@ let slice = &amp;a[1..3];
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

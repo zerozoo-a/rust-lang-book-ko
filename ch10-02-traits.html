@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -172,8 +172,7 @@
 </span>pub trait Summarizable {
     fn summary(&amp;self) -&gt; String;
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 10-11: <code>summary</code> 메소드에 의해 제공되는 동작으로 구성된
 <code>Summarizable</code> 트레잇의 정의</span></p>
 <p><code>trait</code> 키워드 다음 트레잇의 이름, 위의 경우 <code>Summarizable</code>을 써서 트레잇을 선언했습니다.
@@ -223,8 +222,7 @@ impl Summarizable for Tweet {
         format!(&quot;{}: {}&quot;, self.username, self.content)
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 10-12: <code>NewsArticle</code>과 <code>Tweet</code> 타입 상에서의
 <code>Summarizable</code> 트레잇 구현</span></p>
 <p>어떤 타입 상에서의 트레잇 구현은 트레잇과 관련이 없는 메소드를 구현하는 것과 유사합니다. 다른 점은
@@ -241,8 +239,7 @@ impl Summarizable for Tweet {
     retweet: false,
 };
 
-println!(&quot;1 new tweet: {}&quot;, tweet.summary());
-</code></pre>
+println!(&quot;1 new tweet: {}&quot;, tweet.summary());</code></pre>
 <p>이 코드는 <code>1 new tweet: horse_ebooks: of course, as you probably already know, people</code>를 출력할 것입니다.</p>
 <p>Listing 10-12에서 <code>Summarizable</code> 트레잇과 <code>NewsArticle</code> 및 <code>Tweet</code> 타입을 동일한
 <code>lib.rs</code> 내에 정의했기 때문에, 이들이 모두 동일한 스코프 내에 있다는 점을 주목하세요. 만일
@@ -267,8 +264,7 @@ impl Summarizable for WeatherForecast {
         precipitation is {}%.&quot;, self.high_temp, self.low_temp,
         self.chance_of_precipitation)
     }
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 10-13: 우리의 <code>aggregator</code> 크레이트로부터
 다른 크레이트 내의 스코프로 <code>Summarizable</code> 트레잇을 가져오기</span></p>
 <p>이 코드는 또한 <code>Summarizable</code>이 공개 트레잇임을 가정하는데, 이는 Listing 10-11에서 <code>trait</code>
@@ -301,14 +297,12 @@ impl Summarizable for WeatherForecast {
         String::from(&quot;(Read more...)&quot;)
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 10-14: <code>summary</code> 메소드의 기본 구현을 포함한
 <code>Summarizable</code> 트레잇의 정의</span></p>
 <p>만일 우리가 Listing 10-12에서 한 것과 같은 커스텀 구현을 정의하는 대신 <code>NewsArticle</code>의
 인스턴스를 정리하기 위해 이 기본 구현을 사용하고자 한다면, 빈 <code>impl</code> 블록을 명시하면 됩니다:</p>
-<pre><code class="language-rust ignore">impl Summarizable for NewsArticle {}
-</code></pre>
+<pre><code class="language-rust ignore">impl Summarizable for NewsArticle {}</code></pre>
 <p>비록 <code>NewsArticle</code>에 대한 <code>summary</code> 메소드를 직접 정의하는 선택을 더 이상 하지 않았더라도,
 <code>summary</code> 메소드가 기본 구현을 갖고 있고 <code>NewsArticle</code>이 <code>Summarizable</code> 트레잇을 구현하도록
 명시했기 때문에, 우리는 여전히 <code>newsArticle</code>의 인스턴스 상에서 <code>summary</code> 메소드를 호출할 수
@@ -321,8 +315,7 @@ impl Summarizable for WeatherForecast {
     hockey team in the NHL.&quot;),
 };
 
-println!(&quot;New article available! {}&quot;, article.summary());
-</code></pre>
+println!(&quot;New article available! {}&quot;, article.summary());</code></pre>
 <p>위의 코드는 <code>New article available! (Read more...)</code>를 출력합니다.</p>
 <p><code>Summarizable</code> 트레잇이 <code>summary</code> 에대한 기본 구현을 갖도록 변경하는 것은 Listing 10-12의
 <code>Tweet</code>이나 Listing 10-13의 <code>WeatherForecast</code> 상에서의 <code>Summarizable</code> 구현에 대한
@@ -342,16 +335,14 @@ println!(&quot;New article available! {}&quot;, article.summary());
         format!(&quot;(Read more from {}...)&quot;, self.author_summary())
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 버전의 <code>Summarizable</code>을 사용하기 위해서는, 어떤 타입에 대한 이 트레잇을 구현할 때
 <code>author_summary</code>만 정의하면 됩니다:</p>
 <pre><code class="language-rust ignore">impl Summarizable for Tweet {
     fn author_summary(&amp;self) -&gt; String {
         format!(&quot;@{}&quot;, self.username)
     }
-}
-</code></pre>
+}</code></pre>
 <p>일단 <code>author_summary</code>를 정의하면, <code>Tweet</code> 구조체의 인스턴스 상에서 <code>summary</code>를 호출할
 수 있으며, <code>summary</code>의 기본 구현이 우리가 제공한 <code>author_summary</code>의 정의부를 호출할
 것입니다.</p>
@@ -362,8 +353,7 @@ println!(&quot;New article available! {}&quot;, article.summary());
     retweet: false,
 };
 
-println!(&quot;1 new tweet: {}&quot;, tweet.summary());
-</code></pre>
+println!(&quot;1 new tweet: {}&quot;, tweet.summary());</code></pre>
 <p>위의 코드는 <code>1 new tweet: (Read more from @horse_ebooks...)</code>를 출력할 것입니다.</p>
 <p>오버라이딩된 구현으로부터 기본 구현을 호출하는 것은 불가능하다는 점을 기억해주세요.</p>
 <h3 id="트레잇-바운드"><a class="header" href="#트레잇-바운드">트레잇 바운드</a></h3>
@@ -378,8 +368,7 @@ println!(&quot;1 new tweet: {}&quot;, tweet.summary());
 반드시 구현한 타입이어야 함을 특정할 수 있습니다:</p>
 <pre><code class="language-rust ignore">pub fn notify&lt;T: Summarizable&gt;(item: T) {
     println!(&quot;Breaking news! {}&quot;, item.summary());
-}
-</code></pre>
+}</code></pre>
 <p>트레잇 바운드는 제네릭 타입 파라미터의 선언부와 함께, 꺾쇠 괄호 내에 콜론 뒤에 옵니다. <code>T</code> 상에서의
 트레잇 바운드이므로, 우리는 <code>notify</code>를 호출하여 <code>NewsArticle</code>이나 <code>Tweet</code>의 어떠한 인스턴스라도
 넘길 수 있습니다. 우리의 <code>aggregator</code> 크레이트를 사용하는 Listing 10-13의 외부 코드도 우리의
@@ -395,14 +384,12 @@ println!(&quot;1 new tweet: {}&quot;, tweet.summary());
 함수 이름과 파라미터 리스트 사이의 꺾쇠 괄호 내에 많은 수의 트레잇 바운드 정보를 특정하는 것은
 코드를 읽기 힘들게 만들 수 있으므로, 함수 시그니처 뒤에 <code>where</code> 절 뒤로 트레잇 바운드를 옮겨서
 특정하도록 해주는 대안 문법이 있습니다. 따라서 아래와 같은 코드 대신:</p>
-<pre><code class="language-rust ignore">fn some_function&lt;T: Display + Clone, U: Clone + Debug&gt;(t: T, u: U) -&gt; i32 {
-</code></pre>
+<pre><code class="language-rust ignore">fn some_function&lt;T: Display + Clone, U: Clone + Debug&gt;(t: T, u: U) -&gt; i32 {</code></pre>
 <p><code>where</code> 절을 이용하여 아래와 같이 작성할 수 있습니다:</p>
 <pre><code class="language-rust ignore">fn some_function&lt;T, U&gt;(t: T, u: U) -&gt; i32
     where T: Display + Clone,
           U: Clone + Debug
-{
-</code></pre>
+{</code></pre>
 <p>함수 이름, 파라미터 리스트, 그리고 반환 타입이 서로 가까이 있도록 하여, 이쪽이 덜 어수선하고 이 함수의
 시그니처를 많은 트레잇 바운드를 가지고 있지 않은 함수처럼 보이도록 만들어 줍니다.</p>
 <h3 id="트레잇-바운드를-사용하여-largest-함수-고치기"><a class="header" href="#트레잇-바운드를-사용하여-largest-함수-고치기">트레잇 바운드를 사용하여 <code>largest</code> 함수 고치기</a></h3>
@@ -423,8 +410,7 @@ note: an implementation of `std::cmp::PartialOrd` might be missing for `T`
 <code>PartialOrd</code>를 특정하여 <code>largest</code> 함수가 비교 가능한 어떤 타입의 슬라이스에 대해 작동하도록
 할 필요가 있습니다. <code>PartialOrd</code>는 프렐루드(prelude)에 포함되어 있기 때문에 따로 스코프 내로
 가져올 필요는 없습니다.</p>
-<pre><code class="language-rust ignore">fn largest&lt;T: PartialOrd&gt;(list: &amp;[T]) -&gt; T {
-</code></pre>
+<pre><code class="language-rust ignore">fn largest&lt;T: PartialOrd&gt;(list: &amp;[T]) -&gt; T {</code></pre>
 <p>이 코드를 컴파일하면, 다른 에러를 얻게 됩니다:</p>
 <pre><code class="language-text">error[E0508]: cannot move out of type `[T]`, a non-copy array
  --&gt; src/main.rs:4:23
@@ -479,8 +465,7 @@ fn main() {
 
     let result = largest(&amp;chars);
     println!(&quot;The largest char is {}&quot;, result);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 10-15: <code>PartialOrd</code>와 <code>Copy</code> 트레잇을 구현한 어떠한
 제네릭 타입 상에서 동작하는 <code>largest</code> 함수의 동작 가능한 정의</span></p>
 <p>만일 우리의 <code>largest</code> 함수를 <code>Copy</code> 트레잇을 구현한 타입에 대한 것으로만 제한하길 원치 않는다면,
@@ -537,21 +522,22 @@ fn main() {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

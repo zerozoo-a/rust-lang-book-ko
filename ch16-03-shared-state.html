@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -197,8 +197,7 @@ fn main() {
     }
 
     println!(&quot;m = {:?}&quot;, m);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 16-12: 단순함을 위해 단일 스레드 맥락 내에서
 <code>Mutex&lt;T&gt;</code>의 API 탐색하기</span></p>
 <p>많은 타입들처럼 <code>Mutex&lt;T&gt;</code>는 연관함수 <code>new</code>를 사용하여 만들어집니다.
@@ -252,8 +251,7 @@ fn main() {
     }
 
     println!(&quot;Result: {}&quot;, *counter.lock().unwrap());
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 16-13: <code>Mutex&lt;T&gt;</code>에 의해 보호되는 카운터를
 각자 증가시키는 10개의 스레드</span></p>
 <p>Listing 16-12에서 했던 것처럼 <code>Mutex&lt;T&gt;</code> 내부에 <code>i32</code>를 담는 <code>counter</code>
@@ -325,8 +323,7 @@ fn main() {
     }
 
     println!(&quot;Result: {}&quot;, *counter.lock().unwrap());
-}
-</code></pre>
+}</code></pre>
 <p>우리는 두 개의 스레드를 만들고 두번째 스레드에서 사용되는 변수 이름을
 <code>handle2</code>와 <code>num2</code>로 바꿨습니다. 이제 이 코드를 실행하면, 컴파일러가
 우리에게 다음 에러 메세지를 줍니다:</p>
@@ -395,8 +392,7 @@ fn main() {
     }
 
     println!(&quot;Result: {}&quot;, *counter.lock().unwrap());
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 16-14: 여러 스레드가 <code>Mutex&lt;T&gt;</code>를 소유할 수
 있도록 <code>Rc&lt;T&gt;</code>를 사용하는 시도</span></p>
 <p>다시 한번 컴파일을 하고 그 결과가... 다른 에러들이네요! 컴파일러는 우리에게
@@ -471,8 +467,7 @@ fn main() {
     }
 
     println!(&quot;Result: {}&quot;, *counter.lock().unwrap());
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 16-15: <code>Arc&lt;T&gt;</code>를 사용하여 <code>Mutex&lt;T&gt;</code>를 감싸서
 여러 스레드 사이에서 소유권을 공유할 수 있도록 하기</span></p>
 <p>이 코드는 다음을 출력할 것입니다:</p>
@@ -536,21 +531,22 @@ fn main() {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

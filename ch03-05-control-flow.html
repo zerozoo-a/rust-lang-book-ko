@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -160,8 +160,7 @@
     } else {
         println!(&quot;condition was false&quot;);
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <!-- NEXT PARAGRAPH WRAPPED WEIRD INTENTIONALLY SEE #199 -->
 <p>모든 <code>if</code>표현식은 <code>if</code>란 키워드로 시작하며 뒤이어 조건이 옵니다. 이번 경우에 조건은 변수 <code>number</code>가 
 5보다 작은 값을 가지는지 여부가 됩니다. 조건이 참일 때 실행하는 코드 블록은 조건 바로 뒤 중괄호로 된 블록에 
@@ -178,8 +177,7 @@
 condition was true
 </code></pre>
 <p><code>number</code>의 값을 조건을 <code>거짓</code>으로 만들 값으로 변경하면 무슨 일이 일어날지 살펴보도록 합시다:</p>
-<pre><code class="language-rust ignore">let number = 7;
-</code></pre>
+<pre><code class="language-rust ignore">let number = 7;</code></pre>
 <p>프로그램을 다시 실행시키면, 다음과 같은 결과를 보게 됩니다:</p>
 <pre><code class="language-text">$ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
@@ -196,8 +194,7 @@ condition was false
     if number {
         println!(&quot;number was three&quot;);
     }
-}
-</code></pre>
+}</code></pre>
 <p><code>if</code>의 조건이 <code>3</code>으로 산출되고, Rust는 에러를 발생시킵니다.</p>
 <pre><code class="language-text">error[E0308]: mismatched types
  --&gt; src/main.rs:4:8
@@ -219,8 +216,7 @@ condition was false
     if number != 0 {
         println!(&quot;number was something other than zero&quot;);
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>이번 코드를 실행시키면 <code>number was something other than zero</code>가 출력 될 겁니다.</p>
 <h4 id="else-if와-다수-조건"><a class="header" href="#else-if와-다수-조건"><code>else if</code>와 다수 조건</a></h4>
 <p>우리는 <code>if</code>와 <code>else</code> 사이에 <code>else if</code>식을 추가 결합하여 다양한 조건을 다룰 수 있습니다. 
@@ -238,8 +234,7 @@ condition was false
     } else {
         println!(&quot;number is not divisible by 4, 3, or 2&quot;);
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>이번 프로그램은 분기할 수 있는 네 개의 경로를 갖습니다. 이를 수행하면, 다음과 같은 결과를 얻게 될 겁니다:</p>
 <pre><code class="language-text">$ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
@@ -265,8 +260,7 @@ Rust가 첫 번째로 조건이 참이 되는 블록만 찾아 실행하고, 한
     };
 
     println!(&quot;The value of number is: {}&quot;, number);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 3-4: <code>if</code> 표현식의 결과값을 변수에 대입하기</span></p>
 <p>변수 <code>number</code>에는 <code>if</code>식에서 산출된 값이 bound되게 됩니다. 어떤 일이 일어날지 코드를 실행해보죠:</p>
 <pre><code class="language-text">$ cargo run
@@ -290,8 +284,7 @@ The value of number is: 5
     };
 
     println!(&quot;The value of number is: {}&quot;, number);
-}
-</code></pre>
+}</code></pre>
 <p>우리가 이번 코드를 실행시키려고 하면 에러를 얻게 됩니다. <code>if</code>와 <code>else</code> 갈래의 값 타입이 호환되지 않고, 
 Rust는 정확히 프로그램의 어느 지점에 문제가 있는지 보여줍니다. </p>
 <pre><code class="language-text">error[E0308]: if and else have incompatible types
@@ -326,8 +319,7 @@ Rust는 정확히 프로그램의 어느 지점에 문제가 있는지 보여줍
     loop {
         println!(&quot;again!&quot;);
     }
-}
-</code></pre>
+}</code></pre>
 <p>이 프로그램을 실행시키면, 우리는 프로그램을 강제 정지하기 전까지 <code>again!</code>이 반복 출력되는 것을 보게 됩니다.
 대부분의 터미널은 단축키 <span class="keystroke">ctrl-C</span>를 통해서 무한루프에 빠진 프로그램을
 정지시키는 기능을 지원합니다. 한번 시도해 보세요:</p>
@@ -363,8 +355,7 @@ again!
     }
 
     println!(&quot;LIFTOFF!!!&quot;);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>이 구조자는 loop, if, else 및 break를 사용하는 경우 필요한 많은 중첩을 제거하며, 더 깔끔합니다.
 조건이 true인 동안 코드가 실행되고; 그렇지 않으면 루프에서 벗어납니다.</p>
 <h4 id="for와-함께하는-콜렉션-반복하기"><a class="header" href="#for와-함께하는-콜렉션-반복하기"><code>for</code>와 함께하는 콜렉션 반복하기</a></h4>
@@ -380,8 +371,7 @@ again!
 
         index = index + 1;
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 3-5: <code>while</code> 반복문을 사용해 콜렉션의 각 요소들을 순회하기</span></p>
 <p>여기서, 코드는 배열의 요소에 걸쳐 카운트를 증가시킵니다. 이 색인은 <code>0</code>에서 시작하고, 배열의 마지막 순서까지 반복됩니다
 (즉, <code>index &lt; 5</code>가 참이 아닐 때까지). 이 코드를 수행하면 배열의 모든 요소가 출력되게 됩니다. </p>
@@ -409,8 +399,7 @@ the value is: 50
     for element in a.iter() {
         println!(&quot;the value is: {}&quot;, element);
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 3-6: <code>for</code> 반복문을 사용해 콜렉션의 각 요소를 순회하기</span></p>
 <p>우리가 이 코드를 수행하면, 항목 3-5와 같은 결과를 볼 수 있습니다. 더 중요한 것은, 우리는 이제 코드의 안전성을 높이고 
 배열의 끝을 넘어가거나 충분한 길이를 지정하지 못해 일부 아이템이 누락되어 발생할 수있는 버그의 가능성을 제거했습니다.</p>
@@ -428,8 +417,7 @@ the value is: 50
         println!(&quot;{}!&quot;, number);
     }
     println!(&quot;LIFTOFF!!!&quot;);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>꽤 괜찮은 코드인것 같죠? </p>
 <h2 id="결론"><a class="header" href="#결론">결론</a></h2>
 <p>해냈어요! 무지 긴 장이었어: 우리는 변수, 스칼라, <code>if</code>식과 반복문까지 배웠어요! 혹시 이번 장에서 나온 내용을
@@ -474,21 +462,22 @@ the value is: 50
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

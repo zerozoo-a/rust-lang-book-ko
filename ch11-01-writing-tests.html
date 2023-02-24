@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -186,8 +186,7 @@ mod tests {
         assert_eq!(2 + 2, 4);
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 11-1: <code>cargo new</code>를 이용하여 자동으로 생성된
 테스트 모듈과 함수</span></p>
 <p>지금은 제일 위의 두 줄은 무시하고 함수가 어떻게 작동하는지 알아보는데 집중합시다.
@@ -246,8 +245,7 @@ mod tests {
         assert_eq!(2 + 2, 4);
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>그러고 나서 <code>cargo test</code>를 다시 실행시킵니다. 이제 출력 부분에서 <code>it_works</code> 대신
 <code>exploration</code>을 볼 수 있을 것입니다:</p>
 <pre><code class="language-text">running 1 test
@@ -276,8 +274,7 @@ mod tests {
         panic!(&quot;Make this test fail&quot;);
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 11-3: <code>panic!</code> 매크로를 호출하기 때문에 실패하게
 될 두번째 테스트 추가 </span></p>
 <p><code>cargo test</code>를 이용하여 다시 한번 테스트를 실행시키세요. 결과 출력은 Listing 11-4와
@@ -338,8 +335,7 @@ impl Rectangle {
         self.length &gt; other.length &amp;&amp; self.width &gt; other.width
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 11-5: 5장의 <code>Rectangle</code> 구조체와 <code>can_hold</code> 메소드
 이용하기</span></p>
 <p><code>can_hold</code> 메소드는 부울린 값을 반환하는데, 이는 <code>assert!</code> 매크로를 위한 완벽한 사용 사례라는
@@ -361,8 +357,7 @@ mod tests {
         assert!(larger.can_hold(&amp;smaller));
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 11-6: 큰 사각형이 작은 사각형을 정말로 담을 수 있는지 검사하는
 <code>can_hold</code>를 위한 테스트 </span></p>
 <p><code>tests</code> 모듈 내에 새로운 라인이 추가된 것을 주목하세요: <code>use super::*;</code>. <code>tests</code> 모듈은
@@ -400,8 +395,7 @@ mod tests {
         assert!(!smaller.can_hold(&amp;larger));
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 경우 <code>can_hold</code> 함수의 올바른 결과값은 <code>false</code>이므로, <code>assert!</code> 매크로에게 넘기기 전에
 이 결과를 반대로 만들 필요가 있습니다. 결과적으로, 우리의 테스트는 <code>can_hold</code>가 <code>false</code>를
 반환할 경우에만 통과할 것입니다:</p>
@@ -428,8 +422,7 @@ impl Rectangle {
         self.length &lt; other.length &amp;&amp; self.width &gt; other.width
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>테스트를 실행시키면 이제 아래와 같이 출력됩니다:</p>
 <pre><code class="language-text">running 2 tests
 test tests::smaller_cannot_hold_larger ... ok
@@ -475,8 +468,7 @@ mod tests {
         assert_eq!(4, add_two(2));
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 11-7: <code>assert_eq!</code> 매크로를 이용하는 <code>add_two</code> 함수
 테스트</span></p>
 <p>이게 통과하는지 확인해 봅시다!</p>
@@ -495,8 +487,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 </span>pub fn add_two(a: i32) -&gt; i32 {
     a + 3
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>테스트를 다시 실행해 보세요:</p>
 <pre><code class="language-text">running 1 test
 test tests::it_adds_two ... FAILED
@@ -564,8 +555,7 @@ mod tests {
         assert!(result.contains(&quot;Carol&quot;));
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>여기서 이 프로그램의 요구사항은 아직 합의되지 않았고, 인사말의 시작 지점에 있는 <code>Hello</code> 텍스트가
 변경될 것이라는 점이 꽤나 확실한 상태라고 칩시다. 우리는 그런 변경사항이 생기더라도 이름에 대한 테스트를
 갱신할 필요는 없다고 결정했고, 따라서 <code>greeting</code> 함수로부터 반환된 값과 정확히 일치하는 체크 대신,
@@ -577,8 +567,7 @@ mod tests {
 </span>pub fn greeting(name: &amp;str) -&gt; String {
     String::from(&quot;Hello!&quot;)
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 테스트를 수행하면 다음을 출력합니다:</p>
 <pre><code class="language-text">running 1 test
 test tests::greeting_contains_name ... FAILED
@@ -604,8 +593,7 @@ fn greeting_contains_name() {
         result.contains(&quot;Carol&quot;),
         &quot;Greeting did not contain name, value was `{}`&quot;, result
     );
-}
-</code></pre>
+}</code></pre>
 <p>이제 테스트를 다시 실행시키면, 더 많은 정보를 가진 에러 메세지를 얻을 것입니다:</p>
 <pre><code class="language-text">---- tests::greeting_contains_name stdout ----
 	thread 'tests::greeting_contains_name' panicked at 'Greeting did not contain
@@ -655,8 +643,7 @@ mod tests {
         Guess::new(200);
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 11-8: 어떤 조건이 <code>panic!</code>을 일으키는지에 대한
 테스트</span></p>
 <p><code>#[should_panic]</code> 속성이 <code>#[test]</code> 속성 뒤, 그리고 적용될 테스트 함수 앞에 붙었습니다.
@@ -685,8 +672,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
         }
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>Listing 11-8의 테스트를 실행시키면, 아래와 같이 실패할 것입니다:</p>
 <pre><code class="language-text">running 1 test
 test tests::greater_than_100 ... FAILED
@@ -743,8 +729,7 @@ mod tests {
         Guess::new(200);
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 11-9: 어떤 조건이 특정 패닉 메세지를 가진 <code>panic!</code>을
 일으키는 테스트 </span></p>
 <p>이 테스트는 통과할 것인데, 그 이유는 <code>should_panic</code> 속성에 추가한 <code>expected</code> 파라미터 값이
@@ -760,8 +745,7 @@ mod tests {
     panic!(&quot;Guess value must be less than or equal to 100, got {}.&quot;, value);
 } else if value &gt; 100 {
     panic!(&quot;Guess value must be greater than or equal to 1, got {}.&quot;, value);
-}
-</code></pre>
+}</code></pre>
 <p>이번에는 <code>should_panic</code> 테스트를 실행하면, 아래와 같이 실패합니다:</p>
 <pre><code class="language-text">running 1 test
 test tests::greater_than_100 ... FAILED
@@ -818,21 +802,22 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

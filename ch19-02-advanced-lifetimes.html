@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -173,8 +173,7 @@ impl Parser {
     fn parse(&amp;self) -&gt; Result&lt;(), &amp;str&gt; {
         Err(&amp;self.context.0[1..])
     }
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 19-12: 라이프타임 명시 없이 파서를
 정의하기</span></p>
 <p>이 코드를 컴파일하면 에러를 내는데 그 이유는 러스트가 <code>Context</code>의 스트링 슬라이스와
@@ -215,8 +214,7 @@ impl&lt;'a&gt; Parser&lt;'a&gt; {
         Err(&amp;self.context.0[1..])
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 19-13: <code>Context</code>와 <code>Parser</code>의 모든 참조자에 라이프타임
 파라미터 명시하기</span></p>
 <p>이 코드는 잘 컴파일됩니다. 이 코드는 러스트에게 <code>Parser</code>가 라이프타임이 <code>'a</code>인
@@ -230,8 +228,7 @@ impl&lt;'a&gt; Parser&lt;'a&gt; {
 <p><span class="filename">Filename: src/lib.rs</span></p>
 <pre><code class="language-rust ignore">fn parse_context(context: Context) -&gt; Result&lt;(), &amp;str&gt; {
     Parser { context: &amp;context }.parse()
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 19-14: <code>Context</code>를 받아서 <code>Parser</code>를 사용하는
 <code>parser_context</code> 함수 추가 시도</span></p>
 <p><code>parse_context</code> 함수를 추가하고 컴파일 시도를 하면 두 개의 장황한
@@ -278,12 +275,10 @@ note: borrowed value must be valid for the anonymous lifetime #1 defined on the 
 <code>parse_context</code>가 <code>context</code>의 소유권을 갖기 때문입니다.</p>
 <p>이 에러가 왜 발생하는지 알아내기 위해, Listing 19-13에 있는 정의 부분 중
 특히 <code>parse</code> 메소드의 시그니처에 있는 참조자들을 다시 살펴봅시다:</p>
-<pre><code class="language-rust ignore">    fn parse(&amp;self) -&gt; Result&lt;(), &amp;str&gt; {
-</code></pre>
+<pre><code class="language-rust ignore">    fn parse(&amp;self) -&gt; Result&lt;(), &amp;str&gt; {</code></pre>
 <p>생략 규칙 기억하시죠? 만일 참조자의 라이프타임을 생략하지 않고 명시했다면,
 시그니처는 다음과 같을 것입니다:</p>
-<pre><code class="language-rust ignore">    fn parse&lt;'a&gt;(&amp;'a self) -&gt; Result&lt;(), &amp;'a str&gt; {
-</code></pre>
+<pre><code class="language-rust ignore">    fn parse&lt;'a&gt;(&amp;'a self) -&gt; Result&lt;(), &amp;'a str&gt; {</code></pre>
 <p>즉, <code>parse</code>의 반환값의 에러 부분은 <code>Parser</code> 인스턴스의 라이프타임에
 묶여 있는 라이프타임을 갖고 있다는 것입니다 (<code>parse</code> 메소드 시그니처 내의
 <code>&amp;self</code>의 것이지요). 이는 타당합니다: 반환되는 스트링 슬라이스는
@@ -335,8 +330,7 @@ impl&lt;'c, 's&gt; Parser&lt;'c, 's&gt; {
 
 fn parse_context(context: Context) -&gt; Result&lt;(), &amp;str&gt; {
     Parser { context: &amp;context }.parse()
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 19-15: 스트링 슬라이스에 대한 참조자와 <code>Context</code>에
 대한 참조자에 대해 서로 다른 라이프타임 파라미터 지정하기</span></p>
 <p>우리가 Listing 19-13에서 명시했던 것과 모두 동일한 위치에 있는 참조자의
@@ -387,8 +381,7 @@ note: but the referenced data is only valid for the lifetime 's as defined on th
 </span>struct Parser&lt;'c, 's: 'c&gt; {
     context: &amp;'c Context&lt;'s&gt;,
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이제 <code>Parser</code> 내에 있는 <code>Context</code>에 대한 참조자와 <code>Context</code> 내의 스트링 슬라이스를
 가리키는 참조자는 다른 라이프타임을 갖습니다; 우리는 스트링 슬라이스의 라이프타임이
 <code>Context</code>를 가리키는 참조자보다 더 오래 살 것이란 보장을 했습니다.</p>
@@ -408,8 +401,7 @@ note: but the referenced data is only valid for the lifetime 's as defined on th
 하는 참조자들의 레퍼입니다. <code>Ref</code> 구조체의 정의는 Listing 19-16과 같은데,
 지금은 라이프타임 바운드 없이 쓰였습니다:</p>
 <p><span class="filename">Filename: src/lib.rs</span></p>
-<pre><code class="language-rust ignore">struct Ref&lt;'a, T&gt;(&amp;'a T);
-</code></pre>
+<pre><code class="language-rust ignore">struct Ref&lt;'a, T&gt;(&amp;'a T);</code></pre>
 <p><span class="caption">Listing 19-16: 시작을 위해 라이프타임 바운드 없이 쓰는
 제네릭 타입에 대한 참조자를 감싼 구조체 정의하기</span></p>
 <p>제네릭 타입 <code>T</code>과의 관계에 대한 라이프타임 <code>'a</code>의 명시적 제약이 없으면,
@@ -441,8 +433,7 @@ note: ...so that the reference type `&amp;'a T` does not outlive the data it poi
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct Ref&lt;'a, T: 'a&gt;(&amp;'a T);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 19-17: <code>T</code> 상의 라이프타임 바운드를 추가하여
 <code>T</code> 내의 어떠한 참조자들도 최소한 <code>'a</code>만큼 오래 살 것임을 명시하기</span></p>
 <p>이 코드는 이제 컴파일되는데, <code>T: 'a</code> 문법을 사용하면 <code>T</code>가 어떤 타입이든 될 수 있지만,
@@ -455,8 +446,7 @@ note: ...so that the reference type `&amp;'a T` does not outlive the data it poi
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct StaticRef&lt;T: 'static&gt;(&amp;'static T);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 19-18: <code>'static</code> 라이프타임 바운드를
 <code>T</code>에 추가하여 <code>T</code>가 오직 <code>'static</code> 참조자만을 갖거나 아무런 참조자도 없도록
 제한하기</span></p>
@@ -489,8 +479,7 @@ fn main() {
     let num = 5;
 
     let obj = Box::new(Ball { diameter: &amp;num }) as Box&lt;Red&gt;;
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 19-19: 트레잇 객체와 함께 라이프타임 파라미터를
 갖는 타입 사용하기</span></p>
 <p>비록 우리가 아직 <code>obj</code>과 관련된 라이프타임을 명시적으로 적지 않았으나,
@@ -545,21 +534,22 @@ fn main() {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

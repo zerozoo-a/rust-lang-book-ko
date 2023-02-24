@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -159,8 +159,7 @@
     sign_in_count: u64,
     active: bool,
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 5-1: 사용자 계정정보를 저장하는 <code>User</code> 구조체 정의</span></p>
 <p>정의한 구조체를 사용하려면, 각 필드의 값을 명세한 인스턴스(<em>instance</em>)를 생성해야 합니다.
 인스턴스는 구조체의 이름을 명시함으로써 사용할 수 있고, 필드를 식별할 수 있는 이름인 키와
@@ -184,8 +183,7 @@
     active: true,
     sign_in_count: 1,
 };
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 5-2: 구조체 <code>User</code>의 인스턴스 생성하기</span></p>
 <p>구조체에서 특정한 값을 읽어오려면, 점(.) 표기법을 사용하시면 됩니다. 사용자의 이메일 값을 얻고자 하면,
 <code>user1.email</code> 과 같은 방식으로 접근하실 수 있습니다. 변경이 가능한 구조체 인스턴스에 들어있는 값을 바꾸고자
@@ -208,8 +206,7 @@
 };
 
 user1.email = String::from(&quot;anotheremail@example.com&quot;);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 5-3: <code>User</code> 인스턴스의 <code>email</code>필드 변경하기</span></p>
 <p>인스턴스는 반드시 <code>변경 가능(mutable)</code>해야합니다.
 Rust에서는 특정 필드만 변경할 수 있도록 허용하지 않습니다.
@@ -235,8 +232,7 @@ Rust에서는 특정 필드만 변경할 수 있도록 허용하지 않습니다
         sign_in_count: 1,
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">예제 5-4: 사용자의 이메일과 이름을 받아 <code>User</code>구조체의 인스턴스를
 반환하는 <code>build_user</code> 함수</span></p>
 <p>구조체 필드와 동일한 이름으로 함수 매개 변수의 이름을 지정하는 것이 합리적이긴 하지만,
@@ -269,8 +265,7 @@ Rust에서는 특정 필드만 변경할 수 있도록 허용하지 않습니다
         sign_in_count: 1,
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">예제 5-5: 매개변수 <code>email</code>과 <code>username</code>가 구조체의 필드와 이름이
 같아, 함수 내에서 특별히 명시하지 않고 초기화한 예인 <code>build_user</code> 함수</span></p>
 <p><code>email</code> 필드와 <code>email</code> 매개 변수의 이름이 같기 때문에 <code>email:email</code> 대신 <code>email</code> 만 작성하면됩니다!</p>
@@ -301,8 +296,7 @@ Rust에서는 특정 필드만 변경할 수 있도록 허용하지 않습니다
     active: user1.active,
     sign_in_count: user1.sign_in_count,
 };
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">예제 5-6: <code>user1</code>의 일부 값들을 재사용하여, 구조체 <code>User</code>의 인스턴스
 <code>user2</code>를 새로 생성</span></p>
 <p>구조체 갱신법(<em>struct update syntax</em>)은 예제 5-6에서 작성한 짧은 코드와 같은 효과를 낼 수
@@ -331,8 +325,7 @@ Rust에서는 특정 필드만 변경할 수 있도록 허용하지 않습니다
     username: String::from(&quot;anotherusername567&quot;),
     ..user1
 };
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">예제 5-7: 인스턴스 갱신 문법의 사용 예시 - 새 <code>User</code> 구조체 생성 시
 <code>email</code>과 <code>username</code> 필드에는 새 값을 할당하고, 나머지 필드는 <code>user1</code>에서 재사용</span></p>
 <h3 id="이름이-없고-필드마다-타입은-다르게-정의-가능한-튜플-구조체"><a class="header" href="#이름이-없고-필드마다-타입은-다르게-정의-가능한-튜플-구조체">이름이 없고 필드마다 타입은 다르게 정의 가능한 튜플 구조체</a></h3>
@@ -348,8 +341,7 @@ struct Point(i32, i32, i32);
 
 let black = Color(0, 0, 0);
 let origin = Point(0, 0, 0);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>다른 튜플 구조체이기 때문에, <code>black</code>과 <code>origin</code>이 다른 타입이란 것을 유념해 두셔야 합니다.
 구조체 내의 타입이 모두 동일하더라도 각각의 구조체는 고유의 타입이기 때문입니다. 한편 튜플 구조체
 인스턴스는, 3장에서 살펴 본 튜플과 비슷하게 동작합니다.</p>
@@ -382,8 +374,7 @@ fn main() {
         active: true,
         sign_in_count: 1,
     };
-}
-</code></pre>
+}</code></pre>
 <p>컴파일러는 라이프타임이 명시되어야 한다고 에러를 발생시킵니다.</p>
 <pre><code class="language-text">error[E0106]: missing lifetime specifier
  --&gt;
@@ -433,21 +424,22 @@ error[E0106]: missing lifetime specifier
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -159,8 +159,7 @@
 
 fn calculate_length(s: &amp;String) -&gt; usize {
     s.len()
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>첫번째로, 변수 선언부와 함수 반환값에 있던 튜플 코드가 모두 없어진 것에 주목하세요.
 두번째로, <code>calculate_length</code> 함수에 <code>&amp;s1</code>를 넘기고, 함수의 정의 부분에는
 <code>String</code>이 아니라 <code>&amp;String</code>을 이용했다는 점을 기억하세요.</p>
@@ -177,8 +176,7 @@ fn calculate_length(s: &amp;String) -&gt; usize {
 </span>let s1 = String::from(&quot;hello&quot;);
 
 let len = calculate_length(&amp;s1);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><code>&amp;s1</code> 문법은 우리가 <code>s1</code>의 값을 <em>참조</em>하지만 소유하지는 않는 참조자를 생성하도록
 해줍니다. 소유권을 갖고 있지는 않기 때문에, 이 참조자가 가리키는 값은 참조자가 스코프
 밖으로 벗어났을 때도 메모리가 반납되지 않을 것입니다.</p>
@@ -190,8 +188,7 @@ let len = calculate_length(&amp;s1);
     s.len()
 } // 여기서 s는 스코프 밖으로 벗어났습니다. 하지만 가리키고 있는 값에 대한 소유권이 없기
   // 때문에, 아무런 일도 발생하지 않습니다.
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>변수 <code>s</code>가 유효한 스코프는 여느 함수의 파라미터의 스코프와 동일하지만, 소유권을 갖고
 있지 않으므로 이 참조자가 스코프 밖으로 벗어났을 때 참조자가 가리키고 있는 값은 버리지
 않습니다. 또한 실제 값 대신 참조자를 파라미터로 갖고 있는 함수는 소유권을 갖고 있지
@@ -210,8 +207,7 @@ let len = calculate_length(&amp;s1);
 
 fn change(some_string: &amp;String) {
     some_string.push_str(&quot;, world&quot;);
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 4-9: 빌린 값을 고치려 해보기</span></p>
 <p>여기 오류를 보시죠:</p>
 <pre><code class="language-text">error: cannot borrow immutable borrowed content `*some_string` as mutable
@@ -233,8 +229,7 @@ fn change(some_string: &amp;String) {
 
 fn change(some_string: &amp;mut String) {
     some_string.push_str(&quot;, world&quot;);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>먼저 <code>s</code>를 <code>mut</code>로 바꿔야 합니다. 그리고 <code>&amp;mut s</code>로 가변 참조자를 생성하고
 <code>some_string: &amp;mut String</code>으로 이 가변 참조자를 받아야 합니다.</p>
 <p>하지만 가변 참조자는 딱 한가지 큰 제한이 있습니다: 특정한 스코프 내에 특정한 데이터
@@ -243,8 +238,7 @@ fn change(some_string: &amp;mut String) {
 <pre><code class="language-rust ignore">let mut s = String::from(&quot;hello&quot;);
 
 let r1 = &amp;mut s;
-let r2 = &amp;mut s;
-</code></pre>
+let r2 = &amp;mut s;</code></pre>
 <p>여기 오류를 보시죠:</p>
 <pre><code class="language-text">error[E0499]: cannot borrow `s` as mutable more than once at a time
  --&gt; borrow_twice.rs:5:19
@@ -282,16 +276,14 @@ let r2 = &amp;mut s;
 } // 여기서 r1은 스코프 밖으로 벗어났으므로, 우리는 아무 문제 없이 새로운 참조자를 만들 수 있습니다.
 
 let r2 = &amp;mut s;
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>가변 참조자와 불변 참조자를 혼용할 경우에 대한 비슷한 규칙이 있습니다. 아래 코드는
 컴파일 오류가 발생합니다:</p>
 <pre><code class="language-rust ignore">let mut s = String::from(&quot;hello&quot;);
 
 let r1 = &amp;s; // 문제 없음
 let r2 = &amp;s; // 문제 없음
-let r3 = &amp;mut s; // 큰 문제
-</code></pre>
+let r3 = &amp;mut s; // 큰 문제</code></pre>
 <p>여기 오류 메세지를 보시죠:</p>
 <pre><code class="language-text">error[E0502]: cannot borrow `s` as mutable because it is also borrowed as
 immutable
@@ -330,8 +322,7 @@ fn dangle() -&gt; &amp;String {
     let s = String::from(&quot;hello&quot;);
 
     &amp;s
-}
-</code></pre>
+}</code></pre>
 <p>위 코드의 오류 메세지입니다:</p>
 <pre><code class="language-text">error[E0106]: missing lifetime specifier
  --&gt; dangle.rs:5:16
@@ -359,8 +350,7 @@ for it to be borrowed from.
 
     &amp;s // 우리는 String s의 참조자를 반환합니다.
 } // 여기서 s는 스코프를 벗어나고 버려집니다. 이것의 메모리는 사라집니다.
-  // 위험하군요!
-</code></pre>
+  // 위험하군요!</code></pre>
 <p><code>s</code>가 <code>dangle</code>안에서 만들어졌기 때문에, <code>dangle</code>의 코드가 끝이나면 <code>s</code>는 할당 해제됩니다.
 하지만 우리는 이것의 참조자를 반환하려고 했습니다. 이는 곧 이 참조자가 어떤 무효화된 <code>String</code>을
 가리키게 될 것이란 뜻이 아닙니까! 별로 안 좋죠. 러스트는 우리가 이런 짓을 못하게 합니다.</p>
@@ -372,8 +362,7 @@ for it to be borrowed from.
 
     s
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이 코드는 아무런 문제없이 동작합니다. 소유권이 밖으로 이동되었고, 아무것도 할당 해제되지 않습니다.</p>
 <h3 id="참조자의-규칙"><a class="header" href="#참조자의-규칙">참조자의 규칙</a></h3>
 <p>우리가 참조자에 대해 논의한 것들을 정리해 봅시다:</p>
@@ -421,21 +410,22 @@ for it to be borrowed from.
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

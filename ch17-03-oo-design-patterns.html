@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -186,8 +186,7 @@ fn main() {
 
     post.approve();
     assert_eq!(&quot;I ate a salad for lunch today&quot;, post.content());
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 17-11: <code>blog</code> 크레이트가 갖길 원하는
 요구 동작들을 보여주는 코드</span></p>
 <p>우리는 사용자가 새로운 블로그 게시물의 초안을 <code>Post::new</code>를 통해 만들 수 있도록
@@ -239,8 +238,7 @@ trait State {}
 struct Draft {}
 
 impl State for Draft {}
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-12: <code>Post</code> 구조체, <code>Post</code>
 인스턴스를 만드는 <code>new</code> 함수, <code>State</code> 트레잇과 <code>Draft</code> 구조체의
 정의</span></p>
@@ -275,8 +273,7 @@ impl State for Draft {}
         self.content.push_str(text);
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-13: <code>content</code>에 글을 추가하기
 위한 <code>add_text</code> 메소드 구현하기 </span></p>
 <p><code>add_text</code> 메소드는 가변 참조자 <code>self</code>를 취하는데, 그 이유는 우리가
@@ -308,8 +305,7 @@ Listing 17-11의 8번째 줄처럼 게시물이 여전히 초안 상태이기 �
         &quot;&quot;
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-14: 항상 비어있는 스트링 슬라이스를
 반환하는 <code>Post</code>의 <code>content</code> 메소드에 대한 껍데기 구현 </span></p>
 <p><code>content</code> 메소드를 추가함으로서, Listing 17-11의 8번째 줄까지는
@@ -353,8 +349,7 @@ impl State for PendingReview {
         self
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-15: <code>Post</code>와 <code>State</code> 트레잇에
 <code>request_review</code> 메소드를 구현하기</span></p>
 <p>우리는 <code>Post</code>에게 <code>self</code>에 대한 가변 참조자를 취하려는 <code>request_review</code>란
@@ -455,8 +450,7 @@ impl State for Published {
         self
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-16: <code>Post</code> 및 <code>State</code> 트레잇에
 대한 <code>approve</code> 메소드 구현하기</span></p>
 <p>우리는 <code>approve</code> 메소드를 <code>State</code> 트레잇에 추가했고 <code>State</code>를 구현하는
@@ -488,8 +482,7 @@ impl State for Published {
     }
     // --snip--
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-17: <code>State</code>의 <code>content</code> 메소드를
 위임하기 위한 <code>Post</code>의 메소드 갱신하기</span></p>
 <p>목표하는 바가 <code>State</code>를 구현하는 구조체들 내에서 이 모든 규칙을 유지하는 것이기
@@ -534,8 +527,7 @@ impl State for Published {
         &amp;post.content
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-18: <code>State</code> 트레잇에 <code>content</code> 메소드
 추가하기</span></p>
 <p>우리는 빈 스트링 슬라이스를 반환하는 <code>content</code> 메소드의 기본 구현을 추가합니다.
@@ -613,8 +605,7 @@ impl State for Published {
 
     post.add_text(&quot;I ate a salad for lunch today&quot;);
     assert_eq!(&quot;&quot;, post.content());
-}
-</code></pre>
+}</code></pre>
 <p>우리는 여전히 <code>Post::new</code>를 사용하여 초안 상태의 새 게시물을 생성할 수
 있도록 하며 게시물의 내용에 새 글을 추가할 수 있는 기능을 허용합니다. 하지만 빈
 문자열을 반환하는 초안 게시물의 <code>content</code> 메소드 대신, 초안 게시물이 <code>content</code>
@@ -652,8 +643,7 @@ impl DraftPost {
         self.content.push_str(text);
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-19: <code>content</code> 메소드가 있는
 <code>Post</code>와 <code>content</code> 메소드가 없는 <code>DraftPost</code></span></p>
 <p><code>Post</code>와 <code>DraftPost</code> 구조체 모두 비공개인 <code>content</code> 필드를 가지고
@@ -710,8 +700,7 @@ impl PendingReviewPost {
         }
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 17-20: <code>DraftPost</code>의 <code>request_review</code>를
 호출하여 생성되는 <code>PendingReviewPost</code> 및 <code>PendingReviewPost</code>를 게시된
 <code>Post</code>로 전환하는 <code>approve</code> 메소드</span></p>
@@ -747,8 +736,7 @@ fn main() {
     let post = post.approve();
 
     assert_eq!(&quot;I ate a salad for lunch today&quot;, post.content());
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 17-21: 블로그 게시물 작업 흐름의 새
 구현을 사용하기 위한 <code>main</code> 수정</span></p>
 <p><code>main</code>에서 <code>post</code>의 다시 대입하기 위해 필요한 이 변경사항은 즉 이
@@ -816,21 +804,22 @@ fn main() {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -217,8 +217,7 @@ fn main() {
         println!(&quot;hi number {} from the main thread!&quot;, i);
         thread::sleep(Duration::from_millis(1));
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 16-1: 메인 스레드에서 무언가를 출력하는 동안
 다른 것을 출력하는 새로운 스레드 생성하기</span></p>
 <p>이 함수를 가지고, 새로운 스레드는 실행이 종료되었든 혹은 그렇지 않든
@@ -275,8 +274,7 @@ fn main() {
     }
 
     handle.join().unwrap();
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 16-2: 스레드가 완전시 실행되는 것을 보장하기
 위해 <code>thread::spawn</code>으로부터 <code>JoinHandle</code>을 저장하기</span></p>
 <p>핸들에 대해 <code>join</code>을 호출하는 것은 핸들에 대한 스레드가 종료될 때까지 현재
@@ -320,8 +318,7 @@ fn main() {
         println!(&quot;hi number {} from the main thread!&quot;, i);
         thread::sleep(Duration::from_millis(1));
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>메인 스레드는 생성된 스레드가 종료될 때까지 기다릴 것이고 그 다음 자신의 <code>for</code>
 루프를 실행시키게 되어, 아래처럼 출력값이 더 이상 교차되지 않을 것입니다:</p>
 <pre><code class="language-text">hi number 1 from the spawned thread!
@@ -364,8 +361,7 @@ fn main() {
     });
 
     handle.join().unwrap();
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 16-3: 메인 스레드에서 생성된 벡터를 다른
 스레드 내에서 사용하는 시도</span></p>
 <p>클로저는 <code>v</code>를 사용하므로, <code>v</code>는 캡처되어 클로저의 환경의 일부가 됩니다.
@@ -406,8 +402,7 @@ fn main() {
     drop(v); // oh no!
 
     handle.join().unwrap();
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 16-4: <code>v</code>를 드롭하는 메인 스레드로부터 <code>v</code>에
 대한 참조자를 캡처하는 시도를 하는 클로저를 갖는 스레드</span></p>
 <p>만약 우리가 이 코드를 실행할 수 있다면, 생성된 스레드가 전혀 실행되지 않고
@@ -439,8 +434,7 @@ fn main() {
     });
 
     handle.join().unwrap();
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 16-5: <code>move</code> 키워드를 사용하여 사용하는 값의
 소유권을 클로저가 갖도록 강제하기</span></p>
 <p>메인 스레드에서 <code>drop</code>을 호출하는 Listing 16-4의 코드에서 <code>move</code> 클로저를
@@ -505,21 +499,22 @@ fn main() {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

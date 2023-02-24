@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -169,8 +169,7 @@ fn main() {
     let portia = Person { name, age };
 
     println!(&quot;{:?}&quot;, portia);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <h2 id="loop-에서-반환하기"><a class="header" href="#loop-에서-반환하기">loop 에서 반환하기</a></h2>
 <p><code>loop</code> 는 특정 스레드가 작업을 완료했는지 알아보는 등, 어떤 연산이
 실패할 수도 있다는 것을 알고 있을 때, 해당 연산을 재시도 하는 데
@@ -188,8 +187,7 @@ fn main() {
     };
 
     assert_eq!(result, 20);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <h2 id="중복된-use-선언-합치기"><a class="header" href="#중복된-use-선언-합치기">중복된 <code>use</code> 선언 합치기</a></h2>
 <p>모듈을 여러 하위 모듈이 이루고 있어
 구조가 복잡한 모듈에서 몇 개의 모듈만 가져와야 할 때,
@@ -216,8 +214,7 @@ fn main() {
     baz::{*, quux::Bar},
 };
 <span class="boring">
-</span><span class="boring">fn main() {}
-</span></code></pre></pre>
+</span><span class="boring">fn main() {}</span></code></pre></pre>
 <h2 id="포괄적인-범위-표현"><a class="header" href="#포괄적인-범위-표현">포괄적인 범위 표현</a></h2>
 <p>앞서 범위 문법(<code>..</code> 와 <code>...</code> 를 말합니다)를 사용할 때,
 표현식에선 상한을 포함하지 않는 <code>..</code> 를 사용하고, 패턴에선
@@ -231,8 +228,7 @@ fn main() {
             _ =&gt; println!(&quot;{}: out of range&quot;, i),
         }
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>match 내에선 <code>...</code> 를 사용해도 문제는 없지만 표현식에선
 사용할 수 없으니 <code>..=</code> 를 권장합니다.</p>
 <h2 id="128-비트-정수"><a class="header" href="#128-비트-정수">128 비트 정수</a></h2>
@@ -279,21 +275,22 @@ fn main() {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

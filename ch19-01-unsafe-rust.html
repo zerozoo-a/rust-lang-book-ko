@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,14 +32,15 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -99,7 +99,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -224,8 +224,7 @@ pointer)</em> 라고 불리는 참조자와 유사한 두가지 새로운 타입
 
 let r1 = &amp;num as *const i32;
 let r2 = &amp;mut num as *mut i32;
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 19-1: 참조자로부터 로우 포인터 생성하기</span></p>
 <p>이 코드에서 <code>unsafe</code> 키워드를 포함하지 않았음을 주목하세요. 우리는 로우 포인터를
 안전한 코드 내에서 생성할 수 있습니다; 여러분이 잠시 후에 보게될 것처럼, 우리는
@@ -245,8 +244,7 @@ let r2 = &amp;mut num as *mut i32;
 </span><span class="boring">fn main() {
 </span>let address = 0x012345usize;
 let r = address as *const i32;
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 19-2: 임의의 메모리 주소를 가리키는 로우
 포인터 생성하기</span></p>
 <p>우리가 안전한 코드 내에서 로우 포인터를 생성할 수는 있지만, 로우 포인터를 <em>역참조</em>하여
@@ -263,8 +261,7 @@ unsafe {
     println!(&quot;r1 is: {}&quot;, *r1);
     println!(&quot;r2 is: {}&quot;, *r2);
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 19-3: <code>unsafe</code> 블록 내에서 로우 포인터
 역참조하기</span></p>
 <p>포인터를 생성하는 것은 어떠한 해도 끼지지 않습니다; 문제는 우리가 이 포인터가 가리키는
@@ -301,8 +298,7 @@ unsafe {
 unsafe {
     dangerous();
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>우리는 반드시 분리된 <code>unsafe</code> 블록 내에서 <code>dangerous</code>를 호출해야 합니다. 만일
 <code>unsafe</code> 블록 없이 <code>danugerous</code>의 호출을 시도하면, 다음과 같은 에러를 얻게 됩니다:</p>
 <pre><code class="language-text">error[E0133]: call to unsafe function requires unsafe function or block
@@ -335,8 +331,7 @@ let (a, b) = r.split_at_mut(3);
 
 assert_eq!(a, &amp;mut [1, 2, 3]);
 assert_eq!(b, &amp;mut [4, 5, 6]);
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 19-4: 안전한 <code>split_at_mut</code> 함수의
 사용</span></p>
 <p>안전한 러스트만 사용해서는 이 함수를  구현할 수 없습니다. 그 시도는 Listing 19-5와
@@ -350,8 +345,7 @@ assert_eq!(b, &amp;mut [4, 5, 6]);
 
     (&amp;mut slice[..mid],
      &amp;mut slice[mid..])
-}
-</code></pre>
+}</code></pre>
 <p><span class="caption">Listing 19-5: 안전한 러스트만 사용하여 <code>split_at_mut</code>를
 구현하는 시도</span></p>
 <p>이 함수는 먼저 슬라이스의 총 길이를 얻은 다음, 매개변수로 주어진
@@ -395,8 +389,7 @@ fn split_at_mut(slice: &amp;mut [i32], mid: usize) -&gt; (&amp;mut [i32], &amp;m
          slice::from_raw_parts_mut(ptr.offset(mid as isize), len - mid))
     }
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 19-6: <code>split_at_mut</code> 함수의 구현체 내에서
 안전하지 않은 코드 사용하기</span></p>
 <p>4장의 “슬라이스 타입”절에서 슬라이스는 어떤 데이터를 가리키는 포인터와 슬라이스의
@@ -439,8 +432,7 @@ let r = address as *mut i32;
 let slice = unsafe {
     slice::from_raw_parts_mut(r, 10000)
 };
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 19-7: 임의의 메모리 위치로부터 슬라이스
 생성하기</span></p>
 <p>우리는 이 임의의 위치에서 메모리를 소유하지 않았으며, 이 코드가 만들어낸 슬라이스가
@@ -466,8 +458,7 @@ fn main() {
     unsafe {
         println!(&quot;Absolute value of -3 according to C: {}&quot;, abs(-3));
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 19-8: 다른 언어에 정의된 <code>extern</code> 함수의
 선언 및 호출</span></p>
 <p><code>extern &quot;C&quot;</code> 블록 내에서, 우리가 호출하고 싶은 다른 언어로부터 온 외부 함수의
@@ -495,8 +486,7 @@ ABI는 어셈블리 수준에서 함수를 어떻게 호출하는지를 정의�
 pub extern &quot;C&quot; fn call_from_c() {
     println!(&quot;Just called a Rust function from C!&quot;);
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p>이러한 <code>extern</code>의 사용에는 <code>unsafe</code>가 필요 없습니다.</p>
 </blockquote>
 <h3 id="가변-정적-변수의-접근-혹은-수정하기"><a class="header" href="#가변-정적-변수의-접근-혹은-수정하기">가변 정적 변수의 접근 혹은 수정하기</a></h3>
@@ -511,8 +501,7 @@ pub extern &quot;C&quot; fn call_from_c() {
 
 fn main() {
     println!(&quot;name is: {}&quot;, HELLO_WORLD);
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 19-9: 불변 정적 변수의 정의 및
 사용</span></p>
 <p>정적 변수는 상수와 유사한데, 이는 우리가 3장의 “변수와 상수의 차이점”
@@ -545,8 +534,7 @@ fn main() {
     unsafe {
         println!(&quot;COUNTER: {}&quot;, COUNTER);
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p><span class="caption">Listing 19-10: 가변 정적 변수를 읽거나 쓰는 것은
 안전하지 않습니다</span></p>
 <p>보통의 변수때처럼, 우리는 <code>mut</code> 키워드를 사용하여 가변성을 명시합니다. <code>COUNTER</code>를
@@ -574,8 +562,7 @@ fn main() {
 unsafe impl Foo for i32 {
     // method implementations go here
 }
-<span class="boring">}
-</span></code></pre></pre>
+<span class="boring">}</span></code></pre></pre>
 <p><span class="caption">Listing 19-11: 안전하지 않은 트레잇의 정의 및
 구현</span></p>
 <p><code>unsafe impl</code>을 이용함으로써 우리는 컴파일러가 검증할 수 없는 불변성을 우리가 유지할
@@ -628,21 +615,22 @@ unsafe impl Foo for i32 {
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>
