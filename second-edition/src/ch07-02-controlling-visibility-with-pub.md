@@ -258,7 +258,7 @@ fn try_me() {
 
 `middle_function`이 공개이므로 `outermost::middle_function` 호출은 작동할 것이며,
 `try_me`는 `middle_function`의 부모 모듈인 `outermost`를 통해 `middle_function`에
-접근하고 있습니다. 이 모듈에 접근 가능하하는 것은 이전 문단에서 알아냈죠.
+접근하고 있습니다. 이 모듈에 접근 가능하다는 것은 이전 문단에서 알아냈죠.
 
 `outermost::middle_secret_function` 호출은 컴파일 에러를 일으킬 것입니다.
 `middle_secret_function`는 비공개이므로, 두번째 규칙이 적용됩니다. 루트 모듈은
