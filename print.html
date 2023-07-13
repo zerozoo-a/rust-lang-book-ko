@@ -89,11 +89,33 @@
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
@@ -5178,7 +5200,7 @@ fn try_me() {
 모듈 내에 있기 때문입니다.</p>
 <p><code>middle_function</code>이 공개이므로 <code>outermost::middle_function</code> 호출은 작동할 것이며,
 <code>try_me</code>는 <code>middle_function</code>의 부모 모듈인 <code>outermost</code>를 통해 <code>middle_function</code>에
-접근하고 있습니다. 이 모듈에 접근 가능하하는 것은 이전 문단에서 알아냈죠.</p>
+접근하고 있습니다. 이 모듈에 접근 가능하다는 것은 이전 문단에서 알아냈죠.</p>
 <p><code>outermost::middle_secret_function</code> 호출은 컴파일 에러를 일으킬 것입니다.
 <code>middle_secret_function</code>는 비공개이므로, 두번째 규칙이 적용됩니다. 루트 모듈은
 <code>middle_secret_function</code>의 현재 모듈도 아니고 (<code>outermost</code>가 현재 모듈입니다),
