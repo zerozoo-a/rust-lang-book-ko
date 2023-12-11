@@ -1,7 +1,7 @@
 ## 참조자와 Borrow
 
 앞 절 마지막에 등장한 Listing 4-5 에선 `String` 이 `calculate_length` 로
-이동해버린 것 때문에 `calclulate_length` 를 호출한 함수로 `String` 을 반환하여,
+이동해버린 것 때문에 `calculate_length` 를 호출한 함수로 `String` 을 반환하여,
 함수 호출 이후에도 `String` 을 사용할 수 있게
 하였습니다.
 
